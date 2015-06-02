@@ -4,6 +4,7 @@ use Drupal\mall\CategoryInterface;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\user\UserInterface;
 
 /**
  * Defines the CategoryLog entity.
