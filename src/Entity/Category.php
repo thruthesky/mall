@@ -93,10 +93,10 @@ class Category extends ContentEntityBase implements CategoryInterface {
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
 
-    $fields['item_id'] = BaseFieldDefinition::create('entity_reference')
+    $fields['item_id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Item ID'))
-      ->setDescription(t('The item ID of this category'))
-      ->setSetting('target_type', 'user');
+      ->setDescription(t('The item ID of this category'));
+      //->setSetting('target_type', 'user');
 
     return $fields;
   }
