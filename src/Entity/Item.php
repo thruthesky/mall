@@ -4,6 +4,7 @@ use Drupal\mall\ItemInterface;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\user\UserInterface;
 
 /**
  * Defines the ItemLog entity.
@@ -109,23 +110,16 @@ class Item extends ContentEntityBase implements ItemInterface {
     $fields['price'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Price'))
       ->setDescription(t('Price of Item.'));
-	 
-    $fields['type'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Type'))
-      ->setDescription(t('Type of Item.'))
-      ->setSettings(array(
-        'default_value' => '',
-        'max_length' => 1,
-      ));  
-	  
-    $fields['condition'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Condition'))
-      ->setDescription(t('Condition of Item.'))
+
+
+    $fields['status'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Status'))
+      ->setDescription(t('the Status of the item. New, Used, Broken, etc....'))
       ->setSettings(array(
         'default_value' => '',
         'max_length' => 1,
       ));
-	  
+
 	$fields['content'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Content'))
       ->setDescription(t('Content of Item.'))

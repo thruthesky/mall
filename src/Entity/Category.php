@@ -23,7 +23,33 @@ use Drupal\user\UserInterface;
  * )
  */
 class Category extends ContentEntityBase implements CategoryInterface {
+  public static function add($parent_id, $name) {
 
+
+
+    $category = Category::create();
+    $category->set('user_id', \Drupal::currentUser()->getAccount()->id());
+    $category->set('name', $name);
+    $category->set('parent_id', $parent_id);
+    $category->save();
+    return $category->id();
+  }
+
+  public static function update($id, $name) {
+    $category = Category::load($id);
+    if ( $category ) {
+      $category->set('name', $name)->save();
+      return 0;
+    }
+    else {
+      return -1;
+    }
+  }
+
+  public static function del($id) {
+    $category = Category::load($id);
+    if ( $category ) $category->delete();
+  }
 
 
   /**
@@ -82,6 +108,15 @@ class Category extends ContentEntityBase implements CategoryInterface {
       ->setDescription(t('The UUID of the Category entity.'))
       ->setReadOnly(TRUE);
 
+
+
+    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Drupal User ID'))
+      ->setDescription(t('The Drupal User ID who created the entity.'))
+      ->setSetting('target_type', 'user');
+
+
+
     $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))
       ->setDescription(t('The language code of entity.'));
@@ -108,6 +143,11 @@ class Category extends ContentEntityBase implements CategoryInterface {
       ->setSettings(array(
         'default_value' => 0,
       ));
+
+    $fields['parent_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Parent ID'))
+      ->setDescription(t('The parent category entity id of the Entity'))
+      ->setSetting('target_type', 'mall_category');
 	
 
     return $fields;
