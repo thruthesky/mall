@@ -1,1 +1,28 @@
 <?php
+	use Drupal\mall\Entity\Item;
+
+function mall_preprocess(&$variables, $hook)
+{
+	//$request = \Drupal::request();
+
+	// page classes
+	if ( $hook == 'page' ) {
+	/*
+		$post = [];
+		$post['user_id'] = 2;
+		$post['first_name'] = "first";
+		$post['last_name'] = "last";
+		$post['middle_name'] = "middle";		
+		$entity = Item::create( $post );
+		$entity->save();
+	*/
+	/*
+	$entity = Item::load( 1 );
+	di( $entity->first_name->value );
+	*/
+	}
+	else{
+		//echo $hook;
+	}
+
+}
