@@ -97,6 +97,58 @@ class Item extends ContentEntityBase implements ItemInterface {
       ->setLabel(t('User ID'))
       ->setDescription(t('The person who created this Item.'))
       ->setSetting('target_type', 'user');
+	 
+	 $fields['name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Name'))
+      ->setDescription(t('Name of Item.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 256,
+      ));
+	 
+    $fields['price'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Price'))
+      ->setDescription(t('Price of Item.'));
+	 
+    $fields['type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Type'))
+      ->setDescription(t('Type of Item.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 1,
+      ));  
+	  
+    $fields['condition'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Condition'))
+      ->setDescription(t('Condition of Item.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 1,
+      ));
+	  
+	$fields['content'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Content'))
+      ->setDescription(t('Content of Item.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 8192,
+    ));
+	  
+    $fields['brand'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Brand'))
+      ->setDescription(t('Brand of Item.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 64,
+      )); 
+	  
+    $fields['model'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Model'))
+      ->setDescription(t('Model of Item.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 64,
+      ));
 
     return $fields;
   }
