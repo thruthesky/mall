@@ -10,9 +10,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *
  *
  * @ContentEntityType(
- *   id = "mall_orderitem",
+ *   id = "mall_order_item",
  *   label = @Translation("Mall MallOrder entity"),
- *   base_table = "mall_orderitem",
+ *   base_table = "mall_order_item",
  *   fieldable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
@@ -93,9 +93,9 @@ class OrderItem extends ContentEntityBase implements OrderItemInterface {
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
 
-    $fields['item_id'] = BaseFieldDefinition::create('entity_reference')
+    $fields['order_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Item ID'))
-      ->setDescription(t('The item ID of this category'))
+      ->setDescription(t('The item order ID'))
       ->setSetting('target_type', 'user');
 
     return $fields;
