@@ -9,10 +9,7 @@ function mall_preprocess(&$variables, $hook)
 	if ( $hook == 'page' ) {
 	/*
 		$post = [];
-		$post['user_id'] = 2;
-		$post['first_name'] = "first";
-		$post['last_name'] = "last";
-		$post['middle_name'] = "middle";		
+		$post['user_id'] = 2;	
 		$entity = Item::create( $post );
 		$entity->save();
 	*/
