@@ -1,0 +1,4 @@
+name: mall
+type: module
+description: Shopping Mall Mdoule For Drupal 8
+core: 8.x
