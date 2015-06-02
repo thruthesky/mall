@@ -93,6 +93,14 @@ class Order extends ContentEntityBase implements OrderInterface {
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
 
+	$fields['name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Name'))
+      ->setDescription(t('Name of Order.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 64,
+      ));
+	  
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('User ID'))
       ->setDescription(t('The person who created this Order.'))

@@ -92,7 +92,15 @@ class OrderItem extends ContentEntityBase implements OrderItemInterface {
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
-
+	
+	$fields['name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Name'))
+      ->setDescription(t('Name of OrderItem.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 64,
+      ));
+	
     $fields['order_id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Item ID'))
       ->setDescription(t('The item order ID'));

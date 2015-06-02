@@ -107,13 +107,14 @@ class Member extends ContentEntityBase implements MemberInterface {
         'max_length' => 16,
       ));
 
-    $fields['first_name'] = BaseFieldDefinition::create('string')
+    $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('User First Name'))
       ->setDescription(t('The user first name'))
       ->setSettings(array(
         'default_value' => '',
         'max_length' => 32,
       ));
+	  
     $fields['last_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('User Last Name'))
       ->setDescription(t('The user last name'))
