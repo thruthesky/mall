@@ -1,0 +1,6 @@
+mall.admin:
+  path: '/mall/admin'
+  defaults:
+    _controller: Drupal\mall\Controller\Mall::admin
+  requirements:
+    _permission: 'access content'

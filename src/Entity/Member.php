@@ -128,7 +128,7 @@ class Member extends ContentEntityBase implements MemberInterface {
         'default_value' => '',
         'max_length' => 32,
       ));
-    
+
     return $fields;
   }
 
