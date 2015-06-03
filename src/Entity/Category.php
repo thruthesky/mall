@@ -23,8 +23,10 @@ use Drupal\user\UserInterface;
  * )
  */
 class Category extends ContentEntityBase implements CategoryInterface {
+
   public static function add($parent_id, $name) {
-	if( empty( $name ) ){
+	if( empty( $name ) ) {
+      // @todo find a better and unified way to handle error.
 		return "Name is empty!";
 	}
     $category = Category::create();
@@ -49,6 +51,48 @@ class Category extends ContentEntityBase implements CategoryInterface {
   public static function del($id) {
     $category = Category::load($id);
     if ( $category ) $category->delete();
+  }
+
+  public static function loadChildren($no, $depth = 0) {
+
+    /*
+    $categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$no]);
+    if ( empty($categories) ) return [];
+    foreach($categories as $category) {
+      $returns = self::loadChildren($category->id());
+      $categories += $returns;
+    }
+    return $categories;
+    */
+
+
+    $result = db_select('mall_category', 'c')
+      ->fields('c')
+      ->orderBy('name', 'ASC')
+      ->condition( 'parent_id', $no )
+      ->execute();
+
+
+    $rows = [];
+    if( $result ){
+      while ( $row = $result->fetchAssoc() ) {
+
+        /** */
+        $rows[ $row['id'] ]['id'] = $row['id'];
+        $rows[ $row['id'] ]['name'] = $row['name'];
+        $rows[ $row['id'] ]['depth'] = $depth;
+
+        //
+        $returns = self::loadChildren( $row['id'], $depth + 1 );
+        if( $returns ) $rows = array_merge( $rows, $returns );
+      }
+
+      if( $rows ) return $rows;
+      else return [];
+    }
+
+    return $rows;
+
   }
 
 
@@ -136,13 +180,7 @@ class Category extends ContentEntityBase implements CategoryInterface {
         'default_value' => '',
         'max_length' => 64,
       ));
-	  
-	$fields['parent_id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Parent ID'))
-      ->setDescription(t('ID of the parent of the Category.'))
-      ->setSettings(array(
-        'default_value' => 0,
-      ));
+
 
     $fields['parent_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Parent ID'))

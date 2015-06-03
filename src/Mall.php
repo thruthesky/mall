@@ -9,8 +9,6 @@ namespace Drupal\mall;
  */
 class Mall {
 
-
-
   public static function emptyEntity($entity_type)
   {
     $entities = \Drupal::entityManager()->getStorage($entity_type)->loadMultiple();

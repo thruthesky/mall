@@ -2,24 +2,38 @@
 use Drupal\mall\Entity\Category;
 use Drupal\mall\Entity\Item;
 use Drupal\mall\Mall;
+use Drupal\mall\x;
+use Symfony\Component\Yaml\Yaml;
 
-function mall_theme() {
-	$themes[ 'mall' ] = [
-		'variables' => [ 'data' => null],
-		'template' => 'mall',
-	];
-	
-	return $themes;
+function mall_theme()
+{
+  $routes = Yaml::parse(file_get_contents(drupal_get_path('module', 'mall').'/mall.routing.yml'));
+  $themes = [];
+  foreach($routes as $name => $info) {
+    $themes[$name] = [
+      'variables' => [ 'data' => null],
+      'template' => $name
+    ];
+  }
+  return $themes;
 }
 	
 function mall_preprocess(&$variables, $hook)
 {
+  if ( ! x::isMallPage() ) {
+    return;
+  }
+
+  $variables['input'] = x::getInput();
+
+
 	$variables['#attached']['library'][] = 'mall/default';
 	//$request = \Drupal::request();
 
 	// page classes
 	if ( $hook == 'mall' ) {
-		$variables['categories'] = Mall::categoryList( $variables );
+	 //$variables['categories'] = Mall::categoryList( $variables );
+
 	}
 	else{
 		//echo $hook;

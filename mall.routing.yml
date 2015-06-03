@@ -4,10 +4,22 @@ mall.admin:
     _controller: Drupal\mall\Controller\MallController::admin
   requirements:
     _permission: 'access content'
-
-mall.admin_category:
-  path: 'mall/admin/category'
+mall.admin.category:
+  path: '/mall/admin/category'
   defaults:
-    _controller: Drupal\mall\Controller\CategoryController::DefaultController
+    _controller: Drupal\mall\Controller\CategoryController::collection
+  requirements:
+    _permission: 'access content'
+mall.admin.category.group.add:
+  path: '/mall/admin/category/group/add'
+  defaults:
+    _controller: Drupal\mall\Controller\CategoryController::add
+  requirements:
+    _permission: 'access content'
+
+mall.admin.category.group.list:
+  path: '/mall/admin/category/group/list'
+  defaults:
+    _controller: Drupal\mall\Controller\CategoryController::groupCollection
   requirements:
     _permission: 'access content'

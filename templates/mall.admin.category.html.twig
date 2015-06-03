@@ -1,0 +1,30 @@
+
+<div class='mall-admin-page'>
+    <div class='admin-category'>
+        <div class='title'>Add a parent Category</div>
+        <form class='form-add' action='/mall/admin/category/group/add'>
+            <fieldset>
+                <!--temp commented due to css conflict <legend></legend>-->
+                <div class="row">
+                    <div class="value">
+                        <div class="element">
+                            <input type="text" name="name">
+                            <input type="submit" value="Submit">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div class='list'>
+            {% for group in data.groups %}
+                <div>
+                    <a href="/mall/admin/category/group/list?no={{ group.id.value }}">
+                    {{ group.name.value }}
+                    :
+                    {{ group.user_id.entity.name.value }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
