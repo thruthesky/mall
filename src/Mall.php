@@ -34,7 +34,7 @@ class Mall {
     user_login_finalize( $user );
   }
   
-  public function categoryList( &$variables ) {		
+	public function categoryList( &$variables ) {		
 		return self::get_category_children( 0 );		
 	}
 
