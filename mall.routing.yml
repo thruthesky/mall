@@ -1,13 +1,13 @@
 mall.admin:
   path: '/mall/admin'
   defaults:
-    _controller: Drupal\mall\Controller\Mall::admin
+    _controller: Drupal\mall\Controller\MallController::admin
   requirements:
     _permission: 'access content'
 
 mall.admin_category:
   path: 'mall/admin/category'
   defaults:
-    _controller: Drupal\mall\Controller\Category
+    _controller: Drupal\mall\Controller\CategoryController::DefaultController
   requirements:
     _permission: 'access content'

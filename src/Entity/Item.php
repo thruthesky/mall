@@ -23,7 +23,38 @@ use Drupal\user\UserInterface;
  * )
  */
 class Item extends ContentEntityBase implements ItemInterface {
+	public static function add( $data ) {
+		$item = Item::create();
 
+		$item->set('user_id', \Drupal::currentUser()->getAccount()->id());
+		$item->set('name', $data['name']);
+		$item->set('price', $data['price']);
+		$item->set('status', $data['status']);
+		$item->set('content', $data['content']);
+		$item->set('brand', $data['brand']);
+		$item->set('model', $data['model']);
+		$item->save();
+		return $item->id();
+	  }
+
+  public static function update($id, $name) {
+    $item = Item::load($id);
+    if ( $item ) {
+      $item->set('name', $name)->save();
+      return 0;
+    }
+    else {
+      return -1;
+    }
+  }
+
+  public static function del($id) {
+    $item = Item::load($id);
+    if ( $item ) $item->delete();
+  }
+  
+  
+  
 
 
   /**

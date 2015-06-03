@@ -24,9 +24,9 @@ use Drupal\user\UserInterface;
  */
 class Category extends ContentEntityBase implements CategoryInterface {
   public static function add($parent_id, $name) {
-
-
-
+	if( empty( $name ) ){
+		return "Name is empty!";
+	}
     $category = Category::create();
     $category->set('user_id', \Drupal::currentUser()->getAccount()->id());
     $category->set('name', $name);

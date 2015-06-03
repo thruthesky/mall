@@ -1,22 +1,25 @@
 <?php
-	use Drupal\mall\Entity\Item;
+use Drupal\mall\Entity\Category;
+use Drupal\mall\Entity\Item;
+use Drupal\mall\Mall;
 
+function mall_theme() {
+	$themes[ 'mall' ] = [
+		'variables' => [ 'data' => null],
+		'template' => 'mall',
+	];
+	
+	return $themes;
+}
+	
 function mall_preprocess(&$variables, $hook)
 {
+	$variables['#attached']['library'][] = 'mall/default';
 	//$request = \Drupal::request();
 
 	// page classes
-	if ( $hook == 'page' ) {
-	/*
-		$post = [];
-		$post['user_id'] = 2;	
-		$entity = Item::create( $post );
-		$entity->save();
-	*/
-	/*
-	$entity = Item::load( 1 );
-	di( $entity->first_name->value );
-	*/
+	if ( $hook == 'mall' ) {
+		$variables['categories'] = Mall::categoryList( $variables );
 	}
 	else{
 		//echo $hook;

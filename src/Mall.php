@@ -33,4 +33,36 @@ class Mall {
     $user = user_load_by_name($username);
     user_login_finalize( $user );
   }
+  
+  public function categoryList( &$variables ) {		
+		return self::get_category_children( 0 );		
+	}
+
+
+	public static function get_category_children( $parent_id, $depth = 0 ){
+		
+		$result = db_select('mall_category', 'mc')
+		->fields('mc')
+		->orderBy('name', 'ASC')
+		->condition( 'parent_id', $parent_id )
+		->execute();
+		
+		if( $result ){
+			$rows = [];
+			while ( $row = $result->fetchAssoc() ) {				
+				$rows[ $row['id'] ]['id'] = $row['id'];
+				$rows[ $row['id'] ]['name'] = $row['name'];
+				$rows[ $row['id'] ]['depth'] = $depth;
+				
+				$in_depth = self::get_category_children( $row['id'], $depth + 1 );
+				if( !empty( $in_depth ) ){
+					$rows2 = $in_depth;
+					$rows = array_merge( $rows, $rows2 );
+				}
+			}
+						
+			if( $rows ) return $rows;
+			else return null;
+		}
+	}
 }
