@@ -4,3 +4,10 @@ mall.admin:
     _controller: Drupal\mall\Controller\Mall::admin
   requirements:
     _permission: 'access content'
+
+mall.admin_category:
+  path: 'mall/admin/category'
+  defaults:
+    _controller: Drupal\mall\Controller\Category
+  requirements:
+    _permission: 'access content'
