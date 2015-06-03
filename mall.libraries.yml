@@ -1,0 +1,7 @@
+default:
+  version: 1.x
+  js:
+    js/mall.js: {}
+  css:
+    theme:
+      css/mall.css: {}
