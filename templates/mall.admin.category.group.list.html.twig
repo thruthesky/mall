@@ -1,6 +1,8 @@
+
+{% set group = data.group %}
 <div class='mall-admin-page'>
 	<div class='category-list'>
-		<div class='title'>Sub categories of {{ data.root.name }}</div>
+		<div class='title'>Sub categories of {{ group.name.value }}</div>
 		<div class='root-form-wrapper'>			
 			 <form class='form-add' action='/mall/admin/category/group/add'>
 				<fieldset>
@@ -8,7 +10,7 @@
 					<div class="row">
 						<div class="value">
 							<div class="element">							
-								<input type='hidden' name='parent_id' value='{{ data.root.id }}'>
+								<input type='hidden' name='parent_id' value='{{ group.id.value }}'>
 								<input type="text" name="name">
 								<input type="submit" value="Add">
 							</div>
@@ -17,7 +19,7 @@
 				</fieldset>
 			</form>	
 		</div>
-		{% for c in data.category %}
+		{% for c in data.children %}
 			{% if c.depth <= 3 %}
 				{% set indent = 10 * c.depth %}
 			{% else %}
@@ -30,8 +32,7 @@
 						<!--temp commented due to css conflict <legend></legend>-->
 						<div class="row">
 							<div class="value">
-								<div class="element">							
-									<input type='hidden' name='root_id' value='{{ data.root.id }}'>
+								<div class="element">
 									<input type='hidden' name='parent_id' value='{{ c.id }}'>
 									<input type="text" name="name">
 									<input type="submit" value="Add">

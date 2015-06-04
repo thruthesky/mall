@@ -125,6 +125,22 @@ class x {
   }
 
   /**
+   * This is a wrapper of "\Drupal::request()->get($name, $default);" except that the default value is  zero(0) instead of null.
+   * @param $name
+   * @param int $default
+   * @return mixed
+   * @code
+   *    $parent_id  = x::in('parent_id');
+   *    $parent_id  = x::in('parent_id', null);
+   *    $parent_id  = x::in('parent_id', '');
+   * @code
+   */
+  public static function in($name, $default=0) {
+    return \Drupal::request()->get($name, $default);
+  }
+
+
+  /**
    *
    * 입력 값을 임의로 지정한다.
    *
@@ -230,7 +246,6 @@ class x {
   public static function delete_cookie($k) {
     user_cookie_delete($k);
   }
-
 
 
 

@@ -1,4 +1,4 @@
-$(function(){	
+$(function(){
 	$("body").on( "submit",".category .form-delete", category_delete );	
 	$("body").on( "click",".category .edit", category_edit );
 	

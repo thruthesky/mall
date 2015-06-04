@@ -4,4 +4,7 @@ default:
     js/mall.js: {}
   css:
     theme:
-      css/mall.css: {}
+      css/mall.base.css: {}
+      css/mall.layout.css: {}
+      css/mall.component.css: {}
+      css/mall.state.css: {}

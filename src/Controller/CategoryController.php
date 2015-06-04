@@ -22,16 +22,16 @@ class CategoryController extends ControllerBase {
       ];
 	}
   public static function add() {
-	$parent_id =  \Drupal::request()->get('parent_id', 0);
-    Category::add($parent_id, \Drupal::request()->get('name', ''));
+
+    $parent_id  = x::in('parent_id');
+    Category::add($parent_id, x::in('name', ''));
 	
 	if( $parent_id == 0 ) $redirect_url = '/mall/admin/category';
-	else{
-		$root_id =  \Drupal::request()->get('root_id', 0);
-		if( $root_id == 0 ) $root_id = $parent_id;
-		$redirect_url = '/mall/admin/category/group/list?no='.$root_id;
-	}
-    return new RedirectResponse( $redirect_url );//
+	else {
+      $group = Category::groupRoot($parent_id);
+      $redirect_url = '/mall/admin/category/group/list?parent_id=' . $group->id();
+    }
+    return new RedirectResponse( $redirect_url );
   }
   
   public static function del() {
@@ -71,16 +71,17 @@ class CategoryController extends ControllerBase {
     }
     */
 	
-	$root_id = \Drupal::request()->get('no');
-	$root_category = \Drupal::entityManager()->getStorage('mall_category')->load( $root_id );
-    $cats = Category::loadChildren( $root_id );	
-	
-	$root = [ 'id'=>$root_category->id(), 'name'=> $root_category->label() ];
-	
-    $data = [
-	  'root' => $root,
-      'category' => $cats,	  
-    ];
+	//$group_id = x::in('no');
+	//$group = \Drupal::entityManager()->getStorage('mall_category')->load( $group_id );
+
+	//$root = [ 'id'=>$group_id, 'name'=> $group->label() ];
+
+    $data = [];
+
+    if ( $id = x::in('parent_id') ) {
+      $data['group'] = Category::load(x::in('parent_id'));
+      $data['children'] = Category::loadChildren( $id );
+    }
     return [
       '#theme' => x::getThemeName(),
       '#data' => $data,

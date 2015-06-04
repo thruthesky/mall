@@ -4,6 +4,7 @@ use Drupal\mall\CategoryInterface;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\mall\x;
 use Drupal\user\UserInterface;
 
 
@@ -31,7 +32,7 @@ class Category extends ContentEntityBase implements CategoryInterface {
 		return "Name is empty!";
 	}
     $category = Category::create();
-    $category->set('user_id', \Drupal::currentUser()->getAccount()->id());
+    $category->set('user_id', x::myUid());
     $category->set('name', $name);
     $category->set('parent_id', $parent_id);
     $category->save();
@@ -58,22 +59,10 @@ class Category extends ContentEntityBase implements CategoryInterface {
   }
 
   public static function loadChildren($no, $depth = 0) {//$delete temporary
-
-    /*
-    $categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$no]);
-    if ( empty($categories) ) return [];
-    foreach($categories as $category) {
-      $returns = self::loadChildren($category->id());
-      $categories += $returns;
-    }
-    return $categories;
-    */	
 	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$no]);
-	
 	$rows = [];
 	foreach( $categories as $c ){
 		$id = $c->id();
-	
 		$rows[ $id ]['id'] = $c->id();
         $rows[ $id ]['name'] = $c->label();
         $rows[ $id ]['depth'] = $depth;
@@ -83,27 +72,43 @@ class Category extends ContentEntityBase implements CategoryInterface {
         if( $returns ) $rows = array_merge( $rows, $returns );
 	}	
 	return $rows;
-	/*
-    $rows = [];
-    if( $result ){
-      while ( $row = $result->fetchAssoc() ) {
+  }
 
-  
-        $rows[ $row['id'] ]['id'] = $row['id'];
-        $rows[ $row['id'] ]['name'] = $row['name'];
-        $rows[ $row['id'] ]['depth'] = $depth;
+  /**
+   *
+   * It returns the path from a node to root in array.
+   * The array is in associative-array keyed by entity id and the value is entity itself.
+   *
+   * @Attention Use this function to get category path(route) information or to get the root(first) category, or the second category.
+   *
+   * @param $id
+   * @return mixed
+   *
+   * @code
+        use Drupal\mall\Entity\Category;
+        $entities = Category::loadParents(73);
+        foreach ( $entities as $category ) {
+        echo $category->id() . ' : ' .  $category->get('name')->value . "\n";
+        }
+   * @endcode
+   */
+  public static function loadParents($id) {
 
-        //
-        $returns = self::loadChildren( $row['id'], $depth + 1 );
-        if( $returns ) $rows = array_merge( $rows, $returns );
+    $entity = self::load($id);
+    //echo "no: $no \n";
+    if ( $entity ) {
+      $id = $entity->id();
+
+      //$rows[ $id ]['id'] = $id;
+      //$rows[ $id ]['name'] = $entity->label();
+      $rows[$id] = $entity;
+      $pid = $entity->get('parent_id')->target_id;
+      if ( $pid ) {
+        $rets = self::loadParents($pid);
+        $rows = $rows + $rets;
       }
-
-      if( $rows ) return $rows;
-      else return [];
+      return $rows;
     }
-
-    return $rows;
-	*/
   }
 
   /*
@@ -115,6 +120,26 @@ class Category extends ContentEntityBase implements CategoryInterface {
 		self::deleteChildren( $c->id() );
 		$c->delete();
 	}
+  }
+
+  /**
+   *
+   * It returns the Root Entity of the Category Group which has 0 as its parent_id.
+   *
+   * @param $id - any category id of a category group.
+   * @return mixed
+   *
+  $category = Category::groupRoot(73);
+  echo "Group : " . $category->label();
+   */
+  public static function groupRoot($id) {
+    $categories = self::loadParents($id);
+    $reversed = array_reverse($categories);
+    return reset($reversed);
+  }
+
+  public static function groupParents($no) {
+    return self::loadParents($no);
   }
 
   /**
