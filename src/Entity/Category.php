@@ -31,12 +31,19 @@ class Category extends ContentEntityBase implements CategoryInterface {
       // @todo find a better and unified way to handle error.
 		return "Name is empty!";
 	}
-    $category = Category::create();
-    $category->set('user_id', x::myUid());
-    $category->set('name', $name);
-    $category->set('parent_id', $parent_id);
-    $category->save();
-    return $category->id();
+
+    $brother = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$parent_id, 'name'=>$name]);
+    if ( $brother ) {
+      return 'Erorr handling later';
+    }
+    else {
+      $category = Category::create();
+      $category->set('user_id', x::myUid());
+      $category->set('name', $name);
+      $category->set('parent_id', $parent_id);
+      $category->save();
+      return $category->id();
+    }
   }
 
   public static function update($id, $name) {
