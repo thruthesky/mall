@@ -20,7 +20,7 @@
                     <a href="/mall/admin/category/group/list?no={{ group.id.value }}">
                     {{ group.name.value }}
                     :
-                    {{ group.user_id.entity.name.value }}
+					<span class="name user-profile" uid="{{ group.user_id.target_id }}">{{ group.user_id.entity.name.value }}</span>                    
                     </a>
                 </div>
             {% endfor %}
