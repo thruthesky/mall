@@ -38,3 +38,10 @@ mall.admin.category.group.list:
     _controller: Drupal\mall\Controller\CategoryController::groupCollection
   requirements:
     _permission: 'access content'
+
+mall.api:
+  path: '/mall/api'
+  defaults:
+    _controller: Drupal\mall\Controller\API::defaultController
+  requirements:
+    _permission: 'access content'

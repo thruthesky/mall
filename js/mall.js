@@ -1,25 +1,26 @@
 $(function(){	
-	$("body").on("submit",".category .form-delete",function(){
-		re = confirm( "Are you sure you want to delete this category?\n Warning that deleting this category will delete ALL of it's sub categories." );
-		if( re ){
-		}
-		else{
-			return false;
-		}
-	});
+	$("body").on( "submit",".category .form-delete", category_delete );	
+	$("body").on( "click",".category .edit", category_edit );
 	
-	$("body").on("click",".category .edit",function(){		
-		$this = $(this);
-		var root_id = $this.attr("root_id");
-		var id = $this.attr("id");
-		if( $(".category[category-id='" + id + "'] .label .category-name .form-update").length ){
-			console.log( "exists" );
-			return;
-		}
-		var form = renderEditForm( root_id, id );
-		$(".category[category-id='" + id + "'] .label .category-name").html( form );
-	});
+	//ajax_api_mall( { call:'test' }, test_callback );
 });
+
+function category_edit(){
+	$this = $(this);
+	var root_id = $this.attr("root_id");
+	var id = $this.attr("id");
+	if( $(".category[category-id='" + id + "'] .label .category-name .form-update").length ){
+		console.log( "exists" );
+		return;
+	}
+	var form = renderEditForm( root_id, id );
+	$(".category[category-id='" + id + "'] .label .category-name").html( form );
+}
+
+function category_delete(){
+	re = confirm( "Are you sure you want to delete this category?\n Warning that deleting this category will delete ALL of it's sub categories." );
+	if( !re ) return false;
+}
 
 function renderEditForm( root_id, id ){
 	if( $(".category[category-id='" + id + "'] .label .category-name a").length ){
@@ -36,4 +37,34 @@ function renderEditForm( root_id, id ){
 					"</div></div></div></fieldset></form>";
 					
 	return markup;
+}
+/*
+function test_callback( re ){
+	console.log( re );
+}
+*/
+
+
+
+
+
+
+
+
+
+
+function ajax_api_mall( qs, callback_function )
+{
+    var o = {};
+    o.data = qs;
+    o.url = '/mall/api';
+    o.type = "POST";
+    var promise = $.ajax( o );
+    promise.done( function( o ) {
+        callback_function( o );
+    });
+    promise.fail( function( re ) {
+        alert('ajax call - promise failed');
+        trace(re);
+    });
 }
