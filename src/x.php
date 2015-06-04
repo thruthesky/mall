@@ -9,6 +9,9 @@ namespace Drupal\mall;
 
 class x {
 
+  const ERROR_CATEGORY_EXIST = 'ERROR_CATEGORY_EXIST';
+
+
   static $input = [];
 
   public static function getThemeName() {
@@ -248,5 +251,36 @@ class x {
   }
 
 
+
+  public static function error($code, $kvs=[]) {
+    $message = self::errorMessage($code);
+    foreach( $kvs as $k => $v ) {
+      $message = str_replace('#'.$k, $v, $message);
+    }
+    return [$code, $message];
+  }
+
+  private static function errorMessage($code) {
+
+    switch( $code ) {
+      case self::ERROR_CATEGORY_EXIST : $msg = "The category '#name' is already exists under '#parent'."; break;
+      default: $msg = 'Unknown'; break;
+    }
+    return $msg;
+  }
+
+  /**
+   * Returns true if the input object indicates Error.
+   *
+   * @note if $re is minus or $re[0] is minus, then it considers as error.
+   *
+   * @param $re
+   * @return bool
+   */
+  public static function isError($re) {
+    if ( is_numeric($re) && $re < 0 ) return true;
+    else if ( is_array($re) && strpos($re[0], 'ERROR') !== false ) return true;
+    return false;
+  }
 
 }

@@ -24,13 +24,20 @@ class CategoryController extends ControllerBase {
   public static function add() {
 
     $parent_id  = x::in('parent_id');
-    Category::add($parent_id, x::in('name', ''));
-	
-	if( $parent_id == 0 ) $redirect_url = '/mall/admin/category';
+    $re = Category::add($parent_id, x::in('name', ''));
+
+	if( $parent_id == 0 ) $redirect_url = '/mall/admin/category?';
 	else {
       $group = Category::groupRoot($parent_id);
       $redirect_url = '/mall/admin/category/group/list?parent_id=' . $group->id();
     }
+
+    if ( x::isError($re) ) {
+      $redirect_url .= "&error=$re[0]&message=$re[1]";
+    }
+
+
+
     return new RedirectResponse( $redirect_url );
   }
   

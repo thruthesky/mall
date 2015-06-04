@@ -14,6 +14,9 @@
                 </div>
             </fieldset>
         </form>
+
+        {% include 'modules/mall/templates/error.html.twig' %}
+
         <div class='list'>
             {% for group in data.groups %}
                 <div class='category' category-id='{{ group.id.value }}'>                

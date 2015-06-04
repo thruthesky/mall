@@ -22,6 +22,9 @@
 				</fieldset>
 			</form>	
 		</div>
+
+        {% include 'modules/mall/templates/error.html.twig' %}
+
 		{% for c in data.children %}
 			{% if c.depth <= 3 %}
 				{% set indent = 10 * c.depth %}
