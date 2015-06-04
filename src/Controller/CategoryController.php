@@ -22,8 +22,40 @@ class CategoryController extends ControllerBase {
       ];
 	}
   public static function add() {
-    Category::add(0, \Drupal::request()->get('name', ''));
-    return new RedirectResponse('/mall/admin/category');
+	$parent_id =  \Drupal::request()->get('parent_id', 0);
+    Category::add($parent_id, \Drupal::request()->get('name', ''));
+	
+	if( $parent_id == 0 ) $redirect_url = '/mall/admin/category';
+	else{
+		$root_id =  \Drupal::request()->get('root_id', 0);
+		if( $root_id == 0 ) $root_id = $parent_id;
+		$redirect_url = '/mall/admin/category/group/list?no='.$root_id;
+	}
+    return new RedirectResponse( $redirect_url );//
+  }
+  
+  public static function del() {
+	$id =  \Drupal::request()->get('id', 0);
+    Category::del( $id );
+	$root_id =  \Drupal::request()->get('root_id', 0);	
+	if( $root_id == 0 ) $redirect_url = '/mall/admin/category';
+	else{
+		$redirect_url = '/mall/admin/category/group/list?no='.$root_id;
+	}
+    return new RedirectResponse( $redirect_url );//
+  }
+  
+  public static function update() {
+	$root_id =  \Drupal::request()->get('root_id');
+	$id =  \Drupal::request()->get('id');
+	$name =  \Drupal::request()->get('name');
+    Category::update( $id, $name );
+	
+	if( $root_id == 0 ) $redirect_url = '/mall/admin/category';
+	else{
+		$redirect_url = '/mall/admin/category/group/list?no='.$root_id;
+	}
+    return new RedirectResponse( $redirect_url );//
   }
 
   public static function groupCollection()
@@ -38,13 +70,16 @@ class CategoryController extends ControllerBase {
       di( $cat->get('name')->value );
     }
     */
-
-    $cats = Category::loadChildren(\Drupal::request()->get('no'));
-    di($cats);
-
-
+	
+	$root_id = \Drupal::request()->get('no');
+	$root_category = \Drupal::entityManager()->getStorage('mall_category')->load( $root_id );
+    $cats = Category::loadChildren( $root_id );	
+	
+	$root = [ 'id'=>$root_category->id(), 'name'=> $root_category->label() ];
+	
     $data = [
-      //'category' => Category::loadChildren(\Drupal::request()->get('no'))
+	  'root' => $root,
+      'category' => $cats,	  
     ];
     return [
       '#theme' => x::getThemeName(),

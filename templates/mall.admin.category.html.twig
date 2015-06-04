@@ -1,4 +1,3 @@
-
 <div class='mall-admin-page'>
     <div class='admin-category'>
         <div class='title'>Add a parent Category</div>
@@ -7,9 +6,9 @@
                 <!--temp commented due to css conflict <legend></legend>-->
                 <div class="row">
                     <div class="value">
-                        <div class="element">
+                        <div class="element">							
                             <input type="text" name="name">
-                            <input type="submit" value="Submit">
+                            <input type="submit" value="Add">
                         </div>
                     </div>
                 </div>
@@ -17,12 +16,27 @@
         </form>
         <div class='list'>
             {% for group in data.groups %}
-                <div>
-                    <a href="/mall/admin/category/group/list?no={{ group.id.value }}">
-                    {{ group.name.value }}
-                    :
-                    {{ group.user_id.entity.name.value }}
-                    </a>
+                <div class='category' category-id='{{ group.id.value }}'>                
+						<span class='label'>
+							<span class='category-name'>
+								<a href="/mall/admin/category/group/list?no={{ group.id.value }}">{{ group.name.value }}</a>
+							</span>:
+							<span class="name user-profile" uid="{{ group.user_id.target_id }}">{{ group.user_id.entity.name.value }}</span>
+						</span>                    
+					<span class='edit' root-id = '0'id='{{ group.id.value }}'>Edit</span>
+					<form class='form-delete' action='/mall/admin/category/group/del'>
+						<fieldset>
+							<!--temp commented due to css conflict <legend></legend>-->
+							<div class="row">
+								<div class="value">
+									<div class="element">										
+										<input type='hidden' name='id' value='{{ group.id.value }}'>
+										<input type="submit" value="Delete">
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</form>
                 </div>
             {% endfor %}
         </div>

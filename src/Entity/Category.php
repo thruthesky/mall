@@ -51,10 +51,13 @@ class Category extends ContentEntityBase implements CategoryInterface {
 
   public static function del($id) {
     $category = Category::load($id);
-    if ( $category ) $category->delete();
+    if ( $category ) {
+		self::deleteChildren( $id, 0, true );
+		$category->delete();
+	}
   }
 
-  public static function loadChildren($no, $depth = 0) {
+  public static function loadChildren($no, $depth = 0) {//$delete temporary
 
     /*
     $categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$no]);
@@ -64,21 +67,28 @@ class Category extends ContentEntityBase implements CategoryInterface {
       $categories += $returns;
     }
     return $categories;
-    */
-
-
-    $result = db_select('mall_category', 'c')
-      ->fields('c')
-      ->orderBy('name', 'ASC')
-      ->condition( 'parent_id', $no )
-      ->execute();
-
-
+    */	
+	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$no]);
+	
+	$rows = [];
+	foreach( $categories as $c ){
+		$id = $c->id();
+	
+		$rows[ $id ]['id'] = $c->id();
+        $rows[ $id ]['name'] = $c->label();
+        $rows[ $id ]['depth'] = $depth;
+		$rows[ $id ]['user_id'] = $c->user_id->target_id;
+		$rows[ $id ]['user_name'] = $c->user_id->entity->name->value;		
+		$returns = self::loadChildren( $id, $depth + 1 );		
+        if( $returns ) $rows = array_merge( $rows, $returns );
+	}	
+	return $rows;
+	/*
     $rows = [];
     if( $result ){
       while ( $row = $result->fetchAssoc() ) {
 
-        /** */
+  
         $rows[ $row['id'] ]['id'] = $row['id'];
         $rows[ $row['id'] ]['name'] = $row['name'];
         $rows[ $row['id'] ]['depth'] = $depth;
@@ -93,9 +103,19 @@ class Category extends ContentEntityBase implements CategoryInterface {
     }
 
     return $rows;
-
+	*/
   }
 
+  /*
+  *also deletes the children of a category when deleted
+  */
+  public static function deleteChildren( $id ){
+	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$id]);
+	foreach( $categories as $c ){
+		self::deleteChildren( $c->id() );
+		$c->delete();
+	}
+  }
 
   /**
    * {@inheritdoc}

@@ -1,1 +1,61 @@
-<h1> mall amdin category gorup list no = {{input.no}}</h1>
+<div class='mall-admin-page'>
+	<div class='category-list'>
+		<div class='title'>Sub categories of {{ data.root.name }}</div>
+		<div class='root-form-wrapper'>			
+			 <form class='form-add' action='/mall/admin/category/group/add'>
+				<fieldset>
+					<!--temp commented due to css conflict <legend></legend>-->
+					<div class="row">
+						<div class="value">
+							<div class="element">							
+								<input type='hidden' name='parent_id' value='{{ data.root.id }}'>
+								<input type="text" name="name">
+								<input type="submit" value="Add">
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>	
+		</div>
+		{% for c in data.category %}
+			{% if c.depth <= 3 %}
+				{% set indent = 10 * c.depth %}
+			{% else %}
+				{% set indent = 30 + 4 * c.depth %}
+			{% endif %}
+			<div class='category' category-id = {{ c.id }} depth='{{ c.depth }}' style='margin-left:{{ indent }}px;'>
+				<span class='label'><span class='category-name'>{{ c.name }}</span> by <span class="name user-profile" uid="{{ c.user_id }}">{{ c.user_name }}</span></span>
+				<form class='form-add' action='/mall/admin/category/group/add'>
+					<fieldset>
+						<!--temp commented due to css conflict <legend></legend>-->
+						<div class="row">
+							<div class="value">
+								<div class="element">							
+									<input type='hidden' name='root_id' value='{{ data.root.id }}'>
+									<input type='hidden' name='parent_id' value='{{ c.id }}'>
+									<input type="text" name="name">
+									<input type="submit" value="Add">
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+				<span class='edit' root_id='{{ data.root.id }}' id='{{ c.id }}'>Edit</span>
+				<form class='form-delete' action='/mall/admin/category/group/del'>
+					<fieldset>
+						<!--temp commented due to css conflict <legend></legend>-->
+						<div class="row">
+							<div class="value">
+								<div class="element">
+									<input type='hidden' name='root_id' value='{{ data.root.id }}'>
+									<input type='hidden' name='id' value='{{ c.id }}'>									
+									<input type="submit" value="Delete">
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>		
+			</div>
+		{% endfor %}
+	</div>
+</div>
