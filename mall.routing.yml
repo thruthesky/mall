@@ -10,10 +10,25 @@ mall.admin.category:
     _controller: Drupal\mall\Controller\CategoryController::collection
   requirements:
     _permission: 'access content'
+
 mall.admin.category.group.add:
   path: '/mall/admin/category/group/add'
   defaults:
     _controller: Drupal\mall\Controller\CategoryController::add
+  requirements:
+    _permission: 'access content'
+
+mall.admin.category.group.delete:
+  path: '/mall/admin/category/group/del'
+  defaults:
+    _controller: Drupal\mall\Controller\CategoryController::del
+  requirements:
+    _permission: 'access content'
+
+mall.admin.category.group.update:
+  path: '/mall/admin/category/group/update'
+  defaults:
+    _controller: Drupal\mall\Controller\CategoryController::update
   requirements:
     _permission: 'access content'
 

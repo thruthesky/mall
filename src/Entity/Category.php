@@ -50,10 +50,13 @@ class Category extends ContentEntityBase implements CategoryInterface {
 
   public static function del($id) {
     $category = Category::load($id);
-    if ( $category ) $category->delete();
+    if ( $category ) {
+		self::deleteChildren( $id, 0, true );
+		$category->delete();
+	}
   }
 
-  public static function loadChildren($no, $depth = 0) {
+  public static function loadChildren($no, $depth = 0) {//$delete temporary
 
     /*
     $categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$no]);
@@ -102,6 +105,16 @@ class Category extends ContentEntityBase implements CategoryInterface {
 	*/
   }
 
+  /*
+  *also deletes the children of a category when deleted
+  */
+  public static function deleteChildren( $id ){
+	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$id]);
+	foreach( $categories as $c ){
+		self::deleteChildren( $c->id() );
+		$c->delete();
+	}
+  }
 
   /**
    * {@inheritdoc}

@@ -33,6 +33,30 @@ class CategoryController extends ControllerBase {
 	}
     return new RedirectResponse( $redirect_url );//
   }
+  
+  public static function del() {
+	$id =  \Drupal::request()->get('id', 0);
+    Category::del( $id );
+	$root_id =  \Drupal::request()->get('root_id', 0);	
+	if( $root_id == 0 ) $redirect_url = '/mall/admin/category';
+	else{
+		$redirect_url = '/mall/admin/category/group/list?no='.$root_id;
+	}
+    return new RedirectResponse( $redirect_url );//
+  }
+  
+  public static function update() {
+	$root_id =  \Drupal::request()->get('root_id');
+	$id =  \Drupal::request()->get('id');
+	$name =  \Drupal::request()->get('name');
+    Category::update( $id, $name );
+	
+	if( $root_id == 0 ) $redirect_url = '/mall/admin/category';
+	else{
+		$redirect_url = '/mall/admin/category/group/list?no='.$root_id;
+	}
+    return new RedirectResponse( $redirect_url );//
+  }
 
   public static function groupCollection()
   {
