@@ -12,9 +12,11 @@ $(function(){
 		$this = $(this);
 		var root_id = $this.attr("root_id");
 		var id = $this.attr("id");
-		
+		if( $(".category[category-id='" + id + "'] .label .category-name .form-update").length ){
+			console.log( "exists" );
+			return;
+		}
 		var form = renderEditForm( root_id, id );
-		console.log( $(".category[category-id='" + id + "'] .label .category-name").length );
 		$(".category[category-id='" + id + "'] .label .category-name").html( form );
 	});
 });
