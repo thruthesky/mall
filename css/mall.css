@@ -8,6 +8,24 @@
 	font-weight:bold;
 }
 
+.mall-admin-page input[type='text']{
+	padding:2px 5px;
+	border:1px solid #000000;	
+	box-sizing:border-box;
+}
+
+.mall-admin-page input[type='submit']{
+	padding:2px 5px;
+	border:1px solid #000000;
+	background-color:transparent;
+	box-sizing:border-box;
+}
+
+.mall-admin-page input[type='submit']:hover{
+	background-color:orange;
+	color:#ffffff;
+}
+
 
 .admin-category .list .category{
 	padding:5px 0;
@@ -18,7 +36,7 @@
 
 /*category-list*/
 .category-list .root-form-wrapper{
-	margin-bottom:10px;
+	margin-bottom:20px;
 }
 
 .category-list .category{

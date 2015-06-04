@@ -63,21 +63,28 @@ class Category extends ContentEntityBase implements CategoryInterface {
       $categories += $returns;
     }
     return $categories;
-    */
-
-
-    $result = db_select('mall_category', 'c')
-      ->fields('c')
-      ->orderBy('name', 'ASC')
-      ->condition( 'parent_id', $no )
-      ->execute();
-
-
+    */	
+	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$no]);
+	
+	$rows = [];
+	foreach( $categories as $c ){
+		$id = $c->id();
+	
+		$rows[ $id ]['id'] = $c->id();
+        $rows[ $id ]['name'] = $c->label();
+        $rows[ $id ]['depth'] = $depth;
+		$rows[ $id ]['user_id'] = $c->user_id->target_id;
+		$rows[ $id ]['user_name'] = $c->user_id->entity->name->value;		
+		$returns = self::loadChildren( $id, $depth + 1 );		
+        if( $returns ) $rows = array_merge( $rows, $returns );
+	}	
+	return $rows;
+	/*
     $rows = [];
     if( $result ){
       while ( $row = $result->fetchAssoc() ) {
 
-        /** */
+  
         $rows[ $row['id'] ]['id'] = $row['id'];
         $rows[ $row['id'] ]['name'] = $row['name'];
         $rows[ $row['id'] ]['depth'] = $depth;
@@ -92,7 +99,7 @@ class Category extends ContentEntityBase implements CategoryInterface {
     }
 
     return $rows;
-
+	*/
   }
 
 
