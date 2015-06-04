@@ -3,9 +3,37 @@
 	background-color:#ffffff;
 }
 
+.mall-admin-page .title{
+	font-size:1.5em;
+	font-weight:bold;
+}
+
+
+.admin-category .list .category{
+	padding:5px 0;
+}
 
 
 
-.admin-category .list td{
-	padding:5px;
+
+/*category-list*/
+.category-list .root-form-wrapper{
+	margin-bottom:10px;
+}
+
+.category-list .category{
+	padding:5px 0;
+	margin-bottom:10px;
+}
+
+.category-list .category .label{
+	margin-right:10px;
+}
+
+.category-list .category form{
+	display:inline-block;
+}
+
+.category-list .category form .row{
+	display:inline-block;
 }
