@@ -23,15 +23,24 @@
 }
 
 .mall-admin-page input[type='submit']{
-    padding:2px 5px;
-    border:1px solid #000000;
-    background-color:transparent;
-    box-sizing:border-box;
+	display: inline-block;
+	padding:2px 5px;
+	border: 1px solid #003366;
+	border-radius:2px;
+	background-color: #f2f2f2;	
+	font-weight:bold;
+	color: #003366;	
+	box-sizing:border-box;
+	cursor:pointer;
+}
+
+.mall-admin-page .form-delete input[type='submit']{	
+	font-weight:normal;	
 }
 
 .mall-admin-page input[type='submit']:hover{
-    background-color:orange;
-    color:#ffffff;
+	background-color: #004466;
+	color: #ffffff;	
 }
 
 .mall-admin-page .form-update input[type='text']{
@@ -44,20 +53,32 @@
     padding:5px 0;
 }
 
-.category .edit{
-    padding:2px 5px;
-    border:1px solid #000000;
+.category .command{
+	display: inline-block;
+	padding:2px 5px;
+	border: 1px solid #003366;
+	border-radius:2px;
+	background-color: #f2f2f2;
+	color: #003366;
     box-sizing:border-box;
     cursor:pointer;
 }
 
-.category .edit:hover{
-    background-color:orange;
-    color:#ffffff;
+.category .command:hover{
+	background-color: #004466;
+    color: #ffffff;	
 }
 
+.category .command.cancel{
+	margin-left:3px;
+	font-weight:bold;
+}
 
 /*category-list*/
+.category-list{
+	
+}
+
 .category-list .root-form-wrapper{
     margin-bottom:20px;
 }
@@ -67,6 +88,26 @@
     margin-bottom:10px;
 }
 
-.category-list .category .label{
-    margin-right:10px;
+.category-list .category .label .category-name{
+    margin-right:5px;
+}
+
+/*top-menu*/
+.top-menu{
+	margin-bottom:10px;
+	text-align:right;
+}
+
+.top-menu > a{
+	display: inline-block;
+	padding: 10px;
+	border: 1px solid #003366;
+	border-radius:2px;	
+	background-color: #f2f2f2;
+	color: #003366;
+}
+
+.top-menu > a:hover{
+	background-color: #004466;
+	color: #ffffff;	
 }

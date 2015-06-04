@@ -1,20 +1,26 @@
 $(function(){
 	$("body").on( "submit",".category .form-delete", category_delete );	
+	$("body").on( "click",".category .add", category_add );
 	$("body").on( "click",".category .edit", category_edit );
+	$("body").on( "click",".category .cancel", category_cancel );
 	
 	//ajax_api_mall( { call:'test' }, test_callback );
 });
 
+function category_add(){
+	$this = $(this);
+	var id = $this.attr("id");
+	var form = renderAddForm( id );
+	$(".category .add[id='" + id + "']").before( form );
+	$this.remove();
+}
+
 function category_edit(){
 	$this = $(this);
-	var root_id = $this.attr("root_id");
 	var id = $this.attr("id");
-	if( $(".category[category-id='" + id + "'] .label .category-name .form-update").length ){
-		console.log( "exists" );
-		return;
-	}
-	var form = renderEditForm( root_id, id );
+	var form = renderEditForm( id );
 	$(".category[category-id='" + id + "'] .label .category-name").html( form );
+	$this.remove();
 }
 
 function category_delete(){
@@ -22,7 +28,11 @@ function category_delete(){
 	if( !re ) return false;
 }
 
-function renderEditForm( root_id, id ){
+function category_cancel(){
+	 window.location.reload();
+}
+
+function renderEditForm( id ){
 	if( $(".category[category-id='" + id + "'] .label .category-name a").length ){
 		var text = $(".category[category-id='" + id + "'] .label .category-name a").text();
 	}
@@ -31,10 +41,20 @@ function renderEditForm( root_id, id ){
 	}
 	var markup	=	"<form class='form-update' action='/mall/admin/category/group/update'>" +
 					"<fieldset><div class='row'><div class='value'><div class='element'>" +
-					"<input type='hidden' name='root_id' value='" + root_id + "'>" +
 					"<input type='hidden' name='id' value='" + id + "'>" +
 					"<input type='text' name='name' value='" + text + "'><input type='submit' value='Update'>" +
-					"</div></div></div></fieldset></form>";
+					"</div></div></div></fieldset></form><span class='command cancel'>Cancel</span>";
+					
+	return markup;
+}
+
+function renderAddForm( id ){
+	var markup	=	"<form class='form-update' action='/mall/admin/category/group/add'>" +
+					"<fieldset><div class='row'><div class='value'><div class='element'>" +					
+					"<input type='hidden' name='parent_id' value='" + id + "'>" +		
+					"<input type='text' name='name' value=''>" +
+					"<input type='submit' value='Add'>" +
+					"</div></div></div></fieldset></form><span class='command cancel'>Cancel</span>";
 					
 	return markup;
 }

@@ -70,13 +70,10 @@ class Category extends ContentEntityBase implements CategoryInterface {
 	$rows = [];
 	foreach( $categories as $c ){
 		$id = $c->id();
-		$rows[ $id ]['id'] = $c->id();
-        $rows[ $id ]['name'] = $c->label();
+		$rows[ $id ]['entity'] = $c;        
         $rows[ $id ]['depth'] = $depth;
-		$rows[ $id ]['user_id'] = $c->user_id->target_id;
-		$rows[ $id ]['user_name'] = $c->user_id->entity->name->value;		
 		$returns = self::loadChildren( $id, $depth + 1 );		
-        if( $returns ) $rows = array_merge( $rows, $returns );
+		if( $returns ) $rows = $rows + $returns;        
 	}	
 	return $rows;
   }
