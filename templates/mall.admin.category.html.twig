@@ -29,22 +29,24 @@
 				{% for group in data.groups %}
 				<tr>
 					<td>
-					<div class='category' category-id='{{ group.id.value }}'>                
+					<div class='category' category-id='{{ group.entity.id.value }}'>                
 						<span class='label'>
 							<span class='category-name'>
-								<a href="/mall/admin/category/group/list?parent_id={{ group.id.value }}">{{ group.name.value }}</a>
+								<a href="/mall/admin/category/group/list?parent_id={{ group.entity.id.value }}">{{ group.entity.name.value }}</a>
 							</span>
 						</span>
 					</div>
 					</td>
 					<td width='10%'>
-						<span class="name user-profile" uid="{{ group.user_id.target_id }}">{{ group.user_id.entity.name.value }}</span>
+						<span class="name user-profile" uid="{{ group.user_id.target_id }}">{{ group.entity.user_id.entity.name.value }}</span>
 					</td>	
-					<td>x</td>
+					<td>
+						{{ group.child_no }}
+					</td>
 					<td>						
 						<div class='button-wrapper'>
-							<span class='command edit' root-id = '0'id='{{ group.id.value }}'>Edit</span>
-							<a class='command' href='/mall/admin/category/group/del?id={{ group.id.value }}'  onclick="category_delete( event )">Delete</a>
+							<span class='command edit' root-id = '0'id='{{ group.entity.id.value }}'>Edit</span>
+							<a class='command' href='/mall/admin/category/group/del?id={{ group.entity.id.value }}'  onclick="category_delete( event )">Delete</a>
 						</div>						
 					</td>
 				</tr>

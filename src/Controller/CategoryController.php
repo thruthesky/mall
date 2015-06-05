@@ -12,9 +12,14 @@ class CategoryController extends ControllerBase {
 	public static function collection() {
       $categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>0]);
       //$ids = \Drupal::entityQuery('mall_category')->condition('parent_id',0)->execute();
+	  $groups = [];
+	  foreach( $categories as $c ){
+		$groups[$c->id()]['entity'] = $c;
+		$groups[$c->id()]['child_no'] = count( Category::loadChildren( $c->id() ) );
+	  }
 
       $data = [
-        'groups' => $categories
+        'groups' => $groups
       ];
       return [
         '#theme' => x::getThemeName(),
