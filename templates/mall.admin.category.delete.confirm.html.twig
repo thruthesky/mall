@@ -1,0 +1,10 @@
+{% set category = data.category %}
+
+WARNING: This category - {{ category.name.value }} has XX child categories.<br>
+Are you sure you want to delete? [ <a href="/mall/admin/category/delete/children?id={{ category.id.value }}&confirmed=yes">YES</a> | <a href="/mall/admin/category">NO</a> ]
+
+<hr>
+
+Show simple category list.
+
+<hr>

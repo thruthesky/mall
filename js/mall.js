@@ -29,7 +29,7 @@ function category_edit(){
 
 
 function category_delete( e ){
-	return confirm( "Are you sure you want to delete this category?\n Warning that deleting this category will delete ALL of it's sub categories." );
+	return confirm( "Are you sure you want to delete - "+e+"?" );
 }
 
 function category_cancel(){

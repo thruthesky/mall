@@ -61,7 +61,14 @@ class Category extends ContentEntityBase implements CategoryInterface {
     }
   }
 
-  public static function del($id) {
+  /*
+  public function children()
+  {
+    return \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$this->id()]);
+  }
+  */
+
+  public static function deleteAll($id) {
     $category = Category::load($id);
     if ( $category ) {
 		self::deleteChildren( $id, 0, true );
@@ -149,6 +156,21 @@ class Category extends ContentEntityBase implements CategoryInterface {
 
   public static function groupParents($no) {
     return self::loadParents($no);
+  }
+
+
+  public static function isRoot($id) {
+    $category = self::load($id);
+    if ( $category ) return ! $category->get('parent_id')->target_id;
+    else return 0;
+  }
+
+  public static function getRootID($id) {
+    if ( $id ) {
+      $root = self::groupRoot($id);
+      if ( $root ) return $root->id();
+    }
+    return 0;
   }
 
   /**

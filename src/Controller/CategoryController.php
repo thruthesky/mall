@@ -47,14 +47,28 @@ class CategoryController extends ControllerBase {
   }
   
   public static function del() {
-	$id =  x::in('id');
+	$id = x::in('id');
+    //$category = Category::load($id);
+    if ( x::in('confirmed', '') != 'yes' && $children = Category::loadChildren($id) ) {
+      $redirect_url = "/mall/admin/category/delete/confirm?id=$id";
+    }
+    else {
+      $is_root = Category::isRoot($id);
+      Category::deleteAll($id );
+      if ( $is_root ) $redirect_url = '/mall/admin/category';
+      else $redirect_url = '/mall/admin/category/group/list?parent_id=' . Category::getRootID($id);
+    }
+    return new RedirectResponse( $redirect_url );
+    /*
+
     $group = Category::groupRoot($id);
-	if( $group->id() == $id ) $redirect_url = '/mall/admin/category';
+	if( $group->id() == $id ) $redirect_url =
 	else{
 		$redirect_url = '/mall/admin/category/group/list?parent_id=' . $group->id();
 	}
-	Category::del( $id );
+
     return new RedirectResponse( $redirect_url );//
+    */
   }
   
   public static function update() {	
@@ -98,6 +112,13 @@ class CategoryController extends ControllerBase {
     return [
       '#theme' => x::getThemeName(),
       '#data' => $data,
+    ];
+  }
+
+  public static function deleteConfirm() {
+    return [
+      '#theme' => x::getThemeName(),
+      '#data' => ['category'=>Category::load(x::in('id'))]
     ];
   }
 }

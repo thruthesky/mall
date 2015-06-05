@@ -46,7 +46,7 @@
 					<td>						
 						<div class='button-wrapper'>
 							<span class='command edit' root-id = '0'id='{{ group.entity.id.value }}'>Edit</span>
-							<a class='command' href='/mall/admin/category/group/del?id={{ group.entity.id.value }}'  onclick="return category_delete( {{ group.entity.name.value }} )">Delete</a>
+							<a class='command' href='/mall/admin/category/group/del?id={{ group.entity.id.value }}'  onclick="return category_delete( '{{ group.entity.name.value }}' );">Delete</a>
 						</div>						
 					</td>
 				</tr>
