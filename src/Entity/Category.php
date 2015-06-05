@@ -78,6 +78,7 @@ class Category extends ContentEntityBase implements CategoryInterface {
         $rows[ $id ]['depth'] = $depth;
 		$returns = self::loadChildren( $id, $depth + 1 );		
 		if( $returns ) $rows = $rows + $returns;        
+		$rows[ $id ]['child_no'] = count( $returns );
 	}	
 	return $rows;
   }

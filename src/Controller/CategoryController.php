@@ -12,9 +12,14 @@ class CategoryController extends ControllerBase {
 	public static function collection() {
       $categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>0]);
       //$ids = \Drupal::entityQuery('mall_category')->condition('parent_id',0)->execute();
+	  $groups = [];
+	  foreach( $categories as $c ){
+		$groups[$c->id()]['entity'] = $c;
+		$groups[$c->id()]['child_no'] = count( Category::loadChildren( $c->id() ) );
+	  }
 
       $data = [
-        'groups' => $categories
+        'groups' => $groups
       ];
       return [
         '#theme' => x::getThemeName(),
@@ -43,10 +48,9 @@ class CategoryController extends ControllerBase {
   
   public static function del() {
 	$id =  x::in('id');
-    
-	if( $id == 0 ) $redirect_url = '/mall/admin/category';
+    $group = Category::groupRoot($id);
+	if( $group->id() == $id ) $redirect_url = '/mall/admin/category';
 	else{
-		$group = Category::groupRoot($id);
 		$redirect_url = '/mall/admin/category/group/list?parent_id=' . $group->id();
 	}
 	Category::del( $id );
