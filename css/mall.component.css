@@ -16,6 +16,21 @@
 	padding:0 10px 10px 10px;
 }
 
+.mall-admin-page .content-wrapper.delete-category-list .notice{	
+	padding:5px 10px;
+	font-size:1.3em;
+	font-weight:bold;
+}
+
+.mall-admin-page .content-wrapper.delete-category-list ol{
+	
+}
+
+.mall-admin-page .content-wrapper.delete-category-list ol li{
+	padding:5px 10px;
+	margin:0;
+}
+
 /*error*/
 .mall-admin-page div.mall-error{	
 	padding: 10px;

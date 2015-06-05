@@ -3,7 +3,7 @@ $(function(){
     //$("body").on( "submit",".category-table .category .form-delete", category_delete );
     $("body").on( "click",".category-table .button-wrapper .add", category_add );
     $("body").on( "click",".category-table .button-wrapper .edit", category_edit );
-    $("body").on( "click",".category-table .button-wrapper .cancel", category_cancel );
+    $("body").on( "click",".category-table .cancel", category_cancel );
 	
 	//ajax_api_mall( { call:'test' }, test_callback );
 });

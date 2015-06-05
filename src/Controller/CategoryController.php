@@ -54,9 +54,9 @@ class CategoryController extends ControllerBase {
     }
     else {
       $is_root = Category::isRoot($id);
-      Category::deleteAll($id );
-      if ( $is_root ) $redirect_url = '/mall/admin/category';
+	  if ( $is_root ) $redirect_url = '/mall/admin/category';
       else $redirect_url = '/mall/admin/category/group/list?parent_id=' . Category::getRootID($id);
+      Category::deleteAll($id );      
     }
     return new RedirectResponse( $redirect_url );
     /*
@@ -116,9 +116,14 @@ class CategoryController extends ControllerBase {
   }
 
   public static function deleteConfirm() {
+	$data = [];
+	$data['category'] = Category::load(x::in('id'));
+	$children = Category::loadChildren( x::in('id') );
+	if( $children ) $data['children'] = $children;
+	
     return [
       '#theme' => x::getThemeName(),
-      '#data' => ['category'=>Category::load(x::in('id'))]
+      '#data' => $data,
     ];
   }
 }
