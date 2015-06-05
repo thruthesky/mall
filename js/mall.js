@@ -11,7 +11,8 @@ function category_add(){
 	$this = $(this);
 	var id = $this.attr("id");
 	var form = renderAddForm( id );
-	$(".category[category-id='" + id + "']").after( form );
+	$(".category[category-id='" + id + "']").append( form );
+	$(".category[category-id='" + id + "'] input[type='text']").focus();
 	$this.remove();	
 }
 
@@ -20,6 +21,7 @@ function category_edit(){
 	var id = $this.attr("id");
 	var form = renderEditForm( id );
 	$(".category[category-id='" + id + "'] .label .category-name").html( form );
+	$(".category[category-id='" + id + "'] input[type='text']").select();
 	$this.remove();
 }
 
