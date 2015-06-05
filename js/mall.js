@@ -1,8 +1,9 @@
 $(function(){
-	$("body").on( "submit",".category .form-delete", category_delete );	
-	$("body").on( "click",".category .add", category_add );
-	$("body").on( "click",".category .edit", category_edit );
-	$("body").on( "click",".category .cancel", category_cancel );
+    var $body = $('body');
+	//$("body").on( "submit",".category .form-delete", category_delete );
+	$body.on( "click",".category .add", category_add );
+    $body.on( "click",".category .edit", category_edit );
+    $body.on( "click",".category .cancel", category_cancel );
 	
 	//ajax_api_mall( { call:'test' }, test_callback );
 });
@@ -27,10 +28,12 @@ function category_edit(){
 	$(".category[category-id='" + id + "']").addClass("clicked");
 }
 
+/*
 function category_delete(){
 	re = confirm( "Are you sure you want to delete this category?\n Warning that deleting this category will delete ALL of it's sub categories." );
 	if( !re ) return false;
 }
+*/
 
 function category_cancel(){
 	 window.location.reload();

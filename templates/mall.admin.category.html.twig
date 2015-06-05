@@ -29,19 +29,7 @@
 						</span>
 					<div class='button-wrapper'>
 						<span class='command edit' root-id = '0'id='{{ group.id.value }}'>Edit</span>
-						<form class='form-delete' action='/mall/admin/category/group/del'>
-							<fieldset>
-								<!--temp commented due to css conflict <legend></legend>-->
-								<div class="row">
-									<div class="value">
-										<div class="element">										
-											<input type='hidden' name='id' value='{{ group.id.value }}'>
-											<input type="submit" value="Delete">
-										</div>
-									</div>
-								</div>
-							</fieldset>
-						</form>
+                        <a href="/mall/admin/category/group/del?id={{ group.id.value }}" onclick="return confirm('Delete {{ group.name.value }} and all of its subcategories?');">Delete</a>
 					</div>
                 </div>
             {% endfor %}

@@ -42,7 +42,7 @@ class CategoryController extends ControllerBase {
   }
   
   public static function del() {
-	$id =  \Drupal::request()->get('id', 0);
+	$id =  x::in('id');
     
 	if( $id == 0 ) $redirect_url = '/mall/admin/category';
 	else{
