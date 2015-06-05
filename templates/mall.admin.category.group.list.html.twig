@@ -1,11 +1,11 @@
 {% set group = data.group %}
-<div class='mall-admin-page'>
+<div class='mall-admin-page'>	
+	<div class='title'>Sub categories of {{ group.name.value }}</div>
 	<div class='top-menu'>
 		<a href='/mall/admin'>Admin Page</a>
 		<a href='/mall/admin/category'>Group Category List</a>
 	</div>
-	<div class='category-list'>
-		<div class='title'>Sub categories of {{ group.name.value }}</div>
+	<div class='content-wrapper category-list'>		
 		<div class='root-form-wrapper'>			
 			 <form class='form-add' action='/mall/admin/category/group/add'>
 				<fieldset>
@@ -26,29 +26,27 @@
         {% include 'modules/mall/templates/error.html.twig' %}
 
 		{% for c in data.children %}
-			{% if c.depth <= 3 %}
-				{% set indent = 10 * c.depth %}
-			{% else %}
-				{% set indent = 30 + 4 * c.depth %}
-			{% endif %}
+			{% set indent = 20 * c.depth %}
 			
 			<div class='category' category-id = {{ c.entity.id.value }} depth='{{ c.depth }}' style='margin-left:{{ indent }}px;'>
 				<span class='label'><span class='category-name'>{{ c.entity.name.value }}</span></span>				
-				<span class='command add' id='{{ c.entity.id.value }}'>Add</span>
-				<span class='command edit' id='{{ c.entity.id.value }}'>Edit</span>
-				<form class='form-delete' action='/mall/admin/category/group/del'>
-					<fieldset>
-						<!--temp commented due to css conflict <legend></legend>-->
-						<div class="row">
-							<div class="value">
-								<div class="element">									
-									<input type='hidden' name='id' value='{{ c.entity.id.value }}'>
-									<input type="submit" value="Delete">
+				<div class='button-wrapper'>
+					<span class='command add' id='{{ c.entity.id.value }}'>Add</span>
+					<span class='command edit' id='{{ c.entity.id.value }}'>Edit</span>
+					<form class='form-delete' action='/mall/admin/category/group/del'>
+						<fieldset>
+							<!--temp commented due to css conflict <legend></legend>-->
+							<div class="row">
+								<div class="value">
+									<div class="element">									
+										<input type='hidden' name='id' value='{{ c.entity.id.value }}'>
+										<input type="submit" value="Delete">
+									</div>
 								</div>
 							</div>
-						</div>
-					</fieldset>
-				</form>				
+						</fieldset>
+					</form>
+				</div>
 			</div>
 		{% endfor %}
 	</div>

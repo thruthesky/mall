@@ -1,99 +1,24 @@
 .mall-admin-page{
-    padding:10px;
+    /*padding:10px;*/
     background-color:#ffffff;
 }
 
 .mall-admin-page .title{
-    font-size:1.5em;
-    font-weight:bold;
-}
-
-.mall-admin-page form{
-    display:inline-block;
-}
-
-.mall-admin-page form .row{
-    display:inline-block;
-}
-
-.mall-admin-page input[type='text']{
-    padding:2px 5px;
-    border:1px solid #000000;
-    box-sizing:border-box;
-}
-
-.mall-admin-page input[type='submit']{
-	display: inline-block;
-	padding:2px 5px;
-	border: 1px solid #003366;
-	border-radius:2px;
-	background-color: #f2f2f2;	
-	font-weight:bold;
-	color: #003366;	
-	box-sizing:border-box;
-	cursor:pointer;
-}
-
-.mall-admin-page .form-delete input[type='submit']{	
-	font-weight:normal;	
-}
-
-.mall-admin-page input[type='submit']:hover{
-	background-color: #004466;
+	padding: 10px;
+	margin-bottom:10px;
+	background-color: #003366;
 	color: #ffffff;	
+	font-size: 1.5em;
+	text-align: center;	
 }
 
-.mall-admin-page .form-update input[type='text']{
-    margin-right:5px;
-    width:100px;
-}
-
-
-.admin-category .list .category{
-    padding:5px 0;
-}
-
-.category .command{
-	display: inline-block;
-	padding:2px 5px;
-	border: 1px solid #003366;
-	border-radius:2px;
-	background-color: #f2f2f2;
-	color: #003366;
-    box-sizing:border-box;
-    cursor:pointer;
-}
-
-.category .command:hover{
-	background-color: #004466;
-    color: #ffffff;	
-}
-
-.category .command.cancel{
-	margin-left:3px;
-	font-weight:bold;
-}
-
-/*category-list*/
-.category-list{
-	
-}
-
-.category-list .root-form-wrapper{
-    margin-bottom:20px;
-}
-
-.category-list .category{
-    padding:5px 0;
-    margin-bottom:10px;
-}
-
-.category-list .category .label .category-name{
-    margin-right:5px;
+.mall-admin-page .content-wrapper{
+	padding:0 10px
 }
 
 /*top-menu*/
 .top-menu{
+	padding:0 10px;
 	margin-bottom:10px;
 	text-align:right;
 }
@@ -110,4 +35,133 @@
 .top-menu > a:hover{
 	background-color: #004466;
 	color: #ffffff;	
+}
+/*eo top-menu*/
+
+/*form*/
+.mall-admin-page form{
+    display:inline-block;
+}
+
+.mall-admin-page form .row{
+    display:inline-block;
+}
+
+.mall-admin-page input[type='text']{
+    padding:4px 5px;
+    border:1px solid #003366;
+    box-sizing:border-box;
+}
+
+.mall-admin-page input[type='submit'], .category .command{
+	display: inline-block;
+	padding:5px 10px;
+	/*border: 1px solid #003366;*/
+	border-radius:2px;
+	background-color: #003366;	
+	/*color: #003366;*/
+	color:#ffffff;
+	box-sizing:border-box;
+	cursor:pointer;
+}
+
+.mall-admin-page input[type='submit']{
+	border:0;
+}
+/*
+.mall-admin-page .form-delete input[type='submit']{	
+	font-weight:normal;	
+}
+*/
+.mall-admin-page input[type='submit']:hover, .category .command:hover{
+	color:yellow;
+}
+
+
+.mall-admin-page .form-update input[type='text']{
+    margin-right:5px;
+    width:100px;
+}
+
+
+.mall-admin-page .category{
+	height:44px;
+    padding:10px;
+	margin-bottom:0;
+	box-sizing:border-box;
+}
+
+.mall-admin-page .category .button-wrapper{
+    display:none;
+}
+
+.mall-admin-page .category:hover{
+	background-color:#f2f2f2;
+}
+
+.mall-admin-page .category:hover .button-wrapper{
+    display:inline;
+}
+
+
+.mall-admin-page .category.clicked .button-wrapper{
+    display:inline;
+}
+
+/*
+.category .command{
+	display: inline-block;
+	padding:2px 5px;
+	border: 1px solid #003366;
+	border-radius:2px;
+	background-color: #f2f2f2;
+	color: #003366;
+    box-sizing:border-box;
+    cursor:pointer;
+}
+
+.category .command:hover{
+	background-color: #004466;
+    color: #ffffff;	
+}
+*/
+.category .command.cancel{
+	margin:0 15px 0 3px;
+	/*font-weight:bold;*/
+}
+/*eo form*/
+
+/*category-name*/
+.mall-admin-page .label{
+	font-weight:normal
+}
+
+.mall-admin-page .label .category-name{	
+	display:inline-block;
+    margin:5px 5px 3px 0;
+	font-weight:bold;
+	/*font-size:1.3em;*/
+}
+
+.mall-admin-page .label .name.user-profile{
+	font-weight:bold;
+	color:blue;
+}
+/*eo category-name*/
+
+/*category-list*/
+.category-list{
+	
+}
+
+.category-list .root-form-wrapper{
+    margin-bottom:20px;
+}
+
+.category-list .category .label input[type='submit']{
+    font-weight:normal;
+}
+
+.category-list .category .label .command{
+    font-weight:normal;
 }

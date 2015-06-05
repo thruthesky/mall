@@ -13,6 +13,8 @@ function category_add(){
 	var form = renderAddForm( id );
 	$(".category .add[id='" + id + "']").before( form );
 	$this.remove();
+	console.log( $(".category[category-id='" + id + "']").length );
+	$(".category[category-id='" + id + "']").addClass("clicked");
 }
 
 function category_edit(){
@@ -21,6 +23,8 @@ function category_edit(){
 	var form = renderEditForm( id );
 	$(".category[category-id='" + id + "'] .label .category-name").html( form );
 	$this.remove();
+	
+	$(".category[category-id='" + id + "']").addClass("clicked");
 }
 
 function category_delete(){

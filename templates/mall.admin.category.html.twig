@@ -1,6 +1,6 @@
 <div class='mall-admin-page'>
-    <div class='admin-category'>
-        <div class='title'>Add a parent Category</div>
+	<div class='title'>Add a parent Category</div>
+    <div class='content-wrapper admin-category'>        
         <form class='form-add' action='/mall/admin/category/group/add'>
             <fieldset>
                 <!--temp commented due to css conflict <legend></legend>-->
@@ -23,23 +23,25 @@
 						<span class='label'>
 							<span class='category-name'>
 								<a href="/mall/admin/category/group/list?parent_id={{ group.id.value }}">{{ group.name.value }}</a>
-							</span>:
+							</span> by
 							<span class="name user-profile" uid="{{ group.user_id.target_id }}">{{ group.user_id.entity.name.value }}</span>
-						</span>                    
-					<span class='command edit' root-id = '0'id='{{ group.id.value }}'>Edit</span>
-					<form class='form-delete' action='/mall/admin/category/group/del'>
-						<fieldset>
-							<!--temp commented due to css conflict <legend></legend>-->
-							<div class="row">
-								<div class="value">
-									<div class="element">										
-										<input type='hidden' name='id' value='{{ group.id.value }}'>
-										<input type="submit" value="Delete">
+						</span>
+					<div class='button-wrapper'>
+						<span class='command edit' root-id = '0'id='{{ group.id.value }}'>Edit</span>
+						<form class='form-delete' action='/mall/admin/category/group/del'>
+							<fieldset>
+								<!--temp commented due to css conflict <legend></legend>-->
+								<div class="row">
+									<div class="value">
+										<div class="element">										
+											<input type='hidden' name='id' value='{{ group.id.value }}'>
+											<input type="submit" value="Delete">
+										</div>
 									</div>
 								</div>
-							</div>
-						</fieldset>
-					</form>
+							</fieldset>
+						</form>
+					</div>
                 </div>
             {% endfor %}
         </div>
