@@ -28,8 +28,8 @@ class Category extends ContentEntityBase implements CategoryInterface {
 
   public static function add($parent_id, $name) {
 	if( empty( $name ) ) {
-      // @todo find a better and unified way to handle error.
-		return "Name is empty!";
+      // @todo find a better and unified way to handle error.		  
+		 return x::error(x::ERROR_BLANK_CATEGORY_NAME);
 	}
 
     $brothers = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$parent_id, 'name'=>$name]);

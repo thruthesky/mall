@@ -10,6 +10,7 @@ namespace Drupal\mall;
 class x {
 
   const ERROR_CATEGORY_EXIST = 'ERROR_CATEGORY_EXIST';
+  const ERROR_BLANK_CATEGORY_NAME = 'ERROR_BLANK_CATEGORY_NAME';
 
 
   static $input = [];
@@ -264,6 +265,7 @@ class x {
 
     switch( $code ) {
       case self::ERROR_CATEGORY_EXIST : $msg = "The category '#name' is already exists under '#parent'."; break;
+      case self::ERROR_BLANK_CATEGORY_NAME : $msg = "Category name cannot be blank!."; break;
       default: $msg = 'Unknown'; break;
     }
     return $msg;
