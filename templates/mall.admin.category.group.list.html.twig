@@ -44,7 +44,7 @@
 					<div class='button-wrapper'>
 						<span class='command add' id='{{ c.entity.id.value }}'>Add</span>
 						<span class='command edit' id='{{ c.entity.id.value }}'>Edit</span>
-						<a class='command' href='/mall/admin/category/group/del?id={{ c.entity.id.value }}' onclick="return category_delete( {{ c.entity.id.value }} )">Delete</a>
+						<a class='command' href='/mall/admin/category/group/del?id={{ c.entity.id.value }}' onclick="return category_delete( {{ c.entity.name.value }} )">Delete</a>
 					</div>					
 				</td>
 			</tr>
