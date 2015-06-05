@@ -1,8 +1,8 @@
 $(function(){
-	$("body").on( "submit",".category .form-delete", category_delete );	
-	$("body").on( "click",".category .add", category_add );
-	$("body").on( "click",".category .edit", category_edit );
-	$("body").on( "click",".category .cancel", category_cancel );
+	//$("body").on( "submit",".category-table .category .form-delete", category_delete );	
+	$("body").on( "click",".category-table .button-wrapper .add", category_add );
+	$("body").on( "click",".category-table .button-wrapper .edit", category_edit );
+	$("body").on( "click",".category-table .button-wrapper .cancel", category_cancel );
 	
 	//ajax_api_mall( { call:'test' }, test_callback );
 });
@@ -11,10 +11,8 @@ function category_add(){
 	$this = $(this);
 	var id = $this.attr("id");
 	var form = renderAddForm( id );
-	$(".category .add[id='" + id + "']").before( form );
-	$this.remove();
-	console.log( $(".category[category-id='" + id + "']").length );
-	$(".category[category-id='" + id + "']").addClass("clicked");
+	$(".category[category-id='" + id + "']").after( form );
+	$this.remove();	
 }
 
 function category_edit(){
@@ -23,13 +21,13 @@ function category_edit(){
 	var form = renderEditForm( id );
 	$(".category[category-id='" + id + "'] .label .category-name").html( form );
 	$this.remove();
-	
-	$(".category[category-id='" + id + "']").addClass("clicked");
 }
 
-function category_delete(){
+function category_delete( e ){
 	re = confirm( "Are you sure you want to delete this category?\n Warning that deleting this category will delete ALL of it's sub categories." );
-	if( !re ) return false;
+	if( !re ) {
+		e.preventDefault();
+	}
 }
 
 function category_cancel(){

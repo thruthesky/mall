@@ -23,30 +23,32 @@
 				</fieldset>
 			</form>	
 		</div>        
-
+		<table class='category-table sub' cellpadding=0 cellspacing=0 width='100%'>
+			<tr class='header'>
+				<td width='33.33%'>Category Name</td>				
+				<td width='33.33%'>Children</td>
+				<td width='33.33%'>Commands</td>
+			</tr>
 		{% for c in data.children %}
 			{% set indent = 20 * c.depth %}
-			
-			<div class='category' category-id = {{ c.entity.id.value }} depth='{{ c.depth }}' style='margin-left:{{ indent }}px;'>
-				<span class='label'><span class='category-name'>{{ c.entity.name.value }}</span></span>				
-				<div class='button-wrapper'>
-					<span class='command add' id='{{ c.entity.id.value }}'>Add</span>
-					<span class='command edit' id='{{ c.entity.id.value }}'>Edit</span>
-					<form class='form-delete' action='/mall/admin/category/group/del'>
-						<fieldset>
-							<!--temp commented due to css conflict <legend></legend>-->
-							<div class="row">
-								<div class="value">
-									<div class="element">									
-										<input type='hidden' name='id' value='{{ c.entity.id.value }}'>
-										<input type="submit" value="Delete">
-									</div>
-								</div>
-							</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
+			<tr>
+				<td>
+					<div class='category' category-id = {{ c.entity.id.value }} depth='{{ c.depth }}' style='margin-left:{{ indent }}px;'>
+						<span class='label'><span class='category-name'>{{ c.entity.name.value }}</span></span>
+					</div>
+				</td>
+				<td>
+					x
+				</td>
+				<td>					
+					<div class='button-wrapper'>
+						<span class='command add' id='{{ c.entity.id.value }}'>Add</span>
+						<span class='command edit' id='{{ c.entity.id.value }}'>Edit</span>
+						<a class='command' href='/mall/admin/category/group/del?id={{ c.entity.id.value }}' onclick="category_delete( event )">Delete</a>
+					</div>					
+				</td>
+			</tr>
 		{% endfor %}
+		</table>
 	</div>
 </div>
