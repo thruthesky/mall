@@ -16,6 +16,19 @@
 	padding:0 10px
 }
 
+/*error*/
+.mall-admin-page div.mall-error{	
+	padding: 10px;
+	margin:0 10px 10px 10px;
+	border: 1px solid #cc0000;
+	border-radius: 2px;
+	background-color: #f2f2f2;
+	font-size: 1.2em;
+	color: #cc0000;
+	text-align:center;
+}
+/*eo error*/
+
 /*top-menu*/
 .top-menu{
 	padding:0 10px;

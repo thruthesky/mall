@@ -1,6 +1,7 @@
 {% set group = data.group %}
 <div class='mall-admin-page'>	
 	<div class='title'>Sub categories of {{ group.name.value }}</div>
+	{% include 'modules/mall/templates/error.html.twig' %}
 	<div class='top-menu'>
 		<a href='/mall/admin'>Admin Page</a>
 		<a href='/mall/admin/category'>Group Category List</a>
@@ -21,9 +22,7 @@
 					</div>
 				</fieldset>
 			</form>	
-		</div>
-
-        {% include 'modules/mall/templates/error.html.twig' %}
+		</div>        
 
 		{% for c in data.children %}
 			{% set indent = 20 * c.depth %}
