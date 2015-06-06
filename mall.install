@@ -1,1 +1,25 @@
 <?php
+function mall_schema()
+{
+  $schema['mall_member'] = array(
+    'description' => 'To store all member information.',
+    'fields' => array(
+      'id'     => array('type' => 'serial','unsigned'=>TRUE,'not null'=>TRUE),
+      'uid'     => array('type' => 'int','unsigned'=>TRUE,'not null'=>TRUE, 'default'=>0),
+      'code'     => array('type' => 'varchar', 'default'=>'', 'length' => 64),
+      'value'     => array('type' => 'varchar','length' => 4096,'not null' => TRUE, 'default' => ''),
+    ),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'uid_code' => array('uid','code'),
+    ),
+  );
+  return $schema;
+}
+function mall_install()
+{
+}
+function mall_uninstall()
+{
+  db_drop_table('office_config');
+}
