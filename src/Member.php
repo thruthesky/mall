@@ -168,8 +168,7 @@ class Member {
 		<div class='title'>$title</div>
 		<div class='description'>This form is for Market Only.</div>
         <form class='account' type='POST' action="/mall/member/register/submit">
-        <fieldset>
-            <input type="hidden" name="uid" value="$myUid">
+        <fieldset>            
 			<div class='group one'>
 			<table cellpadding=0 cellspacing=0 width='100%'>
 				<tr valign='top' class='row'>

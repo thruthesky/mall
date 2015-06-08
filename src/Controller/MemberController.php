@@ -9,6 +9,7 @@ class MemberController extends ControllerBase {
 	public static function register() {
 		$data = [];
 		
+		//just checks if the user is logged in or not
 		if( x::myUid() ) $data['form'] = Member::mallMemberForm();
 		else $data['error'] = x::error( x::ERROR_PLEASE_LOGIN_FIRST );
 		
@@ -19,25 +20,25 @@ class MemberController extends ControllerBase {
 	}
 	
 	public static function registerSubmit() {
-		if( x::myUid() ){
-			if( x::in('uid') ){
-				$register_data = [];
-				$register_data['uid'] = x::in('uid');			
-				if( x::in('first_name') ) $register_data['first_name'] = x::in('first_name');
-				if( x::in('last_name') ) $register_data['last_name'] = x::in('last_name');
-				if( x::in('middle_name') ) $register_data['middle_name'] = x::in('middle_name');
-				if( x::in('mail') ) $register_data['mail'] = x::in('mail');
-				if( x::in('mobile') ) $register_data['mobile'] = x::in('mobile');			
-				if( x::in('gender') ) $register_data['gender'] = x::in('gender');
-				if( x::in('birth_month') ) $register_data['birth_month'] = x::in('birth_month');
-				if( x::in('birth_day') ) $register_data['birth_day'] = x::in('birth_day');
-				if( x::in('birth_year') ) $register_data['birth_year'] = x::in('birth_year');
-				if( x::in('location') ) $register_data['location'] = x::in('location');
+	
+		//just checks if the user is logged in or not
+		if( x::myUid() ){			
+			$register_data = [];
+			$register_data['uid'] = x::myUid();
+			if( x::in('first_name') ) $register_data['first_name'] = x::in('first_name');
+			if( x::in('last_name') ) $register_data['last_name'] = x::in('last_name');
+			if( x::in('middle_name') ) $register_data['middle_name'] = x::in('middle_name');
+			if( x::in('mail') ) $register_data['mail'] = x::in('mail');
+			if( x::in('mobile') ) $register_data['mobile'] = x::in('mobile');			
+			if( x::in('gender') ) $register_data['gender'] = x::in('gender');
+			if( x::in('birth_month') ) $register_data['birth_month'] = x::in('birth_month');
+			if( x::in('birth_day') ) $register_data['birth_day'] = x::in('birth_day');
+			if( x::in('birth_year') ) $register_data['birth_year'] = x::in('birth_year');
+			if( x::in('location') ) $register_data['location'] = x::in('location');
 
-				Member::update($register_data);
-				
-				return new RedirectResponse( "/mall/member/register/" );
-			}
+			Member::update($register_data);
+			
+			return new RedirectResponse( "/mall/member/register/" );
 		}
 		else{
 			return new RedirectResponse( "/mall/member/register/" );
