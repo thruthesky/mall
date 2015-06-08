@@ -22,7 +22,7 @@ class x {
 
   public static function getThemeName() {
     $uri = \Drupal::request()->getRequestUri();
-    if ( $uri == '/mall' ) return 'mall.mall'; // this is the entry key of routing.yml
+    if ( $uri == '/mall' or $uri == '/mall/' ) return 'mall.mall'; // this is the entry key of routing.yml
     //$uri = substr($uri, 1);
     list($uri, $trash) = explode('?', $uri, 2);
     $uri = trim($uri, '/ ');
@@ -363,4 +363,11 @@ class x {
         }
 	    */
     }
+
+  public static function getDefaultInformation(array &$data) {
+    $uid = x::myUid();
+    $data['member'] = Member::gets($uid);
+    //$data['user'] = \Drupal::currentUser()->getAccount();
+    $data['user'] = User::load($uid);
+  }
 }

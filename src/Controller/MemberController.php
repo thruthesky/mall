@@ -10,9 +10,12 @@ class MemberController extends ControllerBase {
 		$data = [];
 		
 		//just checks if the user is logged in or not
-		if( x::myUid() ) $data['form'] = Member::mallMemberForm();
-		else $data['error'] = x::error( x::ERROR_PLEASE_LOGIN_FIRST );
-		
+		if( $uid = x::myUid() ) {
+          x::getDefaultInformation($data);
+        }
+		else {
+          //$data['error'] = x::error( x::ERROR_PLEASE_LOGIN_FIRST );
+        }
 		return [
 			'#theme' => x::getThemeName(),
 			'#data' => $data,
@@ -22,7 +25,7 @@ class MemberController extends ControllerBase {
 	public static function registerSubmit() {
 	
 		//just checks if the user is logged in or not
-		if( x::myUid() ){			
+		if( x::myUid() ) {
 			$register_data = [];
 			$register_data['uid'] = x::myUid();
 			if( x::in('first_name') ) $register_data['first_name'] = x::in('first_name');
