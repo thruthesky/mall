@@ -11,4 +11,11 @@ class MallController extends ControllerBase {
 			'#data' => $data,
 		];
 	}
+  public function firstPage() {
+    $data = [];
+    return [
+      '#theme' => x::getThemeName(),
+      '#data' => $data,
+    ];
+  }
 }

@@ -17,7 +17,7 @@ class x {
 
   public static function getThemeName() {
     $uri = \Drupal::request()->getRequestUri();
-    if ( $uri == '/mall' ) return 'mall';
+    if ( $uri == '/mall' ) return 'mall.mall'; // this is the entry key of routing.yml
     //$uri = substr($uri, 1);
     list($uri, $trash) = explode('?', $uri, 2);
     $uri = trim($uri, '/ ');

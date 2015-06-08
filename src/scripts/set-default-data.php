@@ -2,11 +2,40 @@
 use Drupal\mall\Entity\Category;
 use Drupal\mall\Entity\Item;
 use Drupal\mall\Mall;
+use Drupal\mall\Member;
 Mall::emptyData();
 
-set_default_data();
+set_default_category();
+set_default_member();
 
-function set_default_data() {
+function set_default_member() {
+  Member::add([
+    'uid' => 1,
+    'first_name' => 'JaeHo',
+    'last_name' => 'Song',
+    'middle_name' => 'Does not look working',
+    'email' => 'admin@drupal.com',
+    'mobile' => '0917-467-8603',
+  ]);
+
+  Member::add([
+    'uid' => 2,
+    'first_name' => 'Second',
+    'last_name' => 'SLast',
+    'middle_name' => 'M',
+    'email' => 'second@drupal.com',
+    'mobile' => '0917-000-1234',
+  ]);
+
+
+  Member::update(['uid'=>2, 'email'=>'2 new email']);
+
+  echo Member::set(1, 'email', 'this is admin email');
+  echo Member::get(1, 'email');
+
+}
+
+function set_default_category() {
 
 	Mall::Login('admin');
 
