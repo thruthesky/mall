@@ -21,5 +21,5 @@ function mall_install()
 }
 function mall_uninstall()
 {
-  db_drop_table('office_config');
+  db_drop_table('mall_member');
 }

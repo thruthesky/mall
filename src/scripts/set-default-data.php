@@ -27,8 +27,8 @@ function set_default_data() {
 	$id_keyboard = Category::add($id_computer, 'keyboard');
 	$id_laptop = Category::add($root_id_discount, 'Laptops');	
 
-	Category::update($id_starex, 'Van');
-	Category::del($id_bicycle);
+	//Category::update($id_starex, 'Van');
+	//Category::del($id_bicycle);
 
 
 
