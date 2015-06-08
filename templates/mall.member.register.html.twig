@@ -1,0 +1,9 @@
+<div class='mall-page'>	
+	<section class="content user-account">		
+		{% if data.error %}			
+			<div class='mall-error'>{{ data.error[1] }}</div>	
+		{% else %}
+		{{ data.form | raw }}
+		{% endif %}
+	</section>
+</div>

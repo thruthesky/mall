@@ -14,7 +14,9 @@ function mall_theme()
       'variables' => [ 'data' => null],
       'template' => $name
     ];
+		
   }
+  
   return $themes;
 }
 	

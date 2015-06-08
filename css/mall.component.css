@@ -32,7 +32,7 @@
 }
 
 /*error*/
-.mall-admin-page div.mall-error{	
+.mall-admin-page div.mall-error, .mall-page div.mall-error{	
 	padding: 10px;
 	margin:0 10px 10px 10px;
 	border: 1px solid #cc0000;
@@ -176,6 +176,27 @@
     display:inline;
 }
 */
+
+.mall-page{	
+	background-color:#ffffff;
+}
+
+.mall-page .title{	
+	margin-bottom: 3px;
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #4b4b4b;
+}
+
+.mall-page .description{	
+	margin: 0 0 2px 3px;
+	color: #818181;
+}
+
+.mall-page .content{	
+	padding:10px;
+}
+
 /*
 .category .command{
 	display: inline-block;
@@ -193,6 +214,7 @@
     color: #ffffff;	
 }
 */
+
 .category .command.cancel{
 	margin:0 15px 0 3px;
 	/*font-weight:bold;*/

@@ -4,10 +4,18 @@ mall.mall:
     _controller: Drupal\mall\Controller\MallController::firstPage
   requirements:
     _permission: 'access content'
+
 mall.member.register:
   path: '/mall/member/register'
   defaults:
     _controller: Drupal\mall\Controller\MemberController::register
+  requirements:
+    _permission: 'access content'
+
+mall.member.register.submit:
+  path: '/mall/member/register/submit'
+  defaults:
+    _controller: Drupal\mall\Controller\MemberController::registerSubmit
   requirements:
     _permission: 'access content'
 

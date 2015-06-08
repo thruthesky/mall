@@ -1,5 +1,8 @@
 <?php
 namespace Drupal\mall;
+use Drupal\mall\HTML;
+use Drupal\user\Entity\User;
+
 /**
  * Class X
  * @package Drupal\mall
@@ -11,6 +14,8 @@ class x {
 
   const ERROR_CATEGORY_EXIST = 'ERROR_CATEGORY_EXIST';
   const ERROR_BLANK_CATEGORY_NAME = 'ERROR_BLANK_CATEGORY_NAME';
+  
+  const ERROR_PLEASE_LOGIN_FIRST = 'ERROR_PLEASE_LOGIN_FIRST';
 
 
   static $input = [];
@@ -262,10 +267,10 @@ class x {
   }
 
   private static function errorMessage($code) {
-
     switch( $code ) {
       case self::ERROR_CATEGORY_EXIST : $msg = "The category '#name' is already exists under '#parent'."; break;
       case self::ERROR_BLANK_CATEGORY_NAME : $msg = "Category name cannot be blank!."; break;
+      case self::ERROR_PLEASE_LOGIN_FIRST : $msg = "Please login first!."; break;
       default: $msg = 'Unknown'; break;
     }
     return $msg;
@@ -284,5 +289,78 @@ class x {
     else if ( is_array($re) && strpos($re[0], 'ERROR') !== false ) return true;
     return false;
   }
+  
+  
+  
+  
+  
+  
+  
+  /*------------*/
+  
+  public static function my( $field )
+    {
+        if ( $field == 'uid' ) return \Drupal::currentUser()->getAccount()->id();
+        else if ( $field == 'uid' ) return \Drupal::currentUser()->getAccount()->getUsername();
+        else if ( $field == 'name' ) return \Drupal::currentUser()->getAccount()->getUsername();
+        else if ( $field == 'mail' ) return \Drupal::currentUser()->getAccount()->getEmail();
+        else {
+	        $user = User::load( \Drupal::currentUser()->getAccount()->id() );
+	        return x::getExtraField($field, $user);
+        }
+    }
 
+	
+	public static function getExtraField($field, User &$user)
+    {
+
+        global $_getExtraField;
+
+	    if ( ! isset($_getExtraField) ) $_getExtraField = [];
+
+
+	    $field = "field_$field";
+	    $uid = $user->id();
+
+	    /**
+	     *
+	     */
+	    if ( isset( $_getExtraField[$uid][ $field ] ) ) {
+		    return $_getExtraField[$uid][ $field ];
+	    }
+
+	    if ( $user->hasField($field) ) {
+		    $value = $user->get($field)->value;
+		    if ( ! $value ) $value = '';
+	    }
+	    else $value = '';
+
+
+
+
+	    $_getExtraField[$uid][ $field ] = $value;
+	    return $_getExtraField[$uid][ $field ];
+
+	    /*
+
+
+        if ( $user === null ) {
+            $user = User::load(self::myUid());
+        }
+
+        $uid = $user->id();
+
+
+        if ( isset( $_getExtraField[$uid][ $field ] ) ) return $_getExtraField[$uid][ $field ];
+
+        $value = null;
+        $record = $user->get('field_'.$field);
+        if ( $record ) {			
+            $record_value = $record->getValue();
+            if ($record_value && isset($record_value[0]) && isset($record_value[0]['value'])) {
+				$value = $record_value[0]['value'];				
+            }
+        }
+	    */
+    }
 }
