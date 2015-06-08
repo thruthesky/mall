@@ -101,7 +101,7 @@
 	font-weight:normal;	
 }
 */
-.mall-admin-page input[type='submit']:hover, .category .command:hover{
+.mall-admin-page input[type='submit']:hover, .mall-admin-page .command:hover{
 	color:yellow;
 }
 
