@@ -17,6 +17,8 @@ class x {
   
   const ERROR_PLEASE_LOGIN_FIRST = 'ERROR_PLEASE_LOGIN_FIRST';
   const ERROR_USER_EXISTS = 'ERROR_USER_EXISTS';
+  
+  const ERROR_NOT_YOUR_ID = 'ERROR_NOT_YOUR_ID';
 
 
   static $input = [];
@@ -280,6 +282,8 @@ class x {
       case self::ERROR_CATEGORY_EXIST : $msg = "The category '#name' is already exists under '#parent'."; break;
       case self::ERROR_BLANK_CATEGORY_NAME : $msg = "Category name cannot be blank!."; break;
       case self::ERROR_PLEASE_LOGIN_FIRST : $msg = "Please login first!."; break;
+      case self::ERROR_USER_EXISTS : $msg = "The username [ #name ] already exists!."; break;
+      case self::ERROR_NOT_YOUR_ID : $msg = "The account that your are trying to edit is not yours. You are now redirected to your own account page"; break;      
       default: $msg = 'Unknown'; break;
     }
     return $msg;
@@ -379,6 +383,14 @@ class x {
     //$data['user'] = \Drupal::currentUser()->getAccount();
     $data['user'] = User::load($uid);
   }
+  
+  public static function getInformationByUid( $uid ) {    
+	$data = [];
+    $data['member'] = Member::gets($uid);    
+    $data['user'] = User::load($uid);
+	
+	return $data;
+  }
 
   /**
    * @param $username
@@ -414,4 +426,39 @@ class x {
     $user = user_load_by_name($username);
     user_login_finalize( $user );
   }
+  
+  
+  /*added by benjamin*/
+  public static function deleteUserByUid( $uid ){
+	$user = User::load( $uid );
+	$user->delete();
+	
+	db_delete( Member::TABLE )      
+		  ->condition('uid', $uid)
+		  ->execute();	
+  }
+  
+ /***********************/
+  public static function isAdmin(){
+	$user = User::load( x::myUid() );	
+  
+	if( $user->roles->target_id == 'administrator' ) return 1;
+	else return 0;
+	 
+  }
+  
+   /*
+  *in('uid') should always be available
+  *
+  */
+  public static function isMyAccount(){
+	if( self::in('uid') != self::myUid() ){
+		$error = x::error(x::ERROR_NOT_YOUR_ID);
+		return "?error=".$error[0]."&message=".$error[1];
+	  }
+	 else{
+		return 0;
+	 }
+  }
+  /*-----------*/
 }

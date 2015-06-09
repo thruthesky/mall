@@ -1,9 +1,9 @@
 $(function(){
     var $body = $('body');
     //$("body").on( "submit",".category-table .category .form-delete", category_delete );
-    $("body").on( "click",".category-table .button-wrapper .add", category_add );
-    $("body").on( "click",".category-table .button-wrapper .edit", category_edit );
-    $("body").on( "click",".category-table .cancel", category_cancel );
+    $("body").on( "click",".category .button-wrapper .add", category_add );
+    $("body").on( "click",".category .button-wrapper .edit", category_edit );
+    $("body").on( "click",".category .cancel", category_cancel );
 	
 	//ajax_api_mall( { call:'test' }, test_callback );
 });
@@ -30,6 +30,10 @@ function category_edit(){
 
 function category_delete( e ){
 	return confirm( "Are you sure you want to delete - "+e+"?" );
+}
+
+function member_delete( e ){
+	return confirm( "Are you sure you want to delete member - "+e+"?" );
 }
 
 function category_cancel(){

@@ -89,3 +89,10 @@ mall.admin.member.list:
     _controller: Drupal\mall\Controller\MemberController::collection
   requirements:
     _permission: 'access content'
+
+mall.admin.member.delete:
+  path: '/mall/admin/member/delete'
+  defaults:
+    _controller: Drupal\mall\Controller\MemberController::del
+  requirements:
+    _permission: 'access content'

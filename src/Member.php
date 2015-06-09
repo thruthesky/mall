@@ -28,6 +28,13 @@ class Member {
     self::update_member_attribute($uid, $info);
   }
 
+  
+  public static function del( $uid ){
+	x::deleteUserByUid( $uid );	
+  }
+  
+  
+  
   /**
    *
    *
@@ -39,13 +46,13 @@ class Member {
   public static function update($info)
   {
     $uid = $info['uid'];
-    unset($info['uid']);
+    //unset($info['uid']);
     self::update_member_attribute($uid, $info);
   }
 
   private static function update_member_attribute($uid, $info) {
     $insert_uid = self::get($uid, 'uid');
-
+di( $info );
     foreach( $info as $code => $value ) {
 	  /*
 	  *I need to do this query because of the table structure
@@ -120,6 +127,27 @@ class Member {
     while( $row = $res->fetchAssoc(\PDO::FETCH_ASSOC) ) {
       $info[$row['code']] = $row['value'];
     }
+    return $info;
+  }
+
+  /**
+   *
+   *
+   */
+  public static function getMemberList() {  
+	$data = [];
+	$res = db_select(self::TABLE, 't')
+			->fields('t')
+			->condition('code', 'uid')
+			->execute();
+		
+	$member_ids = $res->fetchAllAssoc('uid', \PDO::FETCH_ASSOC);
+    $info = [];
+	
+    foreach( $member_ids as $member_id ) {
+		$info[ $member_id['value'] ] = x::getInformationByUid( $member_id['value'] );
+    }
+	//di( $info );exit;
     return $info;
   }
 }
