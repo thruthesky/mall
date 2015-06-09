@@ -420,7 +420,7 @@ class x {
     $user->enforceIsNew();
     $user->save();
 	
-	//added by benjamin for test.. When and where is the UID field saved inside the mall_member?
+	//added by benjamin for test.. When and where is the UID field saved inside the mall_member aside from this...?
 	Member::set( $user->id(), 'uid', $user->id() );
 	
     return 0;
