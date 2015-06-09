@@ -283,7 +283,7 @@ class x {
       case self::ERROR_BLANK_CATEGORY_NAME : $msg = "Category name cannot be blank!."; break;
       case self::ERROR_PLEASE_LOGIN_FIRST : $msg = "Please login first!."; break;
       case self::ERROR_USER_EXISTS : $msg = "The username [ #name ] already exists!."; break;
-      case self::ERROR_NOT_YOUR_ID : $msg = "The account that your are trying to edit is not yours. You are now redirected to your own account page"; break;      
+      case self::ERROR_NOT_YOUR_ID : $msg = "The account that you are trying to edit is not yours. The page that you are seeing right now is your own account page"; break;      
       default: $msg = 'Unknown'; break;
     }
     return $msg;
