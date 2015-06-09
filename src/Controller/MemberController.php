@@ -58,4 +58,9 @@ class MemberController extends ControllerBase {
 	public static function add(){
 		 //x::in('parent_id');
 	}
+
+  public function collection()
+  {
+    di('hi');
+  }
 }
