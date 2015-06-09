@@ -1,6 +1,8 @@
 {% set member = data.member %}
 {% set user = data.user %}
 
+{% set month = { '1':'January','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'October','11':'November','12':'December' } %}
+
 <div class='mall-page'>
 	<section class="content user-account">		
 		{% if data.error %}			
@@ -14,11 +16,16 @@
                         <table cellpadding=0 cellspacing=0 width='100%'>
 
                             {% if logged_in %}
+							{% if( user.field_gender.value == 'M' ) %}
+								{% set M = 'selected' %}
+							{% elseif( user.field_gender.value == 'F' ) %}
+								{% set F = 'selected' %}
+							{% endif %}
                                 <tr valign='top' class='row username'>
                                     <td width='153'class='caption'>
                                         <span>Username</span>
                                     </td>
-                                    <td class='value'>
+                                    <td width='90%' class='value'>
                                         <span>{{ user.name.value }}</span>
                                     </td>
                                 </tr>
@@ -27,45 +34,47 @@
                                 <td width='153'class='caption'>
                                     <span>Username</span>
                                 </td>
-                                <td class='value'>
-                                    <span><input type="text" name="username" required placeholder="Username" value="{{ member.username }}"></span>
+                                <td width='90%' class='value'>
+                                    <span><input type="text" name="username" required placeholder="Username" value=""></span>
                                 </td>
                             </tr>
 
                             <tr valign='top' class='row password'>
-                                <td width='153' class='caption'>
+                                <td class='caption'>
                                     <span>Password</span>
                                 </td>
                                 <td class='value'>
-                                    <span><input type="password" name="password" required placeholder="Username" value="{{ member.username }}"></span>
+                                    <span><input type="password" name="password" required placeholder="Username" value=""></span>
                                 </td>
                             </tr>
                             {% endif %}
 
 
                             <tr valign='top' class='row'>
-                                <td width='153' class='caption'>
+                                <td class='caption'>
                                     <span>First Name</span>
                                 </td>
-                                <td>
-                                    <span class='value'><input type="text" name="first_name" required placeholder="First name" value="{{ member.first_name }}"></span>
+                                <td class='value'>
+                                    <span><input type="text" name="first_name" required placeholder="First name" value="{{ user.field_first_name.value }}"></span>
                                 </td>
                             </tr>
 
                             <tr valign='top' class='row'>
-                                <td>
-                                    <span class='caption'>Last Name</span>
+                                <td class='caption'>
+                                    <span>Last Name</span>
                                 </td>
-                                <td>
-                                    <span class='value'><input type="text" name="last_name" required placeholder="Last name"  value="$last_name"></span>
+                                <td class='value'>
+                                    <span><input type="text" name="last_name" required placeholder="Last name"  value="{{ user.field_last_name.value }}"></span>
                                 </td>
                             </tr>
                             <tr valign='top' class='row'>
-                                <td>
-                                    <span class='caption'>Middle Name</span>
+                                <td class='caption'>
+                                    <span>Middle Name</span>
                                 </td>
-                                <td>
-                                    <span class='value'><input type="text" name="middle_name" placeholder="Middle name"  value="$middle_name"></span>
+                                <td class='value'>
+                                    <span class='element'>
+										<input type="text" name="middle_name" placeholder="Middle name"  value="{{ user.field_middle_name.value }}">
+									</span>
                                 </td>
                             </tr>
                         </table>
@@ -74,25 +83,25 @@
                         <table cellpadding=0 cellspacing=0 width='100%'>
 
                             <tr valign='top' class='row'>
-                                <td width='153'>
-                                    <span class='caption'>Email</span>
+                                <td class='caption' width='153'>
+                                    <span>Email</span>
                                 </td>
 
-                                <td>
-							        <span class='value'>
-                                        <span class='element'>
-                                            <input type="email" name="mail" required placeholder="Email" value="$mail">
-                                        </span>
-                                    </span>
+                                <td width='90%' class='value'>
+									<span class='element'>
+										<input type="email" name="mail" required placeholder="Email" value="{{ user.mail.value }}">
+									</span>
                                 </td>
 
                             </tr>
                             <tr valign='top' class='row'>
-                                <td width='153'>
-                                    <span class='caption'>Mobile Number</span>
+                                <td class='caption' width='153'>
+                                    <span>Mobile Number</span>
                                 </td>
-                                <td>
-                                    <input type="text" name="mobile" required placeholder="mobile" value="$mobile">
+                                <td class='value'>
+									<span class='element'>
+										<input type="text" name="mobile" required placeholder="mobile" value="{{ user.field_mobile.value }}">
+									</span>
                                 </td>
                             </tr>
                         </table>
@@ -101,46 +110,54 @@
                     <div class='group three'>
                         <table cellpadding=0 cellspacing=0 width='100%'>
                             <tr valign='top' class='row'>
-                                <td width='153'>
-                                    <span class='caption'>Birth day</span>
+                                <td class='caption' width='153'>
+                                    <span>Birth day</span>
                                 </td>
-                                <td>
-						<span class='value clearfix'>
-							<select name="birth_month" required>
-                                <option value="">Month</option>
-                                $months
-                            </select>
-							<select name="birth_day" required>
-                                <option value="">Day</option>
-                                $days
-                            </select>
-							<select name="birth_year" required>
-                                <option value="">Year</option>
-                                $years
-                            </select>
-						</span>
-                                </td>
-                            </tr>
-                            <tr valign='top' class='row'>
-                                <td>
-                                    <span class='caption'>Gender</span>
-                                </td>
-                                <td>
-						<span class='value'>
-							<select name='gender'>
-                                <option>Gender</option>
-                                <option value="M" required $M>Male</option>
-                                <option value="F" required $F>Female</option>
-                            </select>
-						</span>
+                                <td width='90%' class='value'>
+									<span class='clearfix'>
+										<select name="birth_month" required>
+											<option value="">Month</option>
+											{% for m in 1..12 %}
+												<option value='{{ m }}'>{{ month[m] }}</option>
+											{% endfor %}
+										</select>
+										<select name="birth_day" required>
+											<option value="">Day</option>
+											{% for m in 1..31 %}
+												<option value='{{ m }}'>{{ m }}</option>
+											{% endfor %}
+										</select>
+										<select name="birth_year" required>
+											<option value="">Year</option>
+											{% for m in 1940..2015 %}
+												<option value='{{ m }}'>{{ m }}</option>
+											{% endfor %}
+										</select>
+									</span>
                                 </td>
                             </tr>
                             <tr valign='top' class='row'>
-                                <td>
-                                    <span class='caption'>Location</span>
+                                <td class='caption'>
+                                    <span>Gender</span>
                                 </td>
-                                <td>
-                                    <input type="text" name="location" required placeholder="Location" value="$location">
+                                <td class='value'>									
+									<span>
+										<select name='gender'>
+											<option>Gender</option>
+											<option value="M" required {{ M }}>Male</option>
+											<option value="F" required {{ F }}>Female</option>
+										</select>
+									</span>
+                                </td>
+                            </tr>
+                            <tr valign='top' class='row'>
+                                <td class='caption'>
+                                    <span>Location</span>
+                                </td>
+                                <td class='value'>
+									<span class='element'>
+										<input type="text" name="location" required placeholder="Location" value="{{ user.field_location.value }}">
+									</span>
                                 </td>
                             </tr>
                         </table>
