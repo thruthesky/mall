@@ -156,8 +156,23 @@ class Member {
 	
 	$info = [];
     foreach( $member_ids as $member_id ) {
-		$info[ $member_id['uid'] ] = x::getInformationByUid( $member_id['uid'] );
+        $data = [];
+        x::getDefaultInformationByUid( $member_id['uid'], $data );
+		$info[ $member_id['uid'] ] = $data;
     }
     return $info;
   }
+
+    public static function updateMemberFormSubmit($uid) {
+        self::set($uid, 'first_name', x::in('first_name'));
+        self::set($uid, 'last_name', x::in('last_name'));
+        self::set($uid, 'middle_name', x::in('middle_name'));
+        self::set($uid, 'mail', x::in('mail'));
+        self::set($uid, 'mobile', x::in('mobile'));
+        self::set($uid, 'gender', x::in('gender'));
+        self::set($uid, 'birth_month', x::in('birth_month'));
+        self::set($uid, 'birth_day', x::in('birth_day'));
+        self::set($uid, 'birth_year', x::in('birth_year'));
+        self::set($uid, 'location', x::in('location'));
+    }
 }

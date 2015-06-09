@@ -260,21 +260,24 @@ class x {
   }
 
 
-  /**
-   * @param $code
-   * @param array $kvs
-   * @return array
-   * @code
-   * return x::error(x::ERROR_BLANK_CATEGORY_NAME);
-   *  x::error(x::ERROR_CATEGORY_EXIST, ['name'=>$name, 'parent'=>$parent_name]);
-   * @endcode
-   */
-  public static function error($code, $kvs=[]) {
+    /**
+     * @param $code
+     * @param array $kvs
+     * @param string $return_format
+     * @return array
+     * @code
+     * return x::error(x::ERROR_BLANK_CATEGORY_NAME);
+     *  x::error(x::ERROR_CATEGORY_EXIST, ['name'=>$name, 'parent'=>$parent_name]);
+     * @endcode
+     */
+  public static function error($code, $kvs=[], $return_format = 'query_string') {
     $message = self::errorMessage($code);
     foreach( $kvs as $k => $v ) {
       $message = str_replace('#'.$k, $v, $message);
     }
-    return [$code, $message];
+      if ( $return_format == 'query_string' ) return "&error=$code&message=$message";
+      else if ( $return_format == 'array' ) return [$code, $message];
+      else return "&error=$code&message=$message";
   }
 
   private static function errorMessage($code) {
@@ -378,25 +381,25 @@ class x {
     }
 
   public static function getDefaultInformation(array &$data) {
-    $uid = x::myUid();
-    $data['member'] = Member::gets($uid);
-    //$data['user'] = \Drupal::currentUser()->getAccount();
-    $data['user'] = User::load($uid);
+      $uid = x::myUid();
+      if ( empty($uid) ) return [];
+      else return x::getDefaultInformationByUid($uid, $data);
   }
   
-  public static function getInformationByUid( $uid ) {    
-	$data = [];
-    $data['member'] = Member::gets($uid);    
-    $data['user'] = User::load($uid);
-	
-	return $data;
+  public static function getDefaultInformationByUid( $uid, array &$data ) {
+      $data['member'] = Member::gets($uid);
+      $data['user'] = User::load($uid);
+      return $data;
   }
 
-  /**
-   * @param $username
-   * @param $password
-   */
-  public static function registerUser($username, $password, $email) {
+    /**
+     * @param $username
+     * @param $password
+     * @return int|mixed|null|string
+     *      - returns minus value if there is any error.
+     *      - or returns User ID.
+     */
+  public static function registerDrupalUser($username, $password, $email) {
 
     $user = user_load_by_name($username);
     if ( $user ) return x::ERROR_USER_EXISTS;
@@ -422,13 +425,14 @@ class x {
 	
 	//added by benjamin for test.. When and where is the UID field saved inside the mall_member aside from this...?
 	//Member::set( $user->id(), 'uid', $user->id() );
-	
-    return 0;
+
+      return $user->id();
   }
 
   public static function loginUser($username) {
-    $user = user_load_by_name($username);
-    user_login_finalize( $user );
+        $user = user_load_by_name($username);
+        user_login_finalize( $user );
+        return $user->id();
   }
   
   
@@ -451,13 +455,13 @@ class x {
   *requires $uid
   */
   public static function isAdmin(){
-	$user = User::load( x::myUid() );	
-  
+	$user = User::load( x::myUid() );
+
 	if( $user->roles->target_id == 'administrator' ) return 1;
 	else return 0;
 	 
   }
-  
+
    /*
   *in('uid') should always be available
   *
