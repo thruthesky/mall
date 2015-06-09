@@ -51,20 +51,23 @@ class Member {
   }
 
   private static function update_member_attribute($uid, $info) {
-    $insert_uid = self::get($uid, 'uid');
+    //$insert_uid = self::get($uid, 'uid');
 di( $info );
     foreach( $info as $code => $value ) {
 	  /*
 	  *I need to do this query because of the table structure
 	  */
+      /*
       $res = db_select(self::TABLE, 't')
 		  ->fields('t', [ 'value' ])
 		  ->condition('uid', $uid)
 		  ->condition('code', $code)
 		  ->execute();
-	  $row = $res->fetchAssoc(\PDO::FETCH_ASSOC);	
+	  $row = $res->fetchAssoc(\PDO::FETCH_ASSOC);
+      */
+      $inserted = self::get($uid, 'code');
 	  
-      if ( $row ) {
+      if ( $inserted ) {
         // update		
         db_update(self::TABLE)
           ->fields(['value' => $value])
