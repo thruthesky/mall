@@ -16,11 +16,13 @@
                         <table cellpadding=0 cellspacing=0 width='100%'>
 
                             {% if logged_in %}
-							{% if( user.field_gender.value == 'M' ) %}
+							
+							{% if( member.gender == 'M' ) %}
 								{% set M = 'selected' %}
-							{% elseif( user.field_gender.value == 'F' ) %}
+							{% elseif( member.gender == 'F' ) %}
 								{% set F = 'selected' %}
 							{% endif %}
+							
                                 <tr valign='top' class='row username logged_in'>
                                     <td width='153'class='caption'>
                                         <span>Username</span>
@@ -64,7 +66,7 @@
                                     <span>Last Name</span>
                                 </td>
                                 <td class='value'>
-                                    <span><input type="text" name="last_name" required placeholder="Last name"  value="{{ user.field_last_name.value }}"></span>
+                                    <span><input type="text" name="last_name" required placeholder="Last name"  value="{{ member.last_name }}"></span>
                                 </td>
                             </tr>
                             <tr valign='top' class='row'>
@@ -73,7 +75,7 @@
                                 </td>
                                 <td class='value'>
                                     <span class='element'>
-										<input type="text" name="middle_name" placeholder="Middle name"  value="{{ user.field_middle_name.value }}">
+										<input type="text" name="middle_name" placeholder="Middle name"  value="{{ member.middle_name }}">
 									</span>
                                 </td>
                             </tr>
@@ -89,7 +91,7 @@
 
                                 <td width='90%' class='value'>
 									<span class='element'>
-										<input type="email" name="mail" required placeholder="Email" value="{{ user.mail.value }}">
+										<input type="email" name="mail" required placeholder="Email" value="{{ member.mail }}">
 									</span>
                                 </td>
 
@@ -100,7 +102,7 @@
                                 </td>
                                 <td class='value'>
 									<span class='element'>
-										<input type="text" name="mobile" required placeholder="mobile" value="{{ user.field_mobile.value }}">
+										<input type="text" name="mobile" required placeholder="mobile" value="{{ member.mobile }}">
 									</span>
                                 </td>
                             </tr>
@@ -118,19 +120,34 @@
 										<select name="birth_month" required>
 											<option value="">Month</option>
 											{% for m in 1..12 %}
-												<option value='{{ m }}'>{{ month[m] }}</option>
+												{% if m == member.birth_month %}
+													{% set selected = ' selected' %}
+												{% else %}
+													{% set selected = ''%}
+												{% endif %}
+													<option value='{{ m }}'{{ selected }}>{{ month[m] }}</option>
 											{% endfor %}
 										</select>
 										<select name="birth_day" required>
 											<option value="">Day</option>
-											{% for m in 1..31 %}
-												<option value='{{ m }}'>{{ m }}</option>
+											{% for d in 1..31 %}
+												{% if d == member.birth_month %}
+													{% set selected = ' selected' %}
+												{% else %}
+													{% set selected = ''%}
+												{% endif %}
+												<option value='{{ d }}'{{ selected }}>{{ d }}</option>
 											{% endfor %}
 										</select>
 										<select name="birth_year" required>
 											<option value="">Year</option>
-											{% for m in 1940..2015 %}
-												<option value='{{ m }}'>{{ m }}</option>
+											{% for y in 1940..2015 %}
+												{% if y == member.birth_year %}
+													{% set selected = ' selected' %}
+												{% else %}
+													{% set selected = ''%}
+												{% endif %}
+												<option value='{{ y }}'{{ selected }}>{{ y }}</option>
 											{% endfor %}
 										</select>
 									</span>
@@ -156,7 +173,7 @@
                                 </td>
                                 <td class='value'>
 									<span class='element'>
-										<input type="text" name="location" required placeholder="Location" value="{{ user.field_location.value }}">
+										<input type="text" name="location" required placeholder="Location" value="{{ member.location }}">
 									</span>
                                 </td>
                             </tr>

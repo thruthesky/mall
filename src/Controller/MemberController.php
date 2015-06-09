@@ -27,15 +27,16 @@ class MemberController extends ControllerBase {
 		//just checks if the user is logged in or not
 
 
-      $re = x::registerUser(x::in('username'), x::in('password'), x::in('email'));
-      if ( $re ) {
+      $re = x::registerUser(x::in('username'), x::in('password'), x::in('email'));	  	  
+      if ( $re && !x::myUid() ) {
         return x::error(x::ERROR_USER_EXISTS);
       }
-      x::loginUser(x::in('username'));
+	  
+	  if( !x::myUid() ){ x::loginUser(x::in('username')); }
 
 
 			$register_data = [];
-			$register_data['uid'] = x::myUid();
+			if( x::myUid() ) $register_data['uid'] = x::myUid();
 			if( x::in('first_name') ) $register_data['first_name'] = x::in('first_name');
 			if( x::in('last_name') ) $register_data['last_name'] = x::in('last_name');
 			if( x::in('middle_name') ) $register_data['middle_name'] = x::in('middle_name');
@@ -45,13 +46,10 @@ class MemberController extends ControllerBase {
 			if( x::in('birth_month') ) $register_data['birth_month'] = x::in('birth_month');
 			if( x::in('birth_day') ) $register_data['birth_day'] = x::in('birth_day');
 			if( x::in('birth_year') ) $register_data['birth_year'] = x::in('birth_year');
-			if( x::in('location') ) $register_data['location'] = x::in('location');
-
+			if( x::in('location') ) $register_data['location'] = x::in('location');			
 			Member::update($register_data);
-
 			
-
-					return new RedirectResponse( "/mall/member/register/" );
+			return new RedirectResponse( "/mall/member/register/" );
 
 	}
 	
