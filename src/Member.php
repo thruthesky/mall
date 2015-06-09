@@ -117,6 +117,7 @@ di( $info );
    * @param $uid
    * @return array
    *
+   *
    */
   public static function gets($uid) {
       $res = db_select(self::TABLE, 't')
