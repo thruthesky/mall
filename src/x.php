@@ -16,6 +16,7 @@ class x {
   const ERROR_BLANK_CATEGORY_NAME = 'ERROR_BLANK_CATEGORY_NAME';
   
   const ERROR_PLEASE_LOGIN_FIRST = 'ERROR_PLEASE_LOGIN_FIRST';
+  const ERROR_USER_EXISTS = 'ERROR_USER_EXISTS';
 
 
   static $input = [];
@@ -257,7 +258,15 @@ class x {
   }
 
 
-
+  /**
+   * @param $code
+   * @param array $kvs
+   * @return array
+   * @code
+   * return x::error(x::ERROR_BLANK_CATEGORY_NAME);
+   *  x::error(x::ERROR_CATEGORY_EXIST, ['name'=>$name, 'parent'=>$parent_name]);
+   * @endcode
+   */
   public static function error($code, $kvs=[]) {
     $message = self::errorMessage($code);
     foreach( $kvs as $k => $v ) {
@@ -369,5 +378,40 @@ class x {
     $data['member'] = Member::gets($uid);
     //$data['user'] = \Drupal::currentUser()->getAccount();
     $data['user'] = User::load($uid);
+  }
+
+  /**
+   * @param $username
+   * @param $password
+   */
+  public static function registerUser($username, $password, $email) {
+
+    $user = user_load_by_name($username);
+    if ( $user ) return x::ERROR_USER_EXISTS;
+    $id = $username;
+    $lang = "en";
+    $timezone = "Asia/Manila";
+    $user = User::create([
+      'name'=>$id, // username
+      'mail'=>$email,
+      'init'=>$email,
+      'status'=>1, // whether the user is active or not. Only anonymous is 0. 이 값은 일반적으로 1 이어야 한다.
+      'signature'=>$id.'.sig',
+      'signature_format'=>'restricted_html',
+      'timezone' => $timezone,
+      'default_langcode'=>1, // 참고: 이 값을 0 으로 해도, 자동으로 1로 저장 됨.
+      'langcode'=>$lang,
+      'preferred_langcode'=>$lang,
+      'preferred_admin_langcode'=>$lang,
+    ]);
+    $user->setPassword($password);
+    $user->enforceIsNew();
+    $user->save();
+    return 0;
+  }
+
+  public static function loginUser($username) {
+    $user = user_load_by_name($username);
+    user_login_finalize( $user );
   }
 }

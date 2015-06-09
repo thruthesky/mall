@@ -23,9 +23,17 @@ class MemberController extends ControllerBase {
 	}
 	
 	public static function registerSubmit() {
-	
+
 		//just checks if the user is logged in or not
-		if( x::myUid() ) {
+
+
+      $re = x::registerUser(x::in('username'), x::in('password'), x::in('email'));
+      if ( $re ) {
+        return x::error(x::ERROR_USER_EXISTS);
+      }
+      x::loginUser(x::in('username'));
+
+
 			$register_data = [];
 			$register_data['uid'] = x::myUid();
 			if( x::in('first_name') ) $register_data['first_name'] = x::in('first_name');
@@ -40,12 +48,11 @@ class MemberController extends ControllerBase {
 			if( x::in('location') ) $register_data['location'] = x::in('location');
 
 			Member::update($register_data);
+
 			
-			return new RedirectResponse( "/mall/member/register/" );
-		}
-		else{
-			return new RedirectResponse( "/mall/member/register/" );
-		}
+
+					return new RedirectResponse( "/mall/member/register/" );
+
 	}
 	
 	public static function add(){
