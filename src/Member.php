@@ -46,7 +46,7 @@ class Member {
   public static function update($info)
   {
     $uid = $info['uid'];
-    //unset($info['uid']);
+    unset($info['uid']);
     self::update_member_attribute($uid, $info);
   }
 
