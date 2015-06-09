@@ -433,16 +433,23 @@ class x {
   
   
   /*added by benjamin*/
+  /*
+  *delete by uid
+  */
   public static function deleteUserByUid( $uid ){
+	//delete the entity
 	$user = User::load( $uid );
 	$user->delete();
-	
+	//clean up mall_member with the uid
 	db_delete( Member::TABLE )      
 		  ->condition('uid', $uid)
 		  ->execute();	
   }
   
- /***********************/
+  /*
+  *checks user role if the user is an admin
+  *requires $uid
+  */
   public static function isAdmin(){
 	$user = User::load( x::myUid() );	
   
@@ -464,5 +471,5 @@ class x {
 		return 0;
 	 }
   }
-  /*-----------*/
+  /***********************/
 }
