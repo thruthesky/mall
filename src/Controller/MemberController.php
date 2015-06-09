@@ -84,7 +84,11 @@ class MemberController extends ControllerBase {
   public function collection()
   {
 	$data['members'] = Member::getMemberList();
-  
+	$data['total'] = count( $data['members'] );
+	if( x::in( 'keyword' ) ){
+		$data['keyword'] = x::in( 'keyword' );		
+	}
+	
 	return [
 		'#theme' => x::getThemeName(),
 		'#data' => $data,

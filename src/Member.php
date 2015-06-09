@@ -50,9 +50,9 @@ class Member {
     self::update_member_attribute($uid, $info);
   }
 
-  private static function update_member_attribute($uid, $info) {
-    //$insert_uid = self::get($uid, 'uid');
-di( $info );
+  private static function update_member_attribute($uid,array $info) {
+    //$insert_uid = self::get($uid, 'uid');	
+
     foreach( $info as $code => $value ) {
 	  /*
 	  *I need to do this query because of the table structure
@@ -65,7 +65,7 @@ di( $info );
 		  ->execute();
 	  $row = $res->fetchAssoc(\PDO::FETCH_ASSOC);
       */
-      $inserted = self::get($uid, 'code');
+      $inserted = self::get($uid, $code);
 	  
       if ( $inserted ) {
         // update		
@@ -141,17 +141,23 @@ di( $info );
   public static function getMemberList() {  
 	$data = [];
 	$res = db_select(self::TABLE, 't')
-			->fields('t')
-			->condition('code', 'uid')
-			->execute();
+			->fields('t',['uid']);
+			
+	if( $keyword = x::in( 'keyword' ) ){
+		$res = $res->condition('value', '%'.$keyword.'%', 'LIKE');		
+	}
+	else{
+		$res = $res->condition('code', 'uid');
+	}
+	
+	$res = $res->execute();
 		
 	$member_ids = $res->fetchAllAssoc('uid', \PDO::FETCH_ASSOC);
-    $info = [];
 	
+	$info = [];
     foreach( $member_ids as $member_id ) {
-		$info[ $member_id['value'] ] = x::getInformationByUid( $member_id['value'] );
+		$info[ $member_id['uid'] ] = x::getInformationByUid( $member_id['uid'] );
     }
-	//di( $info );exit;
     return $info;
   }
 }

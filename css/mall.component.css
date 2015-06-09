@@ -237,3 +237,17 @@
 .category-list .category .label .command{
     font-weight:normal;
 }
+
+
+
+
+/*mall-search*/
+.mall-search input[type='text']{
+	width:200px
+}
+
+.mall-search-keyword, .mall-search-total{
+	padding:10px 10px 0 10px;
+	font-size:1.2em;
+}
+/*eo mall-search*/
