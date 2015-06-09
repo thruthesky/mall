@@ -1,5 +1,6 @@
 <?php
 namespace Drupal\mall;
+use Drupal\mall\Controller\MemberController;
 use Drupal\mall\HTML;
 
 class Member {
@@ -164,6 +165,12 @@ class Member {
   }
 
     public static function updateMemberFormSubmit($uid) {
+        if ( MemberController::isEditSubmit() ) {
+
+        }
+        else {
+            self::set($uid, 'uid', $uid); // use this to check if the user in drupal registered into mall_member.
+        }
         self::set($uid, 'first_name', x::in('first_name'));
         self::set($uid, 'last_name', x::in('last_name'));
         self::set($uid, 'middle_name', x::in('middle_name'));

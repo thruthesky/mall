@@ -65,7 +65,7 @@ class MemberController extends ControllerBase {
         return x::in('uid');
     }
 
-    private static function isEditSubmit() {
+    public static function isEditSubmit() {
         return x::in('uid');
     }
 
