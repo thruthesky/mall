@@ -51,7 +51,7 @@ class Member {
   }
 
   private static function update_member_attribute($uid, $info) {
-    $insert_uid = self::get($uid, 'uid');
+    //$insert_uid = self::get($uid, 'uid');
 di( $info );
     foreach( $info as $code => $value ) {
 	  /*
