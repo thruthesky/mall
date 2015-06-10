@@ -8,8 +8,8 @@
 		{% if data.error %}			
 			<div class='mall-error'>{{ data.error[1] }}</div>	
 		{% else %}
-            <div class='title'>Member Register</div>
-            <div class='description'>Please fill the input boxes</div>
+            <div class='form-label'>Member Register</div>
+            <div class='form-description'>Please fill the input boxes</div>
 			{% include 'modules/mall/templates/error.html.twig' %}
             <form class='account' type='POST' action="/mall/member/register/submit">
 				<input type='hidden' name='uid' value='{{ user.id }}'>

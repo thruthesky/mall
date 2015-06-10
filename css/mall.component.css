@@ -164,20 +164,29 @@
 	background-color:#ffffff;
 }
 
-.mall-page .title{	
+.mall-page .title{
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: #003366;
+	color: #ffffff;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.mall-page .content{	
+	padding:10px;
+}
+
+.mall-page .form-label{	
 	margin-bottom: 3px;
 	font-size: 1.2em;
 	font-weight: bold;
 	color: #4b4b4b;
 }
 
-.mall-page .description{	
+.mall-page .form-description{	
 	margin: 0 0 2px 3px;
 	color: #818181;
-}
-
-.mall-page .content{	
-	padding:10px;
 }
 
 /*
