@@ -3,6 +3,8 @@ namespace Drupal\mall;
 use Drupal\mall\HTML;
 use Drupal\user\Entity\User;
 
+use Drupal\mall\Entity\Member;
+
 /**
  * Class X
  * @package Drupal\mall
@@ -386,9 +388,11 @@ class x {
       else return x::getDefaultInformationByUid($uid, $data);
   }
   
-  public static function getDefaultInformationByUid( $uid, array &$data = [] ) {
-      $data['member'] = Member::gets($uid);
-      $data['user'] = User::load($uid);
+  public static function getDefaultInformationByUid( $uid, array &$data = [] ) {	  
+      $data['member'] = Member::gets( $uid );
+	  //di( $data['member'] );
+	  //exit;
+      //$data['user'] = User::load($uid);
       return $data;
   }
 
@@ -445,9 +449,9 @@ class x {
 	$user = User::load( $uid );
 	$user->delete();
 	//clean up mall_member with the uid
-	db_delete( Member::TABLE )      
-		  ->condition('uid', $uid)
-		  ->execute();	
+	$member = Member::gets( $uid );	
+	$member->delete();
+	
   }
   
   /*

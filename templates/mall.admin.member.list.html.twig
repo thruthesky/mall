@@ -23,28 +23,27 @@
 				<td><span>Commands</span></td>				
 			</tr>			
 
-			{% for member in members %}
-				{% set m = member.member %}				
-				{% set name = m.first_name ~ ' ' ~ m.last_name %}
+			{% for m in members %}				
+				{% set name = m.first_name.value ~ ' ' ~ m.last_name.value %}
 				{% if m.birth_month and m.birth_day and m.birth_year %}
-					{% set birth_date = m.birth_month ~ '/' ~ m.birth_day ~ '/' ~ m.birth_year%}
+					{% set birth_date = m.birth_month.value ~ '/' ~ m.birth_day.value ~ '/' ~ m.birth_year.value %}
 				{% else %}
 					{% set birth_date = NA %}
 				{% endif %}
 							
 				<tr>
-					<td><span>{{ member.user.name.value }}</span></td>
+					<td><span>{{ m.uid.entity.name.value }}</span></td>
 					<td><span>{{ name }}</span></td>
-					<td><span>{{ m.mail }}</span></td>
-					<td><span>{{ m.mobile }}</span></td>
+					<td><span>{{ m.email.value }}</span></td>
+					<td><span>{{ m.mobile.value }}</span></td>
 					<td><span>{{ birth_date }}</span></td>
-					<td><span>{{ m.location }}</span></td>
+					<td><span>{{ m.location.value }}</span></td>
 					<td>
 						{% if( member.user.roles.target_id == 'administrator' )%}
 						{% else %}
 						<div class="button-wrapper">
-							<a class="command" href="/mall/member/register/?uid={{ member.user.id }}" target="_blank">Edit</a>
-							<a class="command" href="/mall/admin/member/delete?uid={{ member.user.id }}" onclick="return member_delete( '{{ member.user.name.value }}' );">Delete</a>
+							<a class="command" href="/mall/member/register/?uid={{ m.uid.entity.id }}" target="_blank">Edit</a>
+							<a class="command" href="/mall/admin/member/delete?uid={{ m.uid.entity.id }}" onclick="return member_delete( '{{ member.user.name.value }}' );">Delete</a>
 						</div>
 						{% endif %}
 					</td>

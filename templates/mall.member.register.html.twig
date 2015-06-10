@@ -1,5 +1,5 @@
 {% set member = data.member %}
-{% set user = data.user %}
+{# set user = data.user #}
 
 {% set month = { '1':'January','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'October','11':'November','12':'December' } %}
 
@@ -12,16 +12,16 @@
             <div class='form-description'>Please fill the input boxes</div>
 			{% include 'modules/mall/templates/error.html.twig' %}
             <form class='account' type='POST' action="/mall/member/register/submit">
-				<input type='hidden' name='uid' value='{{ user.id }}'>
+				<input type='hidden' name='uid' value='{{ member.uid.entity.id }}'>
                 <fieldset>
                     <div class='group one'>
                         <table cellpadding=0 cellspacing=0 width='100%'>
 
                             {% if logged_in %}
 							
-							{% if( member.gender == 'M' ) %}
+							{% if( member.gender.value == 'M' ) %}
 								{% set M = 'selected' %}
-							{% elseif( member.gender == 'F' ) %}
+							{% elseif( member.gender.value == 'F' ) %}
 								{% set F = 'selected' %}
 							{% endif %}
 							
@@ -30,7 +30,7 @@
                                         <span>Username</span>
                                     </td>
                                     <td width='90%' class='value'>
-                                        <span>{{ user.name.value }}</span>
+                                        <span>{{ member.uid.entity.name.value }}</span>
                                     </td>
                                 </tr>
                             {% else %}
@@ -59,7 +59,7 @@
                                     <span>First Name</span>
                                 </td>
                                 <td class='value'>
-                                    <span><input type="text" name="first_name" required placeholder="First name" value="{{ member.first_name }}"></span>
+                                    <span><input type="text" name="first_name" required placeholder="First name" value="{{ member.first_name.value }}"></span>
                                 </td>
                             </tr>
 
@@ -68,7 +68,7 @@
                                     <span>Last Name</span>
                                 </td>
                                 <td class='value'>
-                                    <span><input type="text" name="last_name" required placeholder="Last name"  value="{{ member.last_name }}"></span>
+                                    <span><input type="text" name="last_name" required placeholder="Last name"  value="{{ member.last_name.value }}"></span>
                                 </td>
                             </tr>
                             <tr valign='top' class='row'>
@@ -77,7 +77,7 @@
                                 </td>
                                 <td class='value'>
                                     <span class='element'>
-										<input type="text" name="middle_name" placeholder="Middle name"  value="{{ member.middle_name }}">
+										<input type="text" name="middle_name" placeholder="Middle name"  value="{{ member.middle_name.value }}">
 									</span>
                                 </td>
                             </tr>
@@ -93,7 +93,7 @@
 
                                 <td width='90%' class='value'>
 									<span class='element'>
-										<input type="email" name="mail" required placeholder="Email" value="{{ member.mail }}">
+										<input type="email" name="email" required placeholder="Email" value="{{ member.email.value }}">
 									</span>
                                 </td>
 
@@ -104,7 +104,7 @@
                                 </td>
                                 <td class='value'>
 									<span class='element'>
-										<input type="text" name="mobile" required placeholder="mobile" value="{{ member.mobile }}">
+										<input type="text" name="mobile" required placeholder="mobile" value="{{ member.mobile.value }}">
 									</span>
                                 </td>
                             </tr>
@@ -122,7 +122,7 @@
 										<select name="birth_month" required>
 											<option value="">Month</option>											
 											{% for m in 1..12 %}
-												{% if m == member.birth_month %}
+												{% if m == member.birth_month.value %}
 													{% set selected = ' selected' %}
 												{% else %}
 													{% set selected = ''%}
@@ -133,7 +133,7 @@
 										<select name="birth_day" required>
 											<option value="">Day</option>
 											{% for d in 1..31 %}
-												{% if d == member.birth_month %}
+												{% if d == member.birth_day.value %}
 													{% set selected = ' selected' %}
 												{% else %}
 													{% set selected = ''%}
@@ -144,7 +144,7 @@
 										<select name="birth_year" required>
 											<option value="">Year</option>
 											{% for y in 2015..1940 %}
-												{% if y == member.birth_year %}
+												{% if y == member.birth_year.value %}
 													{% set selected = ' selected' %}
 												{% else %}
 													{% set selected = ''%}
@@ -175,7 +175,7 @@
                                 </td>
                                 <td class='value'>
 									<span class='element'>
-										<input type="text" name="location" required placeholder="Location" value="{{ member.location }}">
+										<input type="text" name="location" required placeholder="Location" value="{{ member.location.value }}">
 									</span>
                                 </td>
                             </tr>

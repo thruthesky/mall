@@ -2,7 +2,7 @@
 namespace Drupal\mall\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\mall\x;
-use Drupal\mall\Member;
+use Drupal\mall\Entity\Member;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class MemberController extends ControllerBase {
@@ -17,9 +17,9 @@ class MemberController extends ControllerBase {
    *
    */
 	public static function register() {
-		$data = [];
+		$data = [];		
 		if( self::isEdit() ) {
-            $uid = self::isEdit();
+            $uid = self::isEdit();			
             if( x::isAdmin() || $uid == x::myUid() ) {
                 x::getDefaultInformationByUid( $uid, $data );
             }
@@ -35,9 +35,12 @@ class MemberController extends ControllerBase {
 	}
 	
 	public static function registerSubmit() {
-
         if ( self::isEditSubmit() ) { // Edit Submit.		
             $uid = x::in('uid');
+			
+			di( $uid );
+			di( x::myUid() );
+			
             if ( x::isAdmin() || $uid == x::myUid() ) {
                 member::updateMemberFormSubmit($uid);
                 return new RedirectResponse( "/mall/member/register?uid=$uid" );
@@ -46,7 +49,7 @@ class MemberController extends ControllerBase {
         }
         else { // Register Submit. this is register submit for a new member.
             $re = x::registerDrupalUser(x::in('username'), x::in('password'), x::in('email'));
-            if ( $re ) {
+            if ( $re == x::ERROR_USER_EXISTS ) {
                 return new RedirectResponse( "/mall/member/register?" .  x::error(x::ERROR_USER_EXISTS,[ 'name'=> x::in('username') ]) );
             }
             else {
