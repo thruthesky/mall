@@ -445,12 +445,12 @@ class x {
   */
   public static function deleteUserByUid( $uid ){
 	//clean up mall_member with the uid	
-	//$member = Member::gets( $uid );	
-	//$member->delete();
+	$member = Member::gets( $uid );	
+	$member->delete();
 	
 	//delete the user entity
-	$user = User::load( $uid );
-	$user->delete();
+	//$user = User::load( $uid );
+	//$user->delete();
   }
   
   /*
