@@ -166,7 +166,16 @@ class Member {
 
     public static function updateMemberFormSubmit($uid) {
         if ( MemberController::isEditSubmit() ) {
-
+			/*
+			*in case a user registers in drupal, the user will not have a mall_member account...
+			*so do something here...
+			*/
+			if( self::get( $uid, 'uid' ) ){
+			
+			}
+			else{
+				self::set($uid, 'uid', $uid); // use this to check if the user in drupal registered into mall_member.
+			}
         }
         else {
             self::set($uid, 'uid', $uid); // use this to check if the user in drupal registered into mall_member.

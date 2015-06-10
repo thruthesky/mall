@@ -36,7 +36,7 @@ class MemberController extends ControllerBase {
 	
 	public static function registerSubmit() {
 
-        if ( self::isEditSubmit() ) { // Edit Submit.
+        if ( self::isEditSubmit() ) { // Edit Submit.		
             $uid = x::in('uid');
             if ( x::isAdmin() || $uid == x::myUid() ) {
                 member::updateMemberFormSubmit($uid);
@@ -84,8 +84,19 @@ class MemberController extends ControllerBase {
   }
   
    public static function del() {   
+   
+    if( x::isAdmin() || $uid == x::myUid() ) {
+		$uid = x::in('uid');
+		Member::del( $uid );
+		return new RedirectResponse( '/mall/admin/member/list' );
+	}
+	else {
+		return new RedirectResponse( "/mall/admin/member/list/?" . x::error(x::ERROR_NOT_YOUR_ID));
+	}
+	/*
 	$uid = x::in('uid');
     Member::del( $uid );
     return new RedirectResponse( '/mall/admin/member/list' );
+	*/
   }
 }
