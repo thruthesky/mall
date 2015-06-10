@@ -27,8 +27,8 @@ use Drupal\user\UserInterface;
 class Member extends ContentEntityBase implements MemberInterface {	
 	const TABLE = 'mall_member';
 
-    private static function loadByUid($uid) {
-        $entities = \Drupal::entityManager()->getStorage('mall_user')->loadByProperties(['user_id'=>$uid]);
+    public static function loadByUid($uid) {
+        $entities = \Drupal::entityManager()->getStorage('mall_member')->loadByProperties(['user_id'=>$uid]);
         return $entities ? reset($entities) : null;
     }
 
@@ -88,7 +88,7 @@ class Member extends ContentEntityBase implements MemberInterface {
             ->setDescription(t('The UUID of the Category entity.'))
             ->setReadOnly(TRUE);
 
-        $fields['uid'] = BaseFieldDefinition::create('entity_reference')
+        $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
             ->setLabel(t('Drupal User ID'))
             ->setDescription(t('The Drupal User ID who created the entity.'))
             ->setSetting('target_type', 'user');
@@ -195,20 +195,19 @@ class Member extends ContentEntityBase implements MemberInterface {
 		unset( $input['username'] );
 		unset( $input['password'] );
 		
-		$member = self::load( $uid );
+		$member = self::loadByUid( $uid );
 
 		if( empty( $member ) ) {			
-			$input['uid'] = x::MyUid();
+			$input['user_id'] = x::MyUid();
 			$member = Member::create();
-			$member->set( 'uid', $input['uid'] );			
+			$member->set( 'user_id', $input['user_id'] );			
 		}
 		else{
-			$member = self::load( $uid );
+			$member = self::loadByUid( $uid );
 		}
 		
-		unset( $input['uid'] );
-		foreach( $input as $k => $v ){
-			//if( $k == 'uid' ) continue;		
+		unset( $input['user_id'] );
+		foreach( $input as $k => $v ){			
 			$member->set($k, $v);
 		}
 		
@@ -223,18 +222,18 @@ class Member extends ContentEntityBase implements MemberInterface {
 		$members = [];
 			if( $keyword = x::in('keyword') ){
 				$res = db_select(self::TABLE, 't')
-				->fields('t',['id','uid']);			
+				->fields('t',['id','user_id']);			
 				/*
 				*keyword ignores birth_day, birth_month, birth_year, and gender
 				*NOTE: is it possible to use ->loadByProperties() with like?
 				*/
 				$ors = db_or();			
-				$ors->condition( 'mobile', '%'.$keyword.'%', 'LIKE' );
-				$ors->condition( 'email', '%'.$keyword.'%', 'LIKE' );
-				$ors->condition( 'first_name', '%'.$keyword.'%', 'LIKE' );
-				$ors->condition( 'middle_name', '%'.$keyword.'%', 'LIKE' );
-				$ors->condition( 'last_name', '%'.$keyword.'%', 'LIKE' );
-				$ors->condition( 'location', '%'.$keyword.'%', 'LIKE' );
+				$ors->condition( 'field_mobile', '%'.$keyword.'%', 'LIKE' );
+				$ors->condition( 'mail', '%'.$keyword.'%', 'LIKE' );
+				$ors->condition( 'field_first_name', '%'.$keyword.'%', 'LIKE' );
+				$ors->condition( 'field_middle_name', '%'.$keyword.'%', 'LIKE' );
+				$ors->condition( 'field_last_name', '%'.$keyword.'%', 'LIKE' );
+				$ors->condition( 'field_location', '%'.$keyword.'%', 'LIKE' );
 				
 				$res = $res->condition( $ors );
 				$res = $res->execute();
@@ -242,7 +241,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 				$member_ids = $res->fetchAllAssoc('id', \PDO::FETCH_ASSOC);
 				
 				foreach( $member_ids as $member_id ){
-					$uid = $member_id['uid'];		
+					$uid = $member_id['user_id'];		
 					$members[ $uid ] = self::loadByUid( $uid );
 				}				
 				//di( $members );exit;

@@ -17,7 +17,6 @@ class MemberController extends ControllerBase {
    *
    */
 	public static function register() {	
-		//Member::del( 80 );
 		$data = [];		
 		if( self::isEdit() ) {
             $uid = self::isEdit();			
@@ -35,18 +34,19 @@ class MemberController extends ControllerBase {
 		];
 	}
 	
-	public static function registerSubmit() {
+	public static function registerSubmit() {		
         if ( self::isEditSubmit() ) { // Edit Submit.		
-            $uid = x::in('uid');
+            $uid = x::in('user_id');
 			
             if ( x::isAdmin() || $uid == x::myUid() ) {
                 member::updateMemberFormSubmit($uid);
-                return new RedirectResponse( "/mall/member/register?uid=$uid" );
+                return new RedirectResponse( "/mall/member/register?user_id=$uid" );
             }
             else return new RedirectResponse( "/mall/member/register/?" . x::error(x::ERROR_NOT_YOUR_ID));
         }
-        else { // Register Submit. this is register submit for a new member.
+        else { // Register Submit. this is register submit for a new member.			
             $re = x::registerDrupalUser(x::in('username'), x::in('password'), x::in('mail'));
+			
             if ( $re == x::ERROR_USER_EXISTS ) {
                 return new RedirectResponse( "/mall/member/register?" .  x::error(x::ERROR_USER_EXISTS,[ 'name'=> x::in('username') ]) );
             }
@@ -63,11 +63,11 @@ class MemberController extends ControllerBase {
 	}
 
     private static function isEdit() {
-        return x::in('uid');
+        return x::in('user_id');
     }
 
     public static function isEditSubmit() {
-        return x::in('uid');
+        return x::in('user_id');
     }
 
     public function collection()
@@ -85,10 +85,10 @@ class MemberController extends ControllerBase {
   }
   
    public static function del() {   
-	$uid = x::in('uid');
+	$uid = x::in('user_id');
 	
     if( x::isAdmin() || $uid == x::myUid() ) {
-		$uid = x::in('uid');
+		$uid = x::in('user_id');
 		Member::del( $uid );
 		return new RedirectResponse( '/mall/admin/member/list' );
 	}

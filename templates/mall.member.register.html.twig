@@ -1,18 +1,34 @@
 {% set member = data.member %}
-{# set user = data.user #}
 
 {% set month = { '1':'January','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'October','11':'November','12':'December' } %}
 
 <div class='mall-page'>
-	<section class="content user-account">		
+	<section class="content user-account">
+		{% if( member.user_id.entity.id ) %}
+			{% set uid = member.user_id.entity.id %}
+			{% set name = member.user_id.entity.name.value %}
+		{% elseif( member.uid.entity.id ) %}
+			{% set uid = member.uid.entity.id %}
+			{% set name = member.uid.entity.name.value %}
+			{% set error = "You are not yet a mall member. Please click on submit button to join." %}
+		{% else %}
+			{% set uid = '' %}
+			{% set name = '' %}
+		{% endif %}
+	
 		{% if data.error %}			
 			<div class='mall-error'>{{ data.error[1] }}</div>	
 		{% else %}
+		
+		{% if error %}			
+			<div class='mall-error'>{{ error }}</div>	
+		{% endif %}
+		
             <div class='form-label'>Member Register</div>
             <div class='form-description'>Please fill the input boxes</div>
 			{% include 'modules/mall/templates/error.html.twig' %}
-            <form class='account' type='POST' action="/mall/member/register/submit">
-				<input type='hidden' name='uid' value='{{ member.uid.entity.id }}'>
+            <form class='account' type='POST' action="/mall/member/register/submit">			
+				<input type='hidden' name='user_id' value='{{ uid }}'>
                 <fieldset>
                     <div class='group one'>
                         <table cellpadding=0 cellspacing=0 width='100%'>
@@ -30,7 +46,7 @@
                                         <span>Username</span>
                                     </td>
                                     <td width='90%' class='value'>
-                                        <span>{{ member.uid.entity.name.value }}</span>
+                                        <span>{{ name }}</span>
                                     </td>
                                 </tr>
                             {% else %}

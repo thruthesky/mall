@@ -382,16 +382,21 @@ class x {
 	    */
     }
 
-  public static function getDefaultInformation(array &$data) {
+  public static function getDefaultInformation(array &$data) {	
       $uid = x::myUid();
       if ( empty($uid) ) return [];
       else return x::getDefaultInformationByUid($uid, $data);
   }
   
   public static function getDefaultInformationByUid( $uid, array &$data = [] ) {	  
-      $data['member'] = Member::gets( $uid );
+      $data['member'] = Member::loadByUid( $uid );
+	  
+	 //di( $data['member'] );
+	 //exit;
+	  
 	  if( empty( $data['member'] ) ) $data['member'] = User::load( $uid );
-      $user = User::load( $uid );
+	  
+     
       return $data;
   }
 
@@ -445,7 +450,7 @@ class x {
   */
   public static function deleteUserByUid( $uid ){
 	//clean up mall_member with the uid	
-	$member = Member::gets( $uid );	
+	$member = Member::loadByUid( $uid );	
 	$member->delete();
 	
 	//delete the user entity
