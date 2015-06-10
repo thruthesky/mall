@@ -26,7 +26,12 @@ use Drupal\user\UserInterface;
  */
 class Member extends ContentEntityBase implements MemberInterface {	
 	const TABLE = 'mall_member';
-	
+
+    private static function loadByUid($uid) {
+        $entities = \Drupal::entityManager()->getStorage('mall_user')->loadByProperties(['user_id'=>$uid]);
+        return $entities ? reset($entities) : null;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -190,7 +195,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 		unset( $input['username'] );
 		unset( $input['password'] );
 		
-		$member = self::gets( $uid );
+		$member = self::load( $uid );
 
 		if( empty( $member ) ) {			
 			$input['uid'] = x::MyUid();
@@ -198,7 +203,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 			$member->set( 'uid', $input['uid'] );			
 		}
 		else{
-			$member = self::gets( $uid );
+			$member = self::load( $uid );
 		}
 		
 		unset( $input['uid'] );
@@ -238,7 +243,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 				
 				foreach( $member_ids as $member_id ){
 					$uid = $member_id['uid'];		
-					$members[ $uid ] = self::gets( $uid );
+					$members[ $uid ] = self::loadByUid( $uid );
 				}				
 				//di( $members );exit;
 				return $members;
@@ -249,10 +254,6 @@ class Member extends ContentEntityBase implements MemberInterface {
 
 		return $members;
 	 }
-	 
-	 public static function gets( $uid ){
-		$member = \Drupal::entityManager()->getStorage( self::TABLE )->loadByProperties(['uid'=>$uid]);		
-		return reset( $member );
-		//else return $member;
-	 }
+
+
 }
