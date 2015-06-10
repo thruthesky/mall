@@ -197,20 +197,16 @@ class Member extends ContentEntityBase implements MemberInterface {
 		
 		$member = self::loadByUid( $uid );
 
-		if( empty( $member ) ) {			
-			$input['user_id'] = x::MyUid();
+		if( empty( $member ) ) {
 			$member = Member::create();
-			$member->set( 'user_id', $input['user_id'] );			
+			$member->set( 'user_id', $uid );
 		}
-		else{
-			$member = self::loadByUid( $uid );
-		}
-		
-		unset( $input['user_id'] );
+
+         //@todo do not loop here. only update necessary values.
 		foreach( $input as $k => $v ){			
 			$member->set($k, $v);
 		}
-		
+
 		$member->save();		
 	 }
 	 
@@ -218,7 +214,23 @@ class Member extends ContentEntityBase implements MemberInterface {
 		x::deleteUserByUid( $uid );			
 	 }
 	 
-	 public static function getMemberList(){	 
+	 public static function getMemberList() {
+         $query = \Drupal::entityQuery('mall_member');
+         if ( $keyword = x::in('keyword') ) {
+             $ors = $query->orConditionGroup();
+             $ors->condition( 'field_mobile', '%'.$keyword.'%', 'LIKE' );
+             $ors->condition( 'mail', '%'.$keyword.'%', 'LIKE' );
+             $ors->condition( 'field_first_name', '%'.$keyword.'%', 'LIKE' );
+             $ors->condition( 'field_middle_name', '%'.$keyword.'%', 'LIKE' );
+             $ors->condition( 'field_last_name', '%'.$keyword.'%', 'LIKE' );
+             $ors->condition( 'field_location', '%'.$keyword.'%', 'LIKE' );
+             $query->condition($ors);
+         }
+         $ids = $query->execute();
+         return Member::loadMultiple($ids);
+
+
+         /*
 		$members = [];
 			if( $keyword = x::in('keyword') ){
 				$res = db_select(self::TABLE, 't')
@@ -227,6 +239,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 				*keyword ignores birth_day, birth_month, birth_year, and gender
 				*NOTE: is it possible to use ->loadByProperties() with like?
 				*/
+         /*
 				$ors = db_or();			
 				$ors->condition( 'field_mobile', '%'.$keyword.'%', 'LIKE' );
 				$ors->condition( 'mail', '%'.$keyword.'%', 'LIKE' );
@@ -252,6 +265,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 			}
 
 		return $members;
+         */
 	 }
 
 

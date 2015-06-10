@@ -1,26 +1,27 @@
 {% set member = data.member %}
 
-{% set month = { '1':'January','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'October','11':'November','12':'December' } %}
+{% set month = x.months %}
 
 <div class='mall-page'>
 	<section class="content user-account">
-		{% if( member.user_id.entity.id ) %}
+		{% if member.user_id.entity.id %}
 			{% set uid = member.user_id.entity.id %}
-			{% set name = member.user_id.entity.name.value %}
-		{% elseif( member.uid.entity.id ) %}
-			{% set uid = member.uid.entity.id %}
-			{% set name = member.uid.entity.name.value %}
+			{% set username = member.user_id.entity.name.value %}
+		{% elseif user.id.value %}
+			{% set uid = user.id.value %}
+			{% set username = user.name.value %}
 			{% set error = "You are not yet a mall member. Please click on submit button to join." %}
-		{% else %}
-			{% set uid = '' %}
-			{% set name = '' %}
 		{% endif %}
 	
-		{% if data.error %}			
-			<div class='mall-error'>{{ data.error[1] }}</div>	
+		{% if data.error %}
+			<div class='mall-error'>{{ data.error[1] }}</div>
 		{% else %}
-		
-		{% if error %}			
+
+
+        {% if input.mode == 'edit_success' %}
+            <h2>Edit Success</h2>
+        {% endif %}
+		{% if error %}
 			<div class='mall-error'>{{ error }}</div>	
 		{% endif %}
 		
@@ -34,19 +35,14 @@
                         <table cellpadding=0 cellspacing=0 width='100%'>
 
                             {% if logged_in %}
-							
-							{% if( member.field_gender.value == 'M' ) %}
-								{% set M = 'selected' %}
-							{% elseif( member.field_gender.value == 'F' ) %}
-								{% set F = 'selected' %}
-							{% endif %}
+
 							
                                 <tr valign='top' class='row username logged_in'>
                                     <td width='153'class='caption'>
                                         <span>Username</span>
                                     </td>
                                     <td width='90%' class='value'>
-                                        <span>{{ name }}</span>
+                                        <span>{{ username }}</span>
                                     </td>
                                 </tr>
                             {% else %}
@@ -175,12 +171,15 @@
                                 <td class='caption'>
                                     <span>Gender</span>
                                 </td>
-                                <td class='value'>									
+
+
+
+                                <td class='value'>
 									<span>
 										<select name='field_gender'>
 											<option>Gender</option>
-											<option value="M" required {{ M }}>Male</option>
-											<option value="F" required {{ F }}>Female</option>
+											<option value="M" required {{ member.field_gender.value == 'M' ? 'selected' }}>Male</option>
+											<option value="F" required {{ member.field_gender.value == 'F' ? 'selected' }}>Female</option>
 										</select>
 									</span>
                                 </td>

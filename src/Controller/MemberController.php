@@ -17,9 +17,9 @@ class MemberController extends ControllerBase {
    *
    */
 	public static function register() {	
-		$data = [];		
+		$data = [];
 		if( self::isEdit() ) {
-            $uid = self::isEdit();			
+            $uid = self::isEdit();
             if( x::isAdmin() || $uid == x::myUid() ) {
                 x::getDefaultInformationByUid( $uid, $data );
             }
@@ -37,10 +37,9 @@ class MemberController extends ControllerBase {
 	public static function registerSubmit() {		
         if ( self::isEditSubmit() ) { // Edit Submit.		
             $uid = x::in('user_id');
-			
             if ( x::isAdmin() || $uid == x::myUid() ) {
                 member::updateMemberFormSubmit($uid);
-                return new RedirectResponse( "/mall/member/register?user_id=$uid" );
+                return new RedirectResponse( "/mall/member/register?user_id=$uid&mode=edit_success" );
             }
             else return new RedirectResponse( "/mall/member/register/?" . x::error(x::ERROR_NOT_YOUR_ID));
         }
@@ -53,7 +52,7 @@ class MemberController extends ControllerBase {
             else {
                 x::loginUser(x::in('username'));
                 member::updateMemberFormSubmit($re);
-                return new RedirectResponse( "/mall/member/register" );
+                return new RedirectResponse( "/mall/member/register?mode=register_success");
             }
         }
 	}
@@ -63,7 +62,8 @@ class MemberController extends ControllerBase {
 	}
 
     private static function isEdit() {
-        return x::in('user_id');
+        if ( $uid = x::in('user_id') ) return $uid;
+        else return x::myUid();
     }
 
     public static function isEditSubmit() {
