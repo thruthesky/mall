@@ -444,13 +444,13 @@ class x {
   *delete by uid
   */
   public static function deleteUserByUid( $uid ){
-	//delete the entity
+	//clean up mall_member with the uid	
+	//$member = Member::gets( $uid );	
+	//$member->delete();
+	
+	//delete the user entity
 	$user = User::load( $uid );
 	$user->delete();
-	//clean up mall_member with the uid
-	$member = Member::gets( $uid );	
-	$member->delete();
-	
   }
   
   /*
