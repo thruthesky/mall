@@ -157,29 +157,20 @@ class Member {
 	
 	$info = [];
     foreach( $member_ids as $member_id ) {
-        $data = [];
-        x::getDefaultInformationByUid( $member_id['uid'], $data );
-		$info[ $member_id['uid'] ] = $data;
+		$info[ $member_id['uid'] ] = self::load($member_id['uid']);
     }
     return $info;
   }
 
     public static function updateMemberFormSubmit($uid) {
-        if ( MemberController::isEditSubmit() ) {
-			/*
-			*in case a user registers in drupal, the user will not have a mall_member account...
-			*so do something here when the user submits a mall_member account form...
-			*/
-			if( self::get( $uid, 'uid' ) ){
+
+			if( self::get( $uid, 'uid' ) ) {
 			
 			}
 			else{
 				self::set($uid, 'uid', $uid); // use this to check if the user in drupal registered into mall_member.
 			}
-        }
-        else {
-            self::set($uid, 'uid', $uid); // use this to check if the user in drupal registered into mall_member.
-        }
+
         self::set($uid, 'first_name', x::in('first_name'));
         self::set($uid, 'last_name', x::in('last_name'));
         self::set($uid, 'middle_name', x::in('middle_name'));
@@ -190,5 +181,10 @@ class Member {
         self::set($uid, 'birth_day', x::in('birth_day'));
         self::set($uid, 'birth_year', x::in('birth_year'));
         self::set($uid, 'location', x::in('location'));
+    }
+
+    private static function load($uid) {
+        $data = [];
+        return x::getDefaultInformationByUid( $uid, $data );
     }
 }

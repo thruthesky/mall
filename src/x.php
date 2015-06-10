@@ -386,7 +386,7 @@ class x {
       else return x::getDefaultInformationByUid($uid, $data);
   }
   
-  public static function getDefaultInformationByUid( $uid, array &$data ) {
+  public static function getDefaultInformationByUid( $uid, array &$data = [] ) {
       $data['member'] = Member::gets($uid);
       $data['user'] = User::load($uid);
       return $data;

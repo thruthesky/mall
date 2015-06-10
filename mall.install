@@ -1,6 +1,7 @@
 <?php
 function mall_schema()
 {
+    /*
   $schema['mall_member'] = array(
     'description' => 'To store all member information.',
     'fields' => array(
@@ -15,11 +16,12 @@ function mall_schema()
     ),
   );
   return $schema;
+    */
 }
 function mall_install()
 {
 }
 function mall_uninstall()
 {
-  db_drop_table('mall_member');
+  //db_drop_table('mall_member');
 }

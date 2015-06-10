@@ -5,6 +5,13 @@ mall.mall:
   requirements:
     _permission: 'access content'
 
+mall.mall:
+  path: '/mall/add'
+  defaults:
+    _controller: Drupal\mall\Controller\MallController::add
+  requirements:
+    _permission: 'access content'
+
 mall.member.register:
   path: '/mall/member/register'
   defaults:
