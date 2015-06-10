@@ -16,7 +16,8 @@ class MemberController extends ControllerBase {
    * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
    *
    */
-	public static function register() {
+	public static function register() {	
+		//Member::del( 80 );
 		$data = [];		
 		if( self::isEdit() ) {
             $uid = self::isEdit();			
@@ -38,9 +39,6 @@ class MemberController extends ControllerBase {
         if ( self::isEditSubmit() ) { // Edit Submit.		
             $uid = x::in('uid');
 			
-			di( $uid );
-			di( x::myUid() );
-			
             if ( x::isAdmin() || $uid == x::myUid() ) {
                 member::updateMemberFormSubmit($uid);
                 return new RedirectResponse( "/mall/member/register?uid=$uid" );
@@ -48,7 +46,7 @@ class MemberController extends ControllerBase {
             else return new RedirectResponse( "/mall/member/register/?" . x::error(x::ERROR_NOT_YOUR_ID));
         }
         else { // Register Submit. this is register submit for a new member.
-            $re = x::registerDrupalUser(x::in('username'), x::in('password'), x::in('email'));
+            $re = x::registerDrupalUser(x::in('username'), x::in('password'), x::in('mail'));
             if ( $re == x::ERROR_USER_EXISTS ) {
                 return new RedirectResponse( "/mall/member/register?" .  x::error(x::ERROR_USER_EXISTS,[ 'name'=> x::in('username') ]) );
             }
@@ -73,7 +71,7 @@ class MemberController extends ControllerBase {
     }
 
     public function collection()
-  {
+  {	
 	$data['members'] = Member::getMemberList();
 	$data['total'] = count( $data['members'] );
 	if( x::in( 'keyword' ) ){
@@ -87,7 +85,8 @@ class MemberController extends ControllerBase {
   }
   
    public static function del() {   
-   
+	$uid = x::in('uid');
+	
     if( x::isAdmin() || $uid == x::myUid() ) {
 		$uid = x::in('uid');
 		Member::del( $uid );

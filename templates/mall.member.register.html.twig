@@ -19,9 +19,9 @@
 
                             {% if logged_in %}
 							
-							{% if( member.gender.value == 'M' ) %}
+							{% if( member.field_gender.value == 'M' ) %}
 								{% set M = 'selected' %}
-							{% elseif( member.gender.value == 'F' ) %}
+							{% elseif( member.field_gender.value == 'F' ) %}
 								{% set F = 'selected' %}
 							{% endif %}
 							
@@ -59,7 +59,7 @@
                                     <span>First Name</span>
                                 </td>
                                 <td class='value'>
-                                    <span><input type="text" name="first_name" required placeholder="First name" value="{{ member.first_name.value }}"></span>
+                                    <span><input type="text" name="field_first_name" required placeholder="First name" value="{{ member.field_first_name.value }}"></span>
                                 </td>
                             </tr>
 
@@ -68,7 +68,7 @@
                                     <span>Last Name</span>
                                 </td>
                                 <td class='value'>
-                                    <span><input type="text" name="last_name" required placeholder="Last name"  value="{{ member.last_name.value }}"></span>
+                                    <span><input type="text" name="field_last_name" required placeholder="Last name"  value="{{ member.field_last_name.value }}"></span>
                                 </td>
                             </tr>
                             <tr valign='top' class='row'>
@@ -77,7 +77,7 @@
                                 </td>
                                 <td class='value'>
                                     <span class='element'>
-										<input type="text" name="middle_name" placeholder="Middle name"  value="{{ member.middle_name.value }}">
+										<input type="text" name="field_middle_name" placeholder="Middle name"  value="{{ member.field_middle_name.value }}">
 									</span>
                                 </td>
                             </tr>
@@ -93,7 +93,7 @@
 
                                 <td width='90%' class='value'>
 									<span class='element'>
-										<input type="email" name="email" required placeholder="Email" value="{{ member.email.value }}">
+										<input type="email" name="mail" required placeholder="Email" value="{{ member.mail.value }}">
 									</span>
                                 </td>
 
@@ -104,7 +104,7 @@
                                 </td>
                                 <td class='value'>
 									<span class='element'>
-										<input type="text" name="mobile" required placeholder="mobile" value="{{ member.mobile.value }}">
+										<input type="text" name="field_mobile" required placeholder="mobile" value="{{ member.field_mobile.value }}">
 									</span>
                                 </td>
                             </tr>
@@ -119,10 +119,10 @@
                                 </td>
                                 <td width='90%' class='value'>
 									<span class='clearfix'>
-										<select name="birth_month" required>
+										<select name="field_birth_month" required>
 											<option value="">Month</option>											
 											{% for m in 1..12 %}
-												{% if m == member.birth_month.value %}
+												{% if m == member.field_birth_month.value %}
 													{% set selected = ' selected' %}
 												{% else %}
 													{% set selected = ''%}
@@ -130,10 +130,10 @@
 													<option value='{{ m }}'{{ selected }}>{{ month[m] }}</option>
 											{% endfor %}											
 										</select>
-										<select name="birth_day" required>
+										<select name="field_birth_day" required>
 											<option value="">Day</option>
 											{% for d in 1..31 %}
-												{% if d == member.birth_day.value %}
+												{% if d == member.field_birth_day.value %}
 													{% set selected = ' selected' %}
 												{% else %}
 													{% set selected = ''%}
@@ -141,10 +141,10 @@
 												<option value='{{ d }}'{{ selected }}>{{ d }}</option>
 											{% endfor %}
 										</select>
-										<select name="birth_year" required>
+										<select name="field_birth_year" required>
 											<option value="">Year</option>
 											{% for y in 2015..1940 %}
-												{% if y == member.birth_year.value %}
+												{% if y == member.field_birth_year.value %}
 													{% set selected = ' selected' %}
 												{% else %}
 													{% set selected = ''%}
@@ -161,7 +161,7 @@
                                 </td>
                                 <td class='value'>									
 									<span>
-										<select name='gender'>
+										<select name='field_gender'>
 											<option>Gender</option>
 											<option value="M" required {{ M }}>Male</option>
 											<option value="F" required {{ F }}>Female</option>
@@ -175,7 +175,7 @@
                                 </td>
                                 <td class='value'>
 									<span class='element'>
-										<input type="text" name="location" required placeholder="Location" value="{{ member.location.value }}">
+										<input type="text" name="field_location" required placeholder="Location" value="{{ member.field_location.value }}">
 									</span>
                                 </td>
                             </tr>

@@ -24,26 +24,26 @@
 			</tr>			
 
 			{% for m in members %}				
-				{% set name = m.first_name.value ~ ' ' ~ m.last_name.value %}
-				{% if m.birth_month and m.birth_day and m.birth_year %}
-					{% set birth_date = m.birth_month.value ~ '/' ~ m.birth_day.value ~ '/' ~ m.birth_year.value %}
+				{% set name = m.field_first_name.value ~ ' ' ~ m.field_last_name.value %}
+				{% if m.field_birth_month and m.field_birth_day and m.field_birth_year %}
+					{% set birth_date = m.field_birth_month.value ~ '/' ~ m.field_birth_day.value ~ '/' ~ m.field_birth_year.value %}
 				{% else %}
-					{% set birth_date = NA %}
+					{% set birth_date = 'NA' %}
 				{% endif %}
 							
 				<tr>
 					<td><span>{{ m.uid.entity.name.value }}</span></td>
 					<td><span>{{ name }}</span></td>
-					<td><span>{{ m.email.value }}</span></td>
-					<td><span>{{ m.mobile.value }}</span></td>
+					<td><span>{{ m.mail.value }}</span></td>
+					<td><span>{{ m.field_mobile.value }}</span></td>
 					<td><span>{{ birth_date }}</span></td>
-					<td><span>{{ m.location.value }}</span></td>
+					<td><span>{{ m.field_location.value }}</span></td>
 					<td>
-						{% if( member.user.roles.target_id == 'administrator' )%}
+						{% if( m.uid.entity.roles.target_id == 'administrator' )%}
 						{% else %}
 						<div class="button-wrapper">
 							<a class="command" href="/mall/member/register/?uid={{ m.uid.entity.id }}" target="_blank">Edit</a>
-							<a class="command" href="/mall/admin/member/delete?uid={{ m.uid.entity.id }}" onclick="return member_delete( '{{ member.user.name.value }}' );">Delete</a>
+							<a class="command" href="/mall/admin/member/delete?uid={{ m.uid.entity.id }}" onclick="return member_delete( '{{ m.uid.entity.name.value }}' );">Delete</a>
 						</div>
 						{% endif %}
 					</td>

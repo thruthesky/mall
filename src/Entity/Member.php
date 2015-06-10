@@ -100,7 +100,7 @@ class Member extends ContentEntityBase implements MemberInterface {
             ->setLabel(t('Changed'))
             ->setDescription(t('The time that the entity was last edited.'));
 			
-        $fields['email'] = BaseFieldDefinition::create('string')
+        $fields['mail'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Email Address'))
             ->setDescription(t('Email Address of the Entity.'))
             ->setSettings(array(
@@ -108,7 +108,7 @@ class Member extends ContentEntityBase implements MemberInterface {
                 'max_length' => 128,
             ));
 			
-        $fields['mobile'] = BaseFieldDefinition::create('string')
+        $fields['field_mobile'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Mobile'))
             ->setDescription(t('Mobile number of the Entity.'))
             ->setSettings(array(
@@ -116,7 +116,7 @@ class Member extends ContentEntityBase implements MemberInterface {
                 'max_length' => 256,
             ));
 			
-        $fields['gender'] = BaseFieldDefinition::create('string')
+        $fields['field_gender'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Gender'))
             ->setDescription(t('Gender number of the Entity.'))
             ->setSettings(array(
@@ -124,7 +124,7 @@ class Member extends ContentEntityBase implements MemberInterface {
                 'max_length' => 1,
             ));
 			
-        $fields['first_name'] = BaseFieldDefinition::create('string')
+        $fields['field_first_name'] = BaseFieldDefinition::create('string')
             ->setLabel(t('First Name'))
             ->setDescription(t('First Name of the Entity.'))
             ->setSettings(array(
@@ -132,7 +132,7 @@ class Member extends ContentEntityBase implements MemberInterface {
                 'max_length' => 64,
             ));
 			
-        $fields['middle_name'] = BaseFieldDefinition::create('string')
+        $fields['field_middle_name'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Middle Name'))
             ->setDescription(t('Middle Name of the Entity.'))
             ->setSettings(array(
@@ -140,7 +140,7 @@ class Member extends ContentEntityBase implements MemberInterface {
                 'max_length' => 64,
             ));
 			
-        $fields['last_name'] = BaseFieldDefinition::create('string')
+        $fields['field_last_name'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Last Name'))
             ->setDescription(t('Last Name of the Entity.'))
             ->setSettings(array(
@@ -148,7 +148,7 @@ class Member extends ContentEntityBase implements MemberInterface {
                 'max_length' => 64,
             ));	
 			
-        $fields['birth_day'] = BaseFieldDefinition::create('integer')
+        $fields['field_birth_day'] = BaseFieldDefinition::create('integer')
             ->setLabel(t('Birth Day'))
             ->setDescription(t('Birth Day of the Entity.'))
             ->setSettings(array(
@@ -156,7 +156,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 				'unsigned', TRUE,
             ));
 			
-        $fields['birth_month'] = BaseFieldDefinition::create('integer')
+        $fields['field_birth_month'] = BaseFieldDefinition::create('integer')
             ->setLabel(t('Birth Month'))
             ->setDescription(t('Birth Month of the Entity.'))
             ->setSettings(array(
@@ -164,7 +164,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 				'unsigned', TRUE,
             ));
 			
-        $fields['birth_year'] = BaseFieldDefinition::create('integer')
+        $fields['field_birth_year'] = BaseFieldDefinition::create('integer')
             ->setLabel(t('Birth Year'))
             ->setDescription(t('Birth Year of the Entity.'))
             ->setSettings(array(
@@ -172,7 +172,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 				'unsigned', TRUE,
             ));
 			
-        $fields['location'] = BaseFieldDefinition::create('string')
+        $fields['field_location'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Location'))
             ->setDescription(t('Location of the Entity.'))
             ->setSettings(array(
@@ -189,15 +189,21 @@ class Member extends ContentEntityBase implements MemberInterface {
 		$input = x::input();
 		unset( $input['username'] );
 		unset( $input['password'] );
-		if( empty( $input['uid'] ) ) {
+		
+		$member = self::gets( $uid );
+
+		if( empty( $member ) ) {			
 			$input['uid'] = x::MyUid();
-			$member = Member::create();			
+			$member = Member::create();
+			$member->set( 'uid', $input['uid'] );			
 		}
 		else{
 			$member = self::gets( $uid );
 		}
 		
-		foreach( $input as $k => $v ){			
+		unset( $input['uid'] );
+		foreach( $input as $k => $v ){
+			//if( $k == 'uid' ) continue;		
 			$member->set($k, $v);
 		}
 		
@@ -208,7 +214,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 		x::deleteUserByUid( $uid );			
 	 }
 	 
-	 public static function getMemberList(){
+	 public static function getMemberList(){	 
 		$members = [];
 			if( $keyword = x::in('keyword') ){
 				$res = db_select(self::TABLE, 't')
@@ -237,8 +243,8 @@ class Member extends ContentEntityBase implements MemberInterface {
 				//di( $members );exit;
 				return $members;
 			}
-			else{
-				$members = Member::loadMultiple();
+			else{				
+				$members = Member::loadMultiple();				
 			}
 
 		return $members;

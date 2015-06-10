@@ -390,9 +390,8 @@ class x {
   
   public static function getDefaultInformationByUid( $uid, array &$data = [] ) {	  
       $data['member'] = Member::gets( $uid );
-	  //di( $data['member'] );
-	  //exit;
-      //$data['user'] = User::load($uid);
+	  if( empty( $data['member'] ) ) $data['member'] = User::load( $uid );
+      $user = User::load( $uid );
       return $data;
   }
 
