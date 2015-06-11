@@ -17,7 +17,6 @@
 		<div class='mall-error'>{{ data.error[1] }}</div>
 	{% else %}
 
-
 	{% if input.mode == 'edit_success' %}		
 		<div class='mall-success'>You have successfully edited your mall member account.</div>		
 	{% endif %}
@@ -29,9 +28,10 @@
 	{% if error %}
 		<div class='mall-error'>{{ error }}</div>	
 	{% endif %}
+	
+	{% include 'modules/mall/templates/error.html.twig' %}
 	<section class="content user-account">				            
-            <div class='form-description'>Please fill the input boxes</div>
-			{% include 'modules/mall/templates/error.html.twig' %}
+            <div class='form-description'>Please fill the input boxes</div>		
             <form class='account' type='POST' action="/mall/member/register/submit">			
 				<input type='hidden' name='user_id' value='{{ uid }}'>
                 <fieldset>

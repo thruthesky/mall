@@ -180,7 +180,7 @@ div.mall-success{
 .mall-page .title{
 	padding: 10px;
 	margin-bottom: 10px;
-	background-color: #003366;
+	background-color: #1886c5;
 	color: #ffffff;
 	font-size: 1.5em;
 	text-align: center;
@@ -273,3 +273,10 @@ div.mall-success{
 	font-size:1.2em;
 }
 /*eo mall-search*/
+
+
+/*override*/
+.mall-page .user-account .buttons input[type='submit']{
+	
+}
+/*eo override*/
