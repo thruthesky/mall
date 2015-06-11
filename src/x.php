@@ -4,6 +4,7 @@ use Drupal\mall\HTML;
 use Drupal\user\Entity\User;
 
 use Drupal\mall\Entity\Member;
+use Drupal\mall\Entity\Category;
 
 /**
  * Class X
@@ -21,6 +22,8 @@ class x {
   const ERROR_USER_EXISTS = 'ERROR_USER_EXISTS';
   
   const ERROR_NOT_YOUR_ID = 'ERROR_NOT_YOUR_ID';
+  
+  const ERROR_MUST_BE_AN_INTEGER = 'ERROR_MUST_BE_AN_INTEGER';
 
 
   static $input = [];
@@ -39,12 +42,20 @@ class x {
         '11'=>'November',
         '12'=>'December'
     ];
+	
+	static $item_status =[
+		'U' => 'Second Hand',
+		'B' => 'Brand New',
+		'D' => 'Defective',
+	];
   
   public static function getThemeName() {
     $uri = \Drupal::request()->getRequestUri();
-    if ( $uri == '/mall' or $uri == '/mall/' ) return 'mall.mall'; // this is the entry key of routing.yml
+	    
     //$uri = substr($uri, 1);
     list($uri, $trash) = explode('?', $uri, 2);
+	if ( $uri == '/mall' or $uri == '/mall/' ) return 'mall.mall'; // this is the entry key of routing.yml
+	
     $uri = trim($uri, '/ ');
     $uri = str_replace('/', '.', $uri);
     $uri = strtolower($uri);
@@ -303,7 +314,8 @@ class x {
       case self::ERROR_BLANK_CATEGORY_NAME : $msg = "Category name cannot be blank!."; break;
       case self::ERROR_PLEASE_LOGIN_FIRST : $msg = "Please login first!."; break;
       case self::ERROR_USER_EXISTS : $msg = "The username [ #name ] already exists!."; break;
-      case self::ERROR_NOT_YOUR_ID : $msg = "The account that you are trying to edit/delete is not yours."; break;      
+      case self::ERROR_NOT_YOUR_ID : $msg = "The account that you are trying to edit/delete is not yours."; break;   
+      case self::ERROR_MUST_BE_AN_INTEGER : $msg = "#field must be an integer."; break;      
       default: $msg = 'Unknown'; break;
     }
     return $msg;
@@ -493,4 +505,23 @@ class x {
 	 }
   }
   /***********************/
+  
+  
+  
+  
+  public static function getCategoryChildren( $no ){
+	return Category::loadChildren( $no );
+  }
+  
+  public static function getAllCategoryChildren( $no ){
+	return Category::loadAllChildren( $no );
+  }
+  
+  public static function getCategoryRoot( $no ){
+	return Category::groupRoot( $no );
+  }
+  
+  public static function getCategoryParents( $no ){
+	return Category::loadParents( $no );
+  }
 }

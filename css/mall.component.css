@@ -172,11 +172,11 @@ div.mall-success{
 	display:inline;
 }
 /*eo category unique*/
-.mall-table.member{
+.mall-table.member, .mall-table.item{
 	text-align:center;
 }
 
-.mall-table.member td > span{
+.mall-table td > span{
 	display:block;
 	padding:10px;
 }
@@ -199,6 +199,15 @@ div.mall-success{
 
 .mall-page .content{	
 	padding:0 10px 10px 10px;
+}
+
+.mall-page .content.front-page .menu-list{	
+	margin-bottom:10px;
+}
+
+.mall-page .content.front-page .menu-list .menu > a{	
+	display:inline-block;
+	padding:5px 10px;
 }
 
 .mall-page .form-label{	
@@ -292,9 +301,15 @@ div.mall-success{
 }
 
 .mall-page .mall-item-add input[type='text'], .mall-page .mall-item-add select, .mall-page .mall-item-add textarea{	
-	width:100%;	
+	width:100%;		
 	border:1px solid #6e96d9;
 	box-sizing:border-box;
+}
+
+.mall-page .mall-item-add select.category{
+	float:left;
+	width:24%;
+	margin:0 1% 5px 0;
 }
 
 .mall-page .mall-item-add input[type='text']{
@@ -309,8 +324,7 @@ div.mall-success{
 }
 
 .mall-page .mall-item-add select{
-	padding:5px;
-	color:#8a8a8a;
+	padding:5px;	
 }
 
 .mall-page .mall-item-add input[type='text']:focus, .mall-page .mall-item-add select:focus, .mall-page .mall-item-add textarea:focus{
@@ -328,7 +342,7 @@ div.mall-success{
 }
 
 .mall-page .mall-item-add .description{
-	margin:5px 0;
+	margin:10px 0 5px 0;
 }
 
 .mall-page .mall-item-add .description:first-child{

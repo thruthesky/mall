@@ -5,12 +5,41 @@ mall.mall:
   requirements:
     _permission: 'access content'
 
-mall.mall:
-  path: '/mall/add'
+mall.item.add:
+  path: '/mall/item/add'
   defaults:
-    _controller: Drupal\mall\Controller\MallController::add
+    _controller: Drupal\mall\Controller\ItemController::edit
   requirements:
     _permission: 'access content'
+
+mall.item.edit:
+  path: '/mall/item/edit'
+  defaults:
+    _controller: Drupal\mall\Controller\ItemController::edit
+  requirements:
+    _permission: 'access content'
+
+mall.item.edit.submit:
+  path: '/mall/item/edit/submit'
+  defaults:
+    _controller: Drupal\mall\Controller\ItemController::editSubmit
+  requirements:
+    _permission: 'access content'
+
+mall.item.delete:
+  path: '/mall/item/delete'
+  defaults:
+    _controller: Drupal\mall\Controller\ItemController::del
+  requirements:
+    _permission: 'access content'
+
+mall.admin.item.list:
+  path: '/mall/admin/item/list'
+  defaults:
+    _controller: Drupal\mall\Controller\ItemController::collection
+  requirements:
+    _permission: 'access content'
+
 
 mall.member.register:
   path: '/mall/member/register'
@@ -25,6 +54,7 @@ mall.member.register.submit:
     _controller: Drupal\mall\Controller\MemberController::registerSubmit
   requirements:
     _permission: 'access content'
+
 
 mall.admin:
   path: '/mall/admin'
@@ -101,12 +131,5 @@ mall.admin.member.delete:
   path: '/mall/admin/member/delete'
   defaults:
     _controller: Drupal\mall\Controller\MemberController::del
-  requirements:
-    _permission: 'access content'
-
-mall.item.add:
-  path: '/mall/item/add'
-  defaults:
-    _controller: Drupal\mall\Controller\ItemController::add
   requirements:
     _permission: 'access content'

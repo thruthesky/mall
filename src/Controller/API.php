@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Drupal\file\Entity\File;
 
+use Drupal\mall\Entity\Category;
+
 class API extends ControllerBase {
 	public function DefaultController(){
 		$request = \Drupal::request();
@@ -34,4 +36,28 @@ class API extends ControllerBase {
 		return $data;
 	}
 	*/
+	
+	public static function getParentChildren( $request ){
+		$pid = $request->get('pid');
+		
+		if( !$pid ) return null;
+		
+		$depth = $request->get('depth') + 1;
+		
+		$markup = '';
+		
+		$children = Category::loadChildren( $pid );
+			if( $children ){
+			$markup =	"<select class='category' name='' depth='$depth'>";
+			$markup .= 	"<option value=''>Category</option>";
+			foreach( $children as $child ){
+				$markup .= "<option value='".$child->id()."'>".$child->name->value."</option>";
+			}
+			$markup .=	"</select>";		
+		}
+		
+		$data['html'] = $markup;
+		
+		return $data;
+	}
 }

@@ -74,21 +74,36 @@ class Category extends ContentEntityBase implements CategoryInterface {
 		$category->delete();
 	}
   }
-
-  public static function loadChildren($no, $depth = 0) {//$delete temporary
+	
+  /*
+  *Loads ALL children depending on the first $no
+  */
+  public static function loadAllChildren($no, $depth = 0) {//$delete temporary
 	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$no]);
 	$rows = [];
 	foreach( $categories as $c ){
 		$id = $c->id();
 		$rows[ $id ]['entity'] = $c;        
         $rows[ $id ]['depth'] = $depth;
-		$returns = self::loadChildren( $id, $depth + 1 );		
+		$returns = self::loadAllChildren( $id, $depth + 1 );		
 		if( $returns ) $rows = $rows + $returns;        
 		$rows[ $id ]['child_no'] = count( $returns );
 	}	
 	return $rows;
   }
-
+  
+  /*
+  *Loads only depth 0 children depending on the $no
+  */
+  public static function loadChildren($no, $depth = 0) {//$delete temporary
+	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>$no]);
+	$rows = [];
+	foreach( $categories as $c ){
+		$rows[] = $c;
+	}
+	
+	return $rows;
+  }
   /**
    *
    * It returns the path from a node to root in array.

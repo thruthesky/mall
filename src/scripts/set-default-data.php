@@ -6,37 +6,8 @@ use Drupal\mall\Member;
 Mall::emptyData();
 
 set_default_category();
-set_default_member();
-
-function set_default_member() {
-  Member::add([
-    'uid' => 1,
-    'first_name' => 'JaeHo',
-    'last_name' => 'Song',
-    'middle_name' => 'Does not look working',
-    'email' => 'admin@drupal.com',
-    'mobile' => '0917-467-8603',
-  ]);
-
-  Member::add([
-    'uid' => 2,
-    'first_name' => 'Second',
-    'last_name' => 'SLast',
-    'middle_name' => 'M',
-    'email' => 'second@drupal.com',
-    'mobile' => '0917-000-1234',
-  ]);
-
-
-  Member::update(['uid'=>2, 'email'=>'2 new email']);
-
-  echo Member::set(1, 'email', 'this is admin email');
-  echo Member::get(1, 'email');
-
-}
 
 function set_default_category() {
-
 	Mall::Login('admin');
 
 	$root_id_default = Category::add(0, 'Default');
@@ -55,28 +26,4 @@ function set_default_category() {
 	$id_monitor = Category::add($id_computer, 'monitor');
 	$id_keyboard = Category::add($id_computer, 'keyboard');
 	$id_laptop = Category::add($root_id_discount, 'Laptops');	
-
-	//Category::update($id_starex, 'Van');
-	//Category::del($id_bicycle);
-
-
-
-
-	/*for item*/
-	//Mall::Login('admin');
-	$status = ['','S','B','U','S','B'];
-	$item_ids = [];
-	for( $i = 1; $i <=5; $i ++ ){
-		$data = [];
-		$data['name'] = "Printer"."_".$i;
-		$data['price'] = "1500".$i;
-		$data['status'] = $status[$i];/*S = second hand | B = Brand new | U = Slightly used*/
-		$data['content'] = "I want to sell my old printer"."_".$i;
-		$data['brand'] = "Adidas"."_".$i;
-		$data['model'] = "SCX-3200"."_".$i;
-		
-		$item_ids[] = Item::Add( $data );
-	}
-	Item::update($item_ids[0], 'Printer - Edited Item');
-	Item::del($item_ids[2]);
 }

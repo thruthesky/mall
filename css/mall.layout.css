@@ -1,3 +1,7 @@
 .mall-admin-member-list .td-layout-left, .mall-admin-member-list .td-layout-right{
 	display:none!important;
 }
+
+.mall-admin-item-list .td-layout-left, .mall-admin-item-list .td-layout-right{
+	display:none!important;
+}

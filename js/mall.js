@@ -1,14 +1,14 @@
 $(function(){
     var $body = $('body');
     //$("body").on( "submit",".category-table .category .form-delete", category_delete );
-    $("body").on( "click",".category .button-wrapper .add", category_add );
-    $("body").on( "click",".category .button-wrapper .edit", category_edit );
-    $("body").on( "click",".category .cancel", category_cancel );
+    $("body").on( "click",".category .button-wrapper .add", callback_category_add );
+    $("body").on( "click",".category .button-wrapper .edit", callback_category_edit );
+    $("body").on( "click",".category .cancel", callback_category_cancel );
 	
-	//ajax_api_mall( { call:'test' }, test_callback );
+	$("body").on( "change","select.category", callback_change_category );
 });
 
-function category_add(){
+function callback_category_add(){
 	$this = $(this);
 	var id = $this.attr("id");
 	var form = renderAddForm( id );
@@ -17,7 +17,7 @@ function category_add(){
 	$this.remove();	
 }
 
-function category_edit(){
+function callback_category_edit(){
 	$this = $(this);
 	var id = $this.attr("id");
 	var form = renderEditForm( id );
@@ -36,7 +36,11 @@ function member_delete( e ){
 	return confirm( "Are you sure you want to delete member - "+e+"?" );
 }
 
-function category_cancel(){
+function item_delete( e ){
+	return confirm( "Are you sure you want to delete item - "+e+"?" );
+}
+
+function callback_category_cancel(){
 	 window.location.reload();
 }
 
@@ -72,7 +76,24 @@ function test_callback( re ){
 }
 */
 
-
+function callback_change_category( re ){
+	var $this = $(this);
+	var pid = $this.val();
+	
+	$(".mall-page .mall-item-add select.category").attr("name",'');
+	$this.attr("name",'category_id');
+	
+	var depth = $this.attr('depth');
+	
+	$this.nextAll('select').remove();
+	
+	data = {};
+	data.call = 'getParentChildren';
+	data.pid = pid;
+	data.depth = depth;
+	
+	ajax_api_mall( data, callback_get_parent_children );
+}
 
 
 
@@ -89,6 +110,7 @@ function ajax_api_mall( qs, callback_function )
     o.type = "POST";
     var promise = $.ajax( o );
     promise.done( function( o ) {
+		trace( o );
         callback_function( o );
     });
     promise.fail( function( re ) {
@@ -96,3 +118,9 @@ function ajax_api_mall( qs, callback_function )
         trace(re);
     });
 }
+
+/*ajax_api_mall callbacks here below*/
+function callback_get_parent_children( re ){
+	$('.mall-item-add .categories').append( re.html );
+}
+/*eo ajax_api_mall callbacks here below*/

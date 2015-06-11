@@ -15,7 +15,7 @@ class CategoryController extends ControllerBase {
 	  $groups = [];
 	  foreach( $categories as $c ){
 		$groups[$c->id()]['entity'] = $c;
-		$groups[$c->id()]['child_no'] = count( Category::loadChildren( $c->id() ) );
+		$groups[$c->id()]['child_no'] = count( Category::loadAllChildren( $c->id() ) );
 	  }
 
       $data = [
@@ -49,7 +49,7 @@ class CategoryController extends ControllerBase {
   public static function del() {
 	$id = x::in('id');
     //$category = Category::load($id);
-    if ( x::in('confirmed', '') != 'yes' && $children = Category::loadChildren($id) ) {
+    if ( x::in('confirmed', '') != 'yes' && $children = Category::loadAllChildren($id) ) {
       $redirect_url = "/mall/admin/category/delete/confirm?id=$id";
     }
     else {
@@ -91,7 +91,7 @@ class CategoryController extends ControllerBase {
     //$ids = \Drupal::entityQuery('mall_category')->condition('parent_id',0)->execute();
 
 
-    /*$cats = Category::loadChildren(\Drupal::request()->get('no'));
+    /*$cats = Category::loadAllChildren(\Drupal::request()->get('no'));
 
     foreach( $cats as $cat ) {
       di( $cat->get('name')->value );
@@ -107,7 +107,7 @@ class CategoryController extends ControllerBase {
 
     if ( $id = x::in('parent_id') ) {
       $data['group'] = Category::load(x::in('parent_id'));
-      $data['children'] = Category::loadChildren( $id );
+      $data['children'] = Category::loadAllChildren( $id );
     }
     return [
       '#theme' => x::getThemeName(),
@@ -118,7 +118,7 @@ class CategoryController extends ControllerBase {
   public static function deleteConfirm() {
 	$data = [];
 	$data['category'] = Category::load(x::in('id'));
-	$children = Category::loadChildren( x::in('id') );
+	$children = Category::loadAllChildren( x::in('id') );
 	if( $children ) $data['children'] = $children;
 	
     return [

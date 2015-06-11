@@ -7,7 +7,7 @@ use Symfony\Component\Yaml\Yaml;
 
 function mall_theme()
 {
-  $routes = Yaml::parse(file_get_contents(drupal_get_path('module', 'mall').'/mall.routing.yml'));
+  $routes = Yaml::parse(file_get_contents(drupal_get_path('module', 'mall').'/mall.routing.yml'));   
   $themes = [];
   foreach($routes as $name => $info) {
     $themes[$name] = [

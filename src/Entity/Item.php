@@ -6,6 +6,8 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 
+use Drupal\mall\x;
+
 /**
  * Defines the ItemLog entity.
  *
@@ -23,34 +25,48 @@ use Drupal\user\UserInterface;
  * )
  */
 class Item extends ContentEntityBase implements ItemInterface {
-	public static function add( $data ) {
-		$item = Item::create();
+  public static function update( $input ) {
+		$item = Item::load( $input['item_id'] );
 
-		$item->set('user_id', \Drupal::currentUser()->getAccount()->id());
-		$item->set('name', $data['name']);
-		$item->set('price', $data['price']);
-		$item->set('status', $data['status']);
-		$item->set('content', $data['content']);
-		$item->set('brand', $data['brand']);
-		$item->set('model', $data['model']);
+		if( empty( $item ) ) {
+			$item = Item::create();
+			$item->set('user_id', x::myUid() );
+		}
+
+		$item->set('title', $input['title']);		
+		$item->set('name', $input['name']);	
+		$item->set('category_id', $input['category_id']);		
+		$item->set('brand', $input['brand']);
+		$item->set('model', $input['model']);
+		$item->set('model_year', $input['model_year']);		
+		$item->set('price', $input['price']);		
+		$item->set('mobile', $input['mobile']);			
+		$item->set('status', $input['status']);		
+		$item->set('content', $input['content']);
+
 		$item->save();
+		
 		return $item->id();
-	  }
-
-  public static function update($id, $name) {
-    $item = Item::load($id);
-    if ( $item ) {
-      $item->set('name', $name)->save();
-      return 0;
-    }
-    else {
-      return -1;
-    }
   }
 
   public static function del($id) {
     $item = Item::load($id);
     if ( $item ) $item->delete();
+  }
+  
+  public static function getItemList() {
+	$query = \Drupal::entityQuery('mall_item');
+	if ( $keyword = x::in('keyword') ) {
+		$ors = $query->orConditionGroup();
+		$ors->condition( 'title', '%'.$keyword.'%', 'LIKE' );
+		$ors->condition( 'name', '%'.$keyword.'%', 'LIKE' );
+		$ors->condition( 'content', '%'.$keyword.'%', 'LIKE' );
+		$ors->condition( 'brand', '%'.$keyword.'%', 'LIKE' );
+		$ors->condition( 'model', '%'.$keyword.'%', 'LIKE' );		
+		$query->condition($ors);
+	}
+	$ids = $query->execute();
+	return Item::loadMultiple($ids);
   }
   
   
@@ -130,9 +146,17 @@ class Item extends ContentEntityBase implements ItemInterface {
       ->setDescription(t('The person who created this Item.'))
       ->setSetting('target_type', 'user');
 	 
+	 $fields['title'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('title'))
+      ->setDescription(t('Is the title of the item. This will be displayed as the title of item in list page or in view page.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 256,
+      ));
+	  
 	 $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('Name of Item.'))
+      ->setDescription(t('The name of the item. It may confused with model and title.'))
       ->setSettings(array(
         'default_value' => '',
         'max_length' => 256,
@@ -141,11 +165,25 @@ class Item extends ContentEntityBase implements ItemInterface {
     $fields['price'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Price'))
       ->setDescription(t('Price of Item.'));
-
+	  
+    $fields['mobile'] = BaseFieldDefinition::create('string')
+            ->setLabel(t('Mobile'))
+            ->setDescription(t('Mobile number of the Entity.'))
+            ->setSettings(array(
+                'default_value' => '',
+                'max_length' => 64,
+            ));
+			
+	  
+	  
+	$fields['category_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Category ID'))
+      ->setDescription(t('Category ID'))
+      ->setSetting('target_type', 'mall_category');
 
     $fields['status'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Status'))
-      ->setDescription(t('the Status of the item. New, Used, Broken, etc....'))
+      ->setDescription(t('the Status of the item. New, Used, Defective, etc....'))
       ->setSettings(array(
         'default_value' => '',
         'max_length' => 1,
@@ -174,9 +212,15 @@ class Item extends ContentEntityBase implements ItemInterface {
         'default_value' => '',
         'max_length' => 64,
       ));
+	  
+    $fields['model_year'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Model Year'))
+      ->setDescription(t('Model Year of Item.'))
+      ->setSettings(array(
+        'default_value' => 0,
+        'max_length' => 4,
+      ));
 
     return $fields;
   }
-
-
 }

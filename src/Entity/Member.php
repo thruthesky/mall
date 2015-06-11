@@ -118,7 +118,7 @@ class Member extends ContentEntityBase implements MemberInterface {
             ->setDescription(t('Mobile number of the Entity.'))
             ->setSettings(array(
                 'default_value' => '',
-                'max_length' => 256,
+                'max_length' => 64,
             ));
 			
         $fields['field_gender'] = BaseFieldDefinition::create('string')
