@@ -77,6 +77,17 @@ div.mall-success{
 	background-color: #004466;
 	color: #ffffff;	
 }
+
+
+.mall-page .top-menu > a{
+	border: 1px solid #1886c5;
+	color: #1886c5;
+}
+
+.mall-page .top-menu > a:hover{
+	background-color: #1886c5;
+	color: #ffffff;	
+}
 /*eo top-menu*/
 
 /*form*/
