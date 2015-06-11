@@ -5,12 +5,20 @@ mall.mall:
   requirements:
     _permission: 'access content'
 
-mall.mall:
-  path: '/mall/add'
+mall.item.add:
+  path: '/mall/item/add'
   defaults:
-    _controller: Drupal\mall\Controller\MallController::add
+    _controller: Drupal\mall\Controller\ItemController::edit
   requirements:
     _permission: 'access content'
+
+mall.item.edit:
+  path: '/mall/item/edit'
+  defaults:
+    _controller: Drupal\mall\Controller\ItemController::edit
+  requirements:
+    _permission: 'access content'
+
 
 mall.member.register:
   path: '/mall/member/register'
@@ -25,6 +33,7 @@ mall.member.register.submit:
     _controller: Drupal\mall\Controller\MemberController::registerSubmit
   requirements:
     _permission: 'access content'
+
 
 mall.admin:
   path: '/mall/admin'
