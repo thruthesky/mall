@@ -39,7 +39,7 @@ class x {
         '11'=>'November',
         '12'=>'December'
     ];
-
+  
   public static function getThemeName() {
     $uri = \Drupal::request()->getRequestUri();
     if ( $uri == '/mall' or $uri == '/mall/' ) return 'mall.mall'; // this is the entry key of routing.yml

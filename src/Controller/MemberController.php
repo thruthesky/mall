@@ -28,6 +28,7 @@ class MemberController extends ControllerBase {
             }
 		}
         else x::getDefaultInformation($data);
+		
 		return [
 			'#theme' => x::getThemeName(),
 			'#data' => $data,

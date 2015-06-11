@@ -192,8 +192,6 @@ class Member extends ContentEntityBase implements MemberInterface {
 	/*member functions*/
 	 public static function updateMemberFormSubmit($uid) {
 		$input = x::input();
-		unset( $input['username'] );
-		unset( $input['password'] );
 		
 		$member = self::loadByUid( $uid );
 
@@ -202,11 +200,17 @@ class Member extends ContentEntityBase implements MemberInterface {
 			$member->set( 'user_id', $uid );
 		}
 
-         //@todo do not loop here. only update necessary values.
-		foreach( $input as $k => $v ){			
-			$member->set($k, $v);
-		}
-
+		$member->set('field_first_name', $input['field_first_name']);
+		$member->set('field_last_name', $input['field_last_name']);
+		$member->set('field_middle_name', $input['field_middle_name']);
+		$member->set('mail', $input['mail']);
+		$member->set('field_mobile', $input['field_mobile']);
+		$member->set('field_birth_month', $input['field_birth_month']);
+		$member->set('field_birth_day', $input['field_birth_day']);
+		$member->set('field_birth_year', $input['field_birth_year']);
+		$member->set('field_gender', $input['field_gender']);
+		$member->set('field_location', $input['field_location']);
+		
 		$member->save();		
 	 }
 	 

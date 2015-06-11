@@ -32,7 +32,7 @@
 }
 
 /*error*/
-.mall-admin-page div.mall-error, .mall-page div.mall-error{	
+div.mall-error{	
 	padding: 10px;
 	margin:0 10px 10px 10px;
 	border: 1px solid #cc0000;
@@ -40,6 +40,19 @@
 	background-color: #f2f2f2;
 	font-size: 1.2em;
 	color: #cc0000;
+	text-align:center;
+}
+/*eo error*/
+
+/*error*/
+div.mall-success{	
+	padding: 10px;
+	margin:0 10px 10px 10px;
+	border: 1px solid #009900;
+	border-radius: 2px;
+	background-color: #f2f2f2;
+	font-size: 1.2em;
+	color: #009900;
 	text-align:center;
 }
 /*eo error*/
@@ -174,7 +187,7 @@
 }
 
 .mall-page .content{	
-	padding:10px;
+	padding:0 10px 10px 10px;
 }
 
 .mall-page .form-label{	

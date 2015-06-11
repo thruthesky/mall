@@ -1,31 +1,35 @@
 {% set member = data.member %}
-
+{% set user = data.user %}
 {% set month = x.months %}
-
 <div class='mall-page'>
-	<section class="content user-account">
-		{% if member.user_id.entity.id %}
-			{% set uid = member.user_id.entity.id %}
-			{% set username = member.user_id.entity.name.value %}
-		{% elseif user.id.value %}
-			{% set uid = user.id.value %}
-			{% set username = user.name.value %}
-			{% set error = "You are not yet a mall member. Please click on submit button to join." %}
-		{% endif %}
+	<div class='title'>Member Register</div>
+	{% if member.user_id.entity.id %}
+		{% set uid = member.user_id.entity.id %}
+		{% set username = member.user_id.entity.name.value %}
+	{% elseif user.id %}
+		{% set uid = user.id %}
+		{% set username = user.name.value %}
+		{% set member = user %}
+		{% set error = "You are not yet a mall member. Please click on submit button to join." %}
+	{% endif %}
+
+	{% if data.error %}
+		<div class='mall-error'>{{ data.error[1] }}</div>
+	{% else %}
+
+
+	{% if input.mode == 'edit_success' %}		
+		<div class='mall-success'>You have successfully edited your mall member account.</div>		
+	{% endif %}
 	
-		{% if data.error %}
-			<div class='mall-error'>{{ data.error[1] }}</div>
-		{% else %}
-
-
-        {% if input.mode == 'edit_success' %}
-            <h2>Edit Success</h2>
-        {% endif %}
-		{% if error %}
-			<div class='mall-error'>{{ error }}</div>	
-		{% endif %}
-		
-            <div class='form-label'>Member Register</div>
+	{% if input.mode == 'register_success' %}
+		<div class='mall-success'>You have successfully registered as a Mall Member</div>
+	{% endif %}
+	
+	{% if error %}
+		<div class='mall-error'>{{ error }}</div>	
+	{% endif %}
+	<section class="content user-account">				            
             <div class='form-description'>Please fill the input boxes</div>
 			{% include 'modules/mall/templates/error.html.twig' %}
             <form class='account' type='POST' action="/mall/member/register/submit">			
