@@ -103,3 +103,10 @@ mall.admin.member.delete:
     _controller: Drupal\mall\Controller\MemberController::del
   requirements:
     _permission: 'access content'
+
+mall.item.add:
+  path: '/mall/item/add'
+  defaults:
+    _controller: Drupal\mall\Controller\ItemController::add
+  requirements:
+    _permission: 'access content'
