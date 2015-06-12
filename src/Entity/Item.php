@@ -111,7 +111,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		}		
 		/*
 		*sample returning value for item_image2 is $files[ item_image ][ 2 ] = $file_entity;
-		*sample returning value for item_image_thumbnail is $files[ item_image_thumbnail ][ 0 ] = $file_entity; -> automatically sets an iterating index for code unification
+		*sample returning value for item_image_thumbnail ( meaning $no is empty ) is $files[ item_image_thumbnail ][ 0 ] = $file_entity; -> automatically sets an iterating index for code unification
 		*/
 		if( $no ) $files[ $usage_type ][ $no ] = \Drupal::entityManager()->getStorage('file')->load( $row['fid'] );
 		else $files[ $usage_type ][] = \Drupal::entityManager()->getStorage('file')->load( $row['fid'] );
