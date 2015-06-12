@@ -36,7 +36,7 @@ class ItemController extends ControllerBase {
 				if( $file_urls ) $data['files'] = $file_urls;
 			}
 			else{
-				return new RedirectResponse( "/mall?" . x::error(x::ERROR_NOT_YOUR_POST) );
+				return new RedirectResponse( "/mall/admin/item/list?" . x::error(x::ERROR_NOT_YOUR_POST) );
 			}			
 		}		
 		
@@ -60,7 +60,7 @@ class ItemController extends ControllerBase {
 			return new RedirectResponse( "/mall/item/add?item_id=".$re );
 		}
 		else{
-			return new RedirectResponse( "/mall?" . x::error(x::ERROR_NOT_YOUR_POST) );
+			return new RedirectResponse( "/mall/admin/item/list?" . x::error(x::ERROR_NOT_YOUR_POST) );
 		}
     }
 	
