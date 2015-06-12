@@ -54,11 +54,11 @@ class ItemController extends ControllerBase {
 		if( !x::myUid() ) return new RedirectResponse( "/mall?" . x::error(x::ERROR_PLEASE_LOGIN_FIRST) );
 		
 		$input = x::input();	
-		$item = Item::load( $input['item_id'] );//move or fix this later, becomes repeatitive inside Item::del
+		//$item = Item::load( $input['item_id'] );//move or fix this later, becomes repeatitive inside Item::del
 		//di( $input );exit;
 		//if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){
-			$re = Item::Update( $input );
-			return new RedirectResponse( "/mall/item/add?item_id=".$re );
+        $re = Item::Update( $input );
+        return new RedirectResponse( "/mall/item/add?item_id=".$re );
 		/*}
 		else{
 			return new RedirectResponse( "/mall/admin/item/list?" . x::error(x::ERROR_NOT_YOUR_POST) );
