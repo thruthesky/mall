@@ -18,20 +18,22 @@
 			<tr class='header'>
 				<td><span>Title</span></td>
 				<td><span>Name</span></td>
+				<td><span>Owner</span></td>	
 				<td><span>Price</span></td>
 				<td><span>Mobile</span></td>
-				<td><span>Category_id</span></td>				
+				<td><span>Category_id</span></td>	
 				<td><span>Status</span></td>				
 				<td><span>Brand</span></td>				
 				<td><span>Model</span></td>
 				<td><span>Model Year</span></td>
 				<td width='100'><span>content</span></td>	
-				<td><span>buttons</span></td>				
+				<td width='100'><span>buttons</span></td>				
 			</tr>			
 			{% for i in items %}			
 				<tr>
 					<td><span>{{ i.title.value }}</span></td>
 					<td><span>{{ i.name.value }}</span></td>
+					<td><span>{{ i.user_id.entity.name.value }}</span></td>
 					<td><span>{{ i.price.value }}</span></td>
 					<td><span>{{ i.mobile.value }}</span></td>
 					<td><span>{{ i.category_id.entity.name.value }} ({{ i.category_id.entity.id.value }})</span></td>
