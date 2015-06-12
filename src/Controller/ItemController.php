@@ -50,7 +50,8 @@ class ItemController extends ControllerBase {
 		if( !x::myUid() ) return new RedirectResponse( "/mall?" . x::error(x::ERROR_PLEASE_LOGIN_FIRST) );
 		
 		$input = x::input();	
-		$item = Item::load( $input['item_id'] );
+		$item = Item::load( $input['item_id'] );//move or fix this later, becomes repeatitive inside Item::del
+		
 		if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){
 			if( !is_numeric($input['price'] ) ) return new RedirectResponse( "/mall/item/add?" . x::error(x::ERROR_MUST_BE_AN_INTEGER , [ 'field' => 'Price' ] ) );
 			if( !is_numeric($input['model_year'] ) ) return new RedirectResponse( "/mall/item/add?" . x::error(x::ERROR_MUST_BE_AN_INTEGER ,[ 'field'=> 'Model year' ]) );
@@ -81,7 +82,7 @@ class ItemController extends ControllerBase {
 	public function del(){
 		$item_id = x::in( 'item_id' );
 		
-		$item = Item::load( $item_id );
+		$item = Item::load( $item_id );//move or fix this later, becomes repeatitive inside Item::del
 		
 		if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){			
 			Item::del( $item_id );
