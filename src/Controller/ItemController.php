@@ -17,23 +17,27 @@ class ItemController extends ControllerBase {
 		
 		if( $item_id = x::in('item_id') ){			
 			$data['item'] = Item::load( $item_id ); 
-			//do something here like the post is not yours...
-			$category_parents = array_reverse( x::getCategoryParents( $data['item']->category_id->target_id ) );
-			$count = 0;
-			foreach( $category_parents as $c ){
-				$data['category'][ $count ]['selected'] = $c->id();
-				$count++;
-				if( x::getCategoryChildren( $c->id() ) ){
-					$data['category'][ $count ]['entity'] = x::getCategoryChildren( $c->id() );
+			if( $data['item']->user_id->target_id == x::myUid() || x::isAdmin() ){
+				$category_parents = array_reverse( x::getCategoryParents( $data['item']->category_id->target_id ) );
+				$count = 0;
+				foreach( $category_parents as $c ){
+					$data['category'][ $count ]['selected'] = $c->id();
+					$count++;
+					if( x::getCategoryChildren( $c->id() ) ){
+						$data['category'][ $count ]['entity'] = x::getCategoryChildren( $c->id() );
+					}
 				}
+				
+				$files = Item::getFiles( $item_id );
+				$file_urls = [];
+				foreach( $files as $file ){
+					$file_urls[ $file->id() ] = Item::getFileUrl( $file );
+				}
+				if( $file_urls ) $data['files'] = $file_urls;
 			}
-			
-			$files = Item::getFiles( $item_id );
-			$file_urls = [];
-			foreach( $files as $file ){
-				$file_urls[ $file->id() ] = Item::getFileUrl( $file );
-			}
-			if( $file_urls ) $data['files'] = $file_urls;
+			else{
+				return new RedirectResponse( "/mall?" . x::error(x::ERROR_NOT_YOUR_POST) );
+			}			
 		}		
 		
         return [
@@ -46,13 +50,18 @@ class ItemController extends ControllerBase {
 		if( !x::myUid() ) return new RedirectResponse( "/mall?" . x::error(x::ERROR_PLEASE_LOGIN_FIRST) );
 		
 		$input = x::input();	
-		
-		if( !is_numeric($input['price'] ) ) return new RedirectResponse( "/mall/item/add?" . x::error(x::ERROR_MUST_BE_AN_INTEGER , [ 'field' => 'Price' ] ) );
-		if( !is_numeric($input['model_year'] ) ) return new RedirectResponse( "/mall/item/add?" . x::error(x::ERROR_MUST_BE_AN_INTEGER ,[ 'field'=> 'Model year' ]) );
-		
-		$re = Item::Update( $input );
-		
-		return new RedirectResponse( "/mall/item/add?item_id=".$re );
+		$item = Item::load( $input['item_id'] );
+		if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){
+			if( !is_numeric($input['price'] ) ) return new RedirectResponse( "/mall/item/add?" . x::error(x::ERROR_MUST_BE_AN_INTEGER , [ 'field' => 'Price' ] ) );
+			if( !is_numeric($input['model_year'] ) ) return new RedirectResponse( "/mall/item/add?" . x::error(x::ERROR_MUST_BE_AN_INTEGER ,[ 'field'=> 'Model year' ]) );
+			
+			$re = Item::Update( $input );
+			
+			return new RedirectResponse( "/mall/item/add?item_id=".$re );
+		}
+		else{
+			return new RedirectResponse( "/mall?" . x::error(x::ERROR_NOT_YOUR_POST) );
+		}
     }
 	
 	public function collection(){

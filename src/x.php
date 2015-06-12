@@ -22,6 +22,7 @@ class x {
   const ERROR_USER_EXISTS = 'ERROR_USER_EXISTS';
   
   const ERROR_NOT_YOUR_ID = 'ERROR_NOT_YOUR_ID';
+  const ERROR_NOT_YOUR_POST = 'ERROR_NOT_YOUR_POST';
   
   const ERROR_MUST_BE_AN_INTEGER = 'ERROR_MUST_BE_AN_INTEGER';
 
@@ -314,7 +315,8 @@ class x {
       case self::ERROR_BLANK_CATEGORY_NAME : $msg = "Category name cannot be blank!."; break;
       case self::ERROR_PLEASE_LOGIN_FIRST : $msg = "Please login first!."; break;
       case self::ERROR_USER_EXISTS : $msg = "The username [ #name ] already exists!."; break;
-      case self::ERROR_NOT_YOUR_ID : $msg = "The account that you are trying to edit/delete is not yours."; break;   
+      case self::ERROR_NOT_YOUR_ID : $msg = "The account that you are trying to edit/delete is not yours."; break;  
+      case self::ERROR_NOT_YOUR_POST : $msg = "The item you are trying to edit is not yours."; break;   
       case self::ERROR_MUST_BE_AN_INTEGER : $msg = "#field must be an integer."; break;      
       default: $msg = 'Unknown'; break;
     }
