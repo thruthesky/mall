@@ -1,6 +1,7 @@
 {% set categories = data.category %}
 {% set item = data.item %}
 {% set user = data.user %}
+{% set files = data.files %}
 {% set status = data.status %}
 
 <div class='mall-page'>	
@@ -15,7 +16,7 @@
 		<div class='upload'>
 			<form class="addForm-file-upload"
 				  enctype="multipart/form-data"
-				  action="/more/api?call=fileUpload"
+				  action="/mall/api?call=fileUpload"
 				  method="POST">
 				<fieldset>
 					<!--temp commented due to css conflict <legend></legend>-->
@@ -33,7 +34,12 @@
 				</fieldset>
 			</form>
 			<div class='display-uploaded-files clearfix'>
-				
+				{% for k,v in files %}
+					<div class='photo' fid='{{ k }}'>
+						<div class="delete"><span>X</span></div>
+						<img src='{{ v.url_medium }}'/>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 		
@@ -46,8 +52,8 @@
 			<input type='text' name='name' placeholder='Ad Name' value='{{ item.name.value }}' required>		
 			<div class='description'>In what category does your item fall?</div>
 			<div class='categories clearfix'>			
-			{% for category in categories %}			
-			<select class='category' name='' depth='0' required>
+			{% for category in categories %}	
+			<select class='category' name='' depth='0' {{ loop.index == 1 ? 'required' }}>
 				<option value=''>Category</option>				
 				{% for c in category.entity %}
 					<option value='{{ c.id.value }}' {{ category.selected == c.id.value ? 'selected' }}>{{ c.name.value }}</option>

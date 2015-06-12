@@ -524,4 +524,21 @@ class x {
   public static function getCategoryParents( $no ){
 	return Category::loadParents( $no );
   }
+  
+  
+  
+  
+  /*test*/
+	public static function LinkFileToEntity( $entity_id, $fids, $type ){		
+		$entity = \Drupal::entityManager()->getStorage($type)->load( $entity_id );
+		$tags = null;
+		$fids_array = explode(',', $fids);            
+		foreach ( $fids_array as $fid ) {
+			$fid = trim($fid);
+			if ( empty($fid) ) continue;				
+			$file = \Drupal::entityManager()->getStorage('file')->load($fid);
+			\Drupal::service('file.usage')->add($file, 'mall', $type, $entity->id());
+		}
+	}
+  /*eo test*/
 }

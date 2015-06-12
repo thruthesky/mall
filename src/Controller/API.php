@@ -5,8 +5,8 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+use Drupal\mall\x;
 use Drupal\file\Entity\File;
-
 use Drupal\mall\Entity\Category;
 
 class API extends ControllerBase {
@@ -60,4 +60,56 @@ class API extends ControllerBase {
 		
 		return $data;
 	}
+	
+	
+	
+	/*fileUpload*/
+	public static function fileUpload( $request ){
+		//if( x::my('uid') == 0 ) return ['code'=>x::ERROR_PLEASE_LOGIN_FIRST,'message'=>x::error(x::ERROR_PLEASE_LOGIN_FIRST)];
+		$image_style = $request->get('image_style');
+		$files = [];
+		for ( $j = 0; $j < count($_FILES['files']['name']); $j ++ ) {
+			$file = array();
+			$file['name'] = $_FILES['files']['name'][$j];
+			$file['type'] = $_FILES['files']['type'][$j];
+			$file['tmp_name'] = $_FILES['files']['tmp_name'][$j];
+			$file['error'] = $_FILES['files']['error'][$j];
+			$file['size'] = $_FILES['files']['size'][$j];
+			$files[] = $file;
+		}
+		$infos = [];
+		if ( $files ) {
+			foreach( $files as $f ) {
+				$info = [];
+				$info['name'] = $f['name'];
+				$info['type'] = $f['type'];
+				if ( $f['error'] ) {
+					$info['error'] = $f['error'];
+				}
+				else {
+					$file = file_save_data(file_get_contents($f['tmp_name']), 'public://mall/' . $f['name']);
+					if ( $image_style ) {
+						$info['url'] = entity_load('image_style', $image_style)->buildUrl($file->getFileUri());
+					}
+					else $info['url'] = $file->url();
+					$info['fid'] = $file->id();
+				}
+				$infos[] = $info;
+			}
+		}
+		$re = [];
+		$re['files'] = $infos;
+		return $re;
+	}
+	
+	public static function deleteFile( $request ){
+		$fid = $request->get('fid');
+		$file = \Drupal::entityManager()->getStorage('file')->load($fid);
+		$file->delete();
+		
+		$re['fid'] = $fid;
+		
+		return $re;
+	}
+	/*eo fileUpload*/
 }

@@ -354,8 +354,38 @@ div.mall-success{
 	margin-left:5px;
 }
 
+.mall-page .mall-item-add .addForm-file-upload input[type='file']{
+	margin-bottom:10px;
+}
+
 .mall-page .mall-item-add .upload .display-uploaded-files .photo{	
-	width:20%;
+	float:left;
+	position: relative;
+	width:19%;		
+	margin: 0 .5% 5px .5%;
+	border: 1px solid #d5d5d5;
+	box-sizing: border-box;
+}
+
+.mall-page .mall-item-add .upload .display-uploaded-files .photo img{	
+	display: block;
+	width: 97%;
+	margin: 2px auto;
+}
+
+.mall-page .mall-item-add .upload .display-uploaded-files .photo .delete{	
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	padding: 2px 6px;
+	border-radius: 3px;
+	background-color: black;
+	color: white;
+	cursor: pointer;
+}
+
+.mall-page .mall-item-add .upload .display-uploaded-files .photo .delete:hover{	
+	background-color:red;
 }
 /*eo mall add form*/
 /*override*/

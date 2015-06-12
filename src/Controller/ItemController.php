@@ -14,8 +14,10 @@ class ItemController extends ControllerBase {
 		$data = x::getDefaultInformationByUid( x::myUid() );
 		$data['status'] = x::$item_status;
 		$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
-		if( $item_id = x::input('item_id')['item_id'] ){
-			$data['item'] = Item::load( $item_id );  
+		
+		if( $item_id = x::in('item_id') ){			
+			$data['item'] = Item::load( $item_id ); 
+			//do something here like the post is not yours...
 			$category_parents = array_reverse( x::getCategoryParents( $data['item']->category_id->target_id ) );
 			$count = 0;
 			foreach( $category_parents as $c ){
@@ -25,11 +27,14 @@ class ItemController extends ControllerBase {
 					$data['category'][ $count ]['entity'] = x::getCategoryChildren( $c->id() );
 				}
 			}
-		}
-		//also get all of it's images
-		//do something here like the post is not yours...
-		
-		//$data = x::getDefaultInformationByUid( x::myUid() );
+			
+			$files = Item::getFiles( $item_id );
+			$file_urls = [];
+			foreach( $files as $file ){
+				$file_urls[ $file->id() ] = Item::getFileUrl( $file );
+			}
+			if( $file_urls ) $data['files'] = $file_urls;
+		}		
 		
         return [
             '#theme' => x::getThemeName(),

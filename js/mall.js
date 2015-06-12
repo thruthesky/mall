@@ -6,6 +6,9 @@ $(function(){
     $("body").on( "click",".category .cancel", callback_category_cancel );
 	
 	$("body").on( "change","select.category", callback_change_category );
+	
+	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');	
+	$("body").on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );	
 });
 
 function callback_category_add(){
@@ -76,7 +79,7 @@ function test_callback( re ){
 }
 */
 
-function callback_change_category( re ){
+function callback_change_category(){
 	var $this = $(this);
 	var pid = $this.val();
 	
@@ -95,7 +98,15 @@ function callback_change_category( re ){
 	ajax_api_mall( data, callback_get_parent_children );
 }
 
-
+function callback_delete_file(){	
+	var $this = $(this);
+	var fid = $this.parent().attr('fid');
+	
+	data = {}
+	data.call = 'deleteFile';
+	data.fid = fid;
+	ajax_api_mall( data, callback_delete_file_result );
+}
 
 
 
@@ -121,6 +132,97 @@ function ajax_api_mall( qs, callback_function )
 
 /*ajax_api_mall callbacks here below*/
 function callback_get_parent_children( re ){
-	$('.mall-item-add .categories').append( re.html );
+	if( re.code == 0 ){
+		$('.mall-item-add .categories').append( re.html );
+	}
+}
+
+function callback_delete_file_result( re ){
+	if( re.code == 0 ){
+		$(".mall-page .mall-item-add .upload .display-uploaded-files .photo[fid='" + re.fid + "']").remove();
+	}
 }
 /*eo ajax_api_mall callbacks here below*/
+
+
+
+
+/*mall ajax_file_upload*/
+function init_mall_form_ajax_file_upload(selector)
+{
+    var $form = $(selector);	
+    if ( $form.length ) {
+        hook_mall_file_upload(selector, function(re){
+            if ( re.code ) {
+                //more_alert( re.message );
+				trace( re );
+            }
+            else if ( re.files.length ) {				
+                var files = re.files;
+                var file, html;
+                for( i in files ){
+                    file = files[i];
+                    html = "<div class='photo' fid='" + file.fid + "'><div class='delete'><span>X</span></div><img src='"+file.url+"'></div>";
+					
+					$(".mall-item-add .display-uploaded-files").append( html );
+					
+					val = $('input[name="fids"]').val();
+					val += ',' + file.fid;
+					 $('input[name="fids"]').val( val );
+                }
+            }
+        });
+    }
+}
+
+function hook_mall_file_upload(selector, callback)
+{	
+    var callback_function = callback;
+    $('body').on('submit', selector, callback_ajax_file_upload);
+    function callback_ajax_file_upload(e) {		
+        e.preventDefault();
+        ajax_file_upload($(this));
+        return false;
+    }
+    function ajax_file_upload($this)
+    {
+        $(".ajax-file-upload-progress-bar").remove();
+        $this.append("<div class='ajax-file-upload-progress-bar'><div class='bar'><div class='percent'></div></div></div>");
+        $post_progress = $(".ajax-file-upload-progress-bar");
+        $this.ajaxSubmit({
+            beforeSend: function() {
+                trace("seforeSend:");
+                var percentVal = '0%';
+                $post_progress.find('.bar').width(percentVal);
+                $post_progress.find('.percent').html(percentVal);
+            },
+            uploadProgress: function(event, position, total, percentComplete) {
+                trace("while uploadProgress:" + percentComplete + '%');
+                var percentVal = percentComplete + '%';
+                $post_progress.find('.bar').width(percentVal);
+                $post_progress.find('.percent').html(percentVal);
+            },
+            success: function() {
+                trace("upload success:");
+                var percentVal = '100%';
+                $post_progress.find('.bar').width(percentVal);
+                $post_progress.find('.percent').html(percentVal);
+            },
+            complete: function(xhr) {
+                trace("Upload completed!!");
+                var re;
+                try {
+                    re = JSON.parse(xhr.responseText);
+                }
+                catch ( e ) {
+                    return alert( xhr.responseText );
+                }
+                trace(re);
+                callback_function( re );
+                $post_progress.remove();
+            }
+        });
+    }
+}
+
+/*eo mall ajax_file_upload*/

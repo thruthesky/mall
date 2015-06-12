@@ -32,7 +32,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 			$item = Item::create();
 			$item->set('user_id', x::myUid() );
 		}
-
+		
 		$item->set('title', $input['title']);		
 		$item->set('name', $input['name']);	
 		$item->set('category_id', $input['category_id']);		
@@ -45,6 +45,11 @@ class Item extends ContentEntityBase implements ItemInterface {
 		$item->set('content', $input['content']);
 
 		$item->save();
+		
+		$fids = $input['fids'];
+		if( $fids ){
+			x::LinkFileToEntity( $item->id(), $fids, 'mall_item' );
+		}
 		
 		return $item->id();
   }
@@ -67,6 +72,31 @@ class Item extends ContentEntityBase implements ItemInterface {
 	}
 	$ids = $query->execute();
 	return Item::loadMultiple($ids);
+  }
+  
+  public static function getFiles( $item_id ) {
+	$files = [];
+	
+	$result = db_select('file_usage', 's')
+			->fields('s',['fid'])
+			->condition('type','mall_item')
+			->condition('id',$item_id)
+			->execute();
+	
+	while( $row = $result->fetchAssoc() ) {		
+		$files[] = \Drupal::entityManager()->getStorage('file')->load( $row['fid'] );
+	}	
+	return $files;
+  }
+  
+  public static function getFileUrl( $file_entity ) {
+	$file_url = [];
+	$file_url['url_original'] = $file_entity->url();
+	$path = $file_entity->getFileUri();
+	$file_url['url_thumbnail'] = entity_load('image_style', 'thumbnail')->buildUrl($path);
+	$file_url['url_medium'] = entity_load('image_style', 'medium')->buildUrl($path);
+	$file_url['url_large'] = entity_load('image_style', 'large')->buildUrl($path);
+	return $file_url;
   }
   
   
