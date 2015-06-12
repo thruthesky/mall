@@ -300,7 +300,11 @@ div.mall-success{
 	background-color:#ffffff;	
 }
 
-.mall-page .mall-item-add input[type='text'], .mall-page .mall-item-add select, .mall-page .mall-item-add textarea{	
+.mall-page .mall-item-add .price-wrapper{
+	position:relative;
+}
+
+.mall-page .mall-item-add input[type='text'], .mall-page .mall-item-add input[type='number'], .mall-page .mall-item-add select, .mall-page .mall-item-add textarea{	
 	width:100%;		
 	border:1px solid #6e96d9;
 	box-sizing:border-box;
@@ -312,8 +316,18 @@ div.mall-success{
 	margin:0 1% 5px 0;
 }
 
-.mall-page .mall-item-add input[type='text']{
+.mall-page .mall-item-add input[type='text'], .mall-page .mall-item-add input[type='number']{
 	padding:5px 10px;
+}
+
+.mall-page .mall-item-add .price-wrapper .currency{
+	position:absolute;
+	left:12px;
+	top:6px;
+}
+
+.mall-page .mall-item-add .price-wrapper input[type='number']{
+	padding-left:20px;
 }
 
 .mall-page .mall-item-add textarea{

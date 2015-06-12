@@ -68,9 +68,12 @@
 			<input type='text' name='model' value='{{ item.model.value }}' required>
 			<div class='note'>Ex) Galaxy S5</div>
 			<div class='description'>Model Year</div>
-			<input type='text' name='model_year' value='{{ item.model_year.value }}' required>			
+			<input type='number' name='model_year' value='{{ item.model_year.value }}' required>			
 			<div class='description'>Price</div>
-			<input type='text' name='price' value='{{ item.price.value }}' required>
+			<div class='price-wrapper'>
+				<span class='currency'>₱</span>
+				<input type='number' step="0.01" name='price' value='{{ item.price.value }}' required>
+			</div>
 			<div class='note'>Item price must be within a realistic value range</div>
 			<div class='description'>Phone Number</div>
 			{% if item.mobile.value %}
