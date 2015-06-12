@@ -66,7 +66,11 @@ class API extends ControllerBase {
 	/*fileUpload*/
 	public static function fileUpload( $request ){
 		//if( x::my('uid') == 0 ) return ['code'=>x::ERROR_PLEASE_LOGIN_FIRST,'message'=>x::error(x::ERROR_PLEASE_LOGIN_FIRST)];
+        $repo = 'public://mall/';
+        file_prepare_directory($repo, FILE_CREATE_DIRECTORY);
+
 		$image_style = $request->get('image_style');
+
 		$files = [];
 		for ( $j = 0; $j < count($_FILES['files']['name']); $j ++ ) {
 			$file = array();
@@ -87,7 +91,7 @@ class API extends ControllerBase {
 					$info['error'] = $f['error'];
 				}
 				else {
-					$file = file_save_data(file_get_contents($f['tmp_name']), 'public://mall/' . $f['name']);
+					$file = file_save_data(file_get_contents($f['tmp_name']), $repo . $f['name']);
 					if ( $image_style ) {
 						$info['url'] = entity_load('image_style', $image_style)->buildUrl($file->getFileUri());
 					}

@@ -73,15 +73,21 @@ class Item extends ContentEntityBase implements ItemInterface {
 	$ids = $query->execute();
 	return Item::loadMultiple($ids);
   }
-  
-  public static function getFiles( $item_id ) {
+
+
+  public static function getFiles( $item_id, $type='' ) {
 	$files = [];
-	
-	$result = db_select('file_usage', 's')
-			->fields('s',['fid'])
-			->condition('type','mall_item')
-			->condition('id',$item_id)
-			->execute();
+
+      $db = db_select('file_usage', 's')
+          ->fields('s',['fid'])
+          ->condition('module','mall')
+          ->condition('id',$item_id);
+
+      if ( $type ) {
+          $db->condition('type', $type);
+      }
+
+	$result = $db->execute();
 	
 	while( $row = $result->fetchAssoc() ) {		
 		$files[] = \Drupal::entityManager()->getStorage('file')->load( $row['fid'] );
