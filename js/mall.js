@@ -160,7 +160,7 @@ function init_mall_form_ajax_file_upload(selector)
     var $form = $(selector);	
     if ( $form.length ) {
         hook_mall_file_upload(selector, function(re){			
-            if ( re.code ) {                
+            if ( re.code ) {
 				trace( re );
             }
             else if ( re.files ) {

@@ -70,10 +70,10 @@ class API extends ControllerBase {
         file_prepare_directory($repo, FILE_CREATE_DIRECTORY);
 
 		$files = [];
-		$type = '';		
+		$type = '';
 		foreach( $_FILES as $k => $v ){
 			$file_usage_type = $k;
-		
+
 			$f = array();
 			$f['name'] = $v['name'];
 			$f['type'] = $v['type'];
@@ -81,7 +81,7 @@ class API extends ControllerBase {
 			$f['error'] = $v['error'];
 			$f['size'] = $v['size'];
 		}
-		
+
 		$info = [];
 		if ( $f ) {
 			$info = [];
@@ -91,14 +91,14 @@ class API extends ControllerBase {
 				$info['error'] = $f['error'];
 			}
 			else {
-				$file = file_save_data(file_get_contents($f['tmp_name']), $repo . $f['name']);				
+				$file = file_save_data(file_get_contents($f['tmp_name']), $repo . $f['name']);
 				if ( $image_style = $request->get('image_style') ) {
 					$info['url'] = entity_load('image_style', $image_style)->buildUrl($file->getFileUri());
 				}
 				else $info['url'] = $file->url();
 				$info['fid'] = $file->id();
 			}
-			$info['file_usage_type'] = $file_usage_type;			
+			$info['file_usage_type'] = $file_usage_type;
 			if( $no = $request->get('no') ) $info['no'] = $no;
 		}
 		$re = [];
