@@ -83,7 +83,7 @@ class Item extends ContentEntityBase implements ItemInterface {
   *
   *
   */
-  public static function getFiles( $item_id, $type='' ) {
+  public static function getFilesByType( $item_id, $type='' ) {
 	$files = [];
 
       $db = db_select('file_usage', 's')

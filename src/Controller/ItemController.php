@@ -28,7 +28,7 @@ class ItemController extends ControllerBase {
 						$data['category'][ $count ]['entity'] = x::getCategoryChildren( $c->id() );
 					}
 				}
-				$files = Item::getFiles( $item_id );
+				$files = Item::getFilesByType( $item_id );
 				//di( $files );
 				
 				$file_urls = [];
