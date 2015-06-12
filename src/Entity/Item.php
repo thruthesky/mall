@@ -98,21 +98,24 @@ class Item extends ContentEntityBase implements ItemInterface {
 	$result = $db->execute();
 	
 	while( $row = $result->fetchAssoc() ) {				
-		$usage_type = substr( $row['type'], 0, strlen( $row['type'] ) - 1);
-		$no = substr( $row['type'], strlen( $row['type'] ) - 1 );
+		/*
+		*Note that the $row['type'] should ONLY have numbers at the END of the file for this to work...
+		*There there are numbers in between, this will create a logic error.
+		*/
+		$no = preg_replace("/[^0-9]/", "", $row['type']);		
 		if( is_numeric( $no ) ){
-			$usage_type = substr( $row['type'], 0, strlen( $row['type'] ) - 1);
+			$usage_type = substr( $row['type'], 0, strpos( $row['type'], $no ) );			
 		}
 		else{
 			$usage_type = $row['type'];
 			$no = 0;
-		}
+		}		
 		/*
 		*sample returning value for item_image2 is $files[ item_image ][ 2 ] = $file_entity;
 		*sample returning value for item_image_thumbnail is $files[ item_image_thumbnail ][ 0 ] = $file_entity; -> automatically sets to index 0 for code unification
 		*/
 		$files[ $usage_type ][ $no ] = \Drupal::entityManager()->getStorage('file')->load( $row['fid'] );
-	}	
+	}
 	return $files;
   }
   
