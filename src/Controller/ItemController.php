@@ -80,8 +80,15 @@ class ItemController extends ControllerBase {
 	
 	public function del(){
 		$item_id = x::in( 'item_id' );
-		Item::del( $item_id );
 		
-		return new RedirectResponse( "/mall/admin/item/list" );
+		$item = Item::load( $item_id );
+		
+		if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){			
+			Item::del( $item_id );
+			return new RedirectResponse( "/mall/admin/item/list" );
+		}
+		else{
+			return new RedirectResponse( "/mall/admin/item/list?" . x::error(x::ERROR_NOT_YOUR_POST) );
+		}
 	}
 }
