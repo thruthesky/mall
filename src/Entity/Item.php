@@ -44,11 +44,15 @@ class Item extends ContentEntityBase implements ItemInterface {
 		$item->set('status', $input['status']);		
 		$item->set('content', $input['content']);
 
-		$item->save();
-		
+		$item->save();		
 		$fids = $input['fids'];
 		if( $fids ){
-			x::LinkFileToEntity( $item->id(), $fids, 'mall_item' );
+			$exploded_fids = explode( "," ,$fids );
+			foreach( $exploded_fids as $ef ){
+				if ( empty($ef) ) continue;
+				$type_and_fid = explode( "-", $ef );
+				x::LinkFileToEntity( $item->id(), $type_and_fid[1], $type_and_fid[0] );
+			}
 		}
 		
 		return $item->id();
@@ -75,11 +79,15 @@ class Item extends ContentEntityBase implements ItemInterface {
   }
 
 
+  /*
+  *
+  *
+  */
   public static function getFiles( $item_id, $type='' ) {
 	$files = [];
 
       $db = db_select('file_usage', 's')
-          ->fields('s',['fid'])
+          ->fields('s',['fid','type'])
           ->condition('module','mall')
           ->condition('id',$item_id);
 
@@ -89,14 +97,28 @@ class Item extends ContentEntityBase implements ItemInterface {
 
 	$result = $db->execute();
 	
-	while( $row = $result->fetchAssoc() ) {		
-		$files[] = \Drupal::entityManager()->getStorage('file')->load( $row['fid'] );
+	while( $row = $result->fetchAssoc() ) {				
+		$usage_type = substr( $row['type'], 0, strlen( $row['type'] ) - 1);
+		$no = substr( $row['type'], strlen( $row['type'] ) - 1 );
+		if( is_numeric( $no ) ){
+			$usage_type = substr( $row['type'], 0, strlen( $row['type'] ) - 1);
+		}
+		else{
+			$usage_type = $row['type'];
+			$no = 0;
+		}
+		/*
+		*sample returning value for item_image2 is $files[ item_image ][ 2 ] = $file_entity;
+		*sample returning value for item_image_thumbnail is $files[ item_image_thumbnail ][ 0 ] = $file_entity; -> automatically sets to index 0 for code unification
+		*/
+		$files[ $usage_type ][ $no ] = \Drupal::entityManager()->getStorage('file')->load( $row['fid'] );
 	}	
 	return $files;
   }
   
   public static function getFileUrl( $file_entity ) {
 	$file_url = [];
+	$file_url['fid'] = $file_entity->id();
 	$file_url['url_original'] = $file_entity->url();
 	$path = $file_entity->getFileUri();
 	$file_url['url_thumbnail'] = entity_load('image_style', 'thumbnail')->buildUrl($path);

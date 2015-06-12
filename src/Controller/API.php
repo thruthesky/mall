@@ -69,40 +69,40 @@ class API extends ControllerBase {
         $repo = 'public://mall/';
         file_prepare_directory($repo, FILE_CREATE_DIRECTORY);
 
-		$image_style = $request->get('image_style');
-
 		$files = [];
-		for ( $j = 0; $j < count($_FILES['files']['name']); $j ++ ) {
-			$file = array();
-			$file['name'] = $_FILES['files']['name'][$j];
-			$file['type'] = $_FILES['files']['type'][$j];
-			$file['tmp_name'] = $_FILES['files']['tmp_name'][$j];
-			$file['error'] = $_FILES['files']['error'][$j];
-			$file['size'] = $_FILES['files']['size'][$j];
-			$files[] = $file;
+		$type = '';		
+		foreach( $_FILES as $k => $v ){
+			$file_usage_type = $k;
+		
+			$f = array();
+			$f['name'] = $v['name'];
+			$f['type'] = $v['type'];
+			$f['tmp_name'] = $v['tmp_name'];
+			$f['error'] = $v['error'];
+			$f['size'] = $v['size'];
 		}
-		$infos = [];
-		if ( $files ) {
-			foreach( $files as $f ) {
-				$info = [];
-				$info['name'] = $f['name'];
-				$info['type'] = $f['type'];
-				if ( $f['error'] ) {
-					$info['error'] = $f['error'];
-				}
-				else {
-					$file = file_save_data(file_get_contents($f['tmp_name']), $repo . $f['name']);
-					if ( $image_style ) {
-						$info['url'] = entity_load('image_style', $image_style)->buildUrl($file->getFileUri());
-					}
-					else $info['url'] = $file->url();
-					$info['fid'] = $file->id();
-				}
-				$infos[] = $info;
+		
+		$info = [];
+		if ( $f ) {
+			$info = [];
+			$info['name'] = $f['name'];
+			$info['type'] = $f['type'];
+			if ( $f['error'] ) {
+				$info['error'] = $f['error'];
 			}
+			else {
+				$file = file_save_data(file_get_contents($f['tmp_name']), $repo . $f['name']);				
+				if ( $image_style = $request->get('image_style') ) {
+					$info['url'] = entity_load('image_style', $image_style)->buildUrl($file->getFileUri());
+				}
+				else $info['url'] = $file->url();
+				$info['fid'] = $file->id();
+			}
+			$info['file_usage_type'] = $file_usage_type;			
+			if( $no = $request->get('no') ) $info['no'] = $no;
 		}
 		$re = [];
-		$re['files'] = $infos;
+		$re['files'] = $info;
 		return $re;
 	}
 	

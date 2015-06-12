@@ -21,17 +21,21 @@ class ItemController extends ControllerBase {
 				$category_parents = array_reverse( x::getCategoryParents( $data['item']->category_id->target_id ) );
 				$count = 0;
 				foreach( $category_parents as $c ){
-					$data['category'][ $count ]['selected'] = $c->id();
+					$data['category'][ $count ]['selected'] = $c->id();					
 					$count++;
+					$data['category_last_selected'] = $count;
 					if( x::getCategoryChildren( $c->id() ) ){
 						$data['category'][ $count ]['entity'] = x::getCategoryChildren( $c->id() );
 					}
 				}
-				
 				$files = Item::getFiles( $item_id );
+				//di( $files );
+				
 				$file_urls = [];
-				foreach( $files as $file ){
-					$file_urls[ $file->id() ] = Item::getFileUrl( $file );
+				foreach( $files as $key => $values ){					
+					foreach( $values as $k => $v ){
+						$file_urls[ $key ][ $k ] = Item::getFileUrl( $v );
+					}
 				}
 				if( $file_urls ) $data['files'] = $file_urls;
 			}
@@ -51,18 +55,14 @@ class ItemController extends ControllerBase {
 		
 		$input = x::input();	
 		$item = Item::load( $input['item_id'] );//move or fix this later, becomes repeatitive inside Item::del
-		
-		if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){
-			if( !is_numeric($input['price'] ) ) return new RedirectResponse( "/mall/item/add?" . x::error(x::ERROR_MUST_BE_AN_INTEGER , [ 'field' => 'Price' ] ) );
-			if( !is_numeric($input['model_year'] ) ) return new RedirectResponse( "/mall/item/add?" . x::error(x::ERROR_MUST_BE_AN_INTEGER ,[ 'field'=> 'Model year' ]) );
-			
+		//di( $input );exit;
+		//if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){
 			$re = Item::Update( $input );
-			
 			return new RedirectResponse( "/mall/item/add?item_id=".$re );
-		}
+		/*}
 		else{
 			return new RedirectResponse( "/mall/admin/item/list?" . x::error(x::ERROR_NOT_YOUR_POST) );
-		}
+		}*/
     }
 	
 	public function collection(){

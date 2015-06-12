@@ -341,18 +341,49 @@ div.mall-success{
 	padding:5px;	
 }
 
-.mall-page .mall-item-add input[type='text']:focus, .mall-page .mall-item-add select:focus, .mall-page .mall-item-add textarea:focus{
-	outline:none;
+.mall-page .mall-item-add .buttons{
+	text-align:right;
+}
+
+.mall-page .mall-item-add .buttons .item-add-submit{
+	display:inline-block;
+	border: 1px solid #1886c5;
+	background-color: #f2f2f2;
+	padding: 5px 10px;
+	margin:0;
+	color: #1886c5;
+	border-radius: 2px;
+}
+
+.mall-page .mall-item-add .buttons .item-add-submit:hover{	
+	background-color: #1886c5;
+	color: #ffffff;
+	cursor:pointer;
 }
 
 .mall-page .mall-item-add .title{
 	margin-bottom:13px;
 }
 
-.mall-page .mall-item-add .upload{
-	padding:10px;
-	margin-bottom:7px;
-	background-color:#f0f8fd;
+.mall-page .mall-item-add .file-upload-group{
+	margin-bottom:10px;
+}
+
+.mall-page .mall-item-add .file-upload-group .upload-label{	
+	margin:5px 0;
+	font-size:1.2em;
+	font-weight:bold;
+}
+
+.mall-page .mall-item-add .file-upload-group .upload{
+	float: left;
+	width: 24%;
+	padding: 10px;
+	margin:0 .5% 5px .5%;
+	border-radius:3px;
+	background-color: #f0f8fd;	
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 .mall-page .mall-item-add .description{
@@ -368,15 +399,30 @@ div.mall-success{
 	margin-left:5px;
 }
 
+.mall-page .mall-item-add .addForm-file-upload{
+	height: 135px;
+	width: 100%;	
+	border: 1px dashed #b6cff8;
+	background: url('/modules/more/img/photo.png');
+	background-repeat: no-repeat;
+	background-position: 50% 45%;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
 .mall-page .mall-item-add .addForm-file-upload input[type='file']{
-	margin-bottom:10px;
+	height: 135px;
+	width: 100%;
+	opacity: 0;
+	cursor: pointer;
+	box-sizing: border-box;
 }
 
 .mall-page .mall-item-add .upload .display-uploaded-files .photo{	
 	float:left;
 	position: relative;
-	width:19%;		
-	margin: 0 .5% 5px .5%;
+	width:100%;	
+	margin:0;
 	border: 1px solid #d5d5d5;
 	box-sizing: border-box;
 }

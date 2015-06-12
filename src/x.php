@@ -531,16 +531,10 @@ class x {
   
   
   /*test*/
-	public static function LinkFileToEntity( $entity_id, $fids, $type ){		
-		$entity = \Drupal::entityManager()->getStorage($type)->load( $entity_id );
+	public static function LinkFileToEntity( $entity_id, $fid, $type ){
 		$tags = null;
-		$fids_array = explode(',', $fids);            
-		foreach ( $fids_array as $fid ) {
-			$fid = trim($fid);
-			if ( empty($fid) ) continue;				
-			$file = \Drupal::entityManager()->getStorage('file')->load($fid);
-			\Drupal::service('file.usage')->add($file, 'mall', $type, $entity->id());
-		}
+		$file = \Drupal::entityManager()->getStorage('file')->load($fid);
+		\Drupal::service('file.usage')->add( $file, 'mall', $type, $entity_id );
 	}
   /*eo test*/
 }

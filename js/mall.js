@@ -6,7 +6,8 @@ $(function(){
     $("body").on( "click",".category .cancel", callback_category_cancel );
 	
 	$("body").on( "change","select.category", callback_change_category );
-	
+		
+	$("body").on( "click","div.item-add-submit", callback_submit_add_form );
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');	
 	$("body").on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );	
 });
@@ -108,6 +109,11 @@ function callback_delete_file(){
 	ajax_api_mall( data, callback_delete_file_result );
 }
 
+function callback_submit_add_form(){
+	$("form.item-add-form").submit();
+}
+
+
 
 
 
@@ -138,7 +144,8 @@ function callback_get_parent_children( re ){
 }
 
 function callback_delete_file_result( re ){
-	if( re.code == 0 ){
+	if( re.code == 0 ){		
+		$(".mall-page .mall-item-add .upload .display-uploaded-files .photo[fid='" + re.fid + "']").parents('.upload').find('form.addForm-file-upload').removeClass('is-hidden');
 		$(".mall-page .mall-item-add .upload .display-uploaded-files .photo[fid='" + re.fid + "']").remove();
 	}
 }
@@ -152,24 +159,28 @@ function init_mall_form_ajax_file_upload(selector)
 {
     var $form = $(selector);	
     if ( $form.length ) {
-        hook_mall_file_upload(selector, function(re){
-            if ( re.code ) {
-                //more_alert( re.message );
+        hook_mall_file_upload(selector, function(re){			
+            if ( re.code ) {                
 				trace( re );
             }
-            else if ( re.files.length ) {				
-                var files = re.files;
-                var file, html;
-                for( i in files ){
-                    file = files[i];
-                    html = "<div class='photo' fid='" + file.fid + "'><div class='delete'><span>X</span></div><img src='"+file.url+"'></div>";
-					
-					$(".mall-item-add .display-uploaded-files").append( html );
-					
-					val = $('input[name="fids"]').val();
-					val += ',' + file.fid;
-					 $('input[name="fids"]').val( val );
-                }
+            else if ( re.files ) {
+                console.log(re);
+				var file = re.files;				
+				if( file.no ) fid = file.file_usage_type + file.no + "-" + file.fid;
+				else fid = file.file_usage_type + "-" + file.fid;
+				val = $("input[name='fids']").val();	
+				val += ',' + fid;
+				$("input[name='fids']").val( val );
+				
+				html = "<div class='photo' fid='" + file.fid + "'><div class='delete'><span>X</span></div><img src='"+file.url+"'></div>";
+				if( file.no ){
+					$(".mall-item-add ." + file.file_usage_type + " .upload[no='" + file.no + "'] .display-uploaded-files").append( html );
+					$(".mall-item-add ." + file.file_usage_type + " .upload[no='" + file.no + "'] form.addForm-file-upload").addClass('is-hidden');
+				}
+				else{
+					$(".mall-item-add ." + file.file_usage_type + " .upload .display-uploaded-files").append( html );
+					$(".mall-item-add ." + file.file_usage_type + " .upload form.addForm-file-upload").addClass('is-hidden');
+				}
             }
         });
     }
