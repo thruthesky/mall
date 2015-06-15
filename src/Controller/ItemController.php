@@ -67,7 +67,21 @@ class ItemController extends ControllerBase {
 	
 	public function collection(){
 		$data['status'] = x::$item_status;
-		$data['items'] = Item::getItemList();		
+		$data['items'] = Item::getItems();		
+		$data['total'] = count( $data['items'] );
+		if( x::in( 'keyword' ) ){
+			$data['keyword'] = x::in( 'keyword' );		
+		}
+		
+		return [
+			'#theme' => x::getThemeName(),
+			'#data' => $data,
+		];
+	}
+	
+	public function collectionWithImages(){
+		$data['status'] = x::$item_status;
+		$data['items'] = Item::getItems();		
 		$data['total'] = count( $data['items'] );
 		if( x::in( 'keyword' ) ){
 			$data['keyword'] = x::in( 'keyword' );		

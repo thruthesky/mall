@@ -62,9 +62,45 @@ class Item extends ContentEntityBase implements ItemInterface {
     $item = Item::load($id);
     if ( $item ) $item->delete();
   }
-  
-  public static function getItemList() {
+  /*
+  *$conds usage
+  *'limit' for max number of rows to get, 'page' for pagination ( MUST HAVE LIMIT )
+  *'order' ASC or DESC, 'by' the field to order
+  *( and all field condition e.g. $conds['id'] = 10 will become ->conds( 'id'=>10 ) )
+  */
+  public static function getItems( $conds = array() ) {  
 	$query = \Drupal::entityQuery('mall_item');
+	
+	if( $conds['limit'] ){
+		if( $conds['page'] ){
+			$from = $conds['limit'] * ( $conds['page'] - 1 );
+			unset( $conds['page'] );
+		}
+		else{
+			$from = 0;
+		}
+		$query = $query->range($from, $conds['limit']);
+		unset( $conds['limit'] );
+	}
+	
+	if( $conds['by'] ){
+		if( $conds['order'] ){
+			$order = $conds['order'];
+			unset( $conds['order'] );
+		}
+		else{
+			$order = 'ASC';
+		}
+		$query = $query->sort( $conds['by'], $order );
+		unset( $conds['by'] );		
+	}
+	
+	if( $conds ){		
+		foreach( $conds as $k => $v ){
+			$query = $query->condition( $k, $v );
+		}
+	}
+	
 	if ( $keyword = x::in('keyword') ) {
 		$ors = $query->orConditionGroup();
 		$ors->condition( 'title', '%'.$keyword.'%', 'LIKE' );
@@ -130,8 +166,31 @@ class Item extends ContentEntityBase implements ItemInterface {
 	return $file_url;
   }
   
+
+  public static function getItemsWithImages( $conds = array()) {    
+	$data = [];
+	$entity_items = self::getItems( $conds );	
+	$images = [];
+	$items = [];
+	foreach( $entity_items as $k => $v ){
+		$items[ $k ]['entity'] = $v;
+		$items[ $k ]['rendered_price'] = self::renderPrice( $v->price->value );
+		$files = Item::getFilesByType( $v->id() );			
+		foreach( $files as $key => $value ){
+			foreach( $value as $v ){				
+				$items[ $k ]['images'][ $key ][] = self::getFileUrl( $v );
+			}
+		}		
+	}	
+	$data['items'] = array_values( $items);;	
+	
+	//$data['item_images'] = $images;
+	return $data;
+  }
   
-  
+  public static function renderPrice( $price ){
+	return "₱ ".number_format($price);	
+  }
 
 
   /**
