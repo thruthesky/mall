@@ -1,0 +1,69 @@
+{% set item = data.item.entity %}
+{% set images = data.item.images %}
+{% set price = data.item.rendered_price %}
+<div class='mall-view'>
+	<div class='title top'>{{ item.title.value }}</div>
+	<div class='image-list'>
+	{% if images.mall_item %}
+		<div class='top-image'>
+		{% set count1 = 1 %}
+			{% for item_image in images.item_image %}				
+					{% if count1 == 1 %}
+						{% set active = " class=is-active"%}
+					{% else %}
+						{% set active = ""%}
+					{% endif %}
+					<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_original }}'/>
+				{% set count1 = count1 + 1 %}
+			{% endfor %}
+		</div>
+		<div class='thumbnails'>
+			<img class='arrow left' src='/themes/x8/templates/sonub-mobile/img/arrow_left.png'/>
+			<img class='arrow right' src='/themes/x8/templates/sonub-mobile/img/arrow_right.png'/>
+			<div class='inner'>
+				{% set count2 = 1 %}{% for item_image in images.item_image %}{% if count2 == 1 %}{% set active = " class=is-active"%}{% else %}{% set active = ""%}{% endif %}<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_medium }}'/>{% set count2 = count2 + 1 %}{% endfor %}
+			</div>
+		</div>		
+	</div>
+	{% else %}
+		<h1>No item images uploaded</h1>
+	{% endif %}
+	<div class='product-details'>
+		<div class='title'>Product Details</div>
+		<div class='table-wrapper'>
+			<table cellpadding=0 cellspacing=0 width='100%'>
+				<tr valign='top'>
+					<td><span class='table-label'>Name</span></td><td width='80%'>{{ item.name.value }}</td>
+				</tr>
+				<tr valign='top'>
+					<td><span class='table-label'>Price</span></td><td width='80%'>{{ price }}</td>
+				</tr>
+				<tr valign='top'>
+					<td><span class='table-label'>Brand</span></td><td width='80%'>{{ item.brand.value }}</td>
+				</tr>
+				<tr valign='top'>
+					<td><span class='table-label'>Model</span></td><td width='80%'>{{ item.model.value }}</td>
+				</tr>
+				<tr valign='top'>
+					<td><span class='table-label'>Model Year</span></td><td width='80%'>{{ item.model_year.value }}</td>
+				</tr>
+				<tr valign='top'>
+					<td><span class='table-label'>Posted on</span></td><td width='80%'>{{ item.created.value|date("m/d/Y") }}</td>
+				</tr>
+				<tr valign='top'>
+					<td><span class='table-label'>Condition</span></td><td width='80%'>{{ item.condition.value }}</td>
+				</tr>
+				<tr valign='top'>
+					<td><span class='table-label'>Location</span></td><td width='80%'>{{ item.location.value }}</td>
+				</tr>
+				<tr valign='top'>
+					<td><span class='table-label'>Mobile</span></td><td width='80%'>{{ item.mobile.value }}</td>
+				</tr>				
+			</table>
+		</div>
+		<div class='label'>Description:</div>
+		<div class='content-text'>
+			{{ item.content.value }}
+		</div>
+	</div>
+</div>

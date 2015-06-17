@@ -33,6 +33,13 @@ mall.item.delete:
   requirements:
     _permission: 'access content'
 
+mall.item.view:
+  path: '/mall/item/view'
+  defaults:
+    _controller: Drupal\mall\Controller\ItemController::view
+  requirements:
+    _permission: 'access content'
+
 mall.admin.item.list:
   path: '/mall/admin/item/list'
   defaults:

@@ -10,7 +10,104 @@ $(function(){
 	$("body").on( "click","div.item-add-submit", callback_submit_add_form );
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');	
 	$("body").on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	*temporary for market
+	*NEED TO MOVE THIS LATER... DON'T FORGET
+	*
+	*This code has bug though not visible to other users... NEED TO FIX THIS
+	*/
+	if( $(".mall-view .top-image").length ){
+		var total_thumbnails = $(".mall-view .thumbnails .inner img").length;
+		var total_pages = Math.ceil( total_thumbnails / 3 );
+		var page = 1;
+		var is_animating = false;
+			
+		$("body").on("click",".mall-view .thumbnails .arrow",function(){
+			is_animating = true;
+			var $this = $(this);
+			if( $this.hasClass('right') ){
+				if( page >= total_pages ) return;
+				page++;	
+				$(".mall-view .thumbnails .inner img").animate({left: "-=100%"}, 500, function(){				
+					is_animating = false;
+				});
+			}
+			else if( $this.hasClass('left') ){
+				if( page <= 1 ) return;
+				page--;
+				$selector = $(".mall-view .thumbnails .inner img.is-active");			
+				$(".mall-view .thumbnails .inner img").animate({left: "+=100%"}, 500, function(){
+					is_animating = false;
+				});
+			}
+		});
+		
+		/*for market image*/
+		var $selector = $(".mall-view .top-image img.is-active");		
+		market_top_image_behavior( $selector );
+		$selector.load(function(){			
+			market_top_image_behavior( $selector );
+		});
+		
+		
+
+		$("body").on("click",".mall-view .thumbnails .inner img",function(){
+			var $this = $(this);
+			var fid = $this.attr('fid');
+			$(".mall-view .top-image img").removeClass('is-active');
+			$(".mall-view .thumbnails .inner img.is-active").removeClass('is-active');
+			$(".mall-view [fid='" + fid + "']").addClass('is-active');
+					
+			var $selector = $(".mall-view .top-image img[fid='" + fid + "']");
+			market_top_image_behavior( $selector );
+		});	
+		
+		
+		var market_window_resize_timeout;
+		$(window).resize(function(){
+			clearTimeout( market_window_resize_timeout );
+			market_window_resize_timeout = setTimeout(function(){
+				var $selector = $(".mall-view .top-image img.is-active");		
+				market_top_image_behavior( $selector );
+			}, 100);
+		});				
+	}/*eo if( .mall-view .top-image )*/
 });
+
+/*for market to be moved later...*/
+function market_top_image_behavior( $selector ){	
+	var top_image_wrapper_height = $selector.parent().height();
+	var top_image_height = $selector.height();
+
+	if( top_image_height > top_image_wrapper_height ){
+		$selector.css('margin-top',0);
+		$selector.css('max-height','100%');
+	}
+	else if( top_image_height < top_image_wrapper_height ){			
+		var auto_margin_top = ( top_image_wrapper_height - top_image_height ) / 2;
+		$selector.css('margin-top',auto_margin_top);
+	}
+}
+/*for market to be moved later...*/
 
 function callback_category_add(){
 	$this = $(this);

@@ -448,6 +448,135 @@ div.mall-success{
 	background-color:red;
 }
 /*eo mall add form*/
+
+
+/*mall-view*/
+.mall-view{	
+		
+}
+
+.mall-view .title.top{			
+	padding: 5px 10px;
+	margin-bottom: 5px;
+	border-radius: 2px;
+	font-size: 1.5em;		
+	color: #606060;
+	background-color: #d8d8d8;
+	text-align: center;
+}
+
+.mall-view .image-list{		
+	position:relative;
+	padding:10px;
+	margin-bottom:10px;
+	border-radius:2px;	
+	background-color:#ffffff;
+}	
+
+.mall-view .top-image{		
+	padding:0 5px;
+	margin-bottom: 5px;
+	height:370px;
+	width:100%;
+	border:1px solid #dcdcdc;		
+	overflow:hidden;
+	box-sizing:border-box;
+}
+
+.mall-view .top-image img{	
+	display:none;
+	margin:auto;		
+}
+
+.mall-view .top-image img.is-active{	
+	display:block;
+}
+
+.mall-view .thumbnails{
+	position:relative;
+}
+
+.mall-view .thumbnails .arrow{
+	position: absolute;
+	bottom: 0;
+	height: 100%;
+	width: 7.5%;
+	box-sizing: border-box;		
+	border: 1px solid #dcdcdc;
+	cursor:pointer;
+}
+
+.mall-view .thumbnails .arrow.left{
+	left:12%;
+}
+
+.mall-view .thumbnails .arrow.right{
+	right:12%;
+}
+
+.mall-view .thumbnails .inner{
+	width:60%;
+	margin:auto;		
+	white-space:nowrap;
+	overflow: hidden;
+}
+
+.mall-view .thumbnails .inner img{		
+	display:inline-block;
+	position:relative;
+	width:32.33%;
+	padding: 5px;
+	margin:0 .5% -3px .5%;
+	border: 1px solid #dcdcdc;		
+	box-sizing: border-box;
+	cursor:pointer;
+}
+
+.mall-view .thumbnails .inner img.is-active{
+	border-color:#64b0ff;
+}
+
+
+.mall-view .product-details{		
+	border-radius:2px;
+	background-color:#ffffff;
+}
+
+.mall-view .product-details .title{
+	padding:5px 10px;
+	margin-bottom: 10px;
+	border-bottom:1px solid #dcdcdc;
+	font-size:1.1em;
+	font-weight:bold;
+}
+
+.mall-view .product-details .table-wrapper{
+	padding:0 10px;
+	margin-bottom:10px;
+}
+
+.mall-view .product-details .table-wrapper tr:nth-child(even){
+	background-color:#f2f2f2;
+}
+
+.mall-view .product-details .table-wrapper td{
+	padding:5px
+}
+
+.mall-view .product-details .table-wrapper .table-label{	
+	font-size:1.1em;
+	font-weight:bold;
+}
+
+.mall-view .product-details .content-text{
+	padding:0 10px 10px 10px;
+}
+/*eo mall-view*/
+
+
+
+
+
 /*override*/
 
 /*eo override*/
