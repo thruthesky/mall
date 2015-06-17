@@ -26,11 +26,12 @@ use Drupal\mall\x;
  */
 class Item extends ContentEntityBase implements ItemInterface {
   public static function update( $input ) {
+  
 		$item = Item::load( $input['item_id'] );
 
 		if( empty( $item ) ) {
 			$item = Item::create();
-			$item->set('user_id', x::myUid() );
+			//$item->set('user_id', x::myUid() );
 		}
 		
 		$item->set('title', $input['title']);		

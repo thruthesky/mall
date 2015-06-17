@@ -111,7 +111,7 @@ class ItemController extends ControllerBase {
 		if( $item_id = x::in('item_id') ){
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];			
 		}
-//di( $data['item'] );exit;
+//di( $data['item']['images'] );exit;
 		return [
             '#theme' => x::getThemeName(),
             '#data' => $data,

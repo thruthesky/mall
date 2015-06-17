@@ -23,8 +23,8 @@ class Mall {
     self::emptyEntity('mall_member');
     self::emptyEntity('mall_order');
     self::emptyEntity('mall_order_item');
-    //self::emptyEntity('mall_item');
-	self::emptyEntity('mall_category');
+    self::emptyEntity('mall_item');
+	self::emptyEntity('mall_category');	
   }
 
   public static function Login($username) {

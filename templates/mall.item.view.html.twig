@@ -3,11 +3,11 @@
 {% set price = data.item.rendered_price %}
 <div class='mall-view'>
 	<div class='title top'>{{ item.title.value }}</div>
-	<div class='image-list'>
-	{% if images.mall_item %}
+	<div class='image-list'>	
+	{% if images.item_image %}
 		<div class='top-image'>
 		{% set count1 = 1 %}
-			{% for item_image in images.item_image %}				
+			{% for item_image in images.item_image %}					
 					{% if count1 == 1 %}
 						{% set active = " class=is-active"%}
 					{% else %}
