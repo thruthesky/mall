@@ -26,12 +26,12 @@ use Drupal\mall\x;
  */
 class Item extends ContentEntityBase implements ItemInterface {
   public static function update( $input ) {
-  
-		$item = Item::load( $input['item_id'] );
+		
+		if( $input['item_id'] ) $item = Item::load( $input['item_id'] );
 
 		if( empty( $item ) ) {
 			$item = Item::create();
-			//$item->set('user_id', x::myUid() );
+			$item->set('user_id', x::myUid() );
 		}
 		
 		$item->set('title', $input['title']);		
@@ -45,7 +45,8 @@ class Item extends ContentEntityBase implements ItemInterface {
 		$item->set('status', $input['status']);		
 		$item->set('content', $input['content']);
 
-		$item->save();		
+		$item->save();
+		
 		$fids = $input['fids'];
 		if( $fids ){
 			$exploded_fids = explode( "," ,$fids );
