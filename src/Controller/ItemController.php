@@ -109,7 +109,8 @@ class ItemController extends ControllerBase {
 	
 	public function view(){
 		if( $item_id = x::in('item_id') ){
-			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];			
+			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
+			$data['status'] = x::$item_status;
 		}
 //di( $data['item']['images'] );exit;
 		return [

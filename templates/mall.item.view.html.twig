@@ -1,6 +1,7 @@
 {% set item = data.item.entity %}
 {% set images = data.item.images %}
 {% set price = data.item.rendered_price %}
+{% set status = data.status %}
 <div class='mall-view'>
 	<div class='title top'>{{ item.title.value }}</div>
 	<div class='image-list'>	
@@ -51,10 +52,7 @@
 					<td><span class='table-label'>Posted on</span></td><td width='80%'>{{ item.created.value|date("m/d/Y") }}</td>
 				</tr>
 				<tr valign='top'>
-					<td><span class='table-label'>Condition</span></td><td width='80%'>{{ item.condition.value }}</td>
-				</tr>
-				<tr valign='top'>
-					<td><span class='table-label'>Location</span></td><td width='80%'>{{ item.location.value }}</td>
+					<td><span class='table-label'>Condition</span></td><td width='80%'>{{ status[ item.status.value ] }}</td>
 				</tr>
 				<tr valign='top'>
 					<td><span class='table-label'>Mobile</span></td><td width='80%'>{{ item.mobile.value }}</td>
