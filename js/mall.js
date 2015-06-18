@@ -37,7 +37,7 @@ $(function(){
 	*/
 	if( $(".mall-view .top-image").length ){
 		var total_thumbnails = $(".mall-view .thumbnails .inner img").length;
-		var total_pages = Math.ceil( total_thumbnails / 3 );
+		var total_pages = Math.ceil( total_thumbnails / 6 );
 		var page = 1;
 		var is_animating = false;
 			

@@ -42,7 +42,8 @@ class Item extends ContentEntityBase implements ItemInterface {
 		$item->set('model_year', $input['model_year']);		
 		$item->set('price', $input['price']);		
 		$item->set('mobile', $input['mobile']);			
-		$item->set('status', $input['status']);		
+		$item->set('status', $input['status']);
+		$item->set('location', $input['location']);
 		$item->set('content', $input['content']);
 
 		$item->save();
@@ -293,7 +294,7 @@ class Item extends ContentEntityBase implements ItemInterface {
             ->setDescription(t('Mobile number of the Entity.'))
             ->setSettings(array(
                 'default_value' => '',
-                'max_length' => 64,
+                'max_length' => 256,
             ));
 			
 	  
@@ -341,6 +342,14 @@ class Item extends ContentEntityBase implements ItemInterface {
       ->setSettings(array(
         'default_value' => 0,
         'max_length' => 4,
+      ));
+	  
+    $fields['location'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Location'))
+      ->setDescription(t('Location of seller.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 512,
       ));
 
     return $fields;

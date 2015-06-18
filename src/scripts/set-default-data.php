@@ -72,6 +72,7 @@ function set_default_category() {
 		$sale['price'] = "10".$count."00";
 		$sale['mobile'] = "090671042".$count."0";
 		$sale['status'] = "B";
+		$sale['location'] = "Pampanga, Angeles City, San Fernando";
 		$sale['content'] = "Hi, I want to sell my ".$item." with the price of ".$sale['price'].". Please send me a message with my number ".$sale['mobile'];
 		
 		//print_r( $sale );

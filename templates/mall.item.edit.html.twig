@@ -48,14 +48,18 @@
 				<input type='number' name='price' value='{{ item.price.value }}' required>
 			</div>
 			<div class='note'>Item price must be within a realistic value range</div>
-			<div class='description'>Phone Number</div>
+			<div class='description'>Phone Number</div>			
 			{% if item.mobile.value %}
 				{% set mobile = item.mobile.value %}
 			{% else %}								
 				{% set mobile = user.field_mobile.value %}				
 			{% endif %}
 			<input type='text' name='mobile' value='{{ mobile }}' required>
+			<div class='note'>You can seperate phone numbers by using comma (,)</div>
 			<div class='note'>Indicate the number where your buyer will contact you. Format: 09xxxxxxxxx (e.g. 09158787666)</div>
+			<div class='description'>Location</div>
+			<input type='text' name='location' value='{{ item.location.value }}' required>
+			<div class='note'>Places where you may do meetups.</div>
 			<div class='description'>What is the condition of your item?</div>
 			<select name='status' required>
 				<option value=''>Item Status</option>

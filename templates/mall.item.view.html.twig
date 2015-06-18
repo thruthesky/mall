@@ -32,7 +32,11 @@
 	<div class='product-details'>
 		<div class='title'>Product Details</div>
 		<div class='table-wrapper'>
+			{% set name = item.user_id.entity.field_first_name.value  ~ " " ~ item.user_id.entity.field_middle_name.value ~ " " ~ item.user_id.entity.field_last_name.value%}
 			<table cellpadding=0 cellspacing=0 width='100%'>
+				<tr valign='top'>
+					<td><span class='table-label'>Seller</span></td><td width='80%'>{{ name }}</td>
+				</tr>
 				<tr valign='top'>
 					<td><span class='table-label'>Name</span></td><td width='80%'>{{ item.name.value }}</td>
 				</tr>
@@ -55,7 +59,10 @@
 					<td><span class='table-label'>Condition</span></td><td width='80%'>{{ status[ item.status.value ] }}</td>
 				</tr>
 				<tr valign='top'>
-					<td><span class='table-label'>Mobile</span></td><td width='80%'>{{ item.mobile.value }}</td>
+					<td><span class='table-label'>Phone</span></td><td width='80%'>{{ item.mobile.value }}</td>
+				</tr>
+				<tr valign='top'>
+					<td><span class='table-label'>Location</span></td><td width='80%'>{{ item.location.value }}</td>
 				</tr>				
 			</table>
 		</div>
