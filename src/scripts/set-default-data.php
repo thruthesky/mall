@@ -12,30 +12,42 @@ set_default_category();
 
 function set_default_category() {
 	Mall::Login('admin');
-
-	$root_id_default = Category::add(0, 'Default');
-	$id_car = Category::add($root_id_default, 'Car');
-    $id_h = Category::add($id_car, 'Hyundai');
-        $id_s = Category::add($id_h, 'Starex 2007');
-          Category::add($id_s, 'Grand Starex No. 2');
-      Category::add($id_car, 'Honda');
-      Category::add($id_car, 'Samsung');
-
-	$id_starex = Category::add($id_car, 'StareX');
-	$id_starexchild = Category::add($id_starex, 'StareXchild');
-	$id_bicycle = Category::add($id_car, 'Bycle');
-	$root_id_discount = Category::add(0, 'Discount');
-	$id_computer = Category::add($root_id_discount, 'Computer');
-	$id_monitor = Category::add($id_computer, 'monitor');
-	$id_keyboard = Category::add($id_computer, 'keyboard');
-	$id_razer = Category::add($id_computer, 'Razer');
-	$id_laptop = Category::add($root_id_discount, 'Laptops');
-	Category::add($id_computer, 'lenovo');
-	Category::add($id_computer, 'Intel');
-	Category::add($id_computer, 'Windows');
-	Category::add($id_computer, 'Wilkins');
 	
-
+	$id_food = Category::add(0, 'Food');
+		$id_sweets = Category::add($id_food, 'Sweets');
+			Category::add($id_sweets, 'Candies');
+			Category::add($id_sweets, 'Chocolate');
+		$id_diet = Category::add($id_food, 'Diet');
+			$id_low_calories = Category::add($id_diet, 'Low Calories');
+	$id_health = Category::add(0, 'Health & Beauty');
+		Category::add($id_health, 'Make up');
+		Category::add($id_health, 'Healthy Living');
+	$id_home = Category::add(0, 'Home & Lifestyle');
+	$id_fashion = Category::add(0, 'Fashion');
+		$id_clothing = Category::add($id_fashion, 'Clothing');
+		$id_accessories = Category::add($id_fashion, 'Accessories');
+		$id_perfumery = Category::add($id_fashion, 'Perfumery');
+			Category::add($id_perfumery, 'Bench');
+			Category::add($id_perfumery, 'Avon');
+	$id_electronics = Category::add(0, 'Electronics');
+		$id_video = Category::add($id_electronics, 'Video Hardware');
+		$id_audio = Category::add($id_electronics, 'Audio Hardware');
+			Category::add($id_electronics, 'iMax');
+	$id_fun = Category::add(0, 'Fun & Travel');
+		Category::add($id_fun, 'Games');
+		Category::add($id_fun, 'Vacation Spots');
+	
+	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>0]);
+	
+	$clist = [];
+	foreach( $categories as $category ){
+		$clist[] = $category->id();
+		$sub_category = Category::loadAllChildren( $category->id() );		
+		foreach( $sub_category as $sc ){
+			//di( $sc );exit;
+			$clist[] = $sc['entity']->id();
+		}
+	}
 	
 	$items = 	[
 					'Beats',
@@ -65,7 +77,7 @@ function set_default_category() {
 		$sale = [];
 		$sale['title'] = $item." for sale";
 		$sale['name'] = $item;
-		$sale['category_id'] = $count;
+		$sale['category_id'] = $clist[ $count ];
 		$sale['brand'] = $item." Brand";
 		$sale['model'] = $item." Model";
 		$sale['model_year'] = "199".$count;
