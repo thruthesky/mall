@@ -107,10 +107,11 @@ class Item extends ContentEntityBase implements ItemInterface {
 	if ( $keyword = x::in('keyword') ) {
 		$ors = $query->orConditionGroup();
 		$ors->condition( 'title', '%'.$keyword.'%', 'LIKE' );
-		$ors->condition( 'name', '%'.$keyword.'%', 'LIKE' );
+		$ors->condition( 'brand', '%'.$keyword.'%', 'LIKE' );	
+		/*$ors->condition( 'name', '%'.$keyword.'%', 'LIKE' );
 		$ors->condition( 'content', '%'.$keyword.'%', 'LIKE' );
-		$ors->condition( 'brand', '%'.$keyword.'%', 'LIKE' );
-		$ors->condition( 'model', '%'.$keyword.'%', 'LIKE' );		
+		$ors->condition( 'model', '%'.$keyword.'%', 'LIKE' );
+		*/		
 		$query->condition($ors);
 	}
 	$ids = $query->execute();

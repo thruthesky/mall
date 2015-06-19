@@ -527,6 +527,10 @@ class x {
 	return Category::loadParents( $no );
   }
   
+  public static function getCategoryEntity( $id ){
+	return Category::getCategoryById( $id );
+  }
+  
   
   
   

@@ -60,6 +60,10 @@ class Category extends ContentEntityBase implements CategoryInterface {
     }
   }
 
+  public static function getCategoryById( $id ){
+	return self::load( $id );
+  }
+  
   /*
   public function children()
   {

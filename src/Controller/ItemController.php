@@ -118,4 +118,32 @@ class ItemController extends ControllerBase {
             '#data' => $data,
         ];
 	}
+	
+	public function search(){
+		$category_text = '';
+		if( $category_id = x::in('category') ){
+			if( is_numeric( $category_id ) ){
+				$conds = ['category_id'=>$category_id];
+				$category = x::getCategoryEntity( $category_id );
+				$category_text = " with the category of [ ".$category->name->value." ]";
+			}
+			else{
+				$data['error'] = "ERROR";
+			}
+		}
+		
+		if( empty( $data['error'] ) ){
+			$data['items'] = Item::getItemsWithImages( $conds );			
+			$data['total_items'] = count( $data['items']['items'] );			
+			if( x::in('keyword') ) $keyword = "[ ".x::in('keyword')." ]";
+			else $keyword = '[ anything ]';
+			
+			$data['search_note'] = $keyword.$category_text;
+		}
+
+		return [
+            '#theme' => x::getThemeName(),
+            '#data' => $data,
+        ];
+	}
 }
