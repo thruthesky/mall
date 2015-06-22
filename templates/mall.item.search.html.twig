@@ -1,3 +1,39 @@
 {% set page_note = "<div class=title>Search for " ~ data.search_note ~ "</div><div class='search-total'>Found a total of [ " ~ data.total_items ~ " ] item/s</div>" %}
-
+<form class='mall-advance-search'>
+	<input type='hidden' name='keyword' value='{{ data.search_fields.keyword }}'>
+	<input type='hidden' name='page' value='{{ data.search_fields.page }}'>	
+	<div class='search-sort-commands clearfix'>
+		<div class='left'>
+			<div class='label'>Arrange by: </div>
+			<div class='mall-select-wrapper'>
+				<select name='order'>
+					<option value=''>Sort Order</option>
+					<option value=''></option>
+					{% for value, text in data.default_search_sort %}
+						<option value='{{ value }}' {{ data.search_fields.order == value ? 'selected'}}>{{ text }}</option>
+					{% endfor %}
+				</select>
+				<img src='/modules/mall/img/select_arrow.png'/>
+			</div>
+		</div>
+		<div class='right'>
+			<div class='label'>Items per page: </div>
+			<div class='mall-select-wrapper'>
+				<select name='limit'>
+					<option value=''>Show</option>
+					<option value=''></option>
+					{% for num in data.default_item_per_page %}
+						<option value='{{ num }}' {{ data.search_fields.limit == num ? 'selected'}}>{{ num }}</option>
+					{% endfor %}
+				</select>
+				<img src='/modules/mall/img/select_arrow.png'/>
+			</div>
+		</div>
+	</div>
+</form>
 {% include 'themes/x8/templates/mall/mall.item.list.html.twig' %}
+{% set total_items = data.total_items %}
+{% set items_per_page = data.search_fields.limit %}
+{% set input = data.search_fields %}
+
+{% include 'themes/x8/templates/mall/mall.item.pagination.html.twig' %}

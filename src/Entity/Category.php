@@ -108,6 +108,29 @@ class Category extends ContentEntityBase implements CategoryInterface {
 	
 	return $rows;
   }
+  
+  /*
+  *Loads all categories
+  *returns:
+  *[ i ][ entity ], and [ i ][ child_no ], [ i ][ child ] for all root categories 
+  *[ i ][ child ][ i ][ entity ] , [ i ][ child ][ i ][ child_no ], and [ i ][ child ][ i ][ depth ] for all sub categories
+  */
+  public static function loadAllCategories(){
+	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>0]);
+
+	$clist = [];
+	foreach( $categories as $category ){
+		$sub_category = Category::loadAllChildren( $category->id() );
+		$clist[ $category->id() ]['entity'] = $category;
+		$clist[ $category->id() ]['child_no'] = count( $sub_category );		
+		
+		foreach( $sub_category as $sc ){						
+			$clist[ $category->id() ]['child'][ $sc['entity']->id() ] = $sc;
+		}
+	}
+	
+	return $clist;
+  }
   /**
    *
    * It returns the path from a node to root in array.

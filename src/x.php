@@ -49,6 +49,17 @@ class x {
 		'B' => 'Brand New',
 		'D' => 'Defective',
 	];
+	
+	static $default_search_sort =[
+		'created_low' => 'Date - Oldest to Newest',
+		'created_high' => 'Date - Newest to Oldest',
+		'changed_low' => 'Latest Updated - Oldest to Newest',
+		'changed_high' => 'Latest Updated -Newest to Oldest',
+		'price_low' => 'Price - Cheapest to Most Expensive',		
+		'price_high' => 'Price - Most Expensive to Cheapest',
+	];
+	
+	static $default_item_per_page =[ 3, 6, 9, 15, 30, 45 ];
   
   public static function getThemeName() {
     $uri = \Drupal::request()->getRequestUri();

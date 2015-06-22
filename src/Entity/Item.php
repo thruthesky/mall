@@ -94,6 +94,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		else{
 			$order = 'ASC';
 		}
+		
 		$query = $query->sort( $conds['by'], $order );
 		unset( $conds['by'] );		
 	}
@@ -114,7 +115,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		*/		
 		$query->condition($ors);
 	}
-	$ids = $query->execute();
+	$ids = $query->execute();	
 	return Item::loadMultiple($ids);
   }
 

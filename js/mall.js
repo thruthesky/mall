@@ -12,6 +12,10 @@ $(function(){
 	$("body").on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );	
 	
 	
+	console.log( $(".mall form.mall-advance-search select").length );
+	$("body").on( "change",".mall form.mall-advance-search select", callback_change_sort );
+	
+	
 	
 	
 	
@@ -210,6 +214,13 @@ function callback_submit_add_form(){
 	$("form.item-add-form").submit();
 }
 
+/*mall-advance-search*/
+
+
+
+/*eo mall-advance-search*/
+
+
 
 
 
@@ -247,9 +258,23 @@ function callback_delete_file_result( re ){
 	}
 }
 /*eo ajax_api_mall callbacks here below*/
+function callback_change_sort(){
+	var $this = $(this);
+	//console.log( $this.val() );
 
-
-
+	if( !$this.val() ){
+		console.log('if');
+		return false;
+	}
+	else{
+		console.log('else');
+	}
+	
+	$this.find("option[selected]").removeAttr("selected");
+	//console.log( $(".mall form.mall-advance-search").serialize() );
+	//return;
+	$(".mall form.mall-advance-search").submit();
+}
 
 /*mall ajax_file_upload*/
 function init_mall_form_ajax_file_upload(selector)

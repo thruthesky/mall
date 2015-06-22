@@ -121,9 +121,14 @@ class ItemController extends ControllerBase {
 	
 	public function search(){
 		$category_text = '';
-		if( $category_id = x::in('category') ){
+		$conds = [];
+		$input = x::input();
+		
+		if( $category_id = $input['category'] ){
 			if( is_numeric( $category_id ) ){
-				$conds = ['category_id'=>$category_id];
+				/*conds*/
+				$conds['category_id'] = $category_id;
+				/*eo conds*/
 				$category = x::getCategoryEntity( $category_id );
 				$category_text = " with the category of [ ".$category->name->value." ]";
 			}
@@ -133,10 +138,41 @@ class ItemController extends ControllerBase {
 		}
 		
 		if( empty( $data['error'] ) ){
-			$data['items'] = Item::getItemsWithImages( $conds );			
-			$data['total_items'] = count( $data['items']['items'] );			
-			if( x::in('keyword') ) $keyword = "[ ".x::in('keyword')." ]";
-			else $keyword = '[ anything ]';
+			foreach( $input as $k => $v ){
+				$data['search_fields'][ $k ] = $v;
+			}
+			//di( $data['search_fields'] );
+			/*conds*/
+			if( $input['order'] ){
+				$order_by = explode( '_', $input['order'] );
+				
+				$conds['by'] = $order_by[0];
+				if( $order_by[1] == 'low' ) $conds['order'] = 'ASC';
+				else if( $order_by[1] == 'high' ) $conds['order'] = 'DESC';
+			}
+			
+			//ONLY make use of page when there is limit...
+			if( $input['limit'] ){
+				$conds['limit'] = $input['limit'];
+				if( $input['page'] ) $conds['page'] = $input['page'];
+			}
+			/*eo conds*/	
+			$data['default_search_sort'] = x::$default_search_sort;
+			$data['default_item_per_page'] = x::$default_item_per_page;						
+			
+			$data['items'] = Item::getItemsWithImages( $conds );
+
+			unset( $conds['limit'] );
+			unset( $conds['page'] );
+			//Fix this. What I just did here was do the query again without the limit and page conditions
+			$data['total_items'] = count( Item::getItemsWithImages( $conds )['items'] );
+			
+			if( x::$input['keyword'] ){				
+				$keyword = "[ ".$input['keyword']." ]";
+			}
+			else{
+				$keyword = '[ anything ]';
+			}
 			
 			$data['search_note'] = $keyword.$category_text;
 		}

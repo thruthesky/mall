@@ -573,8 +573,35 @@ div.mall-success{
 }
 /*eo mall-view*/
 
+/*mall-advance-search*/
+.mall .mall-advance-search{
+	margin-bottom:10px;
+	color:#444444;
+}
 
+.mall .mall-advance-search .mall-select-wrapper{
+	display:inline-block;
+	position:relative;
+}
 
+.mall .mall-advance-search .mall-select-wrapper > img{
+	position:absolute;
+	right:5px;
+	top:11px;
+	height:6px;
+	width:10px;
+}
+
+.mall .mall-advance-search .label{	
+	font-weight:normal;		
+}
+
+.mall .mall-advance-search select{
+	padding:5px 3px;
+	border:1px solid #dddddd;
+	border-radius:2px;
+}
+/*eo mall-advance-search*/
 
 
 /*override*/
