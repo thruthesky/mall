@@ -28,14 +28,19 @@ function mall_preprocess(&$variables, $hook)
 
   $variables['x']['months'] = x::$months;
   $variables['input'] = x::getInput();
+  /*this is a bad place fore these*/
+	  if( empty( $variables['input']['category_root'] ) && $variables['input']['category']  ){
+		$variables['input']['category_root'] = $variables['input']['category'];
+	  }
+	  if( empty( $variables['input']['order'] ) ){
+		$variables['input']['order'] = 'created_low';
+	  }
+	  if( empty( $variables['input']['limit'] ) ){
+		/*if changed, also edit on ItemController*/
+		$variables['input']['limit'] = 15;
+	  }
+  /*eo this is a bad place fore these*/
   
-  if( empty( $variables['input']['category_root'] ) && $variables['input']['category']  ){
-	$variables['input']['category_root'] = $variables['input']['category'];
-  }
-  if( empty( $variables['input']['order'] ) ){
-	$variables['input']['order'] = 'created_low';
-  }
-
 	$variables['#attached']['library'][] = 'mall/default';
 	//$request = \Drupal::request();
 

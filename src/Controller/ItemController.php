@@ -157,6 +157,9 @@ class ItemController extends ControllerBase {
 				$conds['limit'] = $input['limit'];
 				if( $input['page'] ) $conds['page'] = $input['page'];
 			}
+			/*if changed, also edit on Mall.module*/
+			else $conds['limit'] = 15;
+			
 			/*eo conds*/	
 			$data['default_search_sort'] = x::$default_search_sort;
 			

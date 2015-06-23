@@ -83,9 +83,10 @@ class Item extends ContentEntityBase implements ItemInterface {
 		}
 		else{
 			$from = 0;
-		}
-		$query = $query->range($from, $conds['limit']);
-		unset( $conds['limit'] );
+		}		
+
+		$query = $query->range($from, $conds['limit']);		
+		unset( $conds['limit'] );		
 	}
 	
 	if( $conds['by'] ){
