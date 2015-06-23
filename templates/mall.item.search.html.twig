@@ -9,11 +9,14 @@
 	{% if input.category %}
 		<input type='hidden' name='category' value='{{ input.category }}'>	
 	{% endif %}
+	{% if input.category_root %}
+		<input type='hidden' name='category_root' value='{{ input.category_root }}'>	
+	{% endif %}
 	<div class='search-sort-commands clearfix'>
 		<div class='left'>
 			<div class='label'>Arrange by: </div>
 			<div class='mall-select-wrapper'>
-				<select name='order'>
+				<select name='order' {{ input.order }}>
 					<option value=''>Sort Order</option>
 					<option value=''></option>
 					{% for value, text in data.default_search_sort %}

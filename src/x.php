@@ -228,7 +228,7 @@ class x {
       $request = \Drupal::request();
       $get = $request->query->all();
       $post = $request->request->all();
-      self::$input = array_merge( $get, $post );
+      self::$input = array_merge( $get, $post ); 
     }
     return self::$input;
   }

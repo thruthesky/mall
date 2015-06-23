@@ -138,12 +138,6 @@ class ItemController extends ControllerBase {
 		}
 		
 		if( empty( $data['error'] ) ){
-		/*
-			foreach( $input as $k => $v ){
-				$data['input'][ $k ] = $v;
-			}
-		*/
-			//di( $data['search_fields'] );
 			/*conds*/
 			if( $input['order'] ){
 				$order_by = explode( '_', $input['order'] );
@@ -151,6 +145,11 @@ class ItemController extends ControllerBase {
 				$conds['by'] = $order_by[0];
 				if( $order_by[1] == 'low' ) $conds['order'] = 'ASC';
 				else if( $order_by[1] == 'high' ) $conds['order'] = 'DESC';
+			}
+			else{
+				$input['order'] = 'created_low';
+				$conds['by'] = 'created';
+				$conds['order'] = 'ASC';
 			}
 			
 			//ONLY make use of page when there is limit...
@@ -160,6 +159,7 @@ class ItemController extends ControllerBase {
 			}
 			/*eo conds*/	
 			$data['default_search_sort'] = x::$default_search_sort;
+			
 			$data['default_item_per_page'] = x::$default_item_per_page;						
 			
 			$data['items'] = Item::getItemsWithImages( $conds );
@@ -176,7 +176,7 @@ class ItemController extends ControllerBase {
 				$keyword = '[ anything ]';
 			}
 			
-			$data['search_note'] = $keyword.$category_text;
+			$data['search_note'] = $keyword.$category_text;		
 		}
 
 		return [

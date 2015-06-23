@@ -28,7 +28,13 @@ function mall_preprocess(&$variables, $hook)
 
   $variables['x']['months'] = x::$months;
   $variables['input'] = x::getInput();
-
+  
+  if( empty( $variables['input']['category_root'] ) && $variables['input']['category']  ){
+	$variables['input']['category_root'] = $variables['input']['category'];
+  }
+  if( empty( $variables['input']['order'] ) ){
+	$variables['input']['order'] = 'created_low';
+  }
 
 	$variables['#attached']['library'][] = 'mall/default';
 	//$request = \Drupal::request();
