@@ -1,4 +1,5 @@
 {% set page_note = "<div class=title>Search for " ~ data.search_note ~ "</div><div class='search-total'>Found a total of [ " ~ data.total_items ~ " ] item/s</div>" %}
+
 <form class='mall-advance-search'>
 	{% if input.keyword %}
 		<input type='hidden' name='keyword' value='{{ input.keyword }}'>
@@ -16,11 +17,16 @@
 		<div class='left'>
 			<div class='label'>Arrange by: </div>
 			<div class='mall-select-wrapper'>
-				<select name='order' {{ input.order }}>
+				{% if order %}
+					{% set order = order%}
+				{% else %}
+					{% set order = 'created_low'%}
+				{% endif %}
+				<select name='order' {{ order }}>
 					<option value=''>Sort Order</option>
 					<option value=''></option>
 					{% for value, text in data.default_search_sort %}
-						<option value='{{ value }}' {{ input.order == value ? 'selected'}}>{{ text }}</option>
+						<option value='{{ value }}' {{ order == value ? 'selected'}}>{{ text }}</option>
 					{% endfor %}
 				</select>
 				<img src='/modules/mall/img/select_arrow.png'/>

@@ -31,14 +31,7 @@ function mall_preprocess(&$variables, $hook)
   /*this is a bad place fore these*/
 	  if( empty( $variables['input']['category_root'] ) && $variables['input']['category']  ){
 		$variables['input']['category_root'] = $variables['input']['category'];
-	  }
-	  if( empty( $variables['input']['order'] ) ){
-		$variables['input']['order'] = 'created_low';
-	  }
-	  if( empty( $variables['input']['limit'] ) ){
-		/*if changed, also edit on ItemController*/
-		$variables['input']['limit'] = 15;
-	  }
+	  }  
   /*eo this is a bad place fore these*/
   
 	$variables['#attached']['library'][] = 'mall/default';
