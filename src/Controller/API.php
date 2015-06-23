@@ -61,7 +61,22 @@ class API extends ControllerBase {
 		return $data;
 	}
 	
-	
+	public static function getCity( $request ){
+		$province = $request->get('province');
+		$cities = x::getCitiesOf( $province );
+		$markup = '';
+
+		if( $cities ){
+			$markup =	"<select class='location' name='city' required>";
+			$markup .= 	"<option value=''>City</option>";
+			foreach( $cities as $city ){
+				$markup .= "<option value='".$city."'>".$city."</option>";
+			}
+			$markup .=	"</select>";
+		}
+		$data['html'] = $markup;
+		return $data;
+	}
 	
 	/*fileUpload*/
 	public static function fileUpload( $request ){

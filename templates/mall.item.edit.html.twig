@@ -58,6 +58,24 @@
 			<div class='note'>You can seperate phone numbers by using comma (,)</div>
 			<div class='note'>Indicate the number where your buyer will contact you. Format: 09xxxxxxxxx (e.g. 09158787666)</div>
 			<div class='description'>Location</div>
+			<div class='location-wrapper clearfix'>
+				<select class='location' name='province' required>
+					<option value=''>Province</option>
+					{% for p in data.provinces %}
+						<option value='{{ p }}'{{ p == item.province.value ? " selected" }}>{{ p }}</option>
+					{% endfor %}
+				</select>			
+
+				{% if item.city %}
+					<select class='location' name='city' required>
+						<option value=''>City</option>
+						{% for k,v in data.cities %}
+							<option value='{{ k }}'{{ k == item.city.value ? " selected" }}>{{ v }}</option>
+						{% endfor %}
+					</select>
+				{% endif %}
+			</div>
+			<div class='description'>Meet ups</div>
 			<input type='text' name='location' value='{{ item.location.value }}' required>
 			<div class='note'>Places where you may do meetups.</div>
 			<div class='note'>Please add them in an understandable way. In case of multiple places you may use comma (,) to separate it.</div>

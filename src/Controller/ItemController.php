@@ -14,8 +14,9 @@ class ItemController extends ControllerBase {
 		$data = x::getDefaultInformationByUid( x::myUid() );
 		$data['status'] = x::$item_status;
 		$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
+		$data['provinces'] = x::$provinces;
 		
-		if( $item_id = x::in('item_id') ){			
+		if( $item_id = x::in('item_id') ){
 			$data['item'] = Item::load( $item_id ); 
 			if( $data['item']->user_id->target_id == x::myUid() || x::isAdmin() ){
 				$category_parents = array_reverse( x::getCategoryParents( $data['item']->category_id->target_id ) );
@@ -38,6 +39,7 @@ class ItemController extends ControllerBase {
 					}
 				}
 				if( $file_urls ) $data['files'] = $file_urls;
+				$data['cities'] = x::$cities[ $data['item']->province->value ];				
 			}
 			else{
 				return new RedirectResponse( "/mall/admin/item/list?" . x::error(x::ERROR_NOT_YOUR_POST) );
@@ -160,13 +162,18 @@ class ItemController extends ControllerBase {
 			/*if changed, also edit on Mall.module*/
 			else $conds['limit'] = 15;
 			
+			if( $input['price_from'] ) $conds['price_from'] = $input['price_from'];
+			if( $input['price_to'] ) $conds['price_to'] = $input['price_to'];
+			if( $input['province'] ) $conds['province'] = $input['province'];
+			if( $input['time'] ) $conds['time'] = $input['time'];
+			
 			/*eo conds*/	
 			$data['default_search_sort'] = x::$default_search_sort;
 			
 			$data['default_item_per_page'] = x::$default_item_per_page;						
 			
 			$data['items'] = Item::getItemsWithImages( $conds );
-
+			
 			unset( $conds['limit'] );
 			unset( $conds['page'] );
 			//Fix this. What I just did here was do the query again without the limit and page conditions

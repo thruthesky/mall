@@ -1,0 +1,41 @@
+{#
+This should work as long as "items" variable structure is like:
+$items[0]['entity'] -> the entity item_mall
+$items[0]['images']['item_image_thumbnail'] -> images
+$items[0]['images']['item_image'] -> images
+$items[0]['images']['item_image_description'] -> images
+#}
+
+{% if not items %}
+	{% set items = data.items.items %}
+{% endif %}
+
+<div class='mall-item-list clearfix'>
+	{{ page_note | raw }}
+		<div class='items'>
+		{% for i in items %}
+			{% set item = i.entity %}
+			{% set images = i.images %}
+			{% set price = i.rendered_price %}
+			{% if ( loop.index - 1 ) is divisibleby( item_per_page ) and loop.index != 1 %}
+				{% set count = count + 1 %}
+			{% endif %}
+			<a href='/mall/item/view?item_id={{ item.id.value }}'>
+				<div class='item' page='{{ count }}'>
+					<div class='photo'>
+					{% if images.item_image_thumbnail[0] %}
+						{% set url_thumb = images.item_image_thumbnail[0].url_large %}
+					{% else %}
+						{% set url_thumb = '/themes/x8/templates/mall/img/mall-no-image.png' %}
+					{% endif %}
+						<img src='{{ url_thumb }}'/>					
+					</div>
+					<div class='info'>
+						<div class='title'>{{ item.title.value }}</div>
+						<div class='price'>{{ price }}</div>
+					</div>
+				</div>
+			</a>
+		{% endfor %}
+	</div>
+</div>

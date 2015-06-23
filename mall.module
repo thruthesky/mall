@@ -19,7 +19,7 @@ function mall_theme()
   
   return $themes;
 }
-	
+
 function mall_preprocess(&$variables, $hook)
 {
   if ( ! x::isMallPage() ) {
@@ -28,11 +28,18 @@ function mall_preprocess(&$variables, $hook)
 
   $variables['x']['months'] = x::$months;
   $variables['input'] = x::getInput();
-  /*this is a bad place fore these*/
+  if( $variables['input']['category'] ){
+	$variables['category_root'] = x::getCategoryRoot( $variables['input']['category'] );	
+  }
+  else if( $entity_category_id ){
+	
+  }
+
+  /*this is a bad place fore these
 	  if( empty( $variables['input']['category_root'] ) && $variables['input']['category']  ){
 		$variables['input']['category_root'] = $variables['input']['category'];
 	  }  
-  /*eo this is a bad place fore these*/
+  eo this is a bad place fore these*/
   
 	$variables['#attached']['library'][] = 'mall/default';
 	//$request = \Drupal::request();
@@ -45,5 +52,11 @@ function mall_preprocess(&$variables, $hook)
 	else{
 		//echo $hook;
 	}
+}
 
+
+function mall_entity_load( array $entities, $type ){	
+	if( $type == 'mall_item' ){		
+		$entity_category_id = array_values($entities)[0]->category_id->target_id;
+	}
 }

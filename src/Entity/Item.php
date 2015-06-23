@@ -45,6 +45,8 @@ class Item extends ContentEntityBase implements ItemInterface {
 		$item->set('price', $input['price']);		
 		$item->set('mobile', $input['mobile']);			
 		$item->set('status', $input['status']);
+		$item->set('city', $input['city']);
+		$item->set('province', $input['province']);
 		$item->set('location', $input['location']);
 		$item->set('content', $input['content']);
 
@@ -115,6 +117,23 @@ class Item extends ContentEntityBase implements ItemInterface {
 		unset( $conds['category_id'] );
 	}
 	
+	if( $conds['price_from'] ){
+		$query = $query->condition( 'price', $conds['price_from'], '>=' );
+		unset( $conds['price_from'] );
+	}
+	
+	if( $conds['price_to'] ){
+		$query = $query->condition( 'price', $conds['price_to'], '<=' );
+		unset( $conds['price_to'] );
+	}
+	
+	//per hour
+	if( $conds['time'] ){
+		$difference = time() - $conds['time'] * 60 * 60;		
+		$query = $query->condition( 'created', $difference, '>=' );
+		unset( $conds['time'] );
+	}
+	
 	if( $conds ){		
 		foreach( $conds as $k => $v ){
 			$query = $query->condition( $k, $v );
@@ -132,6 +151,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		$query->condition($ors);
 	}
 	$ids = $query->execute();	
+
 	return Item::loadMultiple($ids);
   }
 
@@ -360,6 +380,22 @@ class Item extends ContentEntityBase implements ItemInterface {
       ->setSettings(array(
         'default_value' => 0,
         'max_length' => 4,
+      ));
+	  
+    $fields['province'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Province'))
+      ->setDescription(t('Province of seller.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 64,
+      ));
+	  
+    $fields['city'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('City'))
+      ->setDescription(t('City of seller.'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 64,
       ));
 	  
     $fields['location'] = BaseFieldDefinition::create('string')

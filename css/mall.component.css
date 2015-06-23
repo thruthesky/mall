@@ -310,7 +310,7 @@ div.mall-success{
 	box-sizing:border-box;
 }
 
-.mall-page .mall-item-add select.category{
+.mall-page .mall-item-add select.category, .mall-page .mall-item-add select.location{
 	float:left;
 	width:24%;
 	margin:0 1% 5px 0;
@@ -579,6 +579,18 @@ div.mall-success{
 	color:#444444;
 }
 
+.mall .mall-advance-search .filter{
+	position:relative;
+	padding:5px 20px 5px 5px;
+	border:1px solid #dddddd;
+}
+
+.mall .mall-advance-search .filter > img{
+	position:absolute;
+	right:5px;
+	top:10px;
+}
+
 .mall .mall-advance-search .mall-select-wrapper{
 	display:inline-block;
 	position:relative;
@@ -601,8 +613,37 @@ div.mall-success{
 	border:1px solid #dddddd;
 	border-radius:2px;
 }
+
+.mall .mall-advance-search .search-sort-commands .left{
+	margin-right:10px;
+}
 /*eo mall-advance-search*/
 
+/*mall-pagination*/
+.mall-pagination{
+	padding:5px 10px;
+	text-align:center;
+}
+
+.mall-pagination a{
+	display:inline-block;
+	padding:3px 5px;
+	margin:0 10px 5px 0;
+	border: 1px solid #999999;
+	border-radius: 2px;
+	font-size:1.2em;
+	line-height:100%;	
+}
+
+.mall-pagination a:hover, .mall-pagination a.selected{
+	background-color: #b0b0b0;
+	color: #ffffff;
+}
+
+.mall-pagination a:last-child{
+	margin-right:0;
+}
+/*eo mall-pagination*/
 
 /*override*/
 

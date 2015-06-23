@@ -1,6 +1,6 @@
 {% set page_note = "<div class=title>Search for " ~ data.search_note ~ "</div><div class='search-total'>Found a total of [ " ~ data.total_items ~ " ] item/s</div>" %}
 
-<form class='mall-advance-search'>
+<form class='mall-advance-search clearfix'>
 	{% if input.keyword %}
 		<input type='hidden' name='keyword' value='{{ input.keyword }}'>
 	{% endif %}
@@ -10,15 +10,15 @@
 	{% if input.category %}
 		<input type='hidden' name='category' value='{{ input.category }}'>	
 	{% endif %}
-	{% if input.category_root %}
-		<input type='hidden' name='category_root' value='{{ input.category_root }}'>	
-	{% endif %}
+	{% if category_root.id.value %}
+		<input type='hidden' name='category_root' value='{{ category_root.id.value }}'>	
+	{% endif %}	
 	<div class='search-sort-commands clearfix'>
 		<div class='left'>
 			<div class='label'>Arrange by: </div>
-			<div class='mall-select-wrapper'>
-				{% if order %}
-					{% set order = order%}
+			<div class='mall-select-wrapper'>				
+				{% if input.order %}
+					{% set order = input.order %}					
 				{% else %}
 					{% set order = 'created_low'%}
 				{% endif %}
@@ -52,8 +52,8 @@
 		</div>
 	</div>
 </form>
-{% include 'themes/x8/templates/mall/mall.item.list.html.twig' %}
+{% include '/modules/mall/templates/mall.item.list.html.twig' %}
 {% set total_items = data.total_items %}
 {% set items_per_page = input.limit %}
 
-{% include 'themes/x8/templates/mall/mall.item.pagination.html.twig' %}
+{% include '/modules/mall/templates/mall.item.pagination.html.twig' %}

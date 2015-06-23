@@ -6,6 +6,9 @@ $(function(){
     $("body").on( "click",".category .cancel", callback_category_cancel );
 	
 	$("body").on( "change","select.category", callback_change_category );
+	$("body").on( "change","select.location", callback_change_location );
+	
+	$("body").on( "click",".mall .filter.left span.more", callback_collapse_left_sidebar );
 		
 	$("body").on( "click","div.item-add-submit", callback_submit_add_form );
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');	
@@ -200,6 +203,38 @@ function callback_change_category(){
 	ajax_api_mall( data, callback_get_parent_children );
 }
 
+function callback_change_location(){
+	var $this = $(this);
+	var province = $this.val();
+
+	$this.nextAll('select').remove();
+	
+	data = {};
+	data.call = 'getCity';
+	data.province = province;	
+	
+	ajax_api_mall( data, callback_get_city );
+}
+
+function callback_collapse_left_sidebar(){	
+	var $this = $(this);
+	var filter = $this.attr('filter');
+	
+	if( $this.hasClass("less") ){
+		$this.removeClass("less");
+		text = $this.text();
+		text = text.replace("- Less", "+ More");
+		$this.html( text );
+	}
+	else{
+		$this.addClass("less");
+		text = $this.text();
+		text = text.replace("+ More", "- Less");
+		$this.html( text );
+	}
+	$(".mall .filter.left ." + filter + ".extra").toggle();
+}
+
 function callback_delete_file(){	
 	var $this = $(this);
 	var fid = $this.parent().attr('fid');
@@ -248,6 +283,12 @@ function ajax_api_mall( qs, callback_function )
 function callback_get_parent_children( re ){
 	if( re.code == 0 ){
 		$('.mall-item-add .categories').append( re.html );
+	}
+}
+
+function callback_get_city( re ){
+	if( re.code == 0 ){
+		$('.mall-item-add .location-wrapper').append( re.html );
 	}
 }
 

@@ -93,7 +93,22 @@ function set_default_category() {
 				];
 	$count = 0;
 	
+	$province = ['Abra','Metro Manila','Pampanga'];
+	$city = ['Abra - Bangued','Metro Manila - Makati City','Pampanga - Angeles City'];
+	
 	foreach( $items as $item ){
+		if( $count % 3 == 0 ){
+			$prov = $province[2];
+			$ct = $city[2];
+		}
+		else if( $count % 2 == 0 ){
+			$prov = $province[1];
+			$ct = $city[1];
+		}
+		else if( $count % 1 == 0 ){
+			$prov = $province[0];
+			$ct = $city[0];
+		}
 		$sale = [];
 		$sale['title'] = $item." for sale";
 		$sale['name'] = $item;
@@ -104,6 +119,8 @@ function set_default_category() {
 		$sale['price'] = "10".$count."00";
 		$sale['mobile'] = "090671042".$count."0";
 		$sale['status'] = "B";
+		$sale['province'] = $prov;
+		$sale['city'] = $ct;
 		$sale['location'] = "Pampanga, Angeles City, San Fernando";
 		$sale['content'] = "Hi, I want to sell my ".$item." with the price of ".$sale['price'].". Please send me a message with my number ".$sale['mobile'];
 		
