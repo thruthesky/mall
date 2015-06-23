@@ -59,7 +59,7 @@ class x {
 		'price_high' => 'Price - Most Expensive to Cheapest',
 	];
 	
-	static $default_item_per_page =[ 3, 6, 9, 15, 30, 45 ];
+	static $default_item_per_page =[ 1, 15, 30, 45 ];
   
   public static function getThemeName() {
     $uri = \Drupal::request()->getRequestUri();

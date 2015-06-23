@@ -30,7 +30,12 @@
 					<option value=''>Show</option>
 					<option value=''></option>
 					{% for num in data.default_item_per_page %}
-						<option value='{{ num }}' {{ input.limit == num ? 'selected'}}>{{ num }}</option>
+						{% if input.limit %}
+							{% set limit = input.limit %}
+						{% else %}
+							{% set limit = 15 %}
+						{% endif %}
+						<option value='{{ num }}' {{ limit == num ? 'selected'}}>{{ num }}</option>
 					{% endfor %}
 				</select>
 				<img src='/modules/mall/img/select_arrow.png'/>
