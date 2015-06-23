@@ -99,6 +99,19 @@ class Item extends ContentEntityBase implements ItemInterface {
 		unset( $conds['by'] );		
 	}
 	
+	if( $conds['category_id'] ){
+		$ors = $query->orConditionGroup();
+		$ors->condition( "category_id", $conds['category_id'] );
+		$children = x::getAllCategoryChildren( $conds['category_id'] );
+		
+		foreach( $children as $child ){		
+			$ors->condition( "category_id", $child['entity']->id() );
+		}
+		
+		$query->condition($ors);
+		unset( $conds['category_id'] );
+	}
+	
 	if( $conds ){		
 		foreach( $conds as $k => $v ){
 			$query = $query->condition( $k, $v );

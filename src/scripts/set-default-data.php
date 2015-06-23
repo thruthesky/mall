@@ -16,23 +16,32 @@ function set_default_category() {
 	$id_food = Category::add(0, 'Food');
 		$id_sweets = Category::add($id_food, 'Sweets');
 			Category::add($id_sweets, 'Candies');
-			Category::add($id_sweets, 'Chocolate');
+			$id_chocolate = Category::add($id_sweets, 'Chocolate');				
+				Category::add($id_chocolate, 'Goya');
+				Category::add($id_chocolate, 'Hersheys');
 		$id_diet = Category::add($id_food, 'Diet');
 			$id_low_calories = Category::add($id_diet, 'Low Calories');
 	$id_health = Category::add(0, 'Health & Beauty');
-		Category::add($id_health, 'Make up');
+		$id_makeup = Category::add($id_health, 'Make up');
+			Category::add($id_makeup, 'Avon');
+			Category::add($id_makeup, 'Foundation');
 		Category::add($id_health, 'Healthy Living');
 	$id_home = Category::add(0, 'Home & Lifestyle');
 	$id_fashion = Category::add(0, 'Fashion');
 		$id_clothing = Category::add($id_fashion, 'Clothing');
 		$id_accessories = Category::add($id_fashion, 'Accessories');
+			Category::add($id_accessories, 'Necklace');
+			Category::add($id_accessories, 'Bracelet');
+			Category::add($id_accessories, 'Earrings');
 		$id_perfumery = Category::add($id_fashion, 'Perfumery');
 			Category::add($id_perfumery, 'Bench');
 			Category::add($id_perfumery, 'Avon');
 	$id_electronics = Category::add(0, 'Electronics');
 		$id_video = Category::add($id_electronics, 'Video Hardware');
+			Category::add($id_video, 'Connectors');
+			Category::add($id_video, 'Display Devices');
 		$id_audio = Category::add($id_electronics, 'Audio Hardware');
-			Category::add($id_electronics, 'iMax');
+			Category::add($id_audio, 'iMax');
 	$id_fun = Category::add(0, 'Fun & Travel');
 		Category::add($id_fun, 'Games');
 		Category::add($id_fun, 'Vacation Spots');
@@ -69,7 +78,18 @@ function set_default_category() {
 					'Supernatural',
 					'Tux',
 					'WD',
-					'Yukata'
+					'Yukata',
+					'FF7 Cloud Figure',
+					'Keyblade Keys',
+					'DomoKun',
+					'Turrones De Casoy',
+					'Watermelon',
+					'Green Apple',
+					'MtDew',
+					'PS3 Games',
+					'DVI to HDMI',
+					'LG 72inches',
+					'Oculus Rift',
 				];
 	$count = 0;
 	
