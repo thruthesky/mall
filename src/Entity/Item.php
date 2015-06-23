@@ -34,6 +34,8 @@ class Item extends ContentEntityBase implements ItemInterface {
 			$item->set('user_id', x::myUid() );
 		}
 		
+		if( empty( $input['model_year'] ) ) $input['model_year'] = 0;
+		
 		$item->set('title', $input['title']);		
 		$item->set('name', $input['name']);	
 		$item->set('category_id', $input['category_id']);		
