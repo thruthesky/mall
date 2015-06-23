@@ -138,9 +138,11 @@ class ItemController extends ControllerBase {
 		}
 		
 		if( empty( $data['error'] ) ){
+		/*
 			foreach( $input as $k => $v ){
-				$data['search_fields'][ $k ] = $v;
+				$data['input'][ $k ] = $v;
 			}
+		*/
 			//di( $data['search_fields'] );
 			/*conds*/
 			if( $input['order'] ){
