@@ -216,6 +216,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 	foreach( $entity_items as $k => $v ){
 		$items[ $k ]['entity'] = $v;
 		$items[ $k ]['rendered_price'] = self::renderPrice( $v->price->value );
+		$items[ $k ]['category_root'] = x::getCategoryRoot( $v->category_id->target_id );
 		$files = Item::getFilesByType( $v->id() );			
 		foreach( $files as $key => $value ){
 			foreach( $value as $v ){				

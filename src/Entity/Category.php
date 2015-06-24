@@ -89,9 +89,11 @@ class Category extends ContentEntityBase implements CategoryInterface {
 		$id = $c->id();
 		$rows[ $id ]['entity'] = $c;        
         $rows[ $id ]['depth'] = $depth;
+		$rows[ $id ]['category_root'] = self::groupRoot( $c->category_id->target_id );
+		
 		$returns = self::loadAllChildren( $id, $depth + 1 );		
 		if( $returns ) $rows = $rows + $returns;        
-		$rows[ $id ]['child_no'] = count( $returns );
+		$rows[ $id ]['child_no'] = count( $returns );				
 	}	
 	return $rows;
   }
@@ -122,7 +124,8 @@ class Category extends ContentEntityBase implements CategoryInterface {
 	foreach( $categories as $category ){
 		$sub_category = Category::loadAllChildren( $category->id() );
 		$clist[ $category->id() ]['entity'] = $category;
-		$clist[ $category->id() ]['child_no'] = count( $sub_category );		
+		$clist[ $category->id() ]['child_no'] = count( $sub_category );	
+		$clist[ $category->id() ]['category_root'] = self::groupRoot( $category->category_id->target_id );
 		
 		foreach( $sub_category as $sc ){						
 			$clist[ $category->id() ]['child'][ $sc['entity']->id() ] = $sc;
