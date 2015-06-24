@@ -66,10 +66,10 @@ class x {
 	//60*60*24 = 86400
 	static $time =	[ 
 						24 => 'Last 24 hours',
-						24 * 2 => 'Last 2 days',
-						24 * 7 => 'Last 7 days',
-						24 * 15 => 'Last 15 days',
-						24 * 30 => 'Last 30 days',
+						48 => 'Last 2 days',
+						168 => 'Last 7 days',
+						360 => 'Last 15 days',
+						720 => 'Last 30 days',
 					];
 					
 	static $price =	[ 
@@ -575,6 +575,10 @@ class x {
   
   public static function getDefaultPriceRange(){
 	return self::$price;
+  }
+  
+  public static function getDefaultItemStatus(){
+	return self::$item_status;
   }
   
   
