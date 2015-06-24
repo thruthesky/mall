@@ -13,6 +13,18 @@
 	{% if category_root.id.value %}
 		<input type='hidden' name='category_root' value='{{ category_root.id.value }}'>	
 	{% endif %}	
+	{% if input.time %}
+		<input type='hidden' name='time' value='{{ input.time }}'>	
+	{% endif %}	
+	{% if input.price_from %}
+		<input type='hidden' name='price_from' value='{{ input.price_from }}'>	
+	{% endif %}	
+	{% if input.price_to %}
+		<input type='hidden' name='price_to' value='{{ input.price_to }}'>	
+	{% endif %}	
+	{% if input.province %}
+		<input type='hidden' name='province' value='{{ input.province }}'>	
+	{% endif %}	
 	<div class='search-sort-commands clearfix'>
 		<div class='left'>
 			<div class='label'>Arrange by: </div>

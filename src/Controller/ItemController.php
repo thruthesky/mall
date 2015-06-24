@@ -164,8 +164,9 @@ class ItemController extends ControllerBase {
 			
 			if( $input['price_from'] ) $conds['price_from'] = $input['price_from'];
 			if( $input['price_to'] ) $conds['price_to'] = $input['price_to'];
-			if( $input['province'] ) $conds['province'] = $input['province'];
+			if( $input['province'] ) $conds['province'] = $input['province'];//
 			if( $input['time'] ) $conds['time'] = $input['time'];
+			if( $input['status'] ) $conds['status'] = $input['status'];//
 			
 			/*eo conds*/	
 			$data['default_search_sort'] = x::$default_search_sort;
