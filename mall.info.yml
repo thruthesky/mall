@@ -3,3 +3,5 @@ name: Mall
 type: module
 description: Mall module for Drupal 8.
 core: 8.x
+dependencies:
+  - library
