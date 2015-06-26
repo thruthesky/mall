@@ -2,6 +2,10 @@
 {% set images = data.item.images %}
 {% set price = data.item.rendered_price %}
 {% set status = data.status %}
+
+{% if myUid == item.user_id.target_id %}
+    <a href="/mall/item/add?item_id={{ item.id.value }}">EDIT</a>
+{% endif %}
 <div class='mall-view'>
 	<div class='title top'>{{ item.title.value }}</div>
 	<div class='image-list'>	

@@ -1,9 +1,13 @@
 <div class='top-menu'>
 	<a href="/mall">Mall</a>
-	<a href="/mall/item/add">Add item</a>
+    <a href="/mall/item/add">Add item</a>
+    {% if is_admin %}
 	<a href="/mall/admin">Admin</a>
-	<a href="/mall/admin/member/list">Member List</a>
-	<a href="/mall/admin/category">Category</a>
-	<a href="/mall/admin/item/list">Items</a>
-	<a href="#">Orders</a>
+        <a href="/mall/admin/member/list">Member List</a>
+        <a href="/mall/admin/category">Category</a>
+        <a href="/mall/admin/item/list">Items</a>
+    {% else %}
+        <a href="/mall/item/list/uid/{{ uid }}">My Item</a>
+    {% endif %}
+	<!--<a href="#">Orders</a>-->
 </div>
