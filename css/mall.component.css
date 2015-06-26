@@ -529,7 +529,7 @@ div.mall-success{
 }
 
 .mall-view .thumbnails .inner{
-	width:60%;
+	width:65%;
 	margin:auto;		
 	white-space:nowrap;
 	overflow: hidden;
@@ -538,7 +538,7 @@ div.mall-success{
 .mall-view .thumbnails .inner img{		
 	display:inline-block;
 	position:relative;
-	width:16.66%;
+	width:19%;
 	padding: 5px;
 	margin:0 .5% -3px .5%;
 	border: 1px solid #dcdcdc;		
