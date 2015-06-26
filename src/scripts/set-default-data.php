@@ -1,5 +1,5 @@
 <?php
-use Drupal\mall\Entity\Category;
+use Drupal\Library\Entity\Category;
 use Drupal\mall\Entity\Item;
 use Drupal\mall\Mall;
 use Drupal\mall\Member;
@@ -46,7 +46,7 @@ function set_default_category() {
 		Category::add($id_fun, 'Games');
 		Category::add($id_fun, 'Vacation Spots');
 	
-	$categories = \Drupal::entityManager()->getStorage('mall_category')->loadByProperties(['parent_id'=>0]);
+	$categories = \Drupal::entityManager()->getStorage('library_category')->loadByProperties(['parent_id'=>0]);
 	
 	$clist = [];
 	foreach( $categories as $category ){

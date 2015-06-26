@@ -4,7 +4,7 @@ use Drupal\mall\HTML;
 use Drupal\user\Entity\User;
 
 use Drupal\mall\Entity\Member;
-use Drupal\mall\Entity\Category;
+use Drupal\Library\Entity\Category;
 
 /**
  * Class X

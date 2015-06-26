@@ -21,10 +21,10 @@ class Mall {
 
   public static function emptyData() {    
     self::emptyEntity('mall_member');
-    self::emptyEntity('mall_order');
-    self::emptyEntity('mall_order_item');
+    //self::emptyEntity('mall_order');
+    //self::emptyEntity('mall_order_item');
     self::emptyEntity('mall_item');
-	self::emptyEntity('mall_category');	
+	self::emptyEntity('library_category');	
   }
 
   public static function Login($username) {
@@ -63,4 +63,9 @@ class Mall {
 			else return null;
 		}
 	}
+	
+	public static function isFrontPage()
+    {
+        return \Drupal::service('path.matcher')->isFrontPage();        
+    }
 }

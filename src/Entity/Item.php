@@ -341,7 +341,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 	$fields['category_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Category ID'))
       ->setDescription(t('Category ID'))
-      ->setSetting('target_type', 'mall_category');
+      ->setSetting('target_type', 'library_category');
 
     $fields['status'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Status'))

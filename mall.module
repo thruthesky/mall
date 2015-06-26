@@ -1,9 +1,19 @@
 <?php
-use Drupal\mall\Entity\Category;
+use Drupal\Library\Entity\Category;
 use Drupal\mall\Entity\Item;
 use Drupal\mall\Mall;
 use Drupal\mall\x;
 use Symfony\Component\Yaml\Yaml;
+
+if ( function_exists('di') ) {
+}
+else {
+function di( $obj ) {
+    echo "<pre>";
+    print_r($obj);
+    echo "</pre>";
+}
+}
 
 function mall_theme()
 {
@@ -22,9 +32,12 @@ function mall_theme()
 
 function mall_preprocess(&$variables, $hook)
 {
-  if ( ! x::isMallPage() ) {
-    return;
-  }
+	if( Mall::isFrontPage() ){
+		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id' ] );
+		//$variables['mall_top_small'] = Item::getItemsWithImages( [ 'limit'=>8, 'order'=>'DESC', 'by'=>'id' ] );
+		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>9, 'order'=>'DESC', 'by'=>'id' ] );	
+		//$variables['mall_item_list'] = Item::getItemsWithImages( [ 'limit'=>16, 'order'=>'DESC', 'by'=>'id' ] );
+	}
 
   $variables['x']['months'] = x::$months;
   $variables['input'] = x::getInput();
@@ -45,13 +58,14 @@ function mall_preprocess(&$variables, $hook)
 	//$request = \Drupal::request();
 
 	// page classes
-	if ( $hook == 'mall' ) {
+	if ( $hook == 'mall' ) {		
 	 //$variables['categories'] = Mall::categoryList( $variables );
 
 	}
 	else{
 		//echo $hook;
 	}
+	
 }
 
 

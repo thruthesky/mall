@@ -19,8 +19,8 @@
 			{% endfor %}
 		</div>
 		<div class='thumbnails'>
-			<img class='arrow left' src='/themes/x8/templates/sonub-mobile/img/arrow_left.png'/>
-			<img class='arrow right' src='/themes/x8/templates/sonub-mobile/img/arrow_right.png'/>
+			<img class='arrow left' src='/modules/mall/img/arrow_left.png'/>
+			<img class='arrow right' src='/modules/mall/img/arrow_right.png'/>
 			<div class='inner'>
 				{% set count2 = 1 %}{% for item_image in images.item_image %}{% if count2 == 1 %}{% set active = " class=is-active"%}{% else %}{% set active = ""%}{% endif %}<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_medium }}'/>{% set count2 = count2 + 1 %}{% endfor %}
 			</div>
