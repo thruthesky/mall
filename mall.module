@@ -36,7 +36,7 @@ function mall_preprocess(&$variables, $hook)
 		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id' ] );
 		//$variables['mall_top_small'] = Item::getItemsWithImages( [ 'limit'=>8, 'order'=>'DESC', 'by'=>'id' ] );
 		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>9, 'order'=>'DESC', 'by'=>'id' ] );	
-		//$variables['mall_item_list'] = Item::getItemsWithImages( [ 'limit'=>16, 'order'=>'DESC', 'by'=>'id' ] );
+		$variables['mall_item_list'] = Item::getItemsWithImages( [ 'limit'=>16, 'order'=>'DESC', 'by'=>'id' ] );
 	}
 
   $variables['x']['months'] = x::$months;

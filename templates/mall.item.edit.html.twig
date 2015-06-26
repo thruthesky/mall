@@ -102,6 +102,7 @@
 				<div class='upload-label'>Item Image Thumbnail</div>
 				<div class='upload item_image_thumbnail'>
 					<form class="addForm-file-upload{{ files.item_image_thumbnail[0] ? ' is-hidden' }}" action="/mall/api?call=fileUpload" method="POST">
+						<img class='fake' src='/modules/mall/img/fake_upload_photo.png'/>
 						<fieldset><div class="row"><span class="value"><span class="element">
 							<input type="hidden" name="call" value="fileUpload">
 							<input type="hidden" name="image_style" value="medium">
@@ -123,6 +124,7 @@
 			{% for i in 1..10 %}
 				<div class='upload' no = '{{ i }}'>
 					<form class="addForm-file-upload{{ files.item_image[i] ? ' is-hidden' }}" action="/mall/api?call=fileUpload" method="POST">
+						<img class='fake' src='/modules/mall/img/fake_upload_photo.png'/>
 						<fieldset><div class="row"><span class="value"><span class="element">
 							<input type="hidden" name="call" value="fileUpload">
 							<input type="hidden" name="image_style" value="medium">
@@ -146,6 +148,7 @@
 				{% for i in 1..3 %}
 					<div class='upload' no = '{{ i }}'>
 						<form class="addForm-file-upload{{ files.item_image_description[i] ? ' is-hidden' }}" action="/mall/api?call=fileUpload" method="POST">
+							<img class='fake' src='/modules/mall/img/fake_upload_photo.png'/>
 							<fieldset><div class="row"><span class="value"><span class="element">
 								<input type="hidden" name="call" value="fileUpload">
 								<input type="hidden" name="image_style" value="medium">
