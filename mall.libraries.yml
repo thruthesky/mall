@@ -1,10 +1,13 @@
 default:
   version: 1.x
-  js:
-    js/mall.js: {}
   css:
     theme:
       css/mall.base.css: {}
       css/mall.layout.css: {}
       css/mall.component.css: {}
       css/mall.state.css: {}
+  js:
+    js/mall.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.form

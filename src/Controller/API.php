@@ -106,7 +106,10 @@ class API extends ControllerBase {
 				$info['error'] = $f['error'];
 			}
 			else {
+                //@todo escape korean character. Korean file name creates error.
 				$file = file_save_data(file_get_contents($f['tmp_name']), $repo . $f['name']);
+                //debug_log("file: $file");
+
 				//di( $f['name'] );
 				if ( $image_style = $request->get('image_style') ) {
 					$info['url'] = entity_load('image_style', $image_style)->buildUrl($file->getFileUri());
