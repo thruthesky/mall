@@ -399,8 +399,15 @@ div.mall-success{
 	margin-left:5px;
 }
 
+.mall-page .mall-item-add .addForm-file-upload fieldset{
+	padding:0;
+	border:0;
+	margin:0;
+}
+
 .mall-page .mall-item-add .addForm-file-upload{
-	height: 135px;
+	position:relative;
+	/*height: 201px;*/
 	width: 100%;	
 	border: 1px dashed #b6cff8;
 	background: url('/modules/mall/img/photo.png');
@@ -410,8 +417,15 @@ div.mall-success{
 	box-sizing: border-box;
 }
 
+.mall-page .mall-item-add .addForm-file-upload.is-hidden{
+	display:none;
+}
+
 .mall-page .mall-item-add .addForm-file-upload input[type='file']{
-	height: 135px;
+	position:absolute;
+	left:0;
+	top:0;
+	height: 201px;
 	width: 100%;
 	opacity: 0;
 	cursor: pointer;
@@ -500,7 +514,7 @@ div.mall-success{
 	position: absolute;
 	bottom: 0;
 	height: 100%;
-	width: 7.5%;
+	width: 5%;
 	box-sizing: border-box;		
 	border: 1px solid #dcdcdc;
 	cursor:pointer;

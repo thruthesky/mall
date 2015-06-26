@@ -400,3 +400,8 @@ function hook_mall_file_upload(selector, callback)
 }
 
 /*eo mall ajax_file_upload*/
+var trace_num = 1;
+function trace( re ){
+	console.log( re );
+	trace_num++;
+}

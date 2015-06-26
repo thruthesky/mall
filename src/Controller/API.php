@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Drupal\mall\x;
 use Drupal\file\Entity\File;
-use Drupal\mall\Entity\Category;
+use Drupal\library\Entity\Category;
 
 class API extends ControllerBase {
 	public function DefaultController(){
@@ -107,6 +107,7 @@ class API extends ControllerBase {
 			}
 			else {
 				$file = file_save_data(file_get_contents($f['tmp_name']), $repo . $f['name']);
+				//di( $f['name'] );
 				if ( $image_style = $request->get('image_style') ) {
 					$info['url'] = entity_load('image_style', $image_style)->buildUrl($file->getFileUri());
 				}
