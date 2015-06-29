@@ -1,11 +1,12 @@
-{% set page_note = "<div class=title>Search for " ~ data.search_note ~ "</div><div class='search-total'>Found a total of [ " ~ data.total_items ~ " ] item/s</div>" %}
-
 <form class='mall-advance-search clearfix'>
 	{% if input.keyword %}
 		<input type='hidden' name='keyword' value='{{ input.keyword }}'>
 	{% endif %}
 	{% if input.page %}
 		<input type='hidden' name='page' value='{{ input.page }}'>	
+	{% endif %}
+	{% if input.user_id %}
+		<input type='hidden' name='user_id' value='{{ input.user_id }}'>	
 	{% endif %}
 	{% if input.category %}
 		<input type='hidden' name='category' value='{{ input.category }}'>	
@@ -25,7 +26,7 @@
 	{% if input.province %}
 		<input type='hidden' name='province' value='{{ input.province }}'>	
 	{% endif %}	
-	<div class='search-sort-commands clearfix'>
+	<div class='search-sort-commands right clearfix'>
 		<div class='left'>
 			<div class='label'>Arrange by: </div>
 			<div class='mall-select-wrapper'>				
@@ -64,6 +65,264 @@
 		</div>
 	</div>
 </form>
+{% include 'modules/mall/templates/error.html.twig' %}
+<div class='filter-guide'>
+	{% set filter_category = 'All' %}
+	{% for k,v in data.category_entity_list %}
+		{% if k == input.category  %}
+			{% set filter_category = v.entity.name.value %}
+		{% endif %}
+		{% if v.child and filter_category == 'All' %}
+			{% for k2,v2 in v.child %}
+				{% if k2 == input.category  %}
+					{% set filter_category = v2.entity.name.value %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+	{% if data.user_entity %}
+		{% set starting_url = '/mall/item/search?' %}
+		{% for k,v in input %}
+			{% if k != 'user_id' %}
+				{% set starting_url = starting_url ~ '&' ~ k~ '=' ~ v %}
+			{% endif %}
+		{% endfor %}
+		<div class='user_id'>User: {{ data.user_entity.field_first_name.value }}<a href='{{ starting_url }}' class='remove'>x</a></div>	
+	{% endif %}
+	
+	{% set starting_url = '/mall/item/search?' %}
+	{% for k2,v2 in input %}
+		{% if k2 != 'category' %}
+			{% set starting_url = starting_url ~ '&' ~ k2~ '=' ~ v2 %}
+		{% endif %}
+	{% endfor %}
+	<div class='category'>{{ filter_category }}<a href='{{ starting_url }}' class='remove'>x</a></div>	
+	
+	{% for k,v in input %}		
+		{% set starting_url = '/mall/item/search?' %}
+		{% for k2,v2 in input %}
+			{% if k2 != k %}
+				{% if k == 'price_from' and k2 == 'price_to' %}
+				{% else %}
+					{% set starting_url = starting_url ~ '&' ~ k2~ '=' ~ v2 %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+		
+		{% if k == 'category' or k == 'price_to' or k == 'user_id' %}		
+		{% elseif k == 'price_from' %}
+			{% if input.price_from is empty %}				
+				{% set price_from = "Below"%}
+				{% set price_to = input.price_to %}
+			{% elseif input.price_to is empty %}
+				{% set price_from = input.price_from %}
+				{% set price_to = "and Above"%}
+			{% else %}
+				{% set price_from = input.price_from ~ " to" %}
+				{% set price_to = input.price_to %}
+			{% endif %}
+			<div class='price'>Price:{{ price_from }} {{ price_to }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+		{% elseif k =='time' %}
+			<div class='{{ k }}'>{{ k | capitalize }}: {{ data.time[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+		{% elseif k == 'status' %}
+			<div class='{{ k }}'>{{ k | capitalize }}: {{ data.status[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+		{% else %}
+			<div class='{{ k }}'>{{ k | capitalize }}: {{ v }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+		{% endif %}		
+	{% endfor %}
+</div>
+
+
+<div class='filter clearfix'>
+	<div class='category-wrapper'>
+		<div class='label'>Category</div>
+		{% set starting_url = '' %}
+		{% for k,v in input %}			
+			{% if k != 'category' %}
+				{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+			{% endif %}
+		{% endfor %}
+		{% set count = 0 %}
+		{% for category in data.category_entity_list %}
+			{% set count = count + 1 %}
+			<div class='category is-root{{ input.category == category.entity.id.value ? " selected"}}{{ count > 8 ? " extra"}}' {{ count }}>
+				<a href='/mall/item/search?{{ starting_url }}&category={{ category.entity.id.value }}'>
+					{{ category.entity.name.value }}			
+				</a>
+				{% if category.child_no > 0 %}
+				<div class='triangle{{ category_root.id.value == category.entity.id.value ? " down"}}'></div>
+				<div class='sub-categories{{ category_root.id.value == category.entity.id.value ? " selected"}}'{{ input.category }} {{ category.entity.id.value }} {{ count }}>
+					{% for c in category.child %}
+					{% set count = count + 1 %}
+						<div class='category{{ input.category == c.entity.id.value ? " selected"}}{{ count > 8 ? " extra"}}'>
+							{% set indent = " style = margin-left:" ~ ( c.depth * 10 + 10 ) ~ "px" %}
+							<a{{ indent }} href='/mall/item/search?{{ starting_url }}&category={{ c.entity.id.value }}'>
+								{{ c.entity.name.value }}		
+							</a>
+						</div>					
+					{% endfor %}			
+				</div>
+				{% endif %}
+			</div>		
+		{% endfor %}
+		<div class='category'><span class='more' filter='category'>+ More Categories</span></div>	
+	</div>
+	
+	{# LOCATION #}
+	
+	{% set starting_url = '' %}
+	{% for k,v in input %}
+		{% if k != 'province' %}
+			{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+		{% endif %}
+	{% endfor %}
+	
+	<div class='locations-wrapper'>
+		<div class='label'>Locations</div>
+		{% set count = 0 %}
+		{% for k,v in data.provinces %}
+			{% set count = count + 1 %}
+			<div class='province{{ count > 8 ? " extra"}}'>
+				<a href='/mall/item/search?{{ starting_url }}&province={{ k }}'>{{ v }}</a>
+			</div>
+		{% endfor %}
+		<div class='province'><span class='more' filter='province'>+ More Location</span></div>	
+	</div>
+	
+	{# eo LOCATION #}
+	
+	{# TIME #}
+	
+	{% set starting_url = '' %}
+	{% for k,v in input %}
+		{% if k != 'time' %}
+			{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+		{% endif %}
+	{% endfor %}
+	
+	<div class='time-wrapper'>
+		<div class='label'>Posted</div>
+		{% for k,v in data.time %}
+			<div class='price'>
+				<a href='/mall/item/search?{{ starting_url }}&time={{ k }}'>{{ v }}</a>
+			</div>
+		{% endfor %}
+	</div>
+	
+	{# EO TIME #}
+	
+	{# PRICE #}
+	
+	{% set starting_url = '' %}
+	{% for k,v in input %}
+		{% if k != 'price_from' and k != 'price_to' %}
+			{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+		{% endif %}
+	{% endfor %}
+	<div class='price-wrapper'>
+		<div class='label'>Price Range</div>
+		{% for price in data.prices %}
+			{% if not price[0] %}					
+				{% set price_from = 'below' %}
+				{% set price_to = price[1] %}
+			{% elseif not price[1]%}
+				{% set price_from = price[0] %}
+				{% set price_to = 'above' %}
+				{% set middle_text = 'and' %}
+			{% else %}
+				{% set price_from = price[0] %}
+				{% set price_to = price[1] %}
+				{% set middle_text = 'to' %}
+			{% endif %}
+			<div class='price'>
+				<a href='/mall/item/search?{{ starting_url }}&price_from={{ price[0] }}&price_to={{ price[1] }}'>{{ price_from }} {{ middle_text }} {{ price_to }}</a>
+			</div>
+		{% endfor %}
+		<form class='mall-filter-form clearfix' action='/mall/item/search'>
+			{% if input.keyword %}
+				<input type='hidden' name='keyword' value='{{ input.keyword }}'>
+			{% endif %}
+			{% if input.page %}
+				<input type='hidden' name='page' value='{{ input.page }}'>	
+			{% endif %}
+			{% if input.user_id %}
+				<input type='hidden' name='user_id' value='{{ input.user_id }}'>	
+			{% endif %}
+			{% if input.category %}
+				<input type='hidden' name='category' value='{{ input.category }}'>	
+			{% endif %}
+			{% if category_root.id.value %}
+				<input type='hidden' name='category_root' value='{{ category_root.id.value }}'>	
+			{% endif %}	
+			{% if input.time %}
+				<input type='hidden' name='time' value='{{ input.time }}'>	
+			{% endif %}	
+			{% if input.province %}
+				<input type='hidden' name='province' value='{{ input.province }}'>	
+			{% endif %}	
+			{% if input.order %}
+				<input type='hidden' name='order' value='{{ input.order }}'>	
+			{% endif %}	
+			{% if input.type %}
+				<input type='hidden' name='type' value='{{ input.type }}'>	
+			{% endif %}	
+			₱ <input class='price' type='number' name='price_from' value='{{ input.price_from }}'> to 
+			₱ <input class='price' type='number' name='price_to' value='{{ input.price_to }}'>
+			<input type='submit' value='Go'>
+		</form>
+	</div>
+	
+	{# eo PRICE #}
+	
+	{# STATUS #}
+	
+	{% set starting_url = '' %}
+	{% for k,v in input %}
+		{% if k != 'status' %}
+			{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+		{% endif %}
+	{% endfor %}
+	<div class='status-wrapper'>
+		<div class='label'>Condition</div>
+		{% for k,v in data.status %}
+			<div class='status'>
+				<a href='/mall/item/search?{{ starting_url }}&status={{ k }}'>{{ v }}</a>
+			</div>
+		{% endfor %}
+	</div>
+	
+	{# eo STATUS #}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% include '/modules/mall/templates/mall.item.list.html.twig' %}
 {% set total_items = data.total_items %}
 {% set items_per_page = input.limit %}

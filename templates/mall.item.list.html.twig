@@ -6,12 +6,11 @@ $items[0]['images']['item_image'] -> images
 $items[0]['images']['item_image_description'] -> images
 #}
 
-{% if not items %}
+{% if items is empty%}
 	{% set items = data.items.items %}
 {% endif %}
 
 <div class='mall-item-list clearfix'>
-	{{ page_note | raw }}
 		<div class='items'>
 		{% for i in items %}
 			{% set item = i.entity %}

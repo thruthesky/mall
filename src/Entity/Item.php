@@ -35,15 +35,17 @@ class Item extends ContentEntityBase implements ItemInterface {
 		}
 		
 		if( empty( $input['model_year'] ) ) $input['model_year'] = 0;
+		if( empty( $input['model'] ) ) $input['model'] = "NA";
+		if( empty( $input['brand'] ) ) $input['brand'] = "NA";
 		
 		$item->set('title', $input['title']);		
 		$item->set('name', $input['name']);	
 		$item->set('category_id', $input['category_id']);		
 		$item->set('brand', $input['brand']);
 		$item->set('model', $input['model']);
-		$item->set('model_year', $input['model_year']);		
-		$item->set('price', $input['price']);		
-		$item->set('mobile', $input['mobile']);			
+		$item->set('model_year', $input['model_year']);
+		$item->set('price', $input['price']);
+		$item->set('mobile', $input['mobile']);
 		$item->set('status', $input['status']);
 		$item->set('city', $input['city']);
 		$item->set('province', $input['province']);

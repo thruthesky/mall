@@ -5,6 +5,8 @@ use Drupal\mall\Mall;
 use Drupal\mall\x;
 use Symfony\Component\Yaml\Yaml;
 
+use Drupal\library\Library;
+
 if ( function_exists('di') ) {
 }
 else {
@@ -36,13 +38,13 @@ function mall_preprocess(&$variables, $hook)
     if ( ! Mall::isMallPage() ) return;
 
 	if( Mall::isFrontPage() ){
-		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id' ] );
-		//$variables['mall_top_small'] = Item::getItemsWithImages( [ 'limit'=>8, 'order'=>'DESC', 'by'=>'id' ] );
+		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id' ] );	
 		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>9, 'order'=>'DESC', 'by'=>'id' ] );	
 		$variables['mall_item_list'] = Item::getItemsWithImages( [ 'limit'=>16, 'order'=>'DESC', 'by'=>'id' ] );
 	}
-
-  $variables['x']['months'] = x::$months;
+	
+  $variables['error'] = Library::getError();; 
+  $variables['x']['months'] = x::$months;  
   $variables['input'] = x::getInput();
 
 

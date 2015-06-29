@@ -47,6 +47,13 @@ mall.item.search:
   requirements:
     _permission: 'access content'
 
+mall.item.search:
+  path: '/mall/item/my'
+  defaults:
+    _controller: Drupal\mall\Controller\ItemController::search
+  requirements:
+    _permission: 'access content'
+
 mall.admin.item.list:
   path: '/mall/admin/item/list'
   defaults:

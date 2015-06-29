@@ -121,6 +121,14 @@ class Member extends ContentEntityBase implements MemberInterface {
                 'max_length' => 64,
             ));
 			
+        $fields['field_phone'] = BaseFieldDefinition::create('string')
+            ->setLabel(t('Phone'))
+            ->setDescription(t('Phone number of the Entity.'))
+            ->setSettings(array(
+                'default_value' => '',
+                'max_length' => 64,
+            ));
+			
         $fields['field_gender'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Gender'))
             ->setDescription(t('Gender number of the Entity.'))
@@ -197,14 +205,17 @@ class Member extends ContentEntityBase implements MemberInterface {
 
 		if( empty( $member ) ) {
 			$member = Member::create();
-			$member->set( 'user_id', $uid );
+			$member->set( 'user_id', $uid );			
 		}
-
+		else{			
+		}
+		
 		$member->set('field_first_name', $input['field_first_name']);
 		$member->set('field_last_name', $input['field_last_name']);
 		$member->set('field_middle_name', $input['field_middle_name']);
 		$member->set('mail', $input['mail']);
 		$member->set('field_mobile', $input['field_mobile']);
+		$member->set('field_phone', $input['field_phone']);
 		$member->set('field_birth_month', $input['field_birth_month']);
 		$member->set('field_birth_day', $input['field_birth_day']);
 		$member->set('field_birth_year', $input['field_birth_year']);
