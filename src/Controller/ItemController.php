@@ -168,9 +168,9 @@ class ItemController extends ControllerBase {
 				$conds['user_id'] = $input['user_id'];								
 				$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$conds['user_id'])->execute();
 				$member = Member::loadMultiple( $member_id );
-				$data['user_entity'] = reset( $member );
-				//di( $data['user_entity'] ); exit;
-				//if empty return an error message
+				if( $member ){
+					$data['user_entity'] = reset( $member );
+				}				
 			}
 			if( $input['price_from'] ) $conds['price_from'] = $input['price_from'];
 			if( $input['price_to'] ) $conds['price_to'] = $input['price_to'];
