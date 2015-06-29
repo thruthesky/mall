@@ -77,8 +77,9 @@ class Item extends ContentEntityBase implements ItemInterface {
   */
   public static function getItems( $conds = array() ) {  
 	$query = \Drupal::entityQuery('mall_item');
+
 	
-	if( $conds['limit'] ){
+	if( isset($conds['limit']) ){
 		if( $conds['page'] ){
 			$from = $conds['limit'] * ( $conds['page'] - 1 );
 			unset( $conds['page'] );
@@ -91,7 +92,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		unset( $conds['limit'] );		
 	}
 	
-	if( $conds['by'] ){
+	if( isset($conds['by']) ){
 		if( $conds['order'] ){
 			$order = $conds['order'];
 			unset( $conds['order'] );
@@ -104,7 +105,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		unset( $conds['by'] );		
 	}
 	
-	if( $conds['category_id'] ){
+	if( isset($conds['category_id']) ){
 		$ors = $query->orConditionGroup();
 		$ors->condition( "category_id", $conds['category_id'] );
 		$children = x::getAllCategoryChildren( $conds['category_id'] );
@@ -122,19 +123,19 @@ class Item extends ContentEntityBase implements ItemInterface {
 		unset( $conds['price_from'] );
 	}
 	
-	if( $conds['price_to'] ){
+	if( isset($conds['price_to']) ){
 		$query = $query->condition( 'price', $conds['price_to'], '<=' );
 		unset( $conds['price_to'] );
 	}
 	
 	//per hour
-	if( $conds['time'] ){
+	if( isset($conds['time']) ){
 		$difference = time() - $conds['time'] * 60 * 60;		
 		$query = $query->condition( 'created', $difference, '>=' );
 		unset( $conds['time'] );
 	}
 	
-	if( $conds ){		
+	if( isset($conds) ){
 		foreach( $conds as $k => $v ){
 			$query = $query->condition( $k, $v );
 		}
@@ -150,9 +151,13 @@ class Item extends ContentEntityBase implements ItemInterface {
 		*/		
 		$query->condition($ors);
 	}
-	$ids = $query->execute();	
+	$ids = $query->execute();
+      if ( $ids ) {
+          return Item::loadMultiple($ids);
+      }
+      else return [];
 
-	return Item::loadMultiple($ids);
+
   }
 
 

@@ -32,6 +32,9 @@ function mall_theme()
 
 function mall_preprocess(&$variables, $hook)
 {
+
+    if ( ! Mall::isMallPage() ) return;
+
 	if( Mall::isFrontPage() ){
 		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id' ] );
 		//$variables['mall_top_small'] = Item::getItemsWithImages( [ 'limit'=>8, 'order'=>'DESC', 'by'=>'id' ] );

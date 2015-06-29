@@ -68,4 +68,15 @@ class Mall {
     {
         return \Drupal::service('path.matcher')->isFrontPage();        
     }
+
+
+    public static function isMallPage() {
+        $request = \Drupal::request();
+        $uri = $request->getRequestUri();
+        if ( strpos( $uri, '/mall') !== FALSE ) {
+            return TRUE;
+        }
+        else return FALSE;
+    }
+
 }
