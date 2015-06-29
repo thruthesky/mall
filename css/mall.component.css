@@ -42,9 +42,22 @@ div.mall-error{
 	color: #cc0000;
 	text-align:center;
 }
-/*eo error*/
 
 /*error*/
+.error{	
+	text-align:center;
+}
+
+.error .row{	
+	padding:5px;
+	border:1px solid red;
+	color:red;
+	background-color:#f2f2f2;
+}
+/*eo error*/
+/*eo error*/
+
+/*success*/
 div.mall-success{	
 	padding: 10px;
 	margin:0 10px 10px 10px;
@@ -55,7 +68,7 @@ div.mall-success{
 	color: #009900;
 	text-align:center;
 }
-/*eo error*/
+/*eo success*/
 
 /*top-menu*/
 .top-menu{

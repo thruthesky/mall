@@ -5,6 +5,8 @@ use Drupal\mall\Mall;
 use Drupal\mall\x;
 use Symfony\Component\Yaml\Yaml;
 
+use Drupal\library\Library;
+
 if ( function_exists('di') ) {
 }
 else {
@@ -38,6 +40,7 @@ function mall_preprocess(&$variables, $hook)
 		$variables['mall_item_list'] = Item::getItemsWithImages( [ 'limit'=>16, 'order'=>'DESC', 'by'=>'id' ] );
 	}
 	
+  $variables['error'] = Library::getError();; 
   $variables['x']['months'] = x::$months;  
   $variables['input'] = x::getInput();
 
