@@ -80,10 +80,10 @@ class x {
 					];
   
   public static function getThemeName() {
-    $uri = \Drupal::request()->getRequestUri();
-	    
-    //$uri = substr($uri, 1);
-    list($uri, $trash) = explode('?', $uri, 2);
+      $uri = \Drupal::request()->getRequestUri();
+      $ex = explode('?', $uri, 2);
+      $uri = $ex[0];
+
 	if ( $uri == '/mall' or $uri == '/mall/' ) return 'mall.mall'; // this is the entry key of routing.yml
 	
     $uri = trim($uri, '/ ');
