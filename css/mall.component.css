@@ -615,7 +615,7 @@ form.mall-filter-form input[type='submit']{
 }
 
 .filter.list{	
-	padding:10px 20px;
+	padding:10px 20px 0 20px;
 	margin-bottom:10px;
 	border:1px solid #c0c0c0;
 }
@@ -661,6 +661,20 @@ form.mall-filter-form input[type='submit']{
 
 .filter.list span.more{
 	padding:2px 0;
+}
+
+.filter.list .close-filter{
+	width:100px;
+	padding:3px 0;
+	margin:auto;
+	border:1px solid #cbcccc;
+	border-bottom:0;
+	border-top-left-radius:2px;
+	border-top-right-radius:2px;
+	background-color:#eaeaea;
+	cursor:pointer;
+	text-align:center;
+	box-sizing:border-box;
 }
 /*eo filter*/
 

@@ -13,6 +13,7 @@ $(function(){
 
     $body.on( "click",".filter span.more", callback_collapse_left_sidebar );
     $body.on( "click",".filter-button", callback_filter_options );
+    $body.on( "click",".close-filter", callback_filter_options );
 
     $body.on( "click","div.item-add-submit", callback_submit_add_form );
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');
