@@ -20,8 +20,11 @@ class ItemController extends ControllerBase {
 		$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
 		$data['provinces'] = x::$provinces;
 		
+		$theme = x::getThemeName();//default theme
+		
 		if( $item_id = x::in('item_id') ){
 			$data['item'] = Item::load( $item_id ); 
+			
 			if( $data['item']->user_id->target_id == x::myUid() || x::isAdmin() ){
 				$category_parents = array_reverse( x::getCategoryParents( $data['item']->category_id->target_id ) );
 				$count = 0;
@@ -42,9 +45,7 @@ class ItemController extends ControllerBase {
 					}
 				}
 				if( $file_urls ) $data['files'] = $file_urls;
-				$data['cities'] = x::$cities[ $data['item']->province->value ];	
-
-				$theme = x::getThemeName();
+				$data['cities'] = x::$cities[ $data['item']->province->value ];		
 			}
 			else{
 				$theme = "mall.admin.item.list";
