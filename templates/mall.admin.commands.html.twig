@@ -7,7 +7,11 @@
         <a href="/mall/admin/category">Category</a>
         <a href="/mall/admin/item/list">Items</a>
     {% else %}
-		<a href="/mall/item/search?user_id={{ data.myUid }}">My Item</a>
+		{% if data.myUid %}
+			<a href="/mall/item/search?user_id={{ data.myUid }}">My Item</a>
+		{% else %}
+			<a href="/mall/member/register">Register as a Mall Member</a>
+		{% endif %}
     {% endif %}
 	<!--<a href="#">Orders</a>-->
 </div>

@@ -1,0 +1,156 @@
+.useraccountupdate{
+	padding:10px;
+	background-color:#ffffff;
+	border-radius:3px;
+}
+
+.useraccountupdate .title{
+	margin-bottom:3px;
+	font-size:1.2em;
+	font-weight:bold;
+	color:#4b4b4b;
+}
+
+.useraccountupdate .description{
+	margin:0 0 2px 3px;
+	color:#818181;
+}
+
+.user-account .group{
+	margin-bottom:10px;
+	border:1px solid #99d0ff;
+	/*border-radius:3px;*/
+	-moz-border-radius:3px;
+    -webkit-border-radius:3px;
+}
+
+.user-account .group .row{
+	border-bottom:1px solid #99d0ff;
+	color:#777777;
+}
+
+.user-account .group .row:last-child{
+	border-bottom:0;
+}
+
+.user-account .group .row .caption{
+	display:inline-block;
+	height:32px;
+	padding:9px 10px;
+	width:153px;
+	border-right:1px solid #99d0ff;
+	background-color:#e9f6ff;
+	box-sizing:border-box;
+}
+
+.user-account .group .row input[type='text'], .user-account .group .row input[type='email'], .user-account .group .row input[type='password']{
+	height: 32px;
+	width:100%;
+	padding:5px 10px;
+	border:0;
+	box-sizing:border-box;
+}
+
+ .user-account .group .row.logged_in span.account-label{
+	display:inline-block;
+	height: 32px;
+	width:100%;
+	padding:7px 10px;	
+	box-sizing:border-box;
+ }
+
+.user-account .group .row select{
+	float:left;
+	height: 32px;
+	width:33.33%;
+	padding:5px 10px;
+	margin:0;
+	border:0;
+	border-right:1px solid #99d0ff;
+	/*border:1px solid #99d0ff;*/
+	box-sizing:border-box;
+}
+
+.user-account .group .row select[name='gender'], .user-account .group .row select[name='field_gender']{
+	width:100%;
+}
+
+.user-account .group .row select:last-child{
+	border:0;
+}
+
+.user-account .group .row .is-logged-in{
+	display:inline-block;
+	padding:5px 10px;
+}
+/**/
+.user-account .row a{
+	color:#ff5757;
+}
+
+.user-account .buttons{
+	text-align:center;
+}
+
+.user-account .buttons input[type='submit']{
+	float:left;
+	display:inline-block;
+	height:30px;
+	width:70%;
+	padding:5px 15px;
+	border:0;
+	border-radius:3px;	
+	background-color:#1886c5;
+	color:#ffffff;
+	font-weight:bold;
+	box-sizing:border-box;
+}
+
+.user-account .buttons .cancel{
+	float:left;
+	display:inline-block;
+	height:30px;
+	width:30%;
+	padding:5px 15px;
+	font-weight:bold;
+	box-sizing:border-box;
+}
+
+.user-account .buttons .cancel a{
+	color:#ff5858;
+}
+/**/
+
+.user-account .group td:first-child{
+	display:none;
+}
+
+/*override*/
+.user-account fieldset{
+	border:0;
+}
+
+.mall-page .content.user-account{
+	padding:0;
+}
+/*eo override*/
+
+@media all and ( min-width: 360px ) {
+	.user-account .group td:first-child{
+		display:table-cell;
+	}
+	
+	/*placeholder*/
+	.user-account input::-webkit-input-placeholder {
+		color: transparent;
+	}
+	.user-account input::-moz-placeholder {
+		color: transparent;
+	}
+	.user-account input:-ms-input-placeholder {
+		color: transparent;
+	}
+	.user-account input:-moz-placeholder {
+		color: transparent;
+	}
+}

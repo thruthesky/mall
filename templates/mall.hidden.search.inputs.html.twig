@@ -1,0 +1,27 @@
+{% if input.keyword %}
+	<input type='hidden' name='keyword' value='{{ input.keyword }}'>
+{% endif %}
+{% if input.page %}
+	<input type='hidden' name='page' value='{{ input.page }}'>	
+{% endif %}
+{% if input.user_id %}
+	<input type='hidden' name='user_id' value='{{ input.user_id }}'>	
+{% endif %}
+{% if input.category %}
+	<input type='hidden' name='category' value='{{ input.category }}'>	
+{% endif %}
+{% if category_root.id.value %}
+	<input type='hidden' name='category_root' value='{{ category_root.id.value }}'>	
+{% endif %}	
+{% if input.time %}
+	<input type='hidden' name='time' value='{{ input.time }}'>	
+{% endif %}	
+{% if input.province %}
+	<input type='hidden' name='province' value='{{ input.province }}'>	
+{% endif %}	
+{% if input.order %}
+	<input type='hidden' name='order' value='{{ input.order }}'>	
+{% endif %}	
+{% if input.type %}
+	<input type='hidden' name='type' value='{{ input.type }}'>	
+{% endif %}	

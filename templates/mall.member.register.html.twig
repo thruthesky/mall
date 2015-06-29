@@ -12,19 +12,8 @@
 		{% set member = user %}
 		{% set error = "You are not yet a mall member. Please click on submit button to join." %}
 	{% endif %}
-
-	{% if data.error %}
-		{% include 'modules/mall/templates/error.html.twig' %}
-	{% else %}
-{#
-	{% if input.mode == 'edit_success' %}		
-		<div class='mall-success'>You have successfully edited your mall member account.</div>		
-	{% endif %}
 	
-	{% if input.mode == 'register_success' %}
-		<div class='mall-success'>You have successfully registered as a Mall Member</div>
-	{% endif %}
-#}
+	{% include 'modules/mall/templates/error.html.twig' %}
 	
 	<section class="content user-account">				            
             <div class='form-description'>Please fill the input boxes</div>		
@@ -215,10 +204,5 @@
                 </fieldset>
             </form>
 
-
-
-
-
-		{% endif %}
 	</section>
 </div>

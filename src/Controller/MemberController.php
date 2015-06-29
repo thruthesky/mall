@@ -24,15 +24,14 @@ class MemberController extends ControllerBase {
 		if( $uid = self::isEdit() ) {            
             if( x::isAdmin() || $uid == x::myUid() ) {
                 x::getDefaultInformationByUid( $uid, $data );
+				if( empty( $data['member'] ) ) $data['error'] = Library::error('Not a mall member.', Language::string('library', 'no_member_account'));				
             }
             else {
 				$data['error'] = Library::error('User ID is not yours.', Language::string('library', 'not_your_account'));
-                //return new RedirectResponse( "/mall/member/register/?" . x::error(x::ERROR_NOT_YOUR_ID));
-				//di( $data['error'] );
             }
 		}
-        else{			
-			x::getDefaultInformation($data);
+        else{	
+			x::getDefaultInformation($data);			
 		}
 		
 		return [

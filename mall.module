@@ -42,8 +42,8 @@ function mall_preprocess(&$variables, $hook)
 		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>9, 'order'=>'DESC', 'by'=>'id' ] );	
 		$variables['mall_item_list'] = Item::getItemsWithImages( [ 'limit'=>16, 'order'=>'DESC', 'by'=>'id' ] );
 	}
-	
-  $variables['error'] = Library::getError();; 
+
+  $variables['error_list'] = Library::getError();    
   $variables['x']['months'] = x::$months;  
   $variables['input'] = x::getInput();
 
