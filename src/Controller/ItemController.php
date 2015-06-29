@@ -12,15 +12,20 @@ use Drupal\mall\Entity\Member;
 
 class ItemController extends ControllerBase {
     public function edit() {
-		if( !x::myUid() ) return new RedirectResponse( "/mall?" . x::error(x::ERROR_PLEASE_LOGIN_FIRST) );
-		
 		$data = [];
+		$theme = x::getThemeName();//default theme
+		
+		if( !x::myUid() ){
+			$theme = 'mall.mall';
+			$data['error'] = Library::error('User not logged in.', Language::string('library', 'not_logged_in'));
+		}
+				
 		$data = x::getDefaultInformationByUid( x::myUid() );
 		$data['status'] = x::$item_status;
 		$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
 		$data['provinces'] = x::$provinces;
 		
-		$theme = x::getThemeName();//default theme
+		
 		
 		if( $item_id = x::in('item_id') ){
 			$data['item'] = Item::load( $item_id ); 

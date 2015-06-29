@@ -3,22 +3,22 @@ $ = jQuery;
 $(function(){
     var $body = $('body');
     //$("body").on( "submit",".category-table .category .form-delete", category_delete );
-    $("body").on( "click",".category .button-wrapper .add", callback_category_add );
-    $("body").on( "click",".category .button-wrapper .edit", callback_category_edit );
-    $("body").on( "click",".category .cancel", callback_category_cancel );
-	
-	$("body").on( "change","select.category", callback_change_category );
-	$("body").on( "change","select.location", callback_change_location );
-	
-	
-	$("body").on( "click",".filter span.more", callback_collapse_left_sidebar );
-	$("body").on( "click",".filter-button", callback_filter_options );
-		
-	$("body").on( "click","div.item-add-submit", callback_submit_add_form );
-	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');	
-	$("body").on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );	
+    $body.on( "click",".category .button-wrapper .add", callback_category_add );
+    $body.on( "click",".category .button-wrapper .edit", callback_category_edit );
+    $body.on( "click",".category .cancel", callback_category_cancel );
 
-	$("body").on( "change","form.mall-advance-search select", callback_change_sort );
+    $body.on( "change","select.category", callback_change_category );
+    $body.on( "change","select.location", callback_change_location );
+
+
+    $body.on( "click",".filter span.more", callback_collapse_left_sidebar );
+    $body.on( "click",".filter-button", callback_filter_options );
+
+    $body.on( "click","div.item-add-submit", callback_submit_add_form );
+	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');
+    $body.on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );
+
+    $body.on( "change","form.mall-advance-search select", callback_change_sort );
 	
 	
 	
@@ -155,11 +155,12 @@ function callback_category_cancel(){
 }
 
 function renderEditForm( id ){
+    var text = '';
 	if( $(".category[category-id='" + id + "'] .label .category-name a").length ){
-		var text = $(".category[category-id='" + id + "'] .label .category-name a").text();
+		text = $(".category[category-id='" + id + "'] .label .category-name a").text();
 	}
 	else{
-		var text = $(".category[category-id='" + id + "'] .label .category-name").text();
+		text = $(".category[category-id='" + id + "'] .label .category-name").text();
 	}
 	var markup	=	"<form class='form-update' action='/mall/admin/category/group/update'>" +
 					"<fieldset><div class='row'><div class='value'><div class='element'>" +

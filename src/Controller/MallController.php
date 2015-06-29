@@ -15,6 +15,7 @@ class MallController extends ControllerBase {
     public function firstPage() {	
         $data = [];
 		$data['myUid'] = x::myUid();
+		
         return [
             '#theme' => x::getThemeName(),
             '#data' => $data,
