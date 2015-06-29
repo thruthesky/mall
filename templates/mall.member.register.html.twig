@@ -14,9 +14,9 @@
 	{% endif %}
 
 	{% if data.error %}
-		<div class='mall-error'>{{ data.error[1] }}</div>
+		{% include 'modules/mall/templates/error.html.twig' %}
 	{% else %}
-
+{#
 	{% if input.mode == 'edit_success' %}		
 		<div class='mall-success'>You have successfully edited your mall member account.</div>		
 	{% endif %}
@@ -24,12 +24,8 @@
 	{% if input.mode == 'register_success' %}
 		<div class='mall-success'>You have successfully registered as a Mall Member</div>
 	{% endif %}
+#}
 	
-	{% if error %}
-		<div class='mall-error'>{{ error }}</div>	
-	{% endif %}
-	
-	{% include 'modules/mall/templates/error.html.twig' %}
 	<section class="content user-account">				            
             <div class='form-description'>Please fill the input boxes</div>		
             <form class='account' type='POST' action="/mall/member/register/submit">			

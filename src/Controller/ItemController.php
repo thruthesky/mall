@@ -34,8 +34,7 @@ class ItemController extends ControllerBase {
 					}
 				}
 				$files = Item::getFilesByType( $item_id );
-				//di( $files );
-				
+
 				$file_urls = [];
 				foreach( $files as $key => $values ){					
 					foreach( $values as $k => $v ){
@@ -43,32 +42,44 @@ class ItemController extends ControllerBase {
 					}
 				}
 				if( $file_urls ) $data['files'] = $file_urls;
-				$data['cities'] = x::$cities[ $data['item']->province->value ];				
+				$data['cities'] = x::$cities[ $data['item']->province->value ];	
+
+				$theme = x::getThemeName();
 			}
 			else{
-				return new RedirectResponse( "/mall/admin/item/list?" . x::error(x::ERROR_NOT_YOUR_POST) );
+				$theme = "mall.admin.item.list";
+				$data['error'] = Library::error('Not your post.', Language::string('library', 'not_your_post'));
 			}			
 		}		
 		
         return [
-            '#theme' => x::getThemeName(),
+            '#theme' => $theme,
             '#data' => $data,
         ];
     }
 	
     public function editSubmit() {
-		if( !x::myUid() ) return new RedirectResponse( "/mall?" . x::error(x::ERROR_PLEASE_LOGIN_FIRST) );
-		
-		$input = x::input();	
-		//$item = Item::load( $input['item_id'] );//move or fix this later, becomes repeatitive inside Item::del
-		//di( $input );exit;
-		//if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){
-        $re = Item::Update( $input );
-        return new RedirectResponse( "/mall/item/add?item_id=".$re );
-		/*}
+		if( !x::myUid() ){
+			$theme = "mall.mall";			
+			$data['error'] = Library::error('User not logged in.', Language::string('library', 'not_logged_in'));
+		}
 		else{
-			return new RedirectResponse( "/mall/admin/item/list?" . x::error(x::ERROR_NOT_YOUR_POST) );
-		}*/
+			$input = x::input();	
+			$item = Item::load( $input['item_id'] );
+			
+			if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){
+				$re = Item::Update( $input );
+				return new RedirectResponse( "/mall/item/add?item_id=".$re );
+			}
+			else{
+				$theme = "mall.mall";			
+				$data['error'] = Library::error('Not your post.', Language::string('library', 'not_your_post'));
+			}
+		}
+		return [
+				'#theme' => $theme,
+				'#data' => $data,
+			];
     }
 	
 	public function collection(){
@@ -109,8 +120,14 @@ class ItemController extends ControllerBase {
 			return new RedirectResponse( "/mall/admin/item/list" );
 		}
 		else{
-			return new RedirectResponse( "/mall/admin/item/list?" . x::error(x::ERROR_NOT_YOUR_POST) );
+			$theme = "mall.admin.item.list";
+			$data['error'] = Library::error('Not your post.', Language::string('library', 'not_your_post'));
 		}
+		
+		return [
+			'#theme' => $theme,
+			'#data' => $data,
+		];
 	}
 	
 	public function view(){
@@ -174,7 +191,7 @@ class ItemController extends ControllerBase {
 					$data['user_entity'] = reset( $member );
 				}
 				else{
-					$data['error'] = Library::error('User does not exist.', Language::string('library', 'user_id_does_not_exist'));					
+					$data['error'] = Library::error('User does not exist.', Language::string('library', 'user_id_does_not_exist'));
 				}
 			}
 			if( empty( $data['error'] ) ){

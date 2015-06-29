@@ -5,6 +5,9 @@ use Drupal\mall\x;
 use Drupal\mall\Entity\Member;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+use Drupal\library\Library;
+use Drupal\library\Language;
+
 class MemberController extends ControllerBase {
 
   /**
@@ -18,16 +21,19 @@ class MemberController extends ControllerBase {
    */
 	public static function register() {	
 		$data = [];
-		if( self::isEdit() ) {
-            $uid = self::isEdit();
+		if( $uid = self::isEdit() ) {            
             if( x::isAdmin() || $uid == x::myUid() ) {
                 x::getDefaultInformationByUid( $uid, $data );
             }
             else {
-                return new RedirectResponse( "/mall/member/register/?" . x::error(x::ERROR_NOT_YOUR_ID));
+				$data['error'] = Library::error('User ID is not yours.', Language::string('library', 'not_your_account'));
+                //return new RedirectResponse( "/mall/member/register/?" . x::error(x::ERROR_NOT_YOUR_ID));
+				//di( $data['error'] );
             }
 		}
-        else x::getDefaultInformation($data);
+        else{			
+			x::getDefaultInformation($data);
+		}
 		
 		return [
 			'#theme' => x::getThemeName(),
