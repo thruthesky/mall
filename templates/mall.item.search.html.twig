@@ -11,6 +11,9 @@
 
 	{% set total_items = data.total_items %}
 	{% set items_per_page = input.limit %}
+	{% if items_per_page is empty %}
+		{% set items_per_page = 15 %}
+	{% endif %}
 	<div class='total-item-count'>Found a total of {{ total_items }} item/s</div>
 	{% include '/modules/mall/templates/mall.item.list.html.twig' %}
 
