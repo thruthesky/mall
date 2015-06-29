@@ -651,12 +651,13 @@ form.mall-filter-form input[type='submit']{
 .filter.list a, .filter.list span{
 	display:inline-block;
 	padding:2px 5px;
-	color:#2965be;
+	color:#1e1e1e;
 	cursor:pointer;
 }
 
 .filter.list a:hover, .filter.list span:hover{
-	color:#003366;
+	color:#2965be;
+	text-decoration:underline;
 }
 
 .filter.list span.more{
