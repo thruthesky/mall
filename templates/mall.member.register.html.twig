@@ -46,7 +46,7 @@
                                         <span>Username</span>
                                     </td>
                                     <td width='90%' class='value'>
-                                        <span>{{ username }}</span>
+                                        <span class='account-label'>{{ username }}</span>
                                     </td>
                                 </tr>
                             {% else %}
@@ -121,6 +121,16 @@
                                 <td class='value'>
 									<span class='element'>
 										<input type="text" name="field_mobile" required placeholder="mobile" value="{{ member.field_mobile.value }}">
+									</span>
+                                </td>
+                            </tr>
+                            <tr valign='top' class='row'>
+                                <td class='caption' width='153'>
+                                    <span>Phone Number</span>
+                                </td>
+                                <td class='value'>
+									<span class='element'>
+										<input type="text" name="field_phone" required placeholder="mobile" value="{{ member.field_phone.value }}">
 									</span>
                                 </td>
                             </tr>

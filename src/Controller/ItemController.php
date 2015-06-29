@@ -4,7 +4,9 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\mall\x;
 
+use Drupal\library\Entity\Category;
 use Drupal\mall\Entity\Item;
+use Drupal\mall\Entity\Member;
 
 class ItemController extends ControllerBase {
     public function edit() {
@@ -162,6 +164,14 @@ class ItemController extends ControllerBase {
 			/*if changed, also edit on Mall.module*/
 			else $conds['limit'] = 15;
 			
+			if( $input['user_id'] ){
+				$conds['user_id'] = $input['user_id'];								
+				$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$conds['user_id'])->execute();
+				$member = Member::loadMultiple( $member_id );
+				$data['user_entity'] = reset( $member );
+				//di( $data['user_entity'] ); exit;
+				//if empty return an error message
+			}
 			if( $input['price_from'] ) $conds['price_from'] = $input['price_from'];
 			if( $input['price_to'] ) $conds['price_to'] = $input['price_to'];
 			if( $input['province'] ) $conds['province'] = $input['province'];//
@@ -170,8 +180,13 @@ class ItemController extends ControllerBase {
 			
 			/*eo conds*/	
 			$data['default_search_sort'] = x::$default_search_sort;
+			$data['default_item_per_page'] = x::$default_item_per_page;	
 			
-			$data['default_item_per_page'] = x::$default_item_per_page;						
+			$data['category_entity_list'] = Category::loadAllCategories();
+			$data['status'] = x::$item_status;
+			$data['provinces'] = x::$provinces;		
+			$data['time'] = x::$time;				
+			$data['prices'] = x::$price;
 			
 			$data['items'] = Item::getItemsWithImages( $conds );
 			
@@ -186,8 +201,6 @@ class ItemController extends ControllerBase {
 			else{
 				$keyword = '[ anything ]';
 			}
-			
-			$data['search_note'] = $keyword.$category_text;		
 		}
 
 		return [
