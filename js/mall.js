@@ -1,3 +1,5 @@
+$ = jQuery;
+
 $(function(){
     var $body = $('body');
     //$("body").on( "submit",".category-table .category .form-delete", category_delete );
@@ -13,10 +15,8 @@ $(function(){
 	$("body").on( "click","div.item-add-submit", callback_submit_add_form );
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');	
 	$("body").on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );	
-	
-	
-	console.log( $(".mall form.mall-advance-search select").length );
-	$("body").on( "change",".mall form.mall-advance-search select", callback_change_sort );
+
+	$("body").on( "change","form.mall-advance-search select", callback_change_sort );
 	
 	
 	
@@ -303,20 +303,17 @@ function callback_delete_file_result( re ){
 /*eo ajax_api_mall callbacks here below*/
 function callback_change_sort(){
 	var $this = $(this);
-	//console.log( $this.val() );
 
 	if( !$this.val() ){
-		console.log('if');
 		return false;
 	}
 	else{
-		console.log('else');
+		
 	}
 	
 	$this.find("option[selected]").removeAttr("selected");
-	//console.log( $(".mall form.mall-advance-search").serialize() );
-	//return;
-	$(".mall form.mall-advance-search").submit();
+
+	$("form.mall-advance-search").submit();
 }
 
 /*mall ajax_file_upload*/

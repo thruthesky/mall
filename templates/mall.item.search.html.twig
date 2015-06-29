@@ -109,7 +109,7 @@
 			{% endif %}
 		{% endfor %}
 		
-		{% if k == 'category' or k == 'price_to' or k == 'user_id' %}		
+		{% if k == 'category' or k == 'price_to' or k == 'user_id' or k == 'limit' or k == 'page' %}		
 		{% elseif k == 'price_from' %}
 			{% if input.price_from is empty %}				
 				{% set price_from = "Below"%}
@@ -126,6 +126,8 @@
 			<div class='{{ k }}'>{{ k | capitalize }}: {{ data.time[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% elseif k == 'status' %}
 			<div class='{{ k }}'>{{ k | capitalize }}: {{ data.status[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+		{% elseif k == 'order' %}
+			<div class='{{ k }}'>{{ k | capitalize }}: {{ data.default_search_sort[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% else %}
 			<div class='{{ k }}'>{{ k | capitalize }}: {{ v }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% endif %}		
@@ -133,7 +135,7 @@
 </div>
 
 
-<div class='filter clearfix'>
+<div class='filter outer clearfix'>
 	<div class='category-wrapper'>
 		<div class='label'>Category</div>
 		{% set starting_url = '' %}
@@ -168,7 +170,7 @@
 		<div class='category'><span class='more' filter='category'>+ More Categories</span></div>	
 	</div>
 	
-	{# LOCATION #}
+	{#------------LOCATION------------#}
 	
 	{% set starting_url = '' %}
 	{% for k,v in input %}
@@ -189,9 +191,9 @@
 		<div class='province'><span class='more' filter='province'>+ More Location</span></div>	
 	</div>
 	
-	{# eo LOCATION #}
+	{#------------eo LOCATION------------#}
 	
-	{# TIME #}
+	{#------------TIME------------#}
 	
 	{% set starting_url = '' %}
 	{% for k,v in input %}
@@ -209,9 +211,9 @@
 		{% endfor %}
 	</div>
 	
-	{# EO TIME #}
+	{#------------EO TIME------------#}
 	
-	{# PRICE #}
+	{#------------PRICE------------#}
 	
 	{% set starting_url = '' %}
 	{% for k,v in input %}
@@ -272,9 +274,9 @@
 		</form>
 	</div>
 	
-	{# eo PRICE #}
+	{#------------eo PRICE------------#}
 	
-	{# STATUS #}
+	{#------------STATUS------------#}
 	
 	{% set starting_url = '' %}
 	{% for k,v in input %}
@@ -291,36 +293,10 @@
 		{% endfor %}
 	</div>
 	
-	{# eo STATUS #}
+	{#------------eo STATUS------------#}
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{#-----------------------------------------------------------------------#}
 
 
 {% include '/modules/mall/templates/mall.item.list.html.twig' %}
