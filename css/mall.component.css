@@ -1,3 +1,15 @@
+.mall-page .left{
+	float:left;
+}
+.mall-page .right{
+	float:right;
+}
+
+.mall-page .total-item-count{
+	padding: 10px 0;
+	font-weight: bold;
+}
+
 .mall-admin-page{
     /*padding:10px;*/
     background-color:#ffffff;
@@ -202,7 +214,7 @@ div.mall-success{
 	background-color:#ffffff;
 }
 
-.mall-page .title{
+.mall-page > .title{
 	padding: 10px;
 	margin-bottom: 10px;
 	background-color: #1886c5;
@@ -488,14 +500,6 @@ div.mall-success{
 	color:#444444;
 }
 
-.mall-advance-search .left{
-	float:left;
-}
-
-.mall-advance-search .right{
-	float:right;
-}
-
 /*
 .mall-advance-search .filter{
 	position:relative;
@@ -547,6 +551,7 @@ div.mall-success{
 	margin-right:3px;
 	border-radius:2px;
 	background-color:#7cc1f1;
+	font-weight:bold;
 	color:#ffffff;
 }
 
@@ -590,40 +595,59 @@ form.mall-filter-form input[type='submit']{
 /*eo mall-filter-form*/
 
 /*filter*/
-.filter.outer{
+.filter-button{	
+	display:inline-block;
+	position:relative;
+	height:28px;
+	padding: 6px 23px 6px 10px;
+	border: 1px solid #dddddd;
+	border-radius: 2px;
+	background-color:#f2f2f2;
+	box-sizing:border-box;
+	cursor:pointer;
+}
+
+.filter-button > img{	
+	position:absolute;
+	right:5px;
+	top:11px;
+	background-color:#f2f2f2;
+}
+
+.filter.list{
 	margin-bottom:10px;
 }
 
-.filter > div{
+.filter.list > div{
 	float:left;
 	width:25%;
 	padding:5px 0;
 	box-sizing:border-box;
 }
 
-.filter .extra{
+.filter.list .extra{
 	display:none;
 }
 
-.filter .label{
+.filter.list .label{
 	display:block;
 	padding:10px 0;
 	font-size:1.2em;
 	color:#2e2d2d;	
 }
 
-.filter a, .filter span{
+.filter.list a, .filter.list span{
 	display:inline-block;
 	padding:2px 5px;
 	color:#2965be;
 	cursor:pointer;
 }
 
-.filter a:hover, .filter span:hover{
+.filter.list a:hover, .filter.list span:hover{
 	color:#003366;
 }
 
-.filter span.more{
+.filter.list span.more{
 	padding:2px 0;
 }
 /*eo filter*/
@@ -638,7 +662,7 @@ form.mall-filter-form input[type='submit']{
   margin: auto;
 }
 
-.mall-item-list .title{
+.mall-item-list > .title{
 	padding: 5px 0;
 	font-size: 1.5em;
 	color: #003366;	
@@ -875,6 +899,7 @@ form.mall-filter-form input[type='submit']{
 	top:11px;
 	height:6px;
 	width:10px;
+	background-color:#ffffff;
 }
 
 .mall-advance-search .label{	

@@ -10,7 +10,9 @@ $(function(){
 	$("body").on( "change","select.category", callback_change_category );
 	$("body").on( "change","select.location", callback_change_location );
 	
+	
 	$("body").on( "click",".filter span.more", callback_collapse_left_sidebar );
+	$("body").on( "click",".filter-button", callback_filter_options );
 		
 	$("body").on( "click","div.item-add-submit", callback_submit_add_form );
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');	
@@ -235,6 +237,10 @@ function callback_collapse_left_sidebar(){
 	}
 	
 	$(".filter ." + filter + ".extra").toggle();
+}
+
+function callback_filter_options(){
+	$(".filter.list").slideToggle();
 }
 
 function callback_delete_file(){	
