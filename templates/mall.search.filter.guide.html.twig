@@ -19,7 +19,7 @@
 				{% set starting_url = starting_url ~ '&' ~ k~ '=' ~ v %}
 			{% endif %}
 		{% endfor %}
-		<div class='user_id'>User: {{ data.user_entity.field_first_name.value }}<a href='{{ starting_url }}' class='remove'>x</a></div>	
+		<div class='user_id'>User : {{ data.user_entity.field_first_name.value }}<a href='{{ starting_url }}' class='remove'>x</a></div>	
 	{% endif %}
 	
 	{% set starting_url = '/mall/item/search?' %}
@@ -53,15 +53,15 @@
 				{% set price_from = input.price_from ~ " to" %}
 				{% set price_to = input.price_to %}
 			{% endif %}
-			<div class='price'>Price:{{ price_from }} {{ price_to }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+			<div class='price'>Price : {{ price_from }} {{ price_to }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% elseif k =='time' %}
-			<div class='{{ k }}'>{{ k | capitalize }}: {{ data.time[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+			<div class='{{ k }}'>{{ k | capitalize }} : {{ data.time[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% elseif k == 'status' %}
-			<div class='{{ k }}'>{{ k | capitalize }}: {{ data.status[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+			<div class='{{ k }}'>{{ k | capitalize }} : {{ data.status[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% elseif k == 'order' %}
-			<div class='{{ k }}'>{{ k | capitalize }}: {{ data.default_search_sort[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+			<div class='{{ k }}'>{{ k | capitalize }} : {{ data.default_search_sort[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% else %}
-			<div class='{{ k }}'>{{ k | capitalize }}: {{ v }}<a href='{{ starting_url }}' class='remove'>x</a></div>
+			<div class='{{ k }}'>{{ k | capitalize }} : {{ v }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% endif %}		
 	{% endfor %}
 </div>
