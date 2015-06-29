@@ -8,7 +8,7 @@ $(function(){
 	$("body").on( "change","select.category", callback_change_category );
 	$("body").on( "change","select.location", callback_change_location );
 	
-	$("body").on( "click",".mall .filter.left span.more", callback_collapse_left_sidebar );
+	$("body").on( "click",".filter span.more", callback_collapse_left_sidebar );
 		
 	$("body").on( "click","div.item-add-submit", callback_submit_add_form );
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');	
@@ -225,6 +225,7 @@ function callback_collapse_left_sidebar(){
 		text = $this.text();
 		text = text.replace("- Less", "+ More");
 		$this.html( text );
+		$("html,body").scrollTop( $this.parent().parent().offset().top );
 	}
 	else{
 		$this.addClass("less");
@@ -232,7 +233,8 @@ function callback_collapse_left_sidebar(){
 		text = text.replace("+ More", "- Less");
 		$this.html( text );
 	}
-	$(".mall .filter.left ." + filter + ".extra").toggle();
+	
+	$(".filter ." + filter + ".extra").toggle();
 }
 
 function callback_delete_file(){	
