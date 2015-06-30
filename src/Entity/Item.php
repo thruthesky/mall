@@ -77,7 +77,11 @@ class Item extends ContentEntityBase implements ItemInterface {
   *'order' ASC or DESC, 'by' the field to order
   *( and all field condition e.g. $conds['id'] = 10 will become ->conds( 'id'=>10 ) )
   */
-  public static function getItems( $conds = array() ) {  
+  public static function getItems( $conds = array() ) { 
+  
+  echo $aaaaaa;
+  
+  di("a");
 	$query = \Drupal::entityQuery('mall_item');
 
 	
