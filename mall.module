@@ -1,6 +1,7 @@
 <?php
 use Drupal\Library\Entity\Category;
 use Drupal\mall\Entity\Item;
+use Drupal\mall\Entity\Member;
 use Drupal\mall\Mall;
 use Drupal\mall\x;
 use Symfony\Component\Yaml\Yaml;
@@ -48,10 +49,12 @@ function mall_preprocess(&$variables, $hook)
 	if ( ! Mall::isMallPage() ) return;//what about front page?
 	
 	$variables['#attached']['library'][] = 'mall/default';
-	$variables['error_list'] = Library::getError();    
-	$variables['x']['months'] = x::$months;  
+	$variables['error_list'] = Library::getError();
+	$variables['notice_list'] = Library::getNotice();
+	$variables['x']['months'] = x::$months;
 	$variables['input'] = x::getInput();
-
+	
+	$variables['mall_member_user'] = Member::loadByUid( x::myUid() );
 
 	/*this is a bad place fore these
 	  if( empty( $variables['input']['category_root'] ) && $variables['input']['category']  ){

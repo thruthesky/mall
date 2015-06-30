@@ -71,7 +71,7 @@ div.mall-error{
 /*eo error*/
 
 /*success*/
-div.mall-success{	
+div.notice{	
 	padding: 10px;
 	margin:0 10px 10px 10px;
 	border: 1px solid #009900;
@@ -786,7 +786,25 @@ form.mall-filter-form input[type='submit']{
 
 /*mall-view*/
 .mall-view{	
-		
+	border-bottom:2px solid #c7c7c7;
+	margin-bottom:10px;
+}
+
+.mall-view .user-commands{	
+	float:right;
+	padding:5px 0;
+}
+
+.mall-view .user-commands > a{	
+	display:inline-block;
+	padding:5px 10px;
+	margin-right:10px;
+	border:1px solid #aaaaaa;
+}
+
+.mall-view .user-commands > a:hover{	
+	background-color:#003366;
+	color:#ffffff;
 }
 
 .mall-view .title.top{			
@@ -794,15 +812,12 @@ form.mall-filter-form input[type='submit']{
 	margin-bottom: 5px;
 	border-radius: 2px;
 	font-size: 1.5em;		
-	color: #606060;
-	background-color: #d8d8d8;
-	text-align: center;
+	color: #393939;
 }
 
-.mall-view .image-list{		
-	position:relative;
-	padding:10px;
-	margin-bottom:10px;
+.mall-view .image-list{	
+	position:relative;		
+	margin:0 10px 10px 0;
 	border-radius:2px;	
 	background-color:#ffffff;
 }	
@@ -828,6 +843,7 @@ form.mall-filter-form input[type='submit']{
 
 .mall-view .thumbnails{
 	position:relative;
+	margin-bottom:20px;
 }
 
 .mall-view .thumbnails .arrow{
@@ -841,15 +857,15 @@ form.mall-filter-form input[type='submit']{
 }
 
 .mall-view .thumbnails .arrow.left{
-	left:12%;
+	left:.8%;
 }
 
 .mall-view .thumbnails .arrow.right{
-	right:12%;
+	right:.8%;
 }
 
 .mall-view .thumbnails .inner{
-	width:65%;
+	width:88%;
 	margin:auto;		
 	white-space:nowrap;
 	overflow: hidden;
@@ -870,40 +886,58 @@ form.mall-filter-form input[type='submit']{
 	border-color:#64b0ff;
 }
 
+.mall-view .content-text{
+	padding:0 20px;
+}
 
-.mall-view .product-details{		
+.mall-view .details{		
+	margin-bottom:10px;
+	border:1px solid #dbdbdb;
 	border-radius:2px;
 	background-color:#ffffff;
 }
 
-.mall-view .product-details .title{
-	padding:5px 10px;
-	margin-bottom: 10px;
-	border-bottom:1px solid #dcdcdc;
-	font-size:1.1em;
+.mall-view .details .title{
+	padding:5px 10px;	
+	background-color:#aaaaaa;	
+	font-weight:bold;	
+	color:#ffffff;
+}
+
+.mall-view .details .table-wrapper{	
+		
+}
+
+.mall-view .details .table-wrapper td{
+	padding:8px;
+	border-bottom:1px solid #dbdbdb;
+}
+
+.mall-view .details .table-wrapper .price .value{
 	font-weight:bold;
+	font-size:1.2em;
+	color:#ae0000;
 }
 
-.mall-view .product-details .table-wrapper{
-	padding:0 10px;
-	margin-bottom:10px;
-}
-
-.mall-view .product-details .table-wrapper tr:nth-child(even){
-	background-color:#f2f2f2;
-}
-
-.mall-view .product-details .table-wrapper td{
-	padding:5px
-}
-
-.mall-view .product-details .table-wrapper .table-label{	
-	font-size:1.1em;
+.mall-view .details .table-wrapper .contact .value{
+	display:block;
+	padding:5px 0;
+	background-color:#199f38;
 	font-weight:bold;
+	font-size:1.2em;
+	color:#ffffff;	
+	text-align:center;
 }
 
-.mall-view .product-details .content-text{
-	padding:0 10px 10px 10px;
+.mall-view .details .table-wrapper tr:last-child td{	
+	border-bottom:0;
+}
+
+.mall-view .details .table-wrapper .table-label{
+	display:inline-block;
+	width:90px;
+	margin-right:10px;
+	font-weight:bold;
 }
 /*eo mall-view*/
 

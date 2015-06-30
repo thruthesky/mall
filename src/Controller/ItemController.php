@@ -72,8 +72,8 @@ class ItemController extends ControllerBase {
 		else{
 			$input = x::input();	
 			$item = Item::load( $input['item_id'] );
-			
-			if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){
+
+			if( empty( $item ) || $item->user_id->target_id == x::myUid() || x::isAdmin() ){
 				$re = Item::Update( $input );
 				return new RedirectResponse( "/mall/item/add?item_id=".$re );
 			}
@@ -123,7 +123,10 @@ class ItemController extends ControllerBase {
 		
 		if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){			
 			Item::del( $item_id );
-			return new RedirectResponse( "/mall/admin/item/list" );
+			
+			//change these later
+			if( x::isAdmin() ) return new RedirectResponse( "/mall/admin/item/list" );
+			else return new RedirectResponse( "/mall/item/search?user_id=".$item->user_id->target_id );
 		}
 		else{
 			$theme = "mall.admin.item.list";
@@ -147,7 +150,7 @@ class ItemController extends ControllerBase {
                 //
             }
 		}
-//di( $data['item']['images'] );exit;
+
 		return [
             '#theme' => x::getThemeName(),
             '#data' => $data,
@@ -223,6 +226,7 @@ class ItemController extends ControllerBase {
 				if( !empty( $input['price_from'] ) ) $conds['price_from'] = $input['price_from'];
 				if( !empty( $input['price_to'] ) ) $conds['price_to'] = $input['price_to'];
 				if( !empty( $input['province'] ) ) $conds['province'] = $input['province'];//
+				if( !empty( $input['city'] ) ) $conds['city'] = $input['city'];//
 				if( !empty( $input['time'] ) ) $conds['time'] = $input['time'];
 				if( !empty( $input['status'] ) ) $conds['status'] = $input['status'];//
 				
