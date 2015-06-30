@@ -123,7 +123,10 @@ class ItemController extends ControllerBase {
 		
 		if( $item->user_id->target_id == x::myUid() || x::isAdmin() ){			
 			Item::del( $item_id );
-			return new RedirectResponse( "/mall/admin/item/list" );
+			
+			//change these later
+			if( x::isAdmin() ) return new RedirectResponse( "/mall/admin/item/list" );
+			else return new RedirectResponse( "/mall/item/search?user_id=".$item->user_id->target_id );
 		}
 		else{
 			$theme = "mall.admin.item.list";
@@ -141,7 +144,7 @@ class ItemController extends ControllerBase {
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
 			$data['status'] = x::$item_status;
 		}
-//di( $data['item']['images'] );exit;
+
 		return [
             '#theme' => x::getThemeName(),
             '#data' => $data,
