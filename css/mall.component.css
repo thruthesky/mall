@@ -956,23 +956,28 @@ form.mall-filter-form input[type='submit']{
 
 /*mall-pagination*/
 .mall-pagination{
-	padding:5px 10px;
+	padding:5px 9px;
+	font-size:.8em;
 	text-align:center;
 }
 
 .mall-pagination a{
 	display:inline-block;
-	padding:3px 5px;
+	padding:7px 10px;
 	margin:0 10px 5px 0;
-	border: 1px solid #999999;
+	border: 1px solid #dddddd;
 	border-radius: 2px;
 	font-size:1.2em;
 	line-height:100%;	
 }
 
-.mall-pagination a:hover, .mall-pagination a.selected{
-	background-color: #b0b0b0;
+.mall-pagination a.selected{
+	background-color: #7997ab;
 	color: #ffffff;
+}
+
+.mall-pagination a:hover{	
+	border:1px solid #67a4ce;
 }
 
 .mall-pagination a:last-child{
