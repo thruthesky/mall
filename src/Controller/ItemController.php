@@ -140,9 +140,13 @@ class ItemController extends ControllerBase {
 	}
 	
 	public function view(){
-		if( $item_id = x::in('item_id') ){
+		$data = [];
+		
+		if( $item_id = x::in('item_id') ){			
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
-			$data['status'] = x::$item_status;
+			$data['status'] = x::$item_status;			
+			//di( $data );
+			self::default_setup( $data );
 		}
 
 		return [
@@ -152,11 +156,19 @@ class ItemController extends ControllerBase {
 	}
 	
 	public function search(){
-		$category_text = '';
-		$conds = [];
 		$data = [];
-		$input = x::input();
+		self::default_setup( $data );
 
+		return [
+            '#theme' => x::getThemeName(),
+            '#data' => $data,
+        ];
+	}
+	
+	public function default_setup( &$data ){
+		$category_text = '';
+		$conds = [];		
+		$input = x::input();	
         $category_id = isset($input['category']) ? $input['category'] : 0;
 		
 		if( $category_id  ) {
@@ -199,11 +211,14 @@ class ItemController extends ControllerBase {
 			
 			//ONLY make use of page when there is limit...
 			if( !empty( $input['limit'] ) ){
-				$conds['limit'] = $input['limit'];
-				if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];				
+				$conds['limit'] = $input['limit'];				
 			}
 			/*if changed, also edit on Mall.module*/
-			else $conds['limit'] = 15;
+			else{
+				$conds['limit'] = 15;
+			}
+			
+			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
 			
 			if( isset( $input['user_id'] ) ){
 				$conds['user_id'] = $input['user_id'];								
@@ -237,7 +252,7 @@ class ItemController extends ControllerBase {
 				$data['items'] = Item::getItemsWithImages( $conds );
 				
 				unset( $conds['limit'] );
-				unset( $conds['page'] );
+				unset( $conds['page'] );				
 				//Fix this. What I just did here was do the query again without the limit and page conditions
 				$all_items = Item::getItemsWithImages( $conds );
 				if( isset( $all_items['items'] ) ) $data['total_items'] = count( $all_items['items'] );
@@ -250,10 +265,5 @@ class ItemController extends ControllerBase {
 				}
 			}
 		}
-
-		return [
-            '#theme' => x::getThemeName(),
-            '#data' => $data,
-        ];
 	}
 }
