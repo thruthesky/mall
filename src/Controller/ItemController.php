@@ -197,7 +197,7 @@ class ItemController extends ControllerBase {
 			//ONLY make use of page when there is limit...
 			if( !empty( $input['limit'] ) ){
 				$conds['limit'] = $input['limit'];
-				if( $input['page'] ) $conds['page'] = $input['page'];
+				if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];				
 			}
 			/*if changed, also edit on Mall.module*/
 			else $conds['limit'] = 15;
