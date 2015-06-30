@@ -5,13 +5,14 @@
 			<div class='label'>Arrange by: </div>
 			<div class='mall-select-wrapper'>				
 				{% if input.order %}
-					{% set order = input.order %}					
+					{% set order = input.order_by %}					
 				{% else %}
 					{% set order = 'created_low'%}
 				{% endif %}
-				<select name='order' {{ order }}>
+				
+				<select name='order_by' {{ order }}>
 					<option value=''>Sort Order</option>
-					<option value=''></option>
+					<option value=''></option>					
 					{% for value, text in data.default_search_sort %}
 						<option value='{{ value }}' {{ order == value ? 'selected'}}>{{ text }}</option>
 					{% endfor %}

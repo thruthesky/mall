@@ -16,11 +16,8 @@ $items[0]['images']['item_image_description'] -> images
 			{% set item = i.entity %}
 			{% set images = i.images %}
 			{% set price = i.rendered_price %}
-			{% if ( loop.index - 1 ) is divisibleby( item_per_page ) and loop.index != 1 %}
-				{% set count = count + 1 %}
-			{% endif %}
 			<a href='/mall/item/view?item_id={{ item.id.value }}'>
-				<div class='item' page='{{ count }}'>
+				<div class='item'>
 					<div class='photo'>
 					{% if images.item_image_thumbnail[0] %}
 						{% set url_thumb = images.item_image_thumbnail[0].url_large %}

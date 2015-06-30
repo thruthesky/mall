@@ -151,11 +151,10 @@ class ItemController extends ControllerBase {
 	public function search(){
 		$category_text = '';
 		$conds = [];
+		$data = [];
 		$input = x::input();
 
         $category_id = isset($input['category']) ? $input['category'] : 0;
-
-
 		
 		if( $category_id  ) {
 			if( is_numeric( $category_id ) ){
@@ -172,12 +171,22 @@ class ItemController extends ControllerBase {
 		
 		if( empty( $data['error'] ) ){
 			/*conds*/
-			if( ! empty($input['order']) ) {
-				$order_by = explode( '_', $input['order'] );
-				
-				$conds['by'] = $order_by[0];
-				if( $order_by[1] == 'low' ) $conds['order'] = 'ASC';
-				else if( $order_by[1] == 'high' ) $conds['order'] = 'DESC';
+			if( isset($input['order_by']) ) {
+				/*
+				*should be something like
+				*created_low -> created ASC ( translated as created from lowest )
+				*created_high -> created DESC ( translated as created from highest )
+				*/
+				$order_by = explode( '_', $input['order_by'] );
+				if( count( $order_by ) > 1 ){
+					$conds['by'] = $order_by[0];
+					if( $order_by[1] == 'low' ) $conds['order'] = 'ASC';
+					else if( $order_by[1] == 'high' ) $conds['order'] = 'DESC';
+				}
+				else{
+					if( isset($input['order'] ) ) $conds['order'] = $input['order'];
+					if( isset($input['by'] ) )  $conds['by'] = $input['by'];
+				}
 			}
 			else{
 				$input['order'] = 'created_low';
@@ -186,14 +195,14 @@ class ItemController extends ControllerBase {
 			}
 			
 			//ONLY make use of page when there is limit...
-			if( $input['limit'] ){
+			if( isset( $input['limit'] ) ){
 				$conds['limit'] = $input['limit'];
 				if( $input['page'] ) $conds['page'] = $input['page'];
 			}
 			/*if changed, also edit on Mall.module*/
 			else $conds['limit'] = 15;
 			
-			if( $input['user_id'] ){
+			if( isset( $input['user_id'] ) ){
 				$conds['user_id'] = $input['user_id'];								
 				$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$conds['user_id'])->execute();
 				$member = Member::loadMultiple( $member_id );
@@ -205,11 +214,11 @@ class ItemController extends ControllerBase {
 				}
 			}
 			if( empty( $data['error'] ) ){
-				if( $input['price_from'] ) $conds['price_from'] = $input['price_from'];
-				if( $input['price_to'] ) $conds['price_to'] = $input['price_to'];
-				if( $input['province'] ) $conds['province'] = $input['province'];//
-				if( $input['time'] ) $conds['time'] = $input['time'];
-				if( $input['status'] ) $conds['status'] = $input['status'];//
+				if( isset( $input['price_from'] ) ) $conds['price_from'] = $input['price_from'];
+				if( isset( $input['price_to'] ) ) $conds['price_to'] = $input['price_to'];
+				if( isset( $input['province'] ) ) $conds['province'] = $input['province'];//
+				if( isset( $input['time'] ) ) $conds['time'] = $input['time'];
+				if( isset( $input['status'] ) ) $conds['status'] = $input['status'];//
 				
 				/*eo conds*/	
 				$data['default_search_sort'] = x::$default_search_sort;
@@ -226,9 +235,10 @@ class ItemController extends ControllerBase {
 				unset( $conds['limit'] );
 				unset( $conds['page'] );
 				//Fix this. What I just did here was do the query again without the limit and page conditions
-				$data['total_items'] = count( Item::getItemsWithImages( $conds )['items'] );
+				$all_items = Item::getItemsWithImages( $conds );
+				if( isset( $all_items['items'] ) ) $data['total_items'] = count( $all_items['items'] );
 				
-				if( x::$input['keyword'] ){				
+				if( isset( $input['keyword'] ) ){				
 					$keyword = "[ ".$input['keyword']." ]";
 				}
 				else{

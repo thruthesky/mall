@@ -78,12 +78,8 @@ class Item extends ContentEntityBase implements ItemInterface {
   *( and all field condition e.g. $conds['id'] = 10 will become ->conds( 'id'=>10 ) )
   */
   public static function getItems( $conds = array() ) { 
-  
-  echo $aaaaaa;
-  
-  di("a");
-	$query = \Drupal::entityQuery('mall_item');
 
+	$query = \Drupal::entityQuery('mall_item');
 	
 	if( isset($conds['limit']) ){
 		if( ! empty($conds['page']) ){
@@ -234,9 +230,9 @@ class Item extends ContentEntityBase implements ItemInterface {
 				$items[ $k ]['images'][ $key ][] = self::getFileUrl( $v );
 			}
 		}		
-	}	
-	$data['items'] = array_values( $items);;	
-	
+	}
+	$data['items'] = $items;
+	//$data['items'] = array_values( $items );
 	//$data['item_images'] = $images;
 	return $data;
   }

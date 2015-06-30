@@ -58,7 +58,7 @@
 			<div class='{{ k }}'>{{ k | capitalize }} : {{ data.time[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% elseif k == 'status' %}
 			<div class='{{ k }}'>{{ k | capitalize }} : {{ data.status[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
-		{% elseif k == 'order' %}
+		{% elseif k == 'order_by' %}
 			<div class='{{ k }}'>{{ k | capitalize }} : {{ data.default_search_sort[ v ] }}<a href='{{ starting_url }}' class='remove'>x</a></div>
 		{% else %}
 			<div class='{{ k }}'>{{ k | capitalize }} : {{ v }}<a href='{{ starting_url }}' class='remove'>x</a></div>

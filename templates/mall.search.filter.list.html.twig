@@ -14,7 +14,7 @@
 						{% set count = 0 %}
 						{% for category in data.category_entity_list %}
 							{% set count = count + 1 %}
-							<div class='category is-root{{ input.category == category.entity.id.value ? " selected"}}{{ count > 8 ? " extra"}}' {{ count }}>
+							<div class='category is-root{{ input.category == category.entity.id.value ? " selected"}}{{ count > 8 ? " extra"}}'>
 								<a href='/mall/item/search?{{ starting_url }}&category={{ category.entity.id.value }}'>
 									{{ category.entity.name.value }}			
 								</a>
@@ -109,7 +109,7 @@
 				
 				{#------------eo STATUS------------#}
 			</td>
-			<td>
+			<td width='25%'>
 				{#------------PRICE------------#}
 				
 				{% set starting_url = '' %}

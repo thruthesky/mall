@@ -615,7 +615,7 @@ form.mall-filter-form input[type='submit']{
 }
 
 .filter.list{	
-	padding:10px 20px 0 20px;
+	padding:10px 10px 0 10px;
 	margin-bottom:10px;
 	border:1px solid #c0c0c0;
 }
@@ -623,16 +623,25 @@ form.mall-filter-form input[type='submit']{
 .filter.list .wrapper{
 	/*float:left;
 	width:25%;*/
-	padding:5px 10px;
+	padding:5px 0;
 	box-sizing:border-box;
 }
 
 .filter.list .wrapper .filter-items{
-	margin:10px 0;
+	padding-right:10px;
+	margin:10px 0 0 10px;
 	border-right:1px dotted #7e8c8c;
 }
 
-.filter.list .wrapper tr td:last-child .filter-items{
+.filter.list tr{
+	background-color:transparent;/*for overriding drupal default themes*/
+}
+
+.filter.list tr td{
+	padding:0;/*for overriding drupal default themes*/
+}
+
+.filter.list tr td:last-child .wrapper .filter-items{	
 	border:0;
 }
 
@@ -643,6 +652,7 @@ form.mall-filter-form input[type='submit']{
 .filter.list .label{
 	display:block;
 	padding:0 10px 5px 10px;	
+	margin:0 10px;
 	border-bottom: 2px solid #0c6fb3;
 	font-size:1.2em;	
 	color:#0c6fb3;	
