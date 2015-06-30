@@ -232,7 +232,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		}		
 	}
 	$data['items'] = $items;
-	//$data['items'] = array_values( $items );
+	$data['items'] = array_values( $items );
 	//$data['item_images'] = $images;
 	return $data;
   }

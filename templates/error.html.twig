@@ -1,4 +1,4 @@
-{% if error %}
+{% if error_list %}
     <div class="error">    	
 		{% for code,message in error_list %}
 		<div class="row">
@@ -9,9 +9,13 @@
     </div>
 {% endif %}
 
-
-{% if input.error %}
-    <div class="mall-error {{ input.error }}">
-        {{ input.message }}
+{% if notice_list %}
+    <div class="notice">    	
+		{% for code,message in notice_list %}
+		<div class="row">
+			<div class="code">SUCCESS CODE : {{ code }}</div>
+			<div class="message">{{ message }}</div>
+		</div>
+		{% endfor%}        
     </div>
 {% endif %}

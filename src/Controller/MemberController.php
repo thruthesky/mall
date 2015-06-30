@@ -24,7 +24,7 @@ class MemberController extends ControllerBase {
 		if( $uid = self::isEdit() ) {            
             if( x::isAdmin() || $uid == x::myUid() ) {
                 x::getDefaultInformationByUid( $uid, $data );
-				if( empty( $data['member'] ) ) $data['error'] = Library::error('Not a mall member.', Language::string('library', 'no_member_account'));				
+				if( empty( $data['member'] ) ) $data['error'] = Library::error('Not a mall member.', Language::string('library', 'no_member_account'));
             }
             else {
 				$data['error'] = Library::error('User ID is not yours.', Language::string('library', 'not_your_account'));
@@ -40,27 +40,37 @@ class MemberController extends ControllerBase {
 		];
 	}
 	
-	public static function registerSubmit() {		
+	public static function registerSubmit() {
+		$theme = 'mall.member.register';
         if ( self::isEditSubmit() ) { // Edit Submit.		
             $uid = x::in('user_id');
             if ( x::isAdmin() || $uid == x::myUid() ) {
-                member::updateMemberFormSubmit($uid);
-                return new RedirectResponse( "/mall/member/register?user_id=$uid&mode=edit_success" );
+                member::updateMemberFormSubmit($uid);					
+				$data['notice'] = Library::notice('Successful Account Edit.', Language::string('library', 'succesful_account_edit'));
+				x::getDefaultInformationByUid( $uid, $data );				                
             }
-            else return new RedirectResponse( "/mall/member/register/?" . x::error(x::ERROR_NOT_YOUR_ID));
+            else{
+				$data['error'] = Library::error('User Account Not Yours.', Language::string('library', 'user_account_not_yours'));				
+			}
         }
         else { // Register Submit. this is register submit for a new member.			
             $re = x::registerDrupalUser(x::in('username'), x::in('password'), x::in('mail'));
 			
-            if ( $re == x::ERROR_USER_EXISTS ) {
-                return new RedirectResponse( "/mall/member/register?" .  x::error(x::ERROR_USER_EXISTS,[ 'name'=> x::in('username') ]) );
+            if ( $re == x::ERROR_USER_EXISTS ) {                
+				$data['error'] = Library::error('User ID exists.', Language::string('library', 'user_name_already_taken', ['user_name'=>x::in('username')]));
             }
             else {
                 x::loginUser(x::in('username'));
-                member::updateMemberFormSubmit($re);
-                return new RedirectResponse( "/mall/member/register?mode=register_success");
+                member::updateMemberFormSubmit($re);				
+				$data['notice'] = Library::notice('Successful Registration.', Language::string('library', 'succesful_registration'));
+				x::getDefaultInformationByUid( $uid, $data );                
             }
         }
+		
+		return [
+			'#theme' => $theme,
+			'#data' => $data,
+		];
 	}
 	
 	public static function add(){

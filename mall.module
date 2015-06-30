@@ -49,6 +49,7 @@ function mall_preprocess(&$variables, $hook)
 	
 	$variables['#attached']['library'][] = 'mall/default';
 	$variables['error_list'] = Library::getError();    
+	$variables['notice_list'] = Library::getNotice();    
 	$variables['x']['months'] = x::$months;  
 	$variables['input'] = x::getInput();
 
