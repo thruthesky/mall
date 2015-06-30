@@ -50,6 +50,7 @@ class ItemController extends ControllerBase {
 					}
 				}
 				if( $file_urls ) $data['files'] = $file_urls;
+				
 				$data['cities'] = x::$cities[ $data['item']->province->value ];		
 			}
 			else{
@@ -238,7 +239,7 @@ class ItemController extends ControllerBase {
 				if( !empty( $input['city'] ) ) $conds['city'] = $input['city'];//
 				if( !empty( $input['time'] ) ) $conds['time'] = $input['time'];
 				if( !empty( $input['status'] ) ) $conds['status'] = $input['status'];//
-				
+	
 				/*eo conds*/	
 				$data['default_search_sort'] = x::$default_search_sort;
 				$data['default_item_per_page'] = x::$default_item_per_page;	
