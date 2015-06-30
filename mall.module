@@ -34,7 +34,9 @@ function mall_theme()
 
 function mall_preprocess(&$variables, $hook)
 {	
-    
+
+
+
 
 	if( Mall::isFrontPage() ){
 		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id' ] );			

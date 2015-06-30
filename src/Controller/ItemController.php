@@ -152,8 +152,12 @@ class ItemController extends ControllerBase {
 		$category_text = '';
 		$conds = [];
 		$input = x::input();
+
+        $category_id = isset($input['category']) ? $input['category'] : 0;
+
+
 		
-		if( $category_id = $input['category'] ){
+		if( $category_id  ) {
 			if( is_numeric( $category_id ) ){
 				/*conds*/
 				$conds['category_id'] = $category_id;
@@ -168,7 +172,7 @@ class ItemController extends ControllerBase {
 		
 		if( empty( $data['error'] ) ){
 			/*conds*/
-			if( $input['order'] ){
+			if( ! empty($input['order']) ) {
 				$order_by = explode( '_', $input['order'] );
 				
 				$conds['by'] = $order_by[0];
