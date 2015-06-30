@@ -125,7 +125,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		unset( $conds['price_from'] );
 	}
 	
-	if( isset($conds['price_to']) ){
+	if( isset( $conds['price_to']) ){
 		$query = $query->condition( 'price', $conds['price_to'], '<=' );
 		unset( $conds['price_to'] );
 	}

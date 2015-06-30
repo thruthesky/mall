@@ -171,7 +171,7 @@ class ItemController extends ControllerBase {
 		
 		if( empty( $data['error'] ) ){
 			/*conds*/
-			if( isset($input['order_by']) ) {
+			if( !empty($input['order_by']) ) {
 				/*
 				*should be something like
 				*created_low -> created ASC ( translated as created from lowest )
@@ -184,8 +184,8 @@ class ItemController extends ControllerBase {
 					else if( $order_by[1] == 'high' ) $conds['order'] = 'DESC';
 				}
 				else{
-					if( isset($input['order'] ) ) $conds['order'] = $input['order'];
-					if( isset($input['by'] ) )  $conds['by'] = $input['by'];
+					if( !empty($input['order'] ) ) $conds['order'] = $input['order'];
+					if( !empty($input['by'] ) )  $conds['by'] = $input['by'];
 				}
 			}
 			else{
@@ -195,7 +195,7 @@ class ItemController extends ControllerBase {
 			}
 			
 			//ONLY make use of page when there is limit...
-			if( isset( $input['limit'] ) ){
+			if( !empty( $input['limit'] ) ){
 				$conds['limit'] = $input['limit'];
 				if( $input['page'] ) $conds['page'] = $input['page'];
 			}
@@ -214,11 +214,11 @@ class ItemController extends ControllerBase {
 				}
 			}
 			if( empty( $data['error'] ) ){
-				if( isset( $input['price_from'] ) ) $conds['price_from'] = $input['price_from'];
-				if( isset( $input['price_to'] ) ) $conds['price_to'] = $input['price_to'];
-				if( isset( $input['province'] ) ) $conds['province'] = $input['province'];//
-				if( isset( $input['time'] ) ) $conds['time'] = $input['time'];
-				if( isset( $input['status'] ) ) $conds['status'] = $input['status'];//
+				if( !empty( $input['price_from'] ) ) $conds['price_from'] = $input['price_from'];
+				if( !empty( $input['price_to'] ) ) $conds['price_to'] = $input['price_to'];
+				if( !empty( $input['province'] ) ) $conds['province'] = $input['province'];//
+				if( !empty( $input['time'] ) ) $conds['time'] = $input['time'];
+				if( !empty( $input['status'] ) ) $conds['status'] = $input['status'];//
 				
 				/*eo conds*/	
 				$data['default_search_sort'] = x::$default_search_sort;

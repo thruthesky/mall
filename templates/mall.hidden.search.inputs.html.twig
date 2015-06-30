@@ -25,3 +25,9 @@
 {% if input.type %}
 	<input type='hidden' name='type' value='{{ input.type }}'>	
 {% endif %}	
+{% if input.price_from %}
+	<input type='hidden' name='price_from' value='{{ input.price_from }}'>	
+{% endif %}	
+{% if input.price_to %}
+	<input type='hidden' name='price_to' value='{{ input.price_to }}'>	
+{% endif %}	
