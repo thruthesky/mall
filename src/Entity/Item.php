@@ -82,7 +82,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 
 	
 	if( isset($conds['limit']) ){
-		if( $conds['page'] ){
+		if( ! empty($conds['page']) ){
 			$from = $conds['limit'] * ( $conds['page'] - 1 );
 			unset( $conds['page'] );
 		}
@@ -95,7 +95,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 	}
 	
 	if( isset($conds['by']) ){
-		if( $conds['order'] ){
+		if( ! empty($conds['order']) ){
 			$order = $conds['order'];
 			unset( $conds['order'] );
 		}
@@ -120,7 +120,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		unset( $conds['category_id'] );
 	}
 	
-	if( $conds['price_from'] ){
+	if( ! empty($conds['price_from']) ){
 		$query = $query->condition( 'price', $conds['price_from'], '>=' );
 		unset( $conds['price_from'] );
 	}
