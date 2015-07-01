@@ -34,9 +34,7 @@ function mall_theme()
 }
 
 function mall_preprocess(&$variables, $hook)
-{	
-
-
+{
 
 
 	if( Mall::isFrontPage() ){
