@@ -36,7 +36,7 @@ requires:
 		{% set url = url ~ "&" ~ k ~ "=" ~ v %}
 	{% endif %}
 {% endfor %}
-{{ dir_sub_theme }}
+
 <div class='mall-pagination'>
 	{% if current_page > 10 %}
 		<a href='{{ url }}&page=1' class='first'> << </a>
