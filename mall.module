@@ -69,7 +69,7 @@ function mall_preprocess(&$variables, $hook)
 
 	}
 	else if( $hook == 'mall.item.view' ){
-		$variables['current_path'] = \Drupal::service('path.current')->getPath();		
+		$variables['view_path'] = \Drupal::service('path.current')->getPath();		
 	}
 	else{
 		//echo $hook;

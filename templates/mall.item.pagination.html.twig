@@ -19,8 +19,8 @@ requires:
 	{% set ending_page = total_pages %}
 {% endif %}
 
-{% if current_path %}
-	{% set url = current_path~'?' %}
+{% if view_path %}
+	{% set url = view_path~'?' %}
 {% else %}
 	{% set url = '/mall/item/search?' %}
 {% endif %}
