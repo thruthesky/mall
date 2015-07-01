@@ -145,8 +145,16 @@ class ItemController extends ControllerBase {
 		
 		if( $item_id = x::in('item_id') ){			
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
+			//for user
+			$uid = $data['item']['entity']->user_id->target_id;
+			$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$uid )->execute();
+			$member = Member::loadMultiple( $member_id );
+			if( $member ){
+				$data['member'] = reset( $member );
+			}
+			/*---------*/
 			$data['status'] = x::$item_status;			
-			//di( $data );
+
 			self::default_setup( $data );
 		}
 
