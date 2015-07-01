@@ -63,6 +63,7 @@ class MemberController extends ControllerBase {
                 x::loginUser(x::in('username'));
                 member::updateMemberFormSubmit($re);				
 				$data['notice'] = Library::notice('Successful Registration.', Language::string('library', 'succesful_registration'));
+
 				x::getDefaultInformationByUid( $re, $data );
             }
         }

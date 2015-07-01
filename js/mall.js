@@ -210,14 +210,17 @@ function callback_change_category(){
 function callback_change_location(){
 	var $this = $(this);
 	var province = $this.val();
-
-	$this.nextAll('select').remove();
+	var name = $this.attr('name');
 	
-	data = {};
-	data.call = 'getCity';
-	data.province = province;	
-	
-	ajax_api_mall( data, callback_get_city );
+	if( name == 'province' ){
+		$this.nextAll('select').remove();
+		
+		data = {};
+		data.call = 'getCity';
+		data.province = province;	
+		
+		ajax_api_mall( data, callback_get_city );
+	}
 }
 
 function callback_collapse_left_sidebar(){	
