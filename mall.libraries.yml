@@ -2,6 +2,7 @@ default:
   version: 1.x
   css:
     theme:
+      css/mall.account.css: {}
       css/mall.base.css: {}
       css/mall.layout.css: {}
       css/mall.component.css: {}

@@ -52,7 +52,7 @@ function mall_preprocess(&$variables, $hook)
 	$variables['x']['months'] = x::$months;
 	$variables['input'] = x::getInput();
 	
-	$variables['mall_member_user'] = Member::loadByUid( x::myUid() );
+	$variables['mall_member_user'] = Member::loadByUid( x::myUid() );	
 
 	/*this is a bad place fore these
 	  if( empty( $variables['input']['category_root'] ) && $variables['input']['category']  ){
@@ -67,6 +67,9 @@ function mall_preprocess(&$variables, $hook)
 	if ( $hook == 'mall' ) {		
 	 //$variables['categories'] = Mall::categoryList( $variables );
 
+	}
+	else if( $hook == 'mall.item.view' ){
+		$variables['view_path'] = \Drupal::service('path.current')->getPath();		
 	}
 	else{
 		//echo $hook;

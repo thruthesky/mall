@@ -19,7 +19,12 @@ requires:
 	{% set ending_page = total_pages %}
 {% endif %}
 
-{% set url = '' %}
+{% if view_path %}
+	{% set url = view_path~'?' %}
+{% else %}
+	{% set url = '/mall/item/search?' %}
+{% endif %}
+
 {% if input.page %}
 	{% set current_page = input.page %}
 {% else %}
@@ -31,19 +36,20 @@ requires:
 		{% set url = url ~ "&" ~ k ~ "=" ~ v %}
 	{% endif %}
 {% endfor %}
+
 <div class='mall-pagination'>
 	{% if current_page > 10 %}
-		<a href='/mall/item/search?{{ url }}&page=1' class='first'> << </a>
-		<a href='/mall/item/search?{{ url }}&page={{ starting_page - 10 }}' class='prev'> Prev 10 </a>
+		<a href='{{ url }}&page=1' class='first'> << </a>
+		<a href='{{ url }}&page={{ starting_page - 10 }}' class='prev'> Prev 10 </a>
 	{% endif %}
 	{% for page in starting_page..ending_page %}
-		<a {{ current_page == page ? "class=selected" }} href='/mall/item/search?{{ url }}&page={{ page }}'>{{ page }}</a>
+		<a {{ current_page == page ? "class=selected" }} href='{{ url }}&page={{ page }}'>{{ page }}</a>
 	{% endfor %}
 	{% if starting_page + 10 <= total_pages %}
-		<a href='/mall/item/search?{{ url }}&page={{ starting_page + 10 }}' class='next'> Next 10 </a>
+		<a href='{{ url }}&page={{ starting_page + 10 }}' class='next'> Next 10 </a>
 	{% endif %}
 	{% if current_page < total_pages %}
-		<a href='/mall/item/search?{{ url }}&page={{ total_pages }}' class='last'> >> </a>
+		<a href='{{ url }}&page={{ total_pages }}' class='last'> >> </a>
 	{% endif %}
 </div>
 
