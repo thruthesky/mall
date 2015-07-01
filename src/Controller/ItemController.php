@@ -221,12 +221,12 @@ class ItemController extends ControllerBase {
 			
 			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
 			
-			if( isset( $input['user_id'] ) ){
-				$conds['user_id'] = $input['user_id'];								
-				$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$conds['user_id'])->execute();
-				$member = Member::loadMultiple( $member_id );
+			if( isset( $input['user_id'] ) ){				 
+				$member = Member::load( $input['user_id'] );				
+				//$member = Member::loadMultiple( $member_id );
 				if( $member ){
-					$data['user_entity'] = reset( $member );
+					$data['user_entity'] = $member;
+					$conds['user_id'] = $member->user_id->target_id;
 				}
 				else{
 					$data['error'] = Library::error('User does not exist.', Language::string('library', 'user_id_does_not_exist'));
