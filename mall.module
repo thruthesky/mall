@@ -80,3 +80,7 @@ function mall_entity_load( array $entities, $type ){
 		$entity_category_id = array_values($entities)[0]->category_id->target_id;
 	}
 }
+
+
+
+
