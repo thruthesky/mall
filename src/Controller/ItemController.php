@@ -213,7 +213,7 @@ class ItemController extends ControllerBase {
 				}
 			}
 			else{
-				$input['order'] = 'created_low';
+				$input['order'] = 'created_high';
 				$conds['by'] = 'created';
 				$conds['order'] = 'ASC';
 			}

@@ -7,7 +7,7 @@
 				{% if input.order %}
 					{% set order = input.order_by %}					
 				{% else %}
-					{% set order = 'created_low'%}
+					{% set order = 'created_high'%}
 				{% endif %}
 				
 				<select name='order_by' {{ order }}>

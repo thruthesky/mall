@@ -51,10 +51,7 @@ class x {
 	];
 	
 	static $default_search_sort =[
-		'created_low' => 'Date - Oldest to Newest',
 		'created_high' => 'Date - Newest to Oldest',
-		'changed_low' => 'Latest Updated - Oldest to Newest',
-		'changed_high' => 'Latest Updated -Newest to Oldest',
 		'price_low' => 'Price - Cheapest to Most Expensive',		
 		'price_high' => 'Price - Most Expensive to Cheapest',
 	];
