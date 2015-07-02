@@ -1065,7 +1065,7 @@ form.mall-filter-form input[type='submit']{
 
 	.mall-item-list .item .photo img{
 		height:100%;
-		width:initial;
+		width:auto;
 	}
 	
 	.mall-item-list .item{
