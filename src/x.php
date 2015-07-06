@@ -586,4 +586,14 @@ class x {
 		\Drupal::service('file.usage')->add( $file, 'mall', $type, $entity_id );
 	}
   /*eo test*/
+  
+  
+  
+  
+  /*
+  *for external mall member registration ( avoid member class conflict )
+  */
+  public static function MallMemberRegister( $uid ){	
+	member::updateMemberFormSubmit($uid);
+  }
 }

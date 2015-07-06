@@ -210,6 +210,23 @@ class Member extends ContentEntityBase implements MemberInterface {
 		else{			
 		}
 		
+		
+		/*temp*/
+		/*
+		*for overall compatibility...
+		*/
+		if( empty( $input['field_first_name'] ) ) $input['field_first_name'] = $input['first_name'];
+		if( empty( $input['field_last_name'] ) ) $input['field_last_name'] = $input['last_name'];
+		if( empty( $input['field_middle_name'] ) ) $input['field_middle_name'] = $input['middle_name'];		
+		if( empty( $input['field_mobile'] ) ) $input['field_mobile'] = $input['mobile'];
+		if( empty( $input['field_phone'] ) ) $input['field_phone'] = $input['phone'];
+		if( empty( $input['field_birth_month'] ) ) $input['field_birth_month'] = $input['month'];
+		if( empty( $input['field_birth_day'] ) ) $input['field_birth_day'] = $input['day'];
+		if( empty( $input['field_birth_year'] ) ) $input['field_birth_year'] = $input['year'];
+		if( empty( $input['field_gender'] ) ) $input['field_gender'] = $input['gender'];
+		if( empty( $input['field_location'] ) ) $input['field_location'] = $input['location'];
+		/*eo temp*/
+		
 		$member->set('field_first_name', $input['field_first_name']);
 		$member->set('field_last_name', $input['field_last_name']);
 		$member->set('field_middle_name', $input['field_middle_name']);
