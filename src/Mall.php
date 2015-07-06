@@ -11,16 +11,19 @@ class Mall {
 
   public static function emptyEntity($entity_type)
   {
+      db_truncate($entity_type)->execute();
+      /*
     $entities = \Drupal::entityManager()->getStorage($entity_type)->loadMultiple();
     if ( $entities ) {
       foreach ( $entities as $entitiy ) {
         $entitiy->delete();
       }
     }
+      */
   }
 
   public static function emptyData() {    
-    self::emptyEntity('mall_member');
+    //self::emptyEntity('mall_member');
     //self::emptyEntity('mall_order');
     //self::emptyEntity('mall_order_item');
     self::emptyEntity('mall_item');
