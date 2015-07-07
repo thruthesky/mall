@@ -107,7 +107,10 @@ $(function(){
 function market_top_image_behavior( $selector ){	
 	var top_image_wrapper_height = $selector.parent().height();
 	var top_image_height = $selector.height();
-
+	if( $selector.width() > $(window).width() ){
+		$selector.css('width','100%');
+	}
+	
 	if( top_image_height > top_image_wrapper_height ){
 		$selector.css('margin-top',0);
 		$selector.css('max-height','100%');

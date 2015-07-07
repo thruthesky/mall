@@ -3,8 +3,8 @@ namespace Drupal\mall;
 use Drupal\mall\HTML;
 use Drupal\user\Entity\User;
 
-use Drupal\mall\Entity\Member;
 use Drupal\library\Entity\Category;
+use Drupal\library\Member;
 
 /**
  * Class X
@@ -445,7 +445,7 @@ class x {
   
   public static function getDefaultInformationByUid( $uid, array &$data = [] ) {
       $data['user'] = User::load( $uid );
-      $data['member'] = Member::loadByUid( $uid );
+      //$data['member'] = Member::loadByUid( $uid );
       return $data;
   }
 
@@ -499,7 +499,7 @@ class x {
   */
   public static function deleteUserByUid( $uid ){
 	//clean up mall_member with the uid	
-	$member = Member::loadByUid( $uid );	
+	//$member = Member::loadByUid( $uid );	
 	$member->delete();
 	
 	//delete the user entity
@@ -579,6 +579,13 @@ class x {
   }
   
   
+  
+  /**/
+  public static function loadLibraryMember( $uid ){
+		return Member::load( $uid );
+  }
+  /**/
+  
   /*test*/
 	public static function LinkFileToEntity( $entity_id, $fid, $type ){
 		$tags = null;
@@ -586,14 +593,4 @@ class x {
 		\Drupal::service('file.usage')->add( $file, 'mall', $type, $entity_id );
 	}
   /*eo test*/
-  
-  
-  
-  
-  /*
-  *for external mall member registration ( avoid member class conflict )
-  */
-  public static function MallMemberRegister( $uid ){	
-	member::updateMemberFormSubmit($uid);
-  }
 }

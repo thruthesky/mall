@@ -61,8 +61,6 @@ mall.admin.item.list:
   requirements:
     _permission: 'access content'
 
-
-
 mall.admin:
   path: '/mall/admin'
   defaults:
@@ -75,6 +73,5 @@ mall.api:
   defaults:
     _controller: Drupal\mall\Controller\API::defaultController
   requirements:
+
     _permission: 'access content'
-
-

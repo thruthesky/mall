@@ -8,7 +8,8 @@ use Drupal\library\Library;
 use Drupal\library\Language;
 use Drupal\library\Entity\Category;
 use Drupal\mall\Entity\Item;
-use Drupal\mall\Entity\Member;
+
+use Drupal\user\Entity\User;
 
 class ItemController extends ControllerBase {
     public function edit() {
@@ -89,7 +90,7 @@ class ItemController extends ControllerBase {
 			];
     }
 	
-	public function collection(){
+	public function collection(){		
 		$data['status'] = x::$item_status;
 		$data['items'] = Item::getItems();		
 		$data['total'] = count( $data['items'] );
@@ -145,21 +146,22 @@ class ItemController extends ControllerBase {
 		
 		if( $item_id = x::in('item_id') ){			
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
-			//for user
-			$uid = $data['item']['entity']->user_id->target_id;
-			$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$uid )->execute();
-			$member = Member::loadMultiple( $member_id );
-			if( $member ){
-				$data['member'] = reset( $member );
+			
+			if( !empty( $data['item'] ) ){	
+				$uid = $data['item']['entity']->user_id->target_id;
+				$data['member'] = x::loadLibraryMember( $uid );
+				$data['status'] = x::$item_status;			
+				self::default_setup( $data );
+				$theme = x::getThemeName();
 			}
-			/*---------*/
-			$data['status'] = x::$item_status;			
-
-			self::default_setup( $data );
+			else{
+				$data['error'] = Library::error('Ivalid Item ID.', Language::string('library', 'invalid_item_id'));
+				$theme = 'mall.mall';
+			}
 		}
 
 		return [
-            '#theme' => x::getThemeName(),
+            '#theme' => $theme,
             '#data' => $data,
         ];
 	}
@@ -178,7 +180,7 @@ class ItemController extends ControllerBase {
 		$category_text = '';
 		$conds = [];		
 		$input = x::input();	
-        $category_id = isset($input['category']) ? $input['category'] : 0;
+        $category_id = isset($input['category_id']) ? $input['category_id'] : 0;
 		
 		if( $category_id  ) {
 			if( is_numeric( $category_id ) ){
@@ -229,10 +231,10 @@ class ItemController extends ControllerBase {
 			
 			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
 			
-			if( isset( $input['user_id'] ) ){				 
-				$conds['user_id'] = $input['user_id'];								
-				$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$conds['user_id'])->execute();
-				$member = Member::loadMultiple( $member_id );
+			if( isset( $input['user_id'] ) ){						
+				$conds['user_id'] = $input['user_id'];
+				$member = User::load( $conds['user_id'] );	
+				
 				if( $member ){
 					$data['user_entity'] = reset( $member );
 				}

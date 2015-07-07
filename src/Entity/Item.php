@@ -78,7 +78,6 @@ class Item extends ContentEntityBase implements ItemInterface {
   *( and all field condition e.g. $conds['id'] = 10 will become ->conds( 'id'=>10 ) )
   */
   public static function getItems( $conds = array() ) { 
-
 	$query = \Drupal::entityQuery('mall_item');
 	
 	if( isset($conds['limit']) ){
