@@ -64,51 +64,6 @@
 				
 				{#------------eo LOCATION------------#}
 			</td>
-			<td>
-				{#------------TIME------------#}
-				
-				{% set starting_url = '' %}
-				{% for k,v in input %}
-					{% if k != 'time' %}
-						{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
-					{% endif %}
-				{% endfor %}
-				
-				<div class='wrapper'>
-					<div class='label'>Posted</div>
-					<div class='filter-items'>
-						{% for k,v in data.time %}
-							<div class='price'>
-								<a href='/mall/item/search?{{ starting_url }}&time={{ k }}'>{{ v }}</a>
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-				
-				{#------------EO TIME------------#}
-			</td>
-			<td>
-				{#------------STATUS------------#}
-				
-				{% set starting_url = '' %}
-				{% for k,v in input %}
-					{% if k != 'status' %}
-						{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
-					{% endif %}
-				{% endfor %}
-				<div class='wrapper'>
-					<div class='label'>Condition</div>
-					<div class='filter-items'>
-						{% for k,v in data.status %}
-							<div class='status'>
-								<a href='/mall/item/search?{{ starting_url }}&status={{ k }}'>{{ v }}</a>
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-				
-				{#------------eo STATUS------------#}
-			</td>
 			<td width='25%'>
 				{#------------PRICE------------#}
 				
@@ -148,6 +103,50 @@
 				</div>
 				
 				{#------------eo PRICE------------#}
+			</td>
+			<td>
+				{#------------TIME------------#}
+				
+				{% set starting_url = '' %}
+				{% for k,v in input %}
+					{% if k != 'time' %}
+						{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+					{% endif %}
+				{% endfor %}
+				
+				<div class='wrapper'>
+					<div class='label'>Posted</div>
+					<div class='filter-items'>
+						{% for k,v in data.time %}
+							<div class='price'>
+								<a href='/mall/item/search?{{ starting_url }}&time={{ k }}'>{{ v }}</a>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				
+				{#------------EO TIME------------#}
+			
+				{#------------STATUS------------#}
+				
+				{% set starting_url = '' %}
+				{% for k,v in input %}
+					{% if k != 'status' %}
+						{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+					{% endif %}
+				{% endfor %}
+				<div class='wrapper'>
+					<div class='label'>Condition</div>
+					<div class='filter-items'>
+						{% for k,v in data.status %}
+							<div class='status'>
+								<a href='/mall/item/search?{{ starting_url }}&status={{ k }}'>{{ v }}</a>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				
+				{#------------eo STATUS------------#}				
 			</td>
 		</tr>
 	</table>

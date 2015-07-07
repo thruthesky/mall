@@ -61,22 +61,6 @@ mall.admin.item.list:
   requirements:
     _permission: 'access content'
 
-
-mall.member.register:
-  path: '/mall/member/register'
-  defaults:
-    _controller: Drupal\mall\Controller\MemberController::register
-  requirements:
-    _permission: 'access content'
-
-mall.member.register.submit:
-  path: '/mall/member/register/submit'
-  defaults:
-    _controller: Drupal\mall\Controller\MemberController::registerSubmit
-  requirements:
-    _permission: 'access content'
-
-
 mall.admin:
   path: '/mall/admin'
   defaults:
@@ -88,20 +72,5 @@ mall.api:
   path: '/mall/api'
   defaults:
     _controller: Drupal\mall\Controller\API::defaultController
-  requirements:
-    _permission: 'access content'
-
-
-mall.admin.member.list:
-  path: '/mall/admin/member/list'
-  defaults:
-    _controller: Drupal\mall\Controller\MemberController::collection
-  requirements:
-    _permission: 'access content'
-
-mall.admin.member.delete:
-  path: '/mall/admin/member/delete'
-  defaults:
-    _controller: Drupal\mall\Controller\MemberController::del
   requirements:
     _permission: 'access content'

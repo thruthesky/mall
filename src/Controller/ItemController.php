@@ -89,7 +89,7 @@ class ItemController extends ControllerBase {
 			];
     }
 	
-	public function collection(){
+	public function collection(){		
 		$data['status'] = x::$item_status;
 		$data['items'] = Item::getItems();		
 		$data['total'] = count( $data['items'] );
@@ -178,7 +178,7 @@ class ItemController extends ControllerBase {
 		$category_text = '';
 		$conds = [];		
 		$input = x::input();	
-        $category_id = isset($input['category']) ? $input['category'] : 0;
+        $category_id = isset($input['category_id']) ? $input['category_id'] : 0;
 		
 		if( $category_id  ) {
 			if( is_numeric( $category_id ) ){

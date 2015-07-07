@@ -2,7 +2,6 @@
 use Drupal\Library\Entity\Category;
 use Drupal\mall\Entity\Item;
 use Drupal\mall\Mall;
-use Drupal\mall\Member;
 use Drupal\mall\x;
 Mall::emptyData();
 //echo getcwd();
@@ -12,49 +11,28 @@ set_default_category();
 
 function set_default_category() {
 	Mall::Login('admin');
-	
+
+	$id_appliances = Category::add(0, 'Appliances');
+	$id_clothes = Category::add(0, 'Clothes');
 	$id_food = Category::add(0, 'Food');
-		$id_sweets = Category::add($id_food, 'Sweets');
-			Category::add($id_sweets, 'Candies');
-			$id_chocolate = Category::add($id_sweets, 'Chocolate');				
-				Category::add($id_chocolate, 'Goya');
-				Category::add($id_chocolate, 'Hersheys');
-		$id_diet = Category::add($id_food, 'Diet');
-			$id_low_calories = Category::add($id_diet, 'Low Calories');
+	$id_cars = Category::add(0, 'Cars');
+	$id_computer = Category::add(0, 'Computer');
+	$id_smart_phone = Category::add(0, 'Smart Phones');
 	$id_health = Category::add(0, 'Health & Beauty');
-		$id_makeup = Category::add($id_health, 'Make up');
-			Category::add($id_makeup, 'Avon');
-			Category::add($id_makeup, 'Foundation');
-		Category::add($id_health, 'Healthy Living');
-	$id_home = Category::add(0, 'Home & Lifestyle');
-	$id_fashion = Category::add(0, 'Fashion');
-		$id_clothing = Category::add($id_fashion, 'Clothing');
-		$id_accessories = Category::add($id_fashion, 'Accessories');
-			Category::add($id_accessories, 'Necklace');
-			Category::add($id_accessories, 'Bracelet');
-			Category::add($id_accessories, 'Earrings');
-		$id_perfumery = Category::add($id_fashion, 'Perfumery');
-			Category::add($id_perfumery, 'Bench');
-			Category::add($id_perfumery, 'Avon');
-	$id_electronics = Category::add(0, 'Electronics');
-		$id_video = Category::add($id_electronics, 'Video Hardware');
-			Category::add($id_video, 'Connectors');
-			Category::add($id_video, 'Display Devices');
-		$id_audio = Category::add($id_electronics, 'Audio Hardware');
-			Category::add($id_audio, 'iMax');
-	$id_fun = Category::add(0, 'Fun & Travel');
-		Category::add($id_fun, 'Games');
-		Category::add($id_fun, 'Vacation Spots');
+	$id_real_estate = Category::add(0, 'Real Estate');	
 	
 	$categories = \Drupal::entityManager()->getStorage('library_category')->loadByProperties(['parent_id'=>0]);
 	
 	$clist = [];
-	foreach( $categories as $category ){
-		$clist[] = $category->id();
-		$sub_category = Category::loadAllChildren( $category->id() );		
-		foreach( $sub_category as $sc ){
-			//di( $sc );exit;
-			$clist[] = $sc['entity']->id();
+	//just to loop it 3 tyms...
+	for( $i = 0; $i<3; $i ++ ){
+		foreach( $categories as $category ){
+			$clist[] = $category->id();
+			$sub_category = Category::loadAllChildren( $category->id() );		
+			foreach( $sub_category as $sc ){
+				//di( $sc );exit;
+				$clist[] = $sc['entity']->id();
+			}
 		}
 	}
 	

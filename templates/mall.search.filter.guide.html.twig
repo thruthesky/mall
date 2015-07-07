@@ -1,7 +1,7 @@
 <div class='filter-guide'>
 	{% set filter_category = 'All' %}
 	{% for k,v in data.category_entity_list %}
-		{% if k == input.category  %}
+		{% if k == input.category_id  %}
 			{% set filter_category = v.entity.name.value %}
 		{% endif %}
 		{% if v.child and filter_category == 'All' %}
@@ -24,7 +24,7 @@
 	
 	{% set starting_url = '/mall/item/search?' %}
 	{% for k2,v2 in input %}
-		{% if k2 != 'category' %}
+		{% if k2 != 'category_id' %}
 			{% set starting_url = starting_url ~ '&' ~ k2~ '=' ~ v2 %}
 		{% endif %}
 	{% endfor %}
@@ -41,7 +41,7 @@
 			{% endif %}
 		{% endfor %}
 		
-		{% if k == 'category' or k == 'price_to' or k == 'user_id' or k == 'limit' or k == 'page' %}		
+		{% if k == 'category_id' or k == 'price_to' or k == 'user_id' or k == 'limit' or k == 'page' %}		
 		{% elseif k == 'price_from' %}
 			{% if input.price_from is empty %}				
 				{% set price_from = "Below"%}

@@ -6,6 +6,9 @@ requires:
 #}
 
 {% set total_pages = ( total_items / items_per_page ) | round( 0, 'ceil' ) %}
+{% if total_pages <= 0 %}
+	{% set total_pages = 1 %}
+{% endif %}
 
 {% if input.page %}
 	{% set starting_page = ( ( input.page - 1 ) / 10 ) | round( 0, 'floor' ) * 10 + 1 %}	
