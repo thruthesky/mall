@@ -6,7 +6,7 @@
 		{% endif %}
 		{% if v.child and filter_category == 'All' %}
 			{% for k2,v2 in v.child %}
-				{% if k2 == input.category  %}
+				{% if k2 == input.category_id  %}
 					{% set filter_category = v2.entity.name.value %}
 				{% endif %}
 			{% endfor %}

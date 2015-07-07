@@ -1,154 +1,146 @@
 <div class='filter list clearfix'>
-	<table cellpadding=0 cellspacing=0 width='100%'>
-		<tr valign='top'>
-			<td>
-				<div class='wrapper'>
-					<div class='label'>Category</div>
-					<div class='filter-items'>
-						{% set starting_url = '' %}
-						{% for k,v in input %}			
-							{% if k != 'category' %}
-								{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
-							{% endif %}
-						{% endfor %}
-						{% set count = 0 %}
-						{% for category in data.category_entity_list %}
+		<div class='wrapper'>
+			<div class='label'>Category</div>
+			<div class='filter-items'>
+				{% set starting_url = '' %}
+				{% for k,v in input %}			
+					{% if k != 'category_id' %}
+						{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+					{% endif %}
+				{% endfor %}
+				{% set count = 0 %}
+				{% for category in data.category_entity_list %}
+					{% set count = count + 1 %}
+					<div class='category is-root{{ input.category_id == category.entity.id.value ? " selected"}}{{ count > 8 ? " extra"}}'>
+						<a href='/mall/item/search?{{ starting_url }}&category_id={{ category.entity.id.value }}'>
+							{{ category.entity.name.value }}			
+						</a>
+						{% if category.child_no > 0 %}
+						<div class='triangle{{ category_root.id.value == category.entity.id.value ? " down"}}'></div>
+						<div class='sub-categories{{ category_root.id.value == category.entity.id.value ? " selected"}}'{{ input.category }} {{ category.entity.id.value }} {{ count }}>
+							{% for c in category.child %}
 							{% set count = count + 1 %}
-							<div class='category is-root{{ input.category == category.entity.id.value ? " selected"}}{{ count > 8 ? " extra"}}'>
-								<a href='/mall/item/search?{{ starting_url }}&category={{ category.entity.id.value }}'>
-									{{ category.entity.name.value }}			
-								</a>
-								{% if category.child_no > 0 %}
-								<div class='triangle{{ category_root.id.value == category.entity.id.value ? " down"}}'></div>
-								<div class='sub-categories{{ category_root.id.value == category.entity.id.value ? " selected"}}'{{ input.category }} {{ category.entity.id.value }} {{ count }}>
-									{% for c in category.child %}
-									{% set count = count + 1 %}
-										<div class='category{{ input.category == c.entity.id.value ? " selected"}}{{ count > 8 ? " extra"}}'>
-											{% set indent = " style = margin-left:" ~ ( c.depth * 10 + 10 ) ~ "px" %}
-											<a{{ indent }} href='/mall/item/search?{{ starting_url }}&category={{ c.entity.id.value }}'>
-												{{ c.entity.name.value }}		
-											</a>
-										</div>					
-									{% endfor %}			
-								</div>
-								{% endif %}
-							</div>		
-						{% endfor %}
-						<div class='category'><span class='more' filter='category'>+ More Categories</span></div>	
-					</div>
-				</div>
-			</td>
-			<td>
-				{#------------LOCATION------------#}
-				
-				{% set starting_url = '' %}
-				{% for k,v in input %}
-					{% if k != 'province' %}
-						{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
-					{% endif %}
+								<div class='category{{ input.category == c.entity.id.value ? " selected"}}{{ count > 8 ? " extra"}}'>
+									{% set indent = " style = margin-left:" ~ ( c.depth * 10 + 10 ) ~ "px" %}
+									<a{{ indent }} href='/mall/item/search?{{ starting_url }}&category_id={{ c.entity.id.value }}'>
+										{{ c.entity.name.value }}		
+									</a>
+								</div>					
+							{% endfor %}			
+						</div>
+						{% endif %}
+					</div>		
 				{% endfor %}
-				
-				<div class='wrapper'>
-					<div class='label'>Locations</div>
-					<div class='filter-items'>
-						{% set count = 0 %}
-						{% for k,v in data.provinces %}
-							{% set count = count + 1 %}
-							<div class='province{{ count > 8 ? " extra"}}'>
-								<a href='/mall/item/search?{{ starting_url }}&province={{ k }}'>{{ v }}</a>
-							</div>
-						{% endfor %}
-						<div class='province'><span class='more' filter='province'>+ More Location</span
+				<div class='category'><span class='more' filter='category'>+ More Categories</span></div>	
+			</div>
+		</div>
+
+		{#------------LOCATION------------#}
+		
+		{% set starting_url = '' %}
+		{% for k,v in input %}
+			{% if k != 'province' %}
+				{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+			{% endif %}
+		{% endfor %}
+		
+		<div class='wrapper'>
+			<div class='label'>Locations</div>
+			<div class='filter-items'>
+				{% set count = 0 %}
+				{% for k,v in data.provinces %}
+					{% set count = count + 1 %}
+					<div class='province{{ count > 8 ? " extra"}}'>
+						<a href='/mall/item/search?{{ starting_url }}&province={{ k }}'>{{ v }}</a>
 					</div>
-				</div>
-				
-				{#------------eo LOCATION------------#}
-			</td>
-			<td width='25%'>
-				{#------------PRICE------------#}
-				
-				{% set starting_url = '' %}
-				{% for k,v in input %}
-					{% if k != 'price_from' and k != 'price_to' %}
-						{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
-					{% endif %}
 				{% endfor %}
-				<div class='wrapper'>
-					<div class='label'>Price Range</div>
-					<div class='filter-items'>
-						{% for price in data.prices %}
-							{% if not price[0] %}					
-								{% set price_from = 'below' %}
-								{% set price_to = price[1] %}
-							{% elseif not price[1]%}
-								{% set price_from = price[0] %}
-								{% set price_to = 'above' %}
-								{% set middle_text = 'and' %}
-							{% else %}
-								{% set price_from = price[0] %}
-								{% set price_to = price[1] %}
-								{% set middle_text = 'to' %}
-							{% endif %}
-							<div class='price'>
-								<a href='/mall/item/search?{{ starting_url }}&price_from={{ price[0] }}&price_to={{ price[1] }}'>{{ price_from }} {{ middle_text }} {{ price_to }}</a>
-							</div>
-						{% endfor %}
-						<form class='mall-filter-form clearfix' action='/mall/item/search'>
-							{% include 'modules/mall/templates/mall.hidden.search.inputs.html.twig' %}
-							₱ <input class='price' type='number' name='price_from' value='{{ input.price_from }}'> to 
-							₱ <input class='price' type='number' name='price_to' value='{{ input.price_to }}'>
-							<input type='submit' value='Go'>
-						</form>
-					</div>
-				</div>
-				
-				{#------------eo PRICE------------#}
-			</td>
-			<td>
-				{#------------TIME------------#}
-				
-				{% set starting_url = '' %}
-				{% for k,v in input %}
-					{% if k != 'time' %}
-						{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+				<div class='province'><span class='more' filter='province'>+ More Location</span></div>
+			</div>
+		</div>
+		
+		{#------------eo LOCATION------------#}
+
+		{#------------PRICE------------#}
+		
+		{% set starting_url = '' %}
+		{% for k,v in input %}
+			{% if k != 'price_from' and k != 'price_to' %}
+				{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+			{% endif %}
+		{% endfor %}
+		<div class='wrapper price'>
+			<div class='label'>Price Range</div>
+			<div class='filter-items'>
+				{% for price in data.prices %}
+					{% if not price[0] %}					
+						{% set price_from = 'below' %}
+						{% set price_to = price[1] %}
+					{% elseif not price[1]%}
+						{% set price_from = price[0] %}
+						{% set price_to = 'above' %}
+						{% set middle_text = 'and' %}
+					{% else %}
+						{% set price_from = price[0] %}
+						{% set price_to = price[1] %}
+						{% set middle_text = 'to' %}
 					{% endif %}
-				{% endfor %}
-				
-				<div class='wrapper'>
-					<div class='label'>Posted</div>
-					<div class='filter-items'>
-						{% for k,v in data.time %}
-							<div class='price'>
-								<a href='/mall/item/search?{{ starting_url }}&time={{ k }}'>{{ v }}</a>
-							</div>
-						{% endfor %}
+					<div class='price'>
+						<a href='/mall/item/search?{{ starting_url }}&price_from={{ price[0] }}&price_to={{ price[1] }}'>{{ price_from }} {{ middle_text }} {{ price_to }}</a>
 					</div>
-				</div>
-				
-				{#------------EO TIME------------#}
-			
-				{#------------STATUS------------#}
-				
-				{% set starting_url = '' %}
-				{% for k,v in input %}
-					{% if k != 'status' %}
-						{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
-					{% endif %}
 				{% endfor %}
-				<div class='wrapper'>
-					<div class='label'>Condition</div>
-					<div class='filter-items'>
-						{% for k,v in data.status %}
-							<div class='status'>
-								<a href='/mall/item/search?{{ starting_url }}&status={{ k }}'>{{ v }}</a>
-							</div>
-						{% endfor %}
+				<form class='mall-filter-form clearfix' action='/mall/item/search'>
+					{% include 'modules/mall/templates/mall.hidden.search.inputs.html.twig' %}
+					₱ <input class='price' type='number' name='price_from' value='{{ input.price_from }}'> to 
+					₱ <input class='price' type='number' name='price_to' value='{{ input.price_to }}'>
+					<input type='submit' value='Go'>
+				</form>
+			</div>
+		</div>
+		
+		{#------------eo PRICE------------#}
+
+		{#------------TIME------------#}
+		
+		{% set starting_url = '' %}
+		{% for k,v in input %}
+			{% if k != 'time' %}
+				{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+			{% endif %}
+		{% endfor %}
+		
+		<div class='wrapper'>
+			<div class='label'>Posted</div>
+			<div class='filter-items'>
+				{% for k,v in data.time %}
+					<div class='price'>
+						<a href='/mall/item/search?{{ starting_url }}&time={{ k }}'>{{ v }}</a>
 					</div>
-				</div>
-				
-				{#------------eo STATUS------------#}				
-			</td>
-		</tr>
-	</table>
+				{% endfor %}
+			</div>
+		</div>
+		
+		{#------------EO TIME------------#}
+	
+		{#------------STATUS------------#}
+		
+		{% set starting_url = '' %}
+		{% for k,v in input %}
+			{% if k != 'status' %}
+				{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+			{% endif %}
+		{% endfor %}
+		<div class='wrapper'>
+			<div class='label'>Condition</div>
+			<div class='filter-items'>
+				{% for k,v in data.status %}
+					<div class='status'>
+						<a href='/mall/item/search?{{ starting_url }}&status={{ k }}'>{{ v }}</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		
+		{#------------eo STATUS------------#}		
+
 	<div class='close-filter'><img src='/modules/mall/img/close_filter.png'/></div>
 </div>

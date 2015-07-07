@@ -25,7 +25,7 @@ function set_default_category() {
 	
 	$clist = [];
 	//just to loop it 3 tyms...
-	for( $i = 0; $i<3; $i ++ ){
+	for( $i = 0; $i<4; $i ++ ){
 		foreach( $categories as $category ){
 			$clist[] = $category->id();
 			$sub_category = Category::loadAllChildren( $category->id() );		
