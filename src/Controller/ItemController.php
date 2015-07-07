@@ -234,6 +234,7 @@ class ItemController extends ControllerBase {
 			if( isset( $input['user_id'] ) ){						
 				$conds['user_id'] = $input['user_id'];
 				$member = User::load( $conds['user_id'] );	
+				
 				if( $member ){
 					$data['user_entity'] = reset( $member );
 				}

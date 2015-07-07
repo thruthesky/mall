@@ -824,17 +824,18 @@ form.mall-filter-form input[type='submit']{
 }
 
 .mall-view .image-list{	
+	width:100%;
 	position:relative;		
-	margin:0 10px 10px 0;
+	margin:0 0 10px 0;
 	border-radius:2px;	
 	background-color:#ffffff;
+	overflow:hidden;
 }	
 
 .mall-view .top-image{		
-	padding:0 5px;
-	margin-bottom: 5px;
-	height:370px;
-	width:100%;
+	/*width:100%;*/
+	padding:10px 5px;
+	margin:0 0 5px 0;	
 	border:1px solid #dcdcdc;		
 	overflow:hidden;
 	box-sizing:border-box;
@@ -847,11 +848,12 @@ form.mall-filter-form input[type='submit']{
 
 .mall-view .top-image img.is-active{	
 	display:block;
+	max-width:100%;
 }
 
 .mall-view .thumbnails{
 	position:relative;
-	margin-bottom:20px;
+	margin:0 10px 20px 10px;
 }
 
 .mall-view .thumbnails .arrow{
@@ -896,6 +898,11 @@ form.mall-filter-form input[type='submit']{
 
 .mall-view .content-text{
 	padding:0 20px;
+}
+
+.mall-view .details-wrapper{
+	width:100%;
+	margin-bottom:10px;
 }
 
 .mall-view .details{		
@@ -1063,6 +1070,25 @@ form.mall-filter-form input[type='submit']{
 	.mall-item-list a:nth-child( 3n + 1) .item .photo, .mall-item-list a:nth-child( 3n + 1) .item .info{
 		margin:0 6.66px 0 0;
 	}
+	/*view*/
+	.mall-view .image-list{	
+		float:left;
+		width:70%;
+		margin-bottom:0;
+	}
+	
+	.mall-view .details-wrapper{
+		float:right;
+		width:30%;
+		margin-bottom:0;
+	}
+	
+	.mall-view .top-image{
+		height:370px;
+		padding:5px;
+		margin-right:10px;		
+	}
+	/*eo view*/
 }
 
 @media all and ( min-width: 800px ) {

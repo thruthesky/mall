@@ -8,9 +8,12 @@
         <a href="/mall/admin/item/list">Items</a>
     {% else %}
 		{% if logged_in %}
-			<a href="/mall/item/search?user_id={{ data.member.uid.value }}">My Item</a>
+			{% if input.item_id %}
+				<a href="/mall/item/view?item_id={{ input.item_id }}">View this item</a>
+			{% endif %}
+			<a href="/mall/item/search?user_id={{ data.member.uid.value }}">My items</a>			
 		{% else %}
-			<a href="/mall/member/register">Register as a Mall Member</a>
+			<a href="/member/reguster">Register now!</a>
 		{% endif %}
     {% endif %}
 	<!--<a href="#">Orders</a>-->
