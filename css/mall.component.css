@@ -910,6 +910,7 @@ form.mall-filter-form input[type='submit']{
 	border:1px solid #dbdbdb;
 	border-radius:2px;
 	background-color:#ffffff;
+	box-sizing:border-box;
 }
 
 .mall-view .details .title{
@@ -1054,6 +1055,23 @@ form.mall-filter-form input[type='submit']{
 	}
 }
 
+@media all and ( min-width: 500px ) { 
+	/*view*/
+	.mall-view .details{
+		width:49.5%;
+		float:left;
+	}
+		
+	.mall-view .details.product{	
+		margin-right:.5%;
+	}
+	
+	.mall-view .details.seller{	
+		margin-left:.5%;
+	}
+	/*eo view*/
+}
+
 @media all and ( min-width: 640px ) {
 	.mall-item-list .item{
 		width:33.33%;
@@ -1070,25 +1088,6 @@ form.mall-filter-form input[type='submit']{
 	.mall-item-list a:nth-child( 3n + 1) .item .photo, .mall-item-list a:nth-child( 3n + 1) .item .info{
 		margin:0 6.66px 0 0;
 	}
-	/*view*/
-	.mall-view .image-list{	
-		float:left;
-		width:70%;
-		margin-bottom:0;
-	}
-	
-	.mall-view .details-wrapper{
-		float:right;
-		width:30%;
-		margin-bottom:0;
-	}
-	
-	.mall-view .top-image{
-		height:370px;
-		padding:5px;
-		margin-right:10px;		
-	}
-	/*eo view*/
 }
 
 @media all and ( min-width: 800px ) {
@@ -1125,6 +1124,38 @@ form.mall-filter-form input[type='submit']{
 	.mall-item-list a:nth-child( 4n + 1) .item .photo, .mall-item-list a:nth-child( 4n + 1) .item .info{
 		margin:0 7.5px 0 0;
 	}
+	
+	/*view*/
+	.mall-view .image-list{	
+		float:left;
+		width:70%;
+		margin-bottom:0;
+	}
+	
+	.mall-view .top-image{
+		height:370px;
+		padding:5px;
+		margin-right:10px;		
+	}
+	
+	.mall-view .details-wrapper{
+		float:right;
+		width:30%;
+		margin-bottom:0;
+	}
+	
+	.mall-view .details{
+		width:100%;
+	}
+		
+	.mall-view .details.product{	
+		margin-right:0;
+	}
+	
+	.mall-view .details.seller{	
+		margin-left:0;
+	}
+	/*eo view*/
 }
 @media all and ( min-width: 960px ) {
 
