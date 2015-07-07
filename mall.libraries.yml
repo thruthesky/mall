@@ -6,6 +6,7 @@ default:
       css/mall.base.css: {}
       css/mall.layout.css: {}
       css/mall.component.css: {}
+      css/mall.component.list.css: {}
       css/mall.state.css: {}
   js:
     js/mall.js: {}

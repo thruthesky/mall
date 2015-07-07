@@ -701,69 +701,6 @@ form.mall-filter-form input[type='submit']{
 
 
 
-/*mall-item-list*/
-.mall-item-list{
-  max-width: 960px;
-  margin: auto;
-}
-
-.mall-item-list > .title{
-	padding: 5px 0;
-	font-size: 1.5em;
-	color: #003366;	
-}
-
-.mall-item-list .search-total{
-	margin:0 0 10px 10px;
-}
-
-.mall-item-list .item{
-	float: left;
-	position: relative;
-	width: 100%;
-	margin-bottom:10px;
-	background-color: #ffffff;
-	box-sizing:border-box;
-}
-
-.mall-item-list .item .photo{
-	border:1px solid #b0b0b0;
-	border-bottom:0;
-}
-
-.mall-item-list .item .info{
-	border:1px solid #b0b0b0;
-	border-top:0;
-}
-
-.mall-item-list .item .photo{
-	max-height: 253px;
-	overflow: hidden;
-}
-
-.mall-item-list .item .photo img{
-	width:100%;
-}
-
-.mall-item-list .item .info{
-	padding: 5px 10px;
-	font-weight: bold;
-}
-
-.mall-item-list .item .info .title{
-	height: 33px;
-	font-size: 1.2em;
-	color: #393939;
-	line-height: 120%;
-	overflow: hidden;
-}
-
-.mall-item-list .item .info .price{
-	position: relative;
-	font-size: 1.4em;
-	color: #e32222;
-}
-
 /**/
 .item .info .price .label{
 	position:absolute;
@@ -789,7 +726,6 @@ form.mall-filter-form input[type='submit']{
 .item .info .price .label.hot{
 	  background-color: #d00000;
 }
-/*eo mall-item-list*/
 
 
 /*mall-view*/
@@ -1040,21 +976,6 @@ form.mall-filter-form input[type='submit']{
 /*eo override*/
 
 
-
-@media all and ( min-width: 400px ) { 
-	.mall-item-list .item{
-		width:50%;
-	}
-	
-	.mall-item-list a:nth-child( 2n + 2) .item .photo, .mall-item-list a:nth-child( 2n + 2) .item .info{
-		margin-left:5px;
-	}
-
-	.mall-item-list a:nth-child( 2n + 1) .item .photo, .mall-item-list a:nth-child( 2n + 1) .item .info{
-		margin-right:5px;
-	}
-}
-
 @media all and ( min-width: 500px ) { 
 	/*view*/
 	.mall-view .details{
@@ -1072,58 +993,8 @@ form.mall-filter-form input[type='submit']{
 	/*eo view*/
 }
 
-@media all and ( min-width: 640px ) {
-	.mall-item-list .item{
-		width:33.33%;
-	}
-
-	.mall-item-list a:nth-child( 3n + 3) .item .photo, .mall-item-list a:nth-child( 3n + 3) .item .info{
-		margin:0 0 0 6.66px;
-	}
-	
-	.mall-item-list a:nth-child( 3n + 2) .item .photo, .mall-item-list a:nth-child( 3n + 2) .item .info{
-		margin:0 3.33px 0 3.33px;
-	}
-
-	.mall-item-list a:nth-child( 3n + 1) .item .photo, .mall-item-list a:nth-child( 3n + 1) .item .info{
-		margin:0 6.66px 0 0;
-	}
-}
 
 @media all and ( min-width: 800px ) {
-	.mall-item-list .item .photo{
-		height: 253px;
-		overflow: hidden;
-	}
-
-	.mall-item-list .item .photo img{
-		height:100%;
-		width:auto;
-	}
-	
-	.mall-item-list .item{
-		width:33.33%;
-	}
-	
-	.mall-item-list .item{
-		width:25%;
-	}
-	
-	.mall-item-list a:nth-child( 4n + 4) .item .photo, .mall-item-list a:nth-child( 4n + 4) .item .info{
-		margin:0 0 0 7.5px;
-	}
-
-	.mall-item-list a:nth-child( 4n + 3) .item .photo, .mall-item-list a:nth-child( 4n + 3) .item .info{
-		margin:0 2.5px 0 5px;
-	}
-
-	.mall-item-list a:nth-child( 4n + 2) .item .photo, .mall-item-list a:nth-child( 4n + 2) .item .info{
-		margin:0 5px 0 2.5px;
-	}
-
-	.mall-item-list a:nth-child( 4n + 1) .item .photo, .mall-item-list a:nth-child( 4n + 1) .item .info{
-		margin:0 7.5px 0 0;
-	}
 	
 	/*view*/
 	.mall-view .image-list{	

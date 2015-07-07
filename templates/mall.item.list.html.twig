@@ -5,38 +5,50 @@ $items[0]['images']['item_image_thumbnail'] -> images
 $items[0]['images']['item_image'] -> images
 $items[0]['images']['item_image_description'] -> images
 #}
-
+{% import _self as func %}
 {% if items is empty%}
-	{% set items = data.items.items %}
+    {% set items = data.items.items %}
 {% endif %}
 
 {% set starting_url = '' %}
-{% for k,v in input %}			
-	{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+{% for k,v in input %}
+    {% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
 {% endfor %}
 
-<div class='mall-item-list clearfix'>
-		<div class='items'>
-		{% for i in items %}
-			{% set item = i.entity %}
-			{% set images = i.images %}
-			{% set price = i.rendered_price %}
-			<a href='/mall/item/view?{{ starting_url }}&item_id={{ item.id.value }}'>
-				<div class='item'>
-					<div class='photo'>
-					{% if images.item_image_thumbnail[0] %}
-						{% set url_thumb = images.item_image_thumbnail[0].url_large %}
-					{% else %}
-						{% set url_thumb = '/themes/x8/templates/mall/img/mall-no-image.png' %}
-					{% endif %}
-						<img src='{{ url_thumb }}'/>					
-					</div>
-					<div class='info'>
-						<div class='title'>{{ item.title.value }}</div>
-						<div class='price'>{{ price }}</div>
-					</div>
-				</div>
-			</a>
-		{% endfor %}
-	</div>
-</div>
+<section class='grid4 mall-item-list'>
+    {% for bs in items | batch(4,'') %}
+        {% for i in bs %}
+            <div class='content row'>
+                {{ func.display_grid('a', i, starting_url) }}
+                {{ func.display_grid('b', i, starting_url) }}
+                {{ func.display_grid('c', i, starting_url) }}
+                {{ func.display_grid('d', i, starting_url) }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+</section>
+{% macro display_grid(k, i, url ) %}
+    {% if i %}
+        {% set item = i.entity %}
+        {% set images = i.images %}
+        {% set price = i.rendered_price %}
+        <div class='item {{ k }}'>
+            <a href='/mall/item/view?{{ url }}&item_id={{ item.id.value }}'>
+                <div>
+                <div class='photo'>
+                    {% if images.item_image_thumbnail[0] %}
+    {% set url_thumb = images.item_image_thumbnail[0].url_large %}
+{% else %}
+    {% set url_thumb = '/themes/x8/templates/mall/img/mall-no-image.png' %}
+{% endif %}
+                    <img src='{{ url_thumb }}'/>
+                </div>
+                <div class='info'>
+                    <div class='title'>{{ item.title.value }}</div>
+                    <div class='price'>{{ price }}</div>
+                </div>
+            </a>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}

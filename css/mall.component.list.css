@@ -1,0 +1,34 @@
+.mall-item-list .a,
+.mall-item-list .b,
+.mall-item-list .c,
+.mall-item-list .d
+{
+    box-sizing: border-box;
+}
+
+/** margins of each row */
+.mall-item-list .item {
+    margin-bottom: .8em;
+}
+
+
+.mall-item-list img {
+    width:100%;
+}
+@media all and ( min-width: 480px ) {
+    .grid4 .a { padding-right:5px;}
+    .grid4 .b { padding-left:5px;}
+    .grid4 .c { padding-right:5px;}
+    .grid4 .d { padding-left:5px;}
+}
+@media all and ( min-width: 800px ) {
+    .grid4 .a { padding:0 7.5px 0 0;}
+    .grid4 .b { padding:0 5px 0 2.5px ;}
+    .grid4 .c { padding:0 2.5px 0 5px;}
+    .grid4 .d { padding:0 0 0 7.5px;}
+}
+
+.mall-item-list .row > div > div {
+    border:1px solid grey;
+    padding:1em;
+}
