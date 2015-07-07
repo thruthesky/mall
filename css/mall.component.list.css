@@ -11,6 +11,10 @@
     margin-bottom: .8em;
 }
 
+.grid4.mall-item-list >.content {
+    padding:0;
+}
+
 
 .mall-item-list img {
     width:100%;
@@ -29,6 +33,24 @@
 }
 
 .mall-item-list .row > div > div {
-    border:1px solid grey;
-    padding:1em;
+    border:1px solid #b0b0b0;
+    /*padding:1em;*/
+}
+
+.mall-item-list .row .item .info{
+	padding:5px 10px;
+	font-weight: bold;
+}
+
+.mall-item-list .row .item .info .title{
+	height: 33px;
+	font-size: 1.2em;
+	color: #393939;
+	line-height: 120%;
+	overflow: hidden;
+}
+
+.mall-item-list .row .item .info .price{
+	font-size: 1.4em;
+	color: #e32222;
 }

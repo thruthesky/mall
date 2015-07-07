@@ -15,16 +15,15 @@ $items[0]['images']['item_image_description'] -> images
     {% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
 {% endfor %}
 
+{% set grid_division = ['a','b','c','d']%}
+
 <section class='grid4 mall-item-list'>
     {% for bs in items | batch(4,'') %}
+		<div class='content row'>
         {% for i in bs %}
-            <div class='content row'>
-                {{ func.display_grid('a', i, starting_url) }}
-                {{ func.display_grid('b', i, starting_url) }}
-                {{ func.display_grid('c', i, starting_url) }}
-                {{ func.display_grid('d', i, starting_url) }}
-            </div>
+                {{ func.display_grid( grid_division[ ( loop.index - 1 )] , i, starting_url) }}
         {% endfor %}
+		</div>
     {% endfor %}
 </section>
 {% macro display_grid(k, i, url ) %}
