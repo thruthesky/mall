@@ -90,8 +90,10 @@ function mall_preprocess(&$variables, $hook)
 	$item_id = x::in('item_id');
 	if( !empty( $item_id ) ){
 		$item = Item::load( $item_id );
-		$cid = $item->category_id->target_id;
-		$variables[data]['view_item_category_root'] = x::getCategoryRoot( $cid );
+		if( !empty( $item ) ){
+			$cid = $item->category_id->target_id;
+			$variables[data]['view_item_category_root_id'] = x::getCategoryRoot( $cid )->id();
+		}
 	}
 }
 

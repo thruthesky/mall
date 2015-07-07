@@ -146,22 +146,22 @@ class ItemController extends ControllerBase {
 		
 		if( $item_id = x::in('item_id') ){			
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
-			//for user
-			$uid = $data['item']['entity']->user_id->target_id;
-			$data['member'] = x::loadLibraryMember( $uid );
-			/*$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$uid )->execute();
-			$member = Member::loadMultiple( $member_id );
-			if( $member ){
-				$data['member'] = reset( $member );
-			}*/
-			/*---------*/
-			$data['status'] = x::$item_status;			
-
-			self::default_setup( $data );
+			
+			if( !empty( $data['item'] ) ){	
+				$uid = $data['item']['entity']->user_id->target_id;
+				$data['member'] = x::loadLibraryMember( $uid );
+				$data['status'] = x::$item_status;			
+				self::default_setup( $data );
+				$theme = x::getThemeName();
+			}
+			else{
+				$data['error'] = Library::error('Ivalid Item ID.', Language::string('library', 'invalid_item_id'));
+				$theme = 'mall.mall';
+			}
 		}
 
 		return [
-            '#theme' => x::getThemeName(),
+            '#theme' => $theme,
             '#data' => $data,
         ];
 	}
