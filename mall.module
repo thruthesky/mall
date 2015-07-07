@@ -64,7 +64,7 @@ function mall_preprocess(&$variables, $hook)
 	//$request = \Drupal::request();
 
 	// page classes
-	if ( $hook == 'mall' ) {		
+	if ( $hook == 'mall' ) {			
 	 //$variables['categories'] = Mall::categoryList( $variables );
 
 	}
@@ -73,6 +73,15 @@ function mall_preprocess(&$variables, $hook)
 	}
 	else{
 		//echo $hook;
+	}	
+	
+	//just get own info
+	$myUid = x::myUid();
+	if( !empty( $myUid ) ){
+		/*
+		*contains library member
+		*/
+		$variables['data']['member'] = x::loadLibraryMember( $myUid );
 	}
 }
 

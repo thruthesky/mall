@@ -78,7 +78,7 @@
 			<div class='details seller'>
 				<div class='title'>Seller Details</div>
 				<div class='table-wrapper'>					
-					{% set name = data.member.field_first_name.value  ~ " " ~ data.member.field_middle_name.value ~ " " ~ data.member.field_last_name.value%}
+					{% set name = data.member.extra.first_name  ~ " " ~ data.member.extra.middle_name ~ " " ~ data.member.extra.last_name %}
 					<table cellpadding=0 cellspacing=0 width='100%'>
 						<tr>
 							<td><span class='table-label'>Username</span></td><td width='70%'>{{ item.user_id.entity.name.value }}</td>

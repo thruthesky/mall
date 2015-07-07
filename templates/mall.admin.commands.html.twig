@@ -7,8 +7,8 @@
         <a href="/library/category/admin">Category</a>
         <a href="/mall/admin/item/list">Items</a>
     {% else %}
-		{% if mall_member_user %}
-			<a href="/mall/item/search?user_id={{ mall_member_user.user_id.target_id }}">My Item</a>
+		{% if logged_in %}
+			<a href="/mall/item/search?user_id={{ data.member.uid.value }}">My Item</a>
 		{% else %}
 			<a href="/mall/member/register">Register as a Mall Member</a>
 		{% endif %}

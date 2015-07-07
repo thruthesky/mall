@@ -19,7 +19,7 @@
 				{% set starting_url = starting_url ~ '&' ~ k~ '=' ~ v %}
 			{% endif %}
 		{% endfor %}
-		<div class='user_id'>User : {{ data.user_entity.field_first_name.value }}<a href='{{ starting_url }}' class='remove'>x</a></div>	
+		<div class='user_id'>User : {{ data.user_entity.name.value }}<a href='{{ starting_url }}' class='remove'>x</a></div>	
 	{% endif %}
 	
 	{% set starting_url = '/mall/item/search?' %}

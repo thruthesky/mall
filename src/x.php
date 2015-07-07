@@ -4,6 +4,7 @@ use Drupal\mall\HTML;
 use Drupal\user\Entity\User;
 
 use Drupal\library\Entity\Category;
+use Drupal\library\Member;
 
 /**
  * Class X
@@ -577,6 +578,13 @@ class x {
 	return self::$item_status;
   }
   
+  
+  
+  /**/
+  public static function loadLibraryMember( $uid ){
+		return Member::load( $uid );
+  }
+  /**/
   
   /*test*/
 	public static function LinkFileToEntity( $entity_id, $fid, $type ){

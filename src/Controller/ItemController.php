@@ -8,7 +8,8 @@ use Drupal\library\Library;
 use Drupal\library\Language;
 use Drupal\library\Entity\Category;
 use Drupal\mall\Entity\Item;
-use Drupal\mall\Entity\Member;
+
+use Drupal\user\Entity\User;
 
 class ItemController extends ControllerBase {
     public function edit() {
@@ -147,11 +148,12 @@ class ItemController extends ControllerBase {
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
 			//for user
 			$uid = $data['item']['entity']->user_id->target_id;
-			$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$uid )->execute();
+			$data['member'] = x::loadLibraryMember( $uid );
+			/*$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$uid )->execute();
 			$member = Member::loadMultiple( $member_id );
 			if( $member ){
 				$data['member'] = reset( $member );
-			}
+			}*/
 			/*---------*/
 			$data['status'] = x::$item_status;			
 
@@ -229,10 +231,9 @@ class ItemController extends ControllerBase {
 			
 			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
 			
-			if( isset( $input['user_id'] ) ){				 
-				$conds['user_id'] = $input['user_id'];								
-				$member_id = \Drupal::entityQuery('mall_member')->condition('user_id',$conds['user_id'])->execute();
-				$member = Member::loadMultiple( $member_id );
+			if( isset( $input['user_id'] ) ){						
+				$conds['user_id'] = $input['user_id'];
+				$member = User::load( $conds['user_id'] );	
 				if( $member ){
 					$data['user_entity'] = reset( $member );
 				}
