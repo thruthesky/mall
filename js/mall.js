@@ -309,7 +309,19 @@ function callback_get_city( re ){
 }
 
 function callback_delete_file_result( re ){
-	if( re.code == 0 ){		
+	console.log(re);
+	//,item_image1-42,item_image_thumbnail-43
+	if( re.code == 0 ){
+		/*removing the fid in input fids*/
+		var number = $(".mall-page .mall-item-add .upload .display-uploaded-files .photo[fid='" + re.fid + "']").parents('.upload').attr("no");
+		var image_type = $(".mall-page .mall-item-add .upload .display-uploaded-files .photo[fid='" + re.fid + "']").parents('.upload').find("form.addForm-file-upload input[type='file']").attr("name");
+		if( typeof( number ) == 'undefined' ) number = '';
+		var structure = "," + image_type + number + "-" + re.fid;	
+		val = $("input[name='fids']").val();
+		val = val.replace( structure, '' );		
+		$("input[name='fids']").val( val );
+		/*eo removing the fid in input fids*/
+
 		$(".mall-page .mall-item-add .upload .display-uploaded-files .photo[fid='" + re.fid + "']").parents('.upload').find('form.addForm-file-upload').removeClass('is-hidden');
 		$(".mall-page .mall-item-add .upload .display-uploaded-files .photo[fid='" + re.fid + "']").remove();
 	}
