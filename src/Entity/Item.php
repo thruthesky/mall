@@ -238,7 +238,7 @@ class Item extends ContentEntityBase implements ItemInterface {
   
   public static function renderPrice( $price ){
 	//"₱ ".
-	return number_format($price);	
+	return "₱ ".number_format($price);	
   }
 
 
