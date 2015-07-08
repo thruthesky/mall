@@ -60,5 +60,6 @@
 }
 
 .mall-item-list .row .item .info .price.constant{
-	font-size: 1em;
+	/*font-size: 1em;*/
+	color:#000;
 }

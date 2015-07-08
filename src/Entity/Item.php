@@ -243,10 +243,10 @@ class Item extends ContentEntityBase implements ItemInterface {
 	//"₱ ".
 	$data = [];
 	if( $price <= 0 ) {
-		$rendered_price = [ 'type'=>'constant', 'price'=>self::SEND_MESSAGE_FOR_PRICE_DETAILS ];
+		$rendered_price = [ 'type'=>'constant', 'price'=>"₱ 0" ];
 	}
 	else {
-		$rendered_price = [ 'type'=>'number_formet', 'price'=>"₱ ".number_format($price) ];
+		$rendered_price = [ 'type'=>'number_format', 'price'=>"₱ ".number_format($price) ];
 	}
 	return 	$rendered_price;
   }
