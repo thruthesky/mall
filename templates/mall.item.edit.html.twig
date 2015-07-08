@@ -36,10 +36,11 @@
 			</div>
 			<div class='description'>Brand</div>
 			<input type='text' name='brand' value='{{ item.brand.value }}'>
-			<div class='note'>Ex) Samsung</div>
+			<div class='note'>1.) Samsung</div>
+			<div class='note'>2.) Company name</div>
 			<div class='description'>Model</div>
 			<input type='text' name='model' value='{{ item.model.value }}'>
-			<div class='note'>Ex) Galaxy S5</div>
+			<div class='note'>1.) Galaxy S5</div>
 			<div class='description'>Model Year</div>
 			<input type='number' name='model_year' value='{{ item.model_year.value }}'>			
 			<div class='description'>Price</div>
@@ -56,8 +57,8 @@
 				{% set mobile = user.field_mobile.value %}				
 			{% endif %}
 			<input type='text' name='mobile' value='{{ mobile }}' required>
-			<div class='note'>You can seperate phone numbers by using comma (,)</div>
-			<div class='note'>Indicate the number where your buyer will contact you. Format: 09xxxxxxxxx (e.g. 09158787666)</div>
+			<div class='note'>1.) You can seperate phone numbers by using comma (,)</div>
+			<div class='note'>2.) Indicate the number where your buyer will contact you. Format: 09xxxxxxxxx (e.g. 09158787666)</div>
 			<div class='description'>Location</div>
 			<div class='location-wrapper clearfix'>
 				<select class='location' name='province' required>
@@ -77,8 +78,8 @@
 			</div>
 			<div class='description'>Meet ups</div>
 			<input type='text' name='location' value='{{ item.location.value }}' required>
-			<div class='note'>Places where you may do meetups.</div>
-			<div class='note'>Please add them in an understandable way. In case of multiple places you may use comma (,) to separate it.</div>
+			<div class='note'>1.) Places where you may do meetups.</div>
+			<div class='note'>2.) Please add them in an understandable way. In case of multiple places you may use comma (,) to separate it.</div>
 			<div class='description'>What is the condition of your item?</div>
 			<select name='status' required>
 				<option value=''>Item Status</option>
