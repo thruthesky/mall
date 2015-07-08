@@ -7,14 +7,15 @@
         <a href="/library/category/admin">Category</a>
         <a href="/mall/admin/item/list">Items</a>
     {% else %}
-		{% if logged_in %}
-			{% if input.item_id %}
-				<a href="/mall/item/view?item_id={{ input.item_id }}">View this item</a>
-			{% endif %}
-			<a href="/mall/item/search?user_id={{ data.member.uid.value }}">My items</a>			
-		{% else %}
-			<a href="/member/reguster">Register now!</a>
-		{% endif %}
+		
     {% endif %}
+	{% if logged_in %}
+		{% if input.item_id %}
+			<a href="/mall/item/view?item_id={{ input.item_id }}">View this item</a>
+		{% endif %}
+		<a href="/mall/item/search?user_id={{ data.member.uid.value }}">My items</a>			
+	{% else %}
+		<a href="/member/reguster">Register now!</a>
+	{% endif %}
 	<!--<a href="#">Orders</a>-->
 </div>
