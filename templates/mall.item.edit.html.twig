@@ -25,7 +25,7 @@
 			<input type='text' name='name' placeholder='Item Name' value='{{ item.name.value }}' required>		
 			<div class='description'>In what category does your item fall?</div>
 			<div class='categories clearfix'>
-			{% for category in categories %}	
+			{% for category in categories %}
 			<select class='category' {{ loop.index == data.category_last_selected ? "name=category_id" }} depth='0' {{ loop.index == 1 ? 'required' }}>
 				<option value=''>Category</option>				
 				{% for c in category.entity %}

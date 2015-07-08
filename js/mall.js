@@ -262,7 +262,7 @@ function callback_delete_file(){
 }
 
 function callback_submit_add_form(){
-	$("form.item-add-form").submit();
+	$("form.item-add-form input[type='submit']").click();
 }
 
 /*mall-advance-search*/
