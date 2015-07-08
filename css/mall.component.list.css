@@ -52,6 +52,13 @@
 }
 
 .mall-item-list .row .item .info .price{
+	height:22px;
 	font-size: 1.4em;
 	color: #e32222;
+	overflow:hidden;
+	line-height:150%;
+}
+
+.mall-item-list .row .item .info .price.constant{
+	font-size: 1em;
 }

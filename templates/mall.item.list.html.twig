@@ -30,7 +30,8 @@ $items[0]['images']['item_image_description'] -> images
     {% if i %}
         {% set item = i.entity %}
         {% set images = i.images %}
-        {% set price = i.rendered_price %}
+        {% set price = i.rendered_price.price %}
+        {% set price_type = i.rendered_price.type %}
         <div class='item {{ k }}'>
             <a href='/mall/item/view?{{ url }}&item_id={{ item.id.value }}'>
                 <div>
@@ -44,7 +45,7 @@ $items[0]['images']['item_image_description'] -> images
                 </div>
                 <div class='info'>
                     <div class='title'>{{ item.title.value }}</div>
-                    <div class='price'>{{ price }}</div>
+                    <div class='price {{ price_type }}'>{{ price }}</div>
                 </div>
             </a>
             </div>

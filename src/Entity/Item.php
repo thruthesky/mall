@@ -24,7 +24,10 @@ use Drupal\mall\x;
  *   }
  * )
  */
+ 
 class Item extends ContentEntityBase implements ItemInterface {
+  const SEND_MESSAGE_FOR_PRICE_DETAILS = "Message for price details";
+
   public static function update( $input ) {
 		
 		if( $input['item_id'] ) $item = Item::load( $input['item_id'] );
@@ -238,8 +241,13 @@ class Item extends ContentEntityBase implements ItemInterface {
   
   public static function renderPrice( $price ){
 	//"₱ ".
-	if( $price <= 0 ) $rendered_price = "Message for details";
-	else $rendered_price = "₱ ".number_format($price);
+	$data = [];
+	if( $price <= 0 ) {
+		$rendered_price = [ 'type'=>'constant', 'price'=>self::SEND_MESSAGE_FOR_PRICE_DETAILS ];
+	}
+	else {
+		$rendered_price = [ 'type'=>'number_formet', 'price'=>"₱ ".number_format($price) ];
+	}
 	return 	$rendered_price;
   }
 
