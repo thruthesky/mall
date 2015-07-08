@@ -833,7 +833,7 @@ form.mall-filter-form input[type='submit']{
 }
 
 .mall-view .content-text{
-	padding:0 20px;
+	padding:0 20px 5px 20px;
 }
 
 .mall-view .details-wrapper{
