@@ -47,10 +47,10 @@ $(function(){
 	*/
 	if( $(".mall-view .top-image").length ){
 		var total_thumbnails = $(".mall-view .thumbnails .inner img").length;
-		var total_pages = Math.ceil( total_thumbnails / 6 );
+		var total_pages = Math.ceil( total_thumbnails / 5 );
 		var page = 1;
 		var is_animating = false;
-			
+
 		$("body").on("click",".mall-view .thumbnails .arrow",function(){
 			is_animating = true;
 			var $this = $(this);
