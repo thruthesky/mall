@@ -44,10 +44,11 @@
 
 .mall-item-list .row .item .info .title{
 	height: 33px;
-	font-size: 1.2em;
+	font-size: 1.1em;
 	color: #393939;
 	line-height: 120%;
 	overflow: hidden;
+	word-break:break-word;
 }
 
 .mall-item-list .row .item .info .price{
