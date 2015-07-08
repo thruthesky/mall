@@ -833,7 +833,9 @@ form.mall-filter-form input[type='submit']{
 }
 
 .mall-view .content-text{
-	padding:0 20px 5px 20px;
+	padding: 0 20px 5px 20px;
+	font-size: 1.2em;
+	line-height: 160%;
 }
 
 .mall-view .details-wrapper{
