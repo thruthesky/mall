@@ -12,7 +12,10 @@ $items[0]['images']['item_image_description'] -> images
 
 {% set starting_url = '' %}
 {% for k,v in input %}
-    {% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+	{% if k == 'item_id' %}
+	{% else %}
+		{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+	{% endif %}
 {% endfor %}
 
 {% set grid_division = ['a','b','c','d']%}
