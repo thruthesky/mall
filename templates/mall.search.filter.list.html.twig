@@ -13,7 +13,7 @@
 					{% set count = count + 1 %}
 					<div class='category is-root{{ input.category_id == category.entity.id.value ? " selected"}}{{ count > 8 ? " extra"}}'>
 						<a href='/mall/item/search?{{ starting_url }}&category_id={{ category.entity.id.value }}'>
-							{{ category.entity.name.value }}			
+                            <script>ln('{{ category.entity.name.value }}');</script>
 						</a>
 						{% if category.child_no > 0 %}
 						<div class='triangle{{ category_root.id.value == category.entity.id.value ? " down"}}'></div>
