@@ -28,9 +28,9 @@
 			{% set starting_url = starting_url ~ '&' ~ k2~ '=' ~ v2 %}
 		{% endif %}
 	{% endfor %}
-	<div class='category'>{{ filter_category }}<a href='{{ starting_url }}' class='remove'>x</a></div>	
+	<div class='category'><script>ln('{{ filter_category }}')</script><a href='{{ starting_url }}' class='remove'>x</a></div>
 	
-	{% for k,v in input %}		
+	{% for k,v in input %}
 		{% set starting_url = '/mall/item/search?' %}
 		{% for k2,v2 in input %}
 			{% if k2 != k %}
