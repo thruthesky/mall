@@ -81,5 +81,17 @@ class Mall {
         }
         else return FALSE;
     }
+	
+	/*
+	*temp only!!!
+	*/
+    public static function isUserPage() {
+        $request = \Drupal::request();
+        $uri = $request->getRequestUri();
+        if ( strpos( $uri, '/user') !== FALSE ) {
+            return TRUE;
+        }
+        else return FALSE;
+    }
 
 }

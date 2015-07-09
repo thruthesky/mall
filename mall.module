@@ -35,6 +35,14 @@ function mall_theme()
 
 function mall_preprocess(&$variables, $hook)
 {
+	/*temp!!!!	
+	if( Mall::isUserPage() ){
+		$variables['remove_menu'] = true;
+	}
+	/*eo temp!!!!*/
+
+
+
 
 
 	if( Mall::isFrontPage() ){

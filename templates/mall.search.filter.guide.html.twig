@@ -41,7 +41,7 @@
 			{% endif %}
 		{% endfor %}
 		
-		{% if k == 'category_id' or k == 'price_to' or k == 'user_id' or k == 'limit' or k == 'page' %}		
+		{% if k == 'category_id' or k == 'price_to' or k == 'user_id' or k == 'limit' or k == 'page' or k == 'keyword' %}		
 		{% elseif k == 'price_from' %}
 			{% if input.price_from is empty %}				
 				{% set price_from = "Below"%}
