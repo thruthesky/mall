@@ -66,7 +66,13 @@ class Mall {
 			else return null;
 		}
 	}
-	
+
+    /**
+     * @todo Bug - It should return true Only if it is a mall theme.
+     *
+     *
+     * @return mixed
+     */
 	public static function isFrontPage()
     {
         return \Drupal::service('path.matcher')->isFrontPage();        

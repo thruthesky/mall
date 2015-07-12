@@ -37,7 +37,7 @@ $items[0]['images']['item_image_description'] -> images
         {% set price_type = i.rendered_price.type %}
         <div class='item {{ k }}'>
             <a href='/mall/item/view?{{ url }}&item_id={{ item.id.value }}'>
-                <div>
+
                 <div class='photo'>
                     {% if images.item_image_thumbnail[0] %}
     {% set url_thumb = images.item_image_thumbnail[0].url_large %}
