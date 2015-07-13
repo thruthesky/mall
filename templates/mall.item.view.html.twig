@@ -45,18 +45,18 @@
 				</div>
 			</div>
 			<div class='details seller'>
-				<div class='title'>Seller Details</div>
+				<div class='title'>{{ ko ? '판매자 정보' : 'Seller Details' }}</div>
 				<div class='table-wrapper'>					
 					{% set name = data.member.extra.first_name  ~ " " ~ data.member.extra.middle_name ~ " " ~ data.member.extra.last_name %}
 					<table cellpadding=0 cellspacing=0 width='100%'>
 						<tr>
-							<td><span class='table-label'>Username</span></td><td width='70%'>{{ item.user_id.entity.name.value }}</td>
+							<td><span class='table-label'>{{ ko ? '아이디' : 'Username' }}</span></td><td width='70%'>{{ item.user_id.entity.name.value }}</td>
 						</tr>
 						<tr>
-							<td><span class='table-label'>Name</span></td><td width='70%'>{{ name }}</td>
+							<td><span class='table-label'>{{ ko ? '이름' : 'Name' }}</span></td><td width='70%'>{{ name }}</td>
 						</tr>
 						<tr>
-							<td><span class='table-label'>Address</span></td><td width='70%'>{{ item.province.value }}, {{ item.city.value }}</td>
+							<td><span class='table-label'>{{ ko ? '주소' : 'Address' }}</span></td><td width='70%'>{{ item.province.value }}, {{ item.city.value }}</td>
 						</tr>				
 					</table>
 				</div>
