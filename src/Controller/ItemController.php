@@ -236,7 +236,7 @@ class ItemController extends ControllerBase {
 				$member = User::load( $conds['user_id'] );	
 				
 				if( $member ){
-					$data['user_entity'] = reset( $member );
+					$data['user_entity'] = $member;
 				}
 				else{
 					$data['error'] = Library::error('User does not exist.', Language::string('library', 'user_id_does_not_exist'));

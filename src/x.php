@@ -51,9 +51,9 @@ class x {
 	];
 	
 	static $default_search_sort =[
-		'created_high' => 'Date - Newest to Oldest',
-		'price_low' => 'Price - Cheapest to Most Expensive',		
-		'price_high' => 'Price - Most Expensive to Cheapest',
+		'created_high' => 'Newest',
+		'price_low' => 'Price - From Cheapest',		
+		'price_high' => 'Price - From Most Expensive',
 	];
 	
 	static $default_item_per_page =[ 1, 15, 30, 45 ];

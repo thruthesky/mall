@@ -37,7 +37,7 @@ function mall_preprocess(&$variables, $hook)
 {
 	/*temp!!!!	
 	if( Mall::isUserPage() ){
-		$variables['remove_menu'] = true;
+		$variables['user_page'] = true;
 	}
 	/*eo temp!!!!*/
 

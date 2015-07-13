@@ -502,6 +502,11 @@ div.notice{
 	color:#444444;
 }
 
+.mall-advance-search{
+	width:100%;
+	margin-top:10px;
+}
+
 /*
 .mall-advance-search .filter{
 	position:relative;
@@ -534,6 +539,7 @@ div.notice{
 
 .mall-advance-search select{
 	height:28px;
+	max-width:120px;
 	padding:5px 3px;
 	border:1px solid #dddddd;
 	border-radius:2px;
@@ -985,6 +991,12 @@ form.mall-filter-form input[type='submit']{
 /*eo override*/
 
 
+@media all and ( min-width: 450px ) {
+	.mall-advance-search{
+		width:auto;
+		margin-top:0;		
+	}
+}
 @media all and ( min-width: 500px ) { 
 	/*view*/
 	.mall-view .details{
