@@ -1,6 +1,11 @@
 <div class='top-menu'>
-	<a href="/mall">Mall</a>
+
+	<a href="/mall">{{ ko ? '상점 관리자 페이지' : 'Mall Page' }}</a>
+
+    {#
     <a href="/mall/item/add">Add item</a>
+    #}
+
     {% if is_admin %}
 	<a href="/mall/admin">Admin</a>
         <a href="/mall/admin/member/list">Member List</a>
@@ -9,14 +14,16 @@
     {% else %}
 		
     {% endif %}
+
 	{% if logged_in %}
 		{% if input.item_id %}
 			<a href="/mall/item/view?item_id={{ input.item_id }}">View this item</a>
 		{% endif %}
-		<a href="/mall/item/search?user_id={{ data.member.uid.value }}">My items</a>			
+		<a href="/mall/item/search?user_id={{ data.member.uid.value }}">{{ ko ? '나의 물품 목록' : 'My items' }}</a>
 	{% else %}
 		<a href="/user/login">Sign in</a>
 		<a href="/member/register">Register</a>
 	{% endif %}
+
 	<!--<a href="#">Orders</a>-->
 </div>

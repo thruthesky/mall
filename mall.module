@@ -34,42 +34,21 @@ function mall_theme()
 }
 
 function mall_preprocess(&$variables, $hook)
-{
-	/*temp!!!!	
-	if( Mall::isUserPage() ){
-		$variables['user_page'] = true;
-	}
-	/*eo temp!!!!*/
-
-
-
-
+{	
+    if ( empty($variables['module']['mall']) ) return;
 
 	if( Mall::isFrontPage() ){
 		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id' ] );
 		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>9, 'order'=>'DESC', 'by'=>'id' ] );	
 		$variables['mall_item_list'] = Item::getItemsWithImages( [ 'limit'=>16, 'order'=>'DESC', 'by'=>'id' ] );
-		$variables['#attached']['library'][] = 'mall/default';
 	}
 
-	if ( ! Mall::isMallPage() ) return;//what about front page?
-	
 	$variables['#attached']['library'][] = 'mall/default';
 	$variables['error_list'] = Library::getError();
 	$variables['notice_list'] = Library::getNotice();
 	$variables['x']['months'] = x::$months;
 	$variables['input'] = x::getInput();
-	
-	//$variables['mall_member_user'] = Member::loadByUid( x::myUid() );	
 
-	/*this is a bad place fore these
-	  if( empty( $variables['input']['category_root'] ) && $variables['input']['category']  ){
-		$variables['input']['category_root'] = $variables['input']['category'];
-	  }  
-	eo this is a bad place fore these*/
-
-
-	//$request = \Drupal::request();
 
 	// page classes
 	if ( $hook == 'mall' ) {			

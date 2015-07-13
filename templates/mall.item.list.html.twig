@@ -12,21 +12,21 @@ $items[0]['images']['item_image_description'] -> images
 
 {% set starting_url = '' %}
 {% for k,v in input %}
-	{% if k == 'item_id' %}
-	{% else %}
-		{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
-	{% endif %}
+    {% if k == 'item_id' %}
+    {% else %}
+        {% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
+    {% endif %}
 {% endfor %}
 
 {% set grid_division = ['a','b','c','d']%}
 
 <section class='grid4 mall-item-list'>
     {% for bs in items | batch(4,'') %}
-		<div class='content row'>
-        {% for i in bs %}
+        <div class='content row'>
+            {% for i in bs %}
                 {{ func.display_grid( grid_division[ ( loop.index - 1 )] , i, starting_url) }}
-        {% endfor %}
-		</div>
+            {% endfor %}
+        </div>
     {% endfor %}
 </section>
 {% macro display_grid(k, i, url ) %}
@@ -38,20 +38,20 @@ $items[0]['images']['item_image_description'] -> images
         <div class='item {{ k }}'>
             <a href='/mall/item/view?{{ url }}&item_id={{ item.id.value }}'>
                 <div>
-                <div class='photo'>
-                    {% if images.item_image_thumbnail[0] %}
-    {% set url_thumb = images.item_image_thumbnail[0].url_large %}
-{% else %}
-    {% set url_thumb = '/themes/x8/templates/mall/img/mall-no-image.png' %}
-{% endif %}
-                    <img src='{{ url_thumb }}'/>
-                </div>
-                <div class='info'>
-                    <div class='title'>{{ item.title.value }}</div>
-                    <div class='price {{ price_type }}'>{{ price }}</div>
+                    <div class='photo'>
+                        {% if images.item_image_thumbnail[0] %}
+                            {% set url_thumb = images.item_image_thumbnail[0].url_large %}
+                        {% else %}
+                            {% set url_thumb = '/themes/x8/templates/mall/img/mall-no-image.png' %}
+                        {% endif %}
+                        <img src='{{ url_thumb }}'/>
+                    </div>
+                    <div class='info'>
+                        <div class='title'>{{ item.title.value }}</div>
+                        <div class='price {{ price_type }}'>{{ price }}</div>
+                    </div>
                 </div>
             </a>
-            </div>
         </div>
     {% endif %}
 {% endmacro %}
