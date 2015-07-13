@@ -24,22 +24,22 @@
 							<td><span class='table-label'>{{ ko ? '상태' : 'Condition' }}</span></td><td width='70%'>{{ status[ item.status.value ] }}</td>
 						</tr>
 						<tr>
-							<td><span class='table-label'>Brand</span></td><td width='70%'>{{ item.brand.value }}</td>
+							<td><span class='table-label'>{{ ko ? '회사명' : 'Brand' }}</span></td><td width='70%'>{{ item.brand.value }}</td>
 						</tr>
 						<tr>
-							<td><span class='table-label'>Model</span></td><td width='70%'>{{ item.model.value }}</td>
+							<td><span class='table-label'>{{ ko ? '모델' : 'Model' }}</span></td><td width='70%'>{{ item.model.value }}</td>
 						</tr>
 						<tr>
-							<td><span class='table-label'>Year Model</span></td><td width='70%'>{{ item.model_year.value }}</td>
+							<td><span class='table-label'>{{ ko ? '제조년도' : 'Year Model' }}</span></td><td width='70%'>{{ item.model_year.value }}</td>
 						</tr>
 						<tr>
-							<td><span class='table-label'>Posted on</span></td><td width='70%'>{{ item.created.value|date("M. d Y") }}</td>
+							<td><span class='table-label'>{{ ko ? '등록일' : 'Posted on' }}</span></td><td width='70%'>{{ item.created.value|date("M. d Y") }}</td>
 						</tr>
 						<tr>
-							<td><span class='table-label'>Location</span></td><td width='70%'>{{ item.location.value }}</td>
+							<td><span class='table-label'>{{ ko ? '판매장소' : 'Location' }}</span></td><td width='70%'>{{ item.location.value }}</td>
 						</tr>
 						<tr class='contact'>
-							<td><span class='table-label'>Contact no.</span></td><td width='70%'><span class='value'>{{ item.mobile.value }}</span></td>
+							<td><span class='table-label'>{{ ko ? '연락처' : 'Contact' }}</span></td><td width='70%'><span class='value'>{{ item.mobile.value }}</span></td>
 						</tr>						
 					</table>
 				</div>
