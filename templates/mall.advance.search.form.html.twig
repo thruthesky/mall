@@ -1,6 +1,9 @@
 <form class='mall-advance-search clearfix'>	
 	{% include 'modules/mall/templates/mall.hidden.search.inputs.html.twig' %}
 	<div class='search-sort-commands right clearfix'>
+		<div class='right'>
+			<a href='/mall/item/add'>+ Post an item</a>
+		</div>
 		<div class='left'>
 			<div class='label'>Arrange by: </div>
 			<div class='mall-select-wrapper'>				
@@ -19,8 +22,6 @@
 				</select>
 				<img class='select-arrow' src='/modules/mall/img/select_arrow.png'/>
 			</div>
-		</div>
-		<div class='right'>
 			<div class='label'>Items per page: </div>
 			<div class='mall-select-wrapper'>
 				<select name='limit'>

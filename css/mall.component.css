@@ -1,9 +1,20 @@
 .mall-page .left{
 	float:left;
-	margin-right:5px;
+	margin:0 5px 10px 0;
 }
 .mall-page .right{
 	float:right;
+}
+
+.mall-page .right > a{
+	display:inline-block;
+	height:28px;
+	padding:7px 10px 6px 10px;	
+	border-radius:2px;
+	background-color:#003366;
+	color:yellow;
+	font-weight:bold;
+	box-sizing:border-box;
 }
 
 .mall-page .total-item-count{
@@ -498,13 +509,10 @@ div.notice{
 /*mall-advance-search*/
 .mall-advance-search{
 	float:right;
+	width:120px;
 	margin-bottom:10px;
 	color:#444444;
-}
-
-.mall-advance-search{
-	width:100%;
-	margin-top:10px;
+	padding:0 0 0 5px;
 }
 
 /*
@@ -520,6 +528,11 @@ div.notice{
 	top:10px;
 }
 */
+.mall-advance-search .label{
+	display:inline-block;
+	margin-bottom:5px;
+}
+
 .mall-advance-search .mall-select-wrapper{
 	display:inline-block;
 	position:relative;
@@ -544,10 +557,6 @@ div.notice{
 	border:1px solid #dddddd;
 	border-radius:2px;
 	box-sizing:border-box;
-}
-
-.mall-advance-search .search-sort-commands .left{
-	margin-right:10px;
 }
 
 
@@ -947,11 +956,18 @@ form.mall-filter-form input[type='submit']{
 .mall-advance-search select{
 	padding:5px 3px;
 	border:1px solid #dddddd;
+	margin-bottom:10px;
 	border-radius:2px;
 }
 
 .mall-advance-search .search-sort-commands .left{
-	margin:0 10px 0 5px;
+	float:none;
+	margin:0;
+}
+
+.mall-advance-search .search-sort-commands .right{
+	float:none;
+	margin-bottom:10px;
 }
 /*eo mall-advance-search*/
 
@@ -991,12 +1007,7 @@ form.mall-filter-form input[type='submit']{
 /*eo override*/
 
 
-@media all and ( min-width: 450px ) {
-	.mall-advance-search{
-		width:auto;
-		margin-top:0;		
-	}
-}
+
 @media all and ( min-width: 500px ) { 
 	/*view*/
 	.mall-view .details{
@@ -1012,6 +1023,31 @@ form.mall-filter-form input[type='submit']{
 		margin-left:.5%;
 	}
 	/*eo view*/
+}
+
+@media all and ( min-width: 560px ) {
+	.mall-advance-search{
+		width:auto;
+		padding:0;
+	}
+	
+	.mall-advance-search select{
+		margin-bottom:0;
+	}
+	
+	.mall-advance-search .mall-select-wrapper .label{
+		margin-bottom:0;
+	}
+	
+	.mall-advance-search .search-sort-commands .left{
+		float:left;
+		margin:0 5px 0 0;
+	}
+	
+	.mall-advance-search .search-sort-commands .right{
+		float:right;
+		margin-bottom:0;
+	}
 }
 
 
