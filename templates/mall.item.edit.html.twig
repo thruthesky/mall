@@ -1,3 +1,4 @@
+{% import dir_macro ~ '/functions.html.twig' as f %}
 {% set categories = data.category %}
 {% set item = data.item %}
 {% set user = data.user %}
@@ -27,9 +28,9 @@
 			<div class='categories clearfix'>
 				{% for category in categories %}
 					<select class='category' {{ loop.index == data.category_last_selected ? "name=category_id" }} depth='0' {{ loop.index == 1 ? 'required' }}>
-						<option value=''>Category</option>
+						<option value=''>{{ ko ? '카테고리' : 'Category' }}</option>
 						{% for c in category.entity %}
-							<option value='{{ c.id.value }}' {{ category.selected == c.id.value ? 'selected' }}><script>ln("{{ c.name.value }}")</script></option>
+							<option value='{{ c.id.value }}' {{ category.selected == c.id.value ? 'selected' }}>{{ f.get(ko, c.name.value) }}</option>
 						{% endfor %}
 					</select>
 				{% endfor %}
@@ -97,7 +98,7 @@
 			</select>
 			#}
 			<div class='description'>{{ ko ? '상품 설명' : 'Description' }}</div>
-			<textarea name='content' required>{{ item.content.value }}</textarea>
+			<textarea name='content'>{{ item.content.value }}</textarea>
 			<div class='buttons'>
 				<input class='item-add-submit' type='submit' value='{{ ko ? '상품 등록' : 'Post Item' }}'>
 			</div>
@@ -109,7 +110,7 @@
 
 
 		<div class='file-upload-group item_image_thumbnail clearfix'>
-			<div class='upload-label'>Item Image Thumbnail</div>
+			<div class='upload-label'>{{ ko ? '메인에 표시 될 작은 이미지' : 'Item Image Thumbnail' }}</div>
 			<div class='upload item_image_thumbnail'>
 				<form class="addForm-file-upload{{ files.item_image_thumbnail[0] ? ' is-hidden' }}" action="/mall/api?call=fileUpload" method="POST">
 					<img class='fake' src='/modules/mall/img/fake_upload_photo.png'/>
@@ -130,7 +131,7 @@
 			</div>
 		</div>
 		<div class='file-upload-group item_image clearfix'>
-			<div class='upload-label'>Item Images</div>
+			<div class='upload-label'>{{ ko ? '상품 이미지' : 'Item Images' }}</div>
 			{% for i in 1..10 %}
 				<div class='upload' no = '{{ i }}'>
 					<form class="addForm-file-upload{{ files.item_image[i] ? ' is-hidden' }}" action="/mall/api?call=fileUpload" method="POST">
@@ -154,7 +155,7 @@
 			{% endfor %}
 		</div>
 		<div class='file-upload-group item_image_description clearfix'>
-			<div class='upload-label'>Item Image Description</div>
+			<div class='upload-label'>{{ ko ? '상품 설명 이미지' : 'Item Image Description' }}</div>
 			{% for i in 1..3 %}
 				<div class='upload' no = '{{ i }}'>
 					<form class="addForm-file-upload{{ files.item_image_description[i] ? ' is-hidden' }}" action="/mall/api?call=fileUpload" method="POST">
@@ -178,7 +179,7 @@
 			{% endfor %}
 		</div>
 		<div class='buttons'>
-			<div class='item-add-submit'>Post Item</div>
+			<div class='item-add-submit'>{{ ko ? '상품 등록' : 'Post Item' }}</div>
 		</div>
 	</section>
 </div>

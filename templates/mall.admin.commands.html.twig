@@ -16,7 +16,7 @@
 
 	{% if logged_in %}
 		{% if input.item_id %}
-			<a href="/mall/item/view?item_id={{ input.item_id }}">View this item</a>
+			<a href="/mall/item/view?item_id={{ input.item_id }}">{{ ko ? '현재 상품 보기' : 'View this item' }}</a>
 		{% endif %}
 		<a href="/mall/item/search?user_id={{ data.member.uid.value }}">{{ ko ? '나의 물품 목록' : 'My items' }}</a>
 	{% else %}
