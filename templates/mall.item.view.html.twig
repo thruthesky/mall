@@ -20,18 +20,21 @@
 						<tr class='price'>
 							<td><span class='table-label'>Price</span></td><td width='70%'><span class='value {{ price_type }}'>{{ price }}</span></td>
 						</tr>
-						<tr>
-							<td><span class='table-label'>Condition</span></td><td width='70%'>{{ status[ item.status.value ] }}</td>
-						</tr>
+						{% if item.brand.value %}
 						<tr>
 							<td><span class='table-label'>Brand</span></td><td width='70%'>{{ item.brand.value }}</td>
 						</tr>
+						{% endif %}
+						{% if item.model.value %}
 						<tr>
 							<td><span class='table-label'>Model</span></td><td width='70%'>{{ item.model.value }}</td>
 						</tr>
+						{% endif %}
+						{% if item.model_year.value %}
 						<tr>
 							<td><span class='table-label'>Year Model</span></td><td width='70%'>{{ item.model_year.value }}</td>
 						</tr>
+						{% endif %}
 						<tr>
 							<td><span class='table-label'>Posted on</span></td><td width='70%'>{{ item.created.value|date("M. d Y") }}</td>
 						</tr>
@@ -39,7 +42,7 @@
 							<td><span class='table-label'>Location</span></td><td width='70%'>{{ item.location.value }}</td>
 						</tr>
 						<tr class='contact'>
-							<td><span class='table-label'>Contact no.</span></td><td width='70%'><span class='value'>{{ item.mobile.value }}</span></td>
+							<td><span class='table-label'>Contact</span></td><td width='70%'><span class='value'>{{ item.mobile.value }}</span></td>
 						</tr>						
 					</table>
 				</div>
@@ -47,13 +50,12 @@
 			<div class='details seller'>
 				<div class='title'>Seller Details</div>
 				<div class='table-wrapper'>					
-					{% set name = data.member.extra.first_name  ~ " " ~ data.member.extra.middle_name ~ " " ~ data.member.extra.last_name %}
 					<table cellpadding=0 cellspacing=0 width='100%'>
 						<tr>
 							<td><span class='table-label'>Username</span></td><td width='70%'>{{ item.user_id.entity.name.value }}</td>
 						</tr>
 						<tr>
-							<td><span class='table-label'>Name</span></td><td width='70%'>{{ name }}</td>
+							<td><span class='table-label'>Name</span></td><td width='70%'>{{  data.member.extra.full_name }}</td>
 						</tr>
 						<tr>
 							<td><span class='table-label'>Address</span></td><td width='70%'>{{ item.province.value }}, {{ item.city.value }}</td>
@@ -82,14 +84,21 @@
 					<div class='inner'>
 						{% set count2 = 1 %}{% for item_image in images.item_image %}{% if count2 == 1 %}{% set active = " class=is-active"%}{% else %}{% set active = ""%}{% endif %}<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_medium }}'/>{% set count2 = count2 + 1 %}{% endfor %}
 					</div>
-				</div>		
-				<div class='content-text'>
-					{{ item.content.value | nl2br  }}
-				</div>
+				</div>						
 			{% else %}
 				<h1>No item images uploaded</h1>
 			{% endif %}
-			</div>	
+		</div>
+		<div class='content-text'>
+			{{ item.content.value | nl2br  }}
+			<div class='photos'>
+				{% for item_image_description in images.item_image_description %}	
+					<div class='photo'>
+						<img fid='{{ item_image_description.fid }}' src='{{ item_image_description.url_original }}'/>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
 </div>
 
 {% set total_items = data.total_items %}

@@ -29,7 +29,7 @@
 					<select class='category' {{ loop.index == data.category_last_selected ? "name=category_id" }} depth='0' {{ loop.index == 1 ? 'required' }}>
 						<option value=''>Category</option>
 						{% for c in category.entity %}
-							<option value='{{ c.id.value }}' {{ category.selected == c.id.value ? 'selected' }}>{{ c.name.value }}</option>
+							<option value='{{ c.id.value }}' {{ category.selected == c.id.value ? 'selected' }}><script>ln("{{ c.name.value }}")</script></option>
 						{% endfor %}
 					</select>
 				{% endfor %}

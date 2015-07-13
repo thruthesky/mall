@@ -56,24 +56,12 @@
 }
 
 /*error*/
-div.mall-error{	
-	padding: 10px;
-	margin:0 10px 10px 10px;
-	border: 1px solid #cc0000;
-	border-radius: 2px;
-	background-color: #f2f2f2;
-	font-size: 1.2em;
-	color: #cc0000;
-	text-align:center;
-}
-
-/*error*/
-.error{	
+.mall-error{	
 	text-align:center;
 	margin-bottom:10px;
 }
 
-.error .row{	
+.mall-error .row{	
 	padding:5px;
 	border:1px solid red;
 	color:red;
@@ -853,9 +841,25 @@ form.mall-filter-form input[type='submit']{
 }
 
 .mall-view .content-text{
+	float:left;
+	width:100%;
 	padding: 0 20px 5px 20px;
 	font-size: 1.2em;
 	line-height: 160%;
+	box-sizing:border-box;
+}
+
+.mall-view .content-text .photos{
+	margin-top:10px;
+	text-align:center;
+}
+
+.mall-view .content-text .photos .photo{
+	margin-bottom:10px;
+}
+
+.mall-view .content-text .photos .photo img{
+	max-width:100%;
 }
 
 .mall-view .details-wrapper{
