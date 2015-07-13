@@ -19,7 +19,7 @@
 			<input type='hidden' name='fids' value=''>
 			
 			<input type='hidden' name='item_id' value='{{ input.item_id }}'>			
-			<div class='description'>What are you selling?</div>
+			<div class='description'>{{ ko ? '제목' : 'Title' }}</div>
 			<input type='text' name='title' placeholder='Item Title' value='{{ item.title.value }}' required>			
 			<div class='description'>What is the name of the item?</div>
 			<input type='text' name='name' placeholder='Item Name' value='{{ item.name.value }}' required>		
