@@ -3,10 +3,11 @@ $ = jQuery;
 $(function(){
     var $body = $('body');
     //$("body").on( "submit",".category-table .category .form-delete", category_delete );
-    $body.on( "click",".category .button-wrapper .add", callback_category_add );
+    /*
+	$body.on( "click",".category .button-wrapper .add", callback_category_add );
     $body.on( "click",".category .button-wrapper .edit", callback_category_edit );
     $body.on( "click",".category .cancel", callback_category_cancel );
-
+	*/
     $body.on( "change","select.category", callback_change_category );
     $body.on( "change","select.location", callback_change_location );
 
@@ -114,7 +115,7 @@ function market_top_image_behavior( $selector ){
 	}
 }
 /*for market to be moved later...*/
-
+/*
 function callback_category_add(){
 	$this = $(this);
 	var id = $this.attr("id");
@@ -138,6 +139,7 @@ function callback_category_edit(){
 function category_delete( e ){
 	return confirm( "Are you sure you want to delete - "+e+"?" );
 }
+*/
 
 function member_delete( e ){
 	return confirm( "Are you sure you want to delete member - "+e+"?" );
@@ -146,7 +148,7 @@ function member_delete( e ){
 function item_delete( e ){
 	return confirm( "Are you sure you want to delete item - "+e+"?" );
 }
-
+/*
 function callback_category_cancel(){
 	 window.location.reload();
 }
@@ -167,7 +169,7 @@ function renderEditForm( id ){
 					
 	return markup;
 }
-
+*/
 function renderAddForm( id ){
 	var markup	=	"<form class='form-update' action='/mall/admin/category/group/add'>" +
 					"<fieldset><div class='row'><div class='value'><div class='element'>" +					
