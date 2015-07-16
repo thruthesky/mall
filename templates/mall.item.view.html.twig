@@ -58,7 +58,7 @@
 							<td><span class='table-label'>{{ ko ? '이름' : 'Name' }}</span></td><td width='70%'>{{  data.member.extra.full_name }}</td>
 						</tr>
 						<tr>
-							<td><span class='table-label'>{{ ko ? '주소' : 'Address' }}</span></td><td width='70%'>{{ item.province.value }}, {{ item.city.value }}</td>
+							<td><span class='table-label'>{{ ko ? '주소' : 'Address' }}</span></td><td width='70%'>{{ item.province.value }}, {{ data.cities[ item.province.value ][ item.city.value ] }}</td>
 						</tr>				
 					</table>
 				</div>

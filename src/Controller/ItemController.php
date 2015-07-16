@@ -155,8 +155,10 @@ class ItemController extends ControllerBase {
 				$uid = $data['item']['entity']->user_id->target_id;
 				$data['member'] = x::loadLibraryMember( $uid );
 				$data['status'] = x::$item_status;			
+				$data['cities'] = x::$cities;
 				self::default_setup( $data );
 				$theme = x::getThemeName();
+				
 			}
 			else{
 				$data['error'] = Library::error('Ivalid Item ID.', Language::string('library', 'invalid_item_id'));
