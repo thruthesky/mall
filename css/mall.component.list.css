@@ -33,8 +33,8 @@
     .grid4 .d { padding:0 0 0 7.5px;}
 }
 
-.mall-item-list .row > div > div {
-    border:1px solid #b0b0b0;
+.mall-item-list .row > div > a > div {
+    border:1px solid #e6e6e6;
     /*padding:1em;*/
 }
 
@@ -46,7 +46,7 @@
 }
 
 .mall-item-list .row .item .info .title{
-	height: 17px;
+	height: 18px;
 	font-size: 1.1em;
 	color: #393939;
 	line-height: 120%;
