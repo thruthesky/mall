@@ -67,21 +67,25 @@ class ItemController extends ControllerBase {
     }
 	
     public function editSubmit() {
-		if( !x::myUid() ){
-			$theme = "mall.mall";			
+		$theme = "mall.mall";	
+		if( !x::myUid() ){			
 			$data['error'] = Library::error('User not logged in.', Language::string('library', 'not_logged_in'));
 		}
 		else{
 			$input = x::input();	
-			$item = Item::load( $input['item_id'] );
-
-			if( empty( $item ) || $item->user_id->target_id == x::myUid() || x::isAdmin() ){
-				$re = Item::Update( $input );
-				return new RedirectResponse( "/mall/item/add?item_id=".$re );
+			if( empty( $input['price'] ) || $input['price'] <= 0 ){
+				$data['error'] = Library::error('Invalid Price.', "Invalid price value.");
 			}
 			else{
-				$theme = "mall.mall";			
-				$data['error'] = Library::error('Not your post.', Language::string('library', 'not_your_post'));
+				$item = Item::load( $input['item_id'] );
+
+				if( empty( $item ) || $item->user_id->target_id == x::myUid() || x::isAdmin() ){
+					$re = Item::Update( $input );
+					return new RedirectResponse( "/mall/item/add?item_id=".$re );
+				}
+				else{						
+					$data['error'] = Library::error('Not your post.', Language::string('library', 'not_your_post'));
+				}
 			}
 		}
 		return [

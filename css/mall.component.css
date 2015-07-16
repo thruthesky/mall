@@ -430,6 +430,10 @@ div.notice{
 	margin-left:5px;
 }
 
+.mall-page .mall-item-add .note.error{
+	color:red;
+}
+
 .mall-page .mall-item-add .addForm-file-upload fieldset{
 	padding:0;
 	border:0;

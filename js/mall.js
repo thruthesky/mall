@@ -24,7 +24,7 @@ $(function(){
 	
 	
 	
-	
+	$("body").on( "keyup",".mall-page .mall-item-add .price-wrapper input[name='price']", callback_check_price );
 	
 	
 	
@@ -96,6 +96,26 @@ $(function(){
 		});				
 	}/*eo if( .mall-view .top-image )*/
 });
+
+function callback_check_price(){
+	clearTimeout( timeout_confirm_password );
+	var $this = $(this);
+	$selector = $(".mall-page .mall-item-add .price-wrapper");
+	timeout_confirm_password = setTimeout( function(){
+		if( $selector.find("input").val() > 0 ){
+			if( $selector.find(".note.error").length ) $selector.find(".note.error").remove();
+			return;
+		}
+	
+		if( $selector.find(".note.error").length ) return;		
+		$selector.append( mall_create_form_error_notice("Invalid Price. Must be a positive number and cannot be 0.") );
+	}, 300);
+}
+
+function mall_create_form_error_notice( str ){
+	return "<div class='note error'>" + str + "</div>";
+}
+
 
 /*for market to be moved later...*/
 function market_top_image_behavior( $selector ){	

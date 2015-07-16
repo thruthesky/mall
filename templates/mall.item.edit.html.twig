@@ -46,7 +46,7 @@
 			<div class='description'>{{ ko ? '가격' : 'Price' }}</div>
 			<div class='price-wrapper'>
 				{#<span class='currency'>₱</span>#}
-				<input type='number' name='price' value='{{ item.price.value }}'>
+				<input type='number' name='price' value='{{ item.price.value }}' required>
 			</div>
 			{#
 			<div class='note'>1.) Item price must be within a realistic value range</div>

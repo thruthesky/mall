@@ -17,6 +17,7 @@
 
 
 .mall-item-list img {
+	display:block;
     width:100%;
 }
 @media all and ( min-width: 480px ) {
@@ -38,12 +39,14 @@
 }
 
 .mall-item-list .row .item .info{
-	padding:5px 10px;
-	font-weight: bold;
+	padding:10px;
+	background-color:#edf0f5;
+	/*font-weight: bold;*/
+	text-align:right;
 }
 
 .mall-item-list .row .item .info .title{
-	height: 33px;
+	height: 17px;
 	font-size: 1.1em;
 	color: #393939;
 	line-height: 120%;
@@ -52,8 +55,8 @@
 }
 
 .mall-item-list .row .item .info .price{
-	height:22px;
-	font-size: 1.4em;
+	height:24px;
+	font-size: 1.3em;
 	color: #e32222;
 	overflow:hidden;
 	line-height:150%;
@@ -61,5 +64,5 @@
 
 .mall-item-list .row .item .info .price.constant{
 	/*font-size: 1em;*/
-	color:#000;
+	/*color:#000;*/
 }
