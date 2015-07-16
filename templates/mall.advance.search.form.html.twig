@@ -7,7 +7,7 @@
 		<div class='left'>
 			<div class='label'>Arrange by: </div>
 			<div class='mall-select-wrapper'>				
-				{% if input.order %}
+				{% if input.order_by %}
 					{% set order = input.order_by %}					
 				{% else %}
 					{% set order = 'created_high'%}
