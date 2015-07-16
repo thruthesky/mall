@@ -221,7 +221,7 @@ class ItemController extends ControllerBase {
 			else{
 				$input['order'] = 'created_high';
 				$conds['by'] = 'created';
-				$conds['order'] = 'ASC';
+				$conds['order'] = 'DESC';
 			}
 			
 			//ONLY make use of page when there is limit...

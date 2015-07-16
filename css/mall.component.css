@@ -9,10 +9,11 @@
 .mall-page .right > a{
 	display:inline-block;
 	height:28px;
-	padding:7px 10px 6px 10px;	
+	padding: 6px 7px;
 	border-radius:2px;
-	background-color:#003366;
-	color:yellow;
+	background-color:#2ecc71;
+	font-size:1.1em;
+	color:#fff;
 	font-weight:bold;
 	box-sizing:border-box;
 }
@@ -545,7 +546,7 @@ div.notice{
 .mall-advance-search select{
 	height:28px;
 	max-width:120px;
-	padding:5px 3px;
+	padding:3px 3px 5px 3px;
 	border:1px solid #dddddd;
 	border-radius:2px;
 	box-sizing:border-box;
@@ -948,7 +949,7 @@ form.mall-filter-form input[type='submit']{
 
 .mall-advance-search .mall-select-wrapper > img{
 	position: absolute;
-	right: 1px;
+	right: 2px;
 	top: 1px;
 	height: 6px;
 	width: 10px;
@@ -959,13 +960,6 @@ form.mall-filter-form input[type='submit']{
 
 .mall-advance-search .label{	
 	font-weight:normal;		
-}
-
-.mall-advance-search select{
-	padding:5px 3px;
-	border:1px solid #dddddd;
-	margin-bottom:10px;
-	border-radius:2px;
 }
 
 .mall-advance-search .search-sort-commands .left{
