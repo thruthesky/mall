@@ -27,7 +27,7 @@ class Mall {
     //self::emptyEntity('mall_order');
     //self::emptyEntity('mall_order_item');
     self::emptyEntity('mall_item');
-	self::emptyEntity('library_category');	
+	//self::emptyEntity('library_category');	
   }
 
   public static function Login($username) {

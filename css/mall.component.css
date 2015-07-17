@@ -604,6 +604,16 @@ form.mall-filter-form input[type='submit']{
 	border:1px solid #dddddd;	
 	box-sizing:border-box;
 }
+/*price range*/
+form.mall-filter-form.price .input-text-wrapper{
+	float:left;
+	margin:0 0 5px 5px;
+}
+
+form.mall-filter-form.price input[type='submit']{
+	float:left;
+}
+/*eo price range*/
 /*eo mall-filter-form*/
 
 /*filter*/
@@ -634,33 +644,24 @@ form.mall-filter-form input[type='submit']{
 	border:1px solid #c0c0c0;
 }
 
-.filter.list .wrapper{
-	float:left;
-	width:23%;
+.filter.list.is-active{		
+	display:block;	
+}
+
+.filter.list.grid4 .content > div{	
 	padding:5px 0;
 	box-sizing:border-box;
 }
 
-.filter.list .wrapper.price{
-	width:31%;
-}
-
-.filter.list .wrapper .filter-items{
+.filter.list.grid4 .content  > div .filter-items{
 	padding-right:10px;
 	margin:10px 0 0 10px;
-	border-right:1px dotted #7e8c8c;
+	/*border-right:1px dotted #7e8c8c;*/
 }
 
-.filter.list tr{
-	background-color:transparent;/*for overriding drupal default themes*/
-}
-
-.filter.list tr td{
-	padding:0;/*for overriding drupal default themes*/
-}
-
-.filter.list .wrapper:nth-child(4) .filter-items, .filter.list .wrapper:nth-child(5) .filter-items{
-	border:0;
+.filter.list.grid4 .content  > div.d .filter-items{
+	margin-bottom:5px;
+	border-right:0;
 }
 
 .filter.list .extra{
@@ -669,11 +670,14 @@ form.mall-filter-form input[type='submit']{
 
 .filter.list .label{
 	display:block;
+	height:22px;
 	padding:0 10px 5px 10px;	
 	margin:0 10px;
 	border-bottom: 2px solid #0c6fb3;
 	font-size:1.2em;	
-	color:#0c6fb3;	
+	color:#0c6fb3;
+	overflow:hidden;
+	box-sizing:border-box;
 }
 
 .filter.list a, .filter.list span{
@@ -1013,6 +1017,12 @@ form.mall-filter-form input[type='submit']{
 
 
 
+@media all and ( min-width:480px ) { 
+	.filter.list.grid4 .content  > div.a .filter-items, .filter.list.grid4 .content  > div.c .filter-items{
+		border-right:1px dotted #7e8c8c;
+	}
+}
+
 @media all and ( min-width: 500px ) { 
 	/*view*/
 	.mall-view .details{
@@ -1089,6 +1099,10 @@ form.mall-filter-form input[type='submit']{
 		margin-left:0;
 	}
 	/*eo view*/
+	
+	.filter.list.grid4 .content  > div .filter-items{
+		border-right:1px dotted #7e8c8c;
+	}
 }
 @media all and ( min-width: 960px ) {
 

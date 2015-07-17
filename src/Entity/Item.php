@@ -349,6 +349,14 @@ class Item extends ContentEntityBase implements ItemInterface {
       ->setLabel(t('Price'))
       ->setDescription(t('Price of Item.'));
 	  
+	 $fields['currency'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Currency'))
+      ->setDescription(t('the Currency of the item. New, Used, Defective, etc....'))
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 1,
+      )); 
+	  
     $fields['mobile'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Mobile'))
             ->setDescription(t('Mobile number of the Entity.'))
@@ -427,6 +435,11 @@ class Item extends ContentEntityBase implements ItemInterface {
         'default_value' => '',
         'max_length' => 512,
       ));
+	  
+     $fields['views'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Views'))
+      ->setDescription(t('Views of Item.')
+	  );
 
     return $fields;
   }

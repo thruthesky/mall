@@ -1,5 +1,6 @@
-<div class='filter list clearfix'>
-		<div class='wrapper'>
+<div class='filter list grid4 clearfix{{ input.advance_search == 'true' ? " advance-search-mode is-active" }}'>
+	<div class='content'>
+		<div class='a'>
 			<div class='label'>Category</div>
 			<div class='filter-items'>
 				{% set starting_url = '' %}
@@ -44,7 +45,7 @@
 			{% endif %}
 		{% endfor %}
 		
-		<div class='wrapper'>
+		<div class='b'>
 			<div class='label'>Locations</div>
 			<div class='filter-items'>
 				{% set count = 0 %}
@@ -68,7 +69,7 @@
 				{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
 			{% endif %}
 		{% endfor %}
-		<div class='wrapper price'>
+		<div class='c price'>
 			<div class='label'>Price Range</div>
 			<div class='filter-items'>
 				{% for price in data.prices %}
@@ -88,10 +89,11 @@
 						<a href='/mall/item/search?{{ starting_url }}&price_from={{ price[0] }}&price_to={{ price[1] }}'>{{ price_from }} {{ middle_text }} {{ price_to }}</a>
 					</div>
 				{% endfor %}
-				<form class='mall-filter-form clearfix' action='/mall/item/search'>
+				<form class='mall-filter-form price clearfix' action='/mall/item/search'>
 					{% include 'modules/mall/templates/mall.hidden.search.inputs.html.twig' %}
-					₱ <input class='price' type='number' name='price_from' value='{{ input.price_from }}'> to 
-					₱ <input class='price' type='number' name='price_to' value='{{ input.price_to }}'>
+						<div class='input-text-wrapper'>₱<input class='price' type='number' name='price_from' value='{{ input.price_from }}'> to </div>
+						<div class='input-text-wrapper'>₱<input class='price' type='number' name='price_to' value='{{ input.price_to }}'></div>
+									
 					<input type='submit' value='Go'>
 				</form>
 			</div>
@@ -108,7 +110,7 @@
 			{% endif %}
 		{% endfor %}
 		
-		<div class='wrapper'>
+		<div class='d'>
 			<div class='label'>Posted</div>
 			<div class='filter-items'>
 				{% for k,v in data.time %}
@@ -117,19 +119,7 @@
 					</div>
 				{% endfor %}
 			</div>
-		</div>
-		
-		{#------------EO TIME------------#}
-	
-		{#------------STATUS------------#}
-		
-		{% set starting_url = '' %}
-		{% for k,v in input %}
-			{% if k != 'status' %}
-				{% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
-			{% endif %}
-		{% endfor %}
-		<div class='wrapper'>
+			
 			<div class='label'>Condition</div>
 			<div class='filter-items'>
 				{% for k,v in data.status %}
@@ -140,7 +130,7 @@
 			</div>
 		</div>
 		
-		{#------------eo STATUS------------#}		
-
+		{#------------EO TIME------------#}	
+	</div>
 	<div class='close-filter'><img src='/modules/mall/img/close_filter.png'/></div>
 </div>

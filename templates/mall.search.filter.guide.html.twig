@@ -1,4 +1,4 @@
-<div class='filter-guide'>
+<div class='filter-guide clearfix'>
 	{% set filter_category = 'All' %}
 	{% for k,v in data.category_entity_list %}
 		{% if k == input.category_id  %}
@@ -41,7 +41,7 @@
 			{% endif %}
 		{% endfor %}
 		
-		{% if k == 'category_id' or k == 'price_to' or k == 'user_id' or k == 'limit' or k == 'page' or k == 'keyword' %}		
+		{% if k == 'category_id' or k == 'price_to' or k == 'user_id' or k == 'limit' or k == 'page' or k == 'keyword' or k == 'order_by' or k == 'advance_search' %}		
 		{% elseif k == 'price_from' %}
 			{% if input.price_from is empty %}				
 				{% set price_from = "Below"%}
