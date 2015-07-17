@@ -51,6 +51,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		$item->set('brand', $input['brand']);
 		$item->set('model', $input['model']);
 		$item->set('model_year', $input['model_year']);
+		$item->set('currency', $input['currency']);
 		$item->set('price', $input['price']);
 		$item->set('mobile', $input['mobile']);
 		$item->set('status', $input['status']);
@@ -243,15 +244,9 @@ class Item extends ContentEntityBase implements ItemInterface {
 	return $data;
   }
   
-  public static function renderPrice( $price ){
-	//"₱ ".
-	$data = [];
-	if( $price <= 0 ) {
-		$rendered_price = [ 'type'=>'constant', 'price'=>"Not specified" ];
-	}
-	else {
-		$rendered_price = [ 'type'=>'number_format', 'price'=>number_format($price) ];
-	}
+  public static function renderPrice( $price ){	
+	$rendered_price = [ 'type'=>'number_format', 'price'=>number_format($price) ];
+	
 	return 	$rendered_price;
   }
 

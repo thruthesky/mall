@@ -331,7 +331,18 @@ div.notice{
 	position:relative;
 }
 
+.mall-page .mall-item-add .price-wrapper > select{
+	float:left;	
+	width:50px;	  	
+}
+
+.mall-page .mall-item-add .price-wrapper > .text{
+	padding:0 0 0 5px;
+	overflow:hidden;
+}
+
 .mall-page .mall-item-add input[type='text'], .mall-page .mall-item-add input[type='number'], .mall-page .mall-item-add select, .mall-page .mall-item-add textarea{	
+	height:30px;
 	width:100%;		
 	border:1px solid #6e96d9;
 	margin-bottom:5px;
@@ -366,7 +377,7 @@ div.notice{
 }
 
 .mall-page .mall-item-add select{
-	padding:5px;	
+	padding:3px 5px 5px 5px;
 }
 
 .mall-page .mall-item-add .buttons{
@@ -889,6 +900,10 @@ form.mall-filter-form.price input[type='submit']{
 	background-color:#aaaaaa;	
 	font-weight:bold;	
 	color:#ffffff;
+}
+
+.mall-view .details .title > span{
+	
 }
 
 .mall-view .details .table-wrapper{	

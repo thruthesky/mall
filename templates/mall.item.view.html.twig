@@ -17,8 +17,13 @@
 				<div class='title'>{{ ko ? '상품 정보' : 'Product Details' }}</div>
 				<div class='table-wrapper'>
 					<table cellpadding=0 cellspacing=0 width='100%'>
+					{#
+						<tr class='no_of_view'>
+							<td><span class='table-label'>{{ ko ? 'Views' : 'Views' }}</span></td><td width='70%'><span class='value'>{{ item.no_of_view.value }}</span></td>
+						</tr>
+					#}
 						<tr class='price'>
-							<td><span class='table-label'>{{ ko ? '금액' : 'Price' }}</span></td><td width='70%'><span class='value {{ price_type }}'>{{ price }}</span></td>
+							<td><span class='table-label'>{{ ko ? '금액' : 'Price' }}</span></td><td width='70%'><span class='value {{ price_type }}'>{{ data.currency[ item.currency.value ] }}{{ price }}</span></td>
 						</tr>
 						{% if item.brand.value %}
 						<tr>
@@ -40,6 +45,9 @@
 						</tr>
 						<tr>
 							<td><span class='table-label'>{{ ko ? '판매장소' : 'Location' }}</span></td><td width='70%'>{{ item.location.value }}</td>
+						</tr>
+						<tr class='no_of_view'>
+							<td><span class='table-label'>{{ ko ? 'Views' : 'Views' }}</span></td><td width='70%'><span class='value'>{{ item.no_of_view.value }}</span></td>
 						</tr>
 						<tr class='contact'>
 							<td><span class='table-label'>{{ ko ? '연락처' : 'Contact' }}</span></td><td width='70%'><span class='value'>{{ item.mobile.value }}</span></td>

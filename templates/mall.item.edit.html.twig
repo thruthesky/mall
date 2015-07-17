@@ -44,15 +44,14 @@
 			<div class='description'>{{ ko ? '제조 년도' : 'Model Year' }}</div>
 			<input type='number' name='model_year' value='{{ item.model_year.value }}'>
 			<div class='description'>{{ ko ? '가격' : 'Price' }}</div>
-			<div class='price-wrapper'>
+			<div class='price-wrapper'>				
 				{#<span class='currency'>₱</span>#}
-				<select name='currency' required>					
-					<option>Currency Type</option>
+				<select name='currency' required>
 					{% for k,v in data.currency %}
-						<option value='{{ k }}'>{{ v }}</option>
+						<option value='{{ k }}'{{ k == item.currency.value ? " selected" }}>{{ v }}</option>
 					{% endfor %}
 				</select>
-				<input type='number' name='price' value='{{ item.price.value }}' required>
+				<div class='text'><input type='number' name='price' value='{{ item.price.value }}' required></div>
 			</div>
 			{#
 			<div class='note'>1.) Item price must be within a realistic value range</div>

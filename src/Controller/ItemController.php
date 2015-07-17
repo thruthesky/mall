@@ -150,12 +150,15 @@ class ItemController extends ControllerBase {
 		if( $item_id = x::in('item_id') ){			
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
 			
-			if( !empty( $data['item'] ) ){	
-				//di( $data['item']['entity'] );
+			if( !empty( $data['item'] ) ){				
+				self::changeCountByField( $data['item']['entity'], 'no_of_view' );
+				
 				$uid = $data['item']['entity']->user_id->target_id;
 				$data['member'] = x::loadLibraryMember( $uid );
 				$data['status'] = x::$item_status;			
-				$data['cities'] = x::$cities;
+				$data['cities'] = x::$cities;	
+				$data['currency'] = x::$currency;
+				
 				self::default_setup( $data );
 				$theme = x::getThemeName();
 				
@@ -170,6 +173,15 @@ class ItemController extends ControllerBase {
             '#theme' => $theme,
             '#data' => $data,
         ];
+	}
+	
+	/*
+	*@todo need to add something like Increase only per user_id? or IP?
+	*changes the count of an entity field ( e.g. for no_of_view )
+	*/
+	public function changeCountByField( item $entity, $field ){		
+		$entity->set($field, ( $entity->$field->value + 1 ) );
+		$entity->save();
 	}
 	
 	public function search(){
