@@ -151,7 +151,7 @@ class ItemController extends ControllerBase {
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
 			
 			if( !empty( $data['item'] ) ){	
-				di( $data['item']['entity'] );
+				//di( $data['item']['entity'] );
 				$uid = $data['item']['entity']->user_id->target_id;
 				$data['member'] = x::loadLibraryMember( $uid );
 				$data['status'] = x::$item_status;			
