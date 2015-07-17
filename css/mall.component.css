@@ -923,7 +923,7 @@ form.mall-filter-form.price input[type='submit']{
 
 .mall-view .details .table-wrapper .contact .value{
 	display:block;
-	padding:5px;
+	padding:5px 0;
 	border-radius:2px;
 	background-color:#199f38;
 	font-weight:bold;
@@ -940,7 +940,7 @@ form.mall-filter-form.price input[type='submit']{
 
 .mall-view .details .table-wrapper .table-label{
 	display:inline-block;
-	width:70px;
+	width:50px;
 	margin-right:10px;
 	font-weight:bold;
 }

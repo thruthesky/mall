@@ -11,7 +11,7 @@ set_default_category();
 
 function set_default_category() {
 	Mall::Login('admin');
-
+	/*
 	$id_appliances = Category::add(0, 'Appliances');
 	$id_clothes = Category::add(0, 'Clothes');
 	$id_food = Category::add(0, 'Food');
@@ -20,7 +20,7 @@ function set_default_category() {
 	$id_smart_phone = Category::add(0, 'Smart Phones');
 	$id_health = Category::add(0, 'Health & Beauty');
 	$id_real_estate = Category::add(0, 'Real Estate');	
-	
+	*/
 	$categories = \Drupal::entityManager()->getStorage('library_category')->loadByProperties(['parent_id'=>0]);
 	
 	$clist = [];
