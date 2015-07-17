@@ -50,6 +50,12 @@ class x {
 		'D' => 'Defective',
 	];
 	
+	static $currency =[
+		'W' => '₩',
+		'P' => '₱',
+		'U' => '$',
+	];
+	
 	static $default_search_sort =[
 		'created_high' => 'Newest',
 		'price_low' => 'Price - From Cheapest',		

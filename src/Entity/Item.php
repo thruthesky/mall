@@ -436,10 +436,11 @@ class Item extends ContentEntityBase implements ItemInterface {
         'max_length' => 512,
       ));
 	  
-     $fields['views'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Views'))
-      ->setDescription(t('Views of Item.')
-	  );
+     $fields['no_of_view'] = BaseFieldDefinition::create('integer')
+		->setLabel(t('No of view'))
+		->setDescription(t('The no of view of the Entity'))
+		->setDefaultValue(0)
+		->setSetting('unsigned', TRUE);
 
     return $fields;
   }

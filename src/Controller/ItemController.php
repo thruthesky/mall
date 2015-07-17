@@ -25,8 +25,7 @@ class ItemController extends ControllerBase {
 		$data['status'] = x::$item_status;
 		$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
 		$data['provinces'] = x::$provinces;
-		
-		
+		$data['currency'] = x::$currency;
 		
 		if( $item_id = x::in('item_id') ){
 			$data['item'] = Item::load( $item_id ); 
@@ -152,6 +151,7 @@ class ItemController extends ControllerBase {
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
 			
 			if( !empty( $data['item'] ) ){	
+				di( $data['item']['entity'] );
 				$uid = $data['item']['entity']->user_id->target_id;
 				$data['member'] = x::loadLibraryMember( $uid );
 				$data['status'] = x::$item_status;			

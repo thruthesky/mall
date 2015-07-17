@@ -46,6 +46,12 @@
 			<div class='description'>{{ ko ? '가격' : 'Price' }}</div>
 			<div class='price-wrapper'>
 				{#<span class='currency'>₱</span>#}
+				<select name='currency' required>					
+					<option>Currency Type</option>
+					{% for k,v in data.currency %}
+						<option value='{{ k }}'>{{ v }}</option>
+					{% endfor %}
+				</select>
 				<input type='number' name='price' value='{{ item.price.value }}' required>
 			</div>
 			{#
