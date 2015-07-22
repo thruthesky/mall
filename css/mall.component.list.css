@@ -20,12 +20,15 @@
 	display:block;
     width:100%;
 }
+
 @media all and ( min-width: 480px ) {
     .grid4 .a { padding-right:5px;}
     .grid4 .b { padding-left:5px;}
     .grid4 .c { padding-right:5px;}
     .grid4 .d { padding-left:5px;}
 }
+
+
 @media all and ( min-width: 800px ) {
     .grid4 .a { padding:0 7.5px 0 0;}
     .grid4 .b { padding:0 5px 0 2.5px ;}
@@ -47,7 +50,9 @@
 
 .mall-item-list .row .item .info .title{
 	height: 19px;
+	margin-bottom:10px;
 	font-size: 1.1em;
+	/*font-weight:bold;*/
 	color: #393939;
 	line-height: 120%;
 	overflow: hidden;
@@ -62,7 +67,42 @@
 	line-height:150%;
 }
 
-.mall-item-list .row .item .info .price.constant{
-	/*font-size: 1em;*/
-	/*color:#000;*/
+/*temp?*/
+.mall-item-list .item .wrapper{
+	background-color:#edf0f5;
 }
+
+.mall-item-list .item .wrapper > div{
+	float:left;
+	width:50%;
+	box-sizing:border-box;
+}
+
+.mall-item-list .item .wrapper > div .content{
+	height: 112px;
+	padding-bottom: 3px;
+	margin-bottom:14px;
+	overflow: hidden;
+	word-break: normal;
+}
+
+@media all and ( min-width: 480px ) {
+    .mall-item-list .item .wrapper{
+		background-color:transparent;
+	}
+
+	.mall-item-list .item .wrapper > div{
+		float:none;
+		width:100%;		
+	}
+	
+	.mall-item-list .row .item .info .title{
+		font-weight:normal;
+		margin-bottom:0;
+	}
+	
+	.mall-item-list .item .wrapper > div .content{
+		display:none;
+	}
+}
+/*eo temp*/
