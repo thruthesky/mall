@@ -229,7 +229,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 	$items = [];
 	foreach( $entity_items as $k => $v ){
 		$items[ $k ]['entity'] = $v;
-		$items[ $k ]['rendered_price'] = self::renderPrice( $v->price->value );
+		$items[ $k ]['rendered_price'] = self::renderPrice( $v->price->value, $v->currency->value);
 		$items[ $k ]['category_root'] = x::getCategoryRoot( $v->category_id->target_id );
 		$files = Item::getFilesByType( $v->id() );			
 		foreach( $files as $key => $value ){
@@ -244,8 +244,8 @@ class Item extends ContentEntityBase implements ItemInterface {
 	return $data;
   }
   
-  public static function renderPrice( $price ){	
-	$rendered_price = [ 'type'=>'number_format', 'price'=>number_format($price) ];
+  public static function renderPrice( $price, $c ){		
+	$rendered_price = [ 'type'=>'number_format', 'price'=> x::$currency[$c]." ".number_format($price) ];
 	
 	return 	$rendered_price;
   }
