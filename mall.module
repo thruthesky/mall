@@ -34,7 +34,8 @@ function mall_theme()
 }
 
 function mall_preprocess(&$variables, $hook)
-{	
+{
+
     if ( empty($variables['module']['mall']) ) return;
 
 	if( Mall::isFrontPage() ){
@@ -75,11 +76,15 @@ function mall_preprocess(&$variables, $hook)
 	*This is needed so that the menu can tell what the item category_id is...
 	*/
 	$item_id = x::in('item_id');
-	if( !empty( $item_id ) ){
+	if( $item_id ) {
 		$item = Item::load( $item_id );
-		if( !empty( $item ) ){
-			$cid = $item->category_id->target_id;
-			$variables['data']['view_item_category_root_id'] = x::getCategoryRoot( $cid )->id();
+		if ( $item ) {
+            if ( $item->category_id ) {
+                $cid = $item->category_id->target_id;
+                if ( $cid ) {
+                    $variables['data']['view_item_category_root_id'] = x::getCategoryRoot( $cid )->id();
+                }
+            }
 		}
 	}
 }
