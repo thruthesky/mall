@@ -770,7 +770,7 @@ form.mall-filter-form.price input[type='submit']{
 
 .mall-view .user-commands > a{	
 	display:inline-block;
-	padding:5px 10px;
+	padding:4px 10px 6px 10px;
 	margin-right:10px;
 	border:1px solid #aaaaaa;
 }
