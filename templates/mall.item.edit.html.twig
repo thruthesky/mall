@@ -22,8 +22,12 @@
 			<input type='hidden' name='item_id' value='{{ input.item_id }}'>
 			<div class='description'>{{ ko ? '제목' : 'Title' }}</div>
 			<input type='text' name='title' placeholder='{{ ko ? '제목을 입력하세요.' : 'Item Title' }}' value='{{ item.title.value }}' required>
+
+			{#
 			<div class='description'>{{ ko ? '상품명' : 'What is the name of the item?' }}</div>
 			<input type='text' name='name' placeholder='{{ ko ? '상품명을 입력하세요.' : 'Item Name' }}' value='{{ item.name.value }}' required>
+			#}
+
 			<div class='description'>{{ ko ? '카테고리 선택' : 'In what category does your item fall?' }}</div>
 			<div class='categories clearfix'>
 				{% for category in categories %}
