@@ -28,6 +28,7 @@
 			<input type='text' name='name' placeholder='{{ ko ? '상품명을 입력하세요.' : 'Item Name' }}' value='{{ item.name.value }}' required>
 			#}
 
+
 			<div class='description'>{{ ko ? '카테고리 선택' : 'In what category does your item fall?' }}</div>
 			<div class='categories clearfix'>
 				{% for category in categories %}
