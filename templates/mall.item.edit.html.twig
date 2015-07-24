@@ -122,7 +122,7 @@
 					<fieldset><div class="row"><span class="value"><span class="element">
 							<input type="hidden" name="call" value="fileUpload">
 							<input type="hidden" name="image_style" value="medium">
-							<input type='file' name='item_image_thumbnail' onchange="jQuery(this).parent().submit();">
+							<input type='file' accept="image/*" name='item_image_thumbnail' onchange="jQuery(this).parent().submit();">
 						</span></span></div></fieldset>
 				</form>
 				<div class='display-uploaded-files clearfix'>
@@ -145,7 +145,7 @@
 							<input type="hidden" name="call" value="fileUpload">
 							<input type="hidden" name="image_style" value="medium">
 							<input type="hidden" name="no" value="{{ i }}">
-							<input type='file' name='item_image' onchange="jQuery(this).parent().submit();">
+							<input type='file' accept="image/*" name='item_image' onchange="jQuery(this).parent().submit();">
 						</span></span></div></fieldset>
 					</form>
 					<div class='display-uploaded-files clearfix'>
@@ -169,7 +169,7 @@
 								<input type="hidden" name="call" value="fileUpload">
 								<input type="hidden" name="image_style" value="medium">
 								<input type="hidden" name="no" value="{{ i }}">
-								<input type='file' name='item_image_description' onchange="jQuery(this).parent().submit();">
+								<input type='file' accept="image/*" name='item_image_description' onchange="jQuery(this).parent().submit();">
 							</span></span></div></fieldset>
 					</form>
 					<div class='display-uploaded-files clearfix'>

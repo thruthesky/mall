@@ -363,11 +363,8 @@ function init_mall_form_ajax_file_upload(selector)
     var $form = $(selector);	
     if ( $form.length ) {
         hook_mall_file_upload(selector, function(re){			
-            if ( re.code ) {
-				trace( re );
-            }
-            else if ( re.files ) {
-                console.log(re);
+            if ( re.code == 0 ) {
+				//console.log(re);
 				var file = re.files;				
 				if( file.no ) fid = file.file_usage_type + file.no + "-" + file.fid;
 				else fid = file.file_usage_type + "-" + file.fid;
@@ -385,6 +382,9 @@ function init_mall_form_ajax_file_upload(selector)
 					$(".mall-item-add ." + file.file_usage_type + " .upload form.addForm-file-upload").addClass('is-hidden');
 				}
             }
+            else {
+                alert( re.error );
+            }
         });
     }
 }
@@ -401,19 +401,22 @@ function hook_mall_file_upload(selector, callback)
     function ajax_file_upload($this)
     {
         $(".ajax-file-upload-progress-bar").remove();
-        $this.append("<div class='ajax-file-upload-progress-bar'><div class='bar'><div class='percent'></div></div></div>");
+        $this.append("<div class='ajax-file-upload-progress-bar'><div class='bar'><div class='percent'></div></div></div>");		
         $post_progress = $(".ajax-file-upload-progress-bar");
+		$post_progress.show();
         $this.ajaxSubmit({
             beforeSend: function() {
                 trace("seforeSend:");
                 var percentVal = '0%';
                 $post_progress.find('.bar').width(percentVal);
+                $post_progress.find('.percent').width(percentVal);
                 $post_progress.find('.percent').html(percentVal);
             },
             uploadProgress: function(event, position, total, percentComplete) {
                 trace("while uploadProgress:" + percentComplete + '%');
                 var percentVal = percentComplete + '%';
                 $post_progress.find('.bar').width(percentVal);
+                $post_progress.find('.percent').width(percentVal);
                 $post_progress.find('.percent').html(percentVal);
             },
             success: function() {

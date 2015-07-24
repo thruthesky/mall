@@ -17,9 +17,9 @@ class API extends ControllerBase {
 		$re = $this->$method($request);
 
 		if ( isset($re['code']) && $re['code'] ) {
-			if ( ! isset( $re['message'] ) ) {
+			/*if ( ! isset( $re['message'] ) ) {
 				$re['message'] = s::error_message( $re['code'] );
-			}
+			}*/
 		}
 		else $re['code'] = 0;
 
@@ -88,13 +88,17 @@ class API extends ControllerBase {
 		$type = '';
 		foreach( $_FILES as $k => $v ){
 			$file_usage_type = $k;
-
-			$f = array();
-			$f['name'] = $v['name'];
-			$f['type'] = $v['type'];
-			$f['tmp_name'] = $v['tmp_name'];
-			$f['error'] = $v['error'];
-			$f['size'] = $v['size'];
+			if( strpos( $v['type'], "image/" ) !== false ){
+				$f = array();
+				$f['name'] = $v['name'];
+				$f['type'] = $v['type'];
+				$f['tmp_name'] = $v['tmp_name'];
+				$f['error'] = $v['error'];
+				$f['size'] = $v['size'];
+			}
+			else{
+				return ['code'=>'-10001','error'=>'Only images are supported'];
+			}			
 		}
 
 		$info = [];
@@ -122,6 +126,7 @@ class API extends ControllerBase {
 		}
 		$re = [];
 		$re['files'] = $info;
+		
 		return $re;
 	}
 	
