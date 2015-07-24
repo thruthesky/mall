@@ -46,7 +46,7 @@ class Item extends ContentEntityBase implements ItemInterface {
         if( empty($input['location']) ) $input['location'] = $input['city'];
 
         $item->set('title', $input['title']);
-        $item->set('name', $input['name']);
+        //$item->set('name', $input['name']);
         $item->set('category_id', $input['category_id']);
         $item->set('brand', $input['brand']);
         $item->set('model', $input['model']);
