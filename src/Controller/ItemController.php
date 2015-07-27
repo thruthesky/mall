@@ -154,7 +154,7 @@ class ItemController extends ControllerBase {
 				self::changeCountByField( $data['item']['entity'], 'no_of_view' );
 				
 				$uid = $data['item']['entity']->user_id->target_id;
-				$data['member'] = x::loadLibraryMember( $uid );
+				$data['seller'] = x::loadLibraryMember( $uid );
 				$data['status'] = x::$item_status;			
 				$data['cities'] = x::$cities;	
 				$data['currency'] = x::$currency;
