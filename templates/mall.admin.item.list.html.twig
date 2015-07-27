@@ -21,10 +21,10 @@
 				<td><span>Price</span></td>
 				<td><span>Mobile</span></td>
 				<td><span>Category_id</span></td>	
-				<td><span>Status</span></td>				
-				{#<td><span>Brand</span></td>				
+				{#<td><span>Status</span></td>#}			
+				<td><span>Brand</span></td>				
 				<td><span>Model</span></td>
-				<td><span>Model Year</span></td>#}
+				{#<td><span>Model Year</span></td>#}
 				<td><span>Posted on</span></td>
 				<td width='100'><span>buttons</span></td>				
 			</tr>			
@@ -35,10 +35,10 @@
 					<td><span>{{ i.price.value }}</span></td>
 					<td><span>{{ i.mobile.value }}</span></td>
 					<td><span>{{ i.category_id.entity.name.value }} ({{ i.category_id.entity.id.value }})</span></td>
-					<td><span>{{ status[ i.status.value ] }}</span></td>
-					{#<td><span>{{ i.brand.value }}</span></td>
+					{#<td><span>{{ status[ i.status.value ] }}</span></td>#}
+					<td><span>{{ i.brand.value }}</span></td>
 					<td><span>{{ i.model.value }}</span></td>
-					<td><span>{{ i.model_year.value }}</span></td>#}
+					{#<td><span>{{ i.model_year.value }}</span></td>#}
 					<td><span>{{ i.created.value | date("m/d/Y") }}</span></td>
 					<td>
 						<div class="button-wrapper">
@@ -51,3 +51,11 @@
 		</table>
 	</div>
 </div>
+
+
+{# TEMPORARY ONLY!! must find another way#}
+<style>
+	.td-left-side-bar{
+		display:none;
+	}
+</style>
