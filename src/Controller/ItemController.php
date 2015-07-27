@@ -97,6 +97,9 @@ class ItemController extends ControllerBase {
 		$data['status'] = x::$item_status;
 		$data['items'] = Item::getItems();		
 		$data['total'] = count( $data['items'] );
+		
+		$data['no_sidebar'] = true;
+		
 		if( x::in( 'keyword' ) ){
 			$data['keyword'] = x::in( 'keyword' );		
 		}
