@@ -4,52 +4,54 @@
 	<div class='title'>Mall Item List</div>
 	{% include 'modules/mall/templates/error.html.twig' %}
 	{% include 'modules/mall/templates/mall.admin.commands.html.twig' %}
+	{% if not data.error %}
 	<div class='content-wrapper'>
-	<form class='mall-search'>
-		<input type='text' name='keyword' value='{{ data.keyword }}'>
-		<input type='submit'>
-	</form>
-	{% if data.keyword %}
-		<div class='mall-search-keyword'>Searching for [ <b>{{ data.keyword }}</b> ]</div>		
-	{% endif %}
-		<div class='note'>Search is only for <i>Title, Name, Content, brand,</i> and <i>Model</i> as of now.</div>
-		<div class='mall-search-total'>Total of [ <b>{{ data.total }}</b> ] item/s</div>
-		<table class='mall-table item' cellpadding=0 cellspacing=0 width='100%'>
-			<tr class='header'>
-				<td><span>Title</span></td>
-				<td><span>Owner</span></td>	
-				<td><span>Price</span></td>
-				<td><span>Mobile</span></td>
-				<td><span>Category_id</span></td>	
-				{#<td><span>Status</span></td>#}			
-				<td><span>Brand</span></td>				
-				<td><span>Model</span></td>
-				{#<td><span>Model Year</span></td>#}
-				<td><span>Posted on</span></td>
-				<td width='100'><span>buttons</span></td>				
-			</tr>			
-			{% for i in items %}			
-				<tr>
-					<td><span>{{ i.title.value }}</span></td>
-					<td><span>{{ i.user_id.entity.name.value }}</span></td>
-					<td><span>{{ i.price.value }}</span></td>
-					<td><span>{{ i.mobile.value }}</span></td>
-					<td><span>{{ i.category_id.entity.name.value }} ({{ i.category_id.entity.id.value }})</span></td>
-					{#<td><span>{{ status[ i.status.value ] }}</span></td>#}
-					<td><span>{{ i.brand.value }}</span></td>
-					<td><span>{{ i.model.value }}</span></td>
-					{#<td><span>{{ i.model_year.value }}</span></td>#}
-					<td><span>{{ i.created.value | date("m/d/Y") }}</span></td>
-					<td>
-						<div class="button-wrapper">
-							<a class="command" href="/mall/item/add?item_id={{ i.id.value }}" target="_blank">Edit</a>
-							<a class="command" href="/mall/item/delete?item_id={{ i.id.value }}" onclick="return item_delete( '{{ i.name.value }}' );">Delete</a>
-						</div>
-					</td>
-				</tr>
-			{% endfor %}	
-		</table>
+		<form class='mall-search'>
+			<input type='text' name='keyword' value='{{ data.keyword }}'>
+			<input type='submit'>
+		</form>
+		{% if data.keyword %}
+			<div class='mall-search-keyword'>Searching for [ <b>{{ data.keyword }}</b> ]</div>		
+		{% endif %}
+			<div class='note'>Search is only for <i>Title, Name, Content, brand,</i> and <i>Model</i> as of now.</div>
+			<div class='mall-search-total'>Total of [ <b>{{ data.total }}</b> ] item/s</div>
+			<table class='mall-table item' cellpadding=0 cellspacing=0 width='100%'>
+				<tr class='header'>
+					<td><span>Title</span></td>
+					<td><span>Owner</span></td>	
+					<td><span>Price</span></td>
+					<td><span>Mobile</span></td>
+					<td><span>Category_id</span></td>	
+					{#<td><span>Status</span></td>#}			
+					<td><span>Brand</span></td>				
+					<td><span>Model</span></td>
+					{#<td><span>Model Year</span></td>#}
+					<td><span>Posted on</span></td>
+					<td width='100'><span>buttons</span></td>				
+				</tr>			
+				{% for i in items %}			
+					<tr>
+						<td><span>{{ i.title.value }}</span></td>
+						<td><span>{{ i.user_id.entity.name.value }}</span></td>
+						<td><span>{{ i.price.value }}</span></td>
+						<td><span>{{ i.mobile.value }}</span></td>
+						<td><span>{{ i.category_id.entity.name.value }} ({{ i.category_id.entity.id.value }})</span></td>
+						{#<td><span>{{ status[ i.status.value ] }}</span></td>#}
+						<td><span>{{ i.brand.value }}</span></td>
+						<td><span>{{ i.model.value }}</span></td>
+						{#<td><span>{{ i.model_year.value }}</span></td>#}
+						<td><span>{{ i.created.value | date("m/d/Y") }}</span></td>
+						<td>
+							<div class="button-wrapper">
+								<a class="command" href="/mall/item/add?item_id={{ i.id.value }}" target="_blank">Edit</a>
+								<a class="command" href="/mall/item/delete?item_id={{ i.id.value }}" onclick="return item_delete( '{{ i.name.value }}' );">Delete</a>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}	
+			</table>
 	</div>
+	{% endif %}
 </div>
 
 

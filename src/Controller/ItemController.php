@@ -94,13 +94,19 @@ class ItemController extends ControllerBase {
     }
 	
 	public function collection(){		
-		$data['status'] = x::$item_status;
-		$data['items'] = Item::getItems();		
-		$data['total'] = count( $data['items'] );
-		
-		if( x::in( 'keyword' ) ){
-			$data['keyword'] = x::in( 'keyword' );		
+		$user_role = x::loadLibraryMember( Library::myUid() )->roles->target_id;
+		if( $user_role == 'administrator' ){
+			$data['status'] = x::$item_status;
+			$data['items'] = Item::getItems();		
+			$data['total'] = count( $data['items'] );
+			
+			if( x::in( 'keyword' ) ){
+				$data['keyword'] = x::in( 'keyword' );		
+			}
 		}
+		else{
+			$data['error'] = Library::error('Administrator error.', 'Only an admin can view this page');
+		}						
 		
 		return [
 			'#theme' => x::getThemeName(),
