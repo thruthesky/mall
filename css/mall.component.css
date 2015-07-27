@@ -603,16 +603,17 @@ form.mall-filter-form{
 
 form.mall-filter-form input[type='number']{
 	height: 26px;
-	width:55px;
-	padding:5px;
+	width:42px;
+	/*padding:5px;*/
 	border:1px solid #dddddd;
 	box-sizing:border-box;
 }
 
 form.mall-filter-form input[type='submit']{
 	height: 26px;
-	width:30px;	
-	padding:5px;
+	width:28px;	
+	padding:4px 3px 6px 3px;
+	margin-left:5px;
 	border:1px solid #dddddd;	
 	box-sizing:border-box;
 }
