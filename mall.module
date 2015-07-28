@@ -39,8 +39,8 @@ function mall_preprocess(&$variables, $hook)
     if ( empty($variables['module']['mall']) ) return;
 
 	if( Mall::isFrontPage() ){
-		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id' ] );
-		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>9, 'order'=>'DESC', 'by'=>'id' ] );	
+		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id', category_id => 4 ] );
+		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>9, 'order'=>'DESC', 'by'=>'id', category_id => 6 ] );	
 		$variables['mall_item_list'] = Item::getItemsWithImages( [ 'limit'=>16, 'order'=>'DESC', 'by'=>'id' ] );
 	}
 
