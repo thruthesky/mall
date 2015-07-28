@@ -31,17 +31,26 @@ class Item extends ContentEntityBase implements ItemInterface {
     public static function update( $input ) {
 
         if( $input['item_id'] ) $item = Item::load( $input['item_id'] );
-
+		
+		/*
+		*if a user posted the same item more than once...
+		*/
+		$result = \Drupal::entityQuery('mall_item')					
+					->condition('title',$input['title'])			
+					->condition('user_id', x::myUid())
+					->execute();
+		if( !empty( $result ) ){
+			$error = [];
+			
+			$error['item'] = Item::load( array_values( $result )[0] );
+			$error['error'] = true;			
+			return $error;
+		}
+		
         if( empty( $item ) ) {
             $item = Item::create();
-            $item->set('user_id', x::myUid() );
+            $item->set('user_id', x::myUid() );			
         }
-        /*
-        if( empty( $input['price'] ) ) $input['price'] = 0;
-        if( empty( $input['model_year'] ) ) $input['model_year'] = 0;
-        if( empty( $input['model'] ) ) $input['model'] = "NA";
-        if( empty( $input['brand'] ) ) $input['brand'] = "NA";
-        */
 
         if( empty($input['location']) ) $input['location'] = $input['city'];
 

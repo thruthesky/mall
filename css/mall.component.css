@@ -68,6 +68,11 @@
 	color:red;
 	background-color:#f2f2f2;
 }
+
+.mall-error .row .code{	
+	font-size:1.2em;
+	margin-bottom:5px;
+}
 /*eo error*/
 /*eo error*/
 

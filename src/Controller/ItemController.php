@@ -80,7 +80,14 @@ class ItemController extends ControllerBase {
 
 				if( empty( $item ) || $item->user_id->target_id == x::myUid() || x::isAdmin() ){
 					$re = Item::Update( $input );
-					return new RedirectResponse( "/mall/item/add?item_id=".$re );
+					if( empty( $re['error'] ) ){
+						return new RedirectResponse( "/mall/item/add?item_id=".$re );
+					}
+					else{
+						$theme = "mall.item.add";
+						$data = $re;
+						$data['error'] = Library::error('Admin Warning', 'Please do not spam item posting.');
+					}
 				}
 				else{						
 					$data['error'] = Library::error('Not your post.', Language::string('library', 'not_your_post'));
