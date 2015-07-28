@@ -620,7 +620,7 @@ form.mall-filter-form input[type='submit']{
 /*price range*/
 form.mall-filter-form.price .input-text-wrapper{
 	float:left;
-	margin:0 0 5px 5px;
+	/*margin:0 0 5px 5px;*/
 }
 
 form.mall-filter-form.price input[type='submit']{
