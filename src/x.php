@@ -50,9 +50,9 @@ class x {
 		'D' => 'Defective',
 	];
 	
-	static $currency =[
-		'W' => '₩',
+	static $currency =[		
 		'P' => '₱',
+		'W' => '₩',
 		'U' => '$',
 	];
 	
