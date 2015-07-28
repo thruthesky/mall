@@ -60,7 +60,8 @@
 				<div class='table-wrapper'>					
 					<table cellpadding=0 cellspacing=0 width='100%'>
 						<tr>
-							<td><span class='table-label'>{{ ko ? '아이디' : 'Username' }}</span></td><td width='70%'>{{ item.user_id.entity.name.value }}</td>
+							<td><span class='table-label'>{{ ko ? '아이디' : 'Username' }}</span></td>							
+							<td width='70%'><span class="author member-profile" uid="{{ item.user_id.target_id }}" target_id="{{ item.id.value }}">{{ item.user_id.entity.name.value }}</span></td>
 						</tr>
 						<tr>
 							<td><span class='table-label'>{{ ko ? '이름' : 'Name' }}</span></td><td width='70%'>{{  data.seller.extra.full_name }}</td>
@@ -73,9 +74,9 @@
 			</div>
 		</div>
 		<div class='image-list'>	
-			{% if images.item_image %}
+				{% set count1 = 1 %}				
 				<div class='top-image'>
-				{% set count1 = 1 %}
+					{% if images.item_image %}
 					{% for item_image in images.item_image %}					
 							{% if count1 == 1 %}
 								{% set active = " class=is-active"%}
@@ -85,17 +86,21 @@
 							<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_original }}'/>
 						{% set count1 = count1 + 1 %}
 					{% endfor %}
+					{% else %}						
+						<img class='is-active' fid='{{ images.item_image_thumbnail[0].fid }}' src='{{ images.item_image_thumbnail[0].url_original }}'/>
+					{% endif %}
 				</div>
 				<div class='thumbnails'>
 					<img class='arrow left' src='/modules/mall/img/arrow_left.png'/>
 					<img class='arrow right' src='/modules/mall/img/arrow_right.png'/>
 					<div class='inner'>
-						{% set count2 = 1 %}{% for item_image in images.item_image %}{% if count2 == 1 %}{% set active = " class=is-active"%}{% else %}{% set active = ""%}{% endif %}<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_medium }}'/>{% set count2 = count2 + 1 %}{% endfor %}
+						{% if images.item_image %}
+							{% set count2 = 1 %}{% for item_image in images.item_image %}{% if count2 == 1 %}{% set active = " class=is-active"%}{% else %}{% set active = ""%}{% endif %}<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_medium }}'/>{% set count2 = count2 + 1 %}{% endfor %}
+						{% else %}
+							<img class='is-active' fid='{{ images.item_image_thumbnail[0].fid }}' src='{{ images.item_image_thumbnail[0].url_medium }}'/>
+						{% endif %}
 					</div>
 				</div>						
-			{% else %}
-				<h1>No item images uploaded</h1>
-			{% endif %}
 		</div>
 		<div class='content-text'>
 			{{ item.content.value | nl2br  }}
