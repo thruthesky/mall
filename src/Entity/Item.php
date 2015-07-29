@@ -73,8 +73,23 @@ class Item extends ContentEntityBase implements ItemInterface {
         $item->save();
 
         $fids = $input['fids'];
+		
+		//if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
+		if( strpos( $fids, "item_image_thumbnail" ) !== false ){
+
+		}
+		else{
+			$exploded_fids = explode( "," ,$fids );
+			if( !empty( $exploded_fids[1] ) ){
+				$type_and_fid = explode( "-", $exploded_fids[1] );
+			}
+			$fids = $fids.",item_image_thumbnail-".$type_and_fid[1];
+		}
+		//eo if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
+		
         if( $fids ){
-            $exploded_fids = explode( "," ,$fids );
+            $exploded_fids = explode( "," ,$fids );						
+			
             foreach( $exploded_fids as $ef ){
                 if ( empty($ef) ) continue;
                 $type_and_fid = explode( "-", $ef );
