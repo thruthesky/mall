@@ -21,7 +21,12 @@
 	{% if not data.error %}
 	<div class='content-wrapper'>
 		<form class='mall-search'>
-			<input type='text' name='keyword' value='{{ data.keyword }}'>
+			<input type='text' name='keyword' value='{{ data.keyword }}'>			 
+			<select name='category_id'>
+				{% for category in data.categories %}
+					<option value="{{ category.id.value }}"><script>ln("{{ category.name.value }}")</script></option>
+				{% endfor %}
+			</select>
 			<input type='submit'>
 		</form>
 		{% if data.keyword %}

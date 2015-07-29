@@ -108,6 +108,12 @@ class ItemController extends ControllerBase {
 		if( $user_role == 'administrator' ){
 			$input = x::input();
 			
+			if( !empty( $input['category_id'] ) ) $conds['category_id'] = $input['category_id'];
+			
+			$data['status'] = x::$item_status;
+			$data['all_items'] = Item::getItems( $conds );		
+			$data['total_items'] = count( $data['all_items'] );	
+			
 			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
 			else {
 				$input['page'] = 1;
@@ -115,15 +121,13 @@ class ItemController extends ControllerBase {
 			}
 			
 			if( !empty( $input['limit'] ) ) $conds['limit'] = $input['limit'];
-			else $conds['limit'] = 10;
+			else $conds['limit'] = 10;						
 			
-			$data['status'] = x::$item_status;
-			$data['all_items'] = Item::getItems();		
-			$data['total_items'] = count( $data['all_items'] );
 			$data['items_per_page'] = $conds['limit'];
 			$data['total_pages'] = ceil( $data['total_items'] / $data['items_per_page'] );
 			$data['input'] = $input;		
 			$data['items'] = Item::getItems( $conds );
+			$data['categories'] = x::getCategoryChildren( 0 );
 			
 			if( x::in( 'keyword' ) ){
 				$data['keyword'] = x::in( 'keyword' );		
