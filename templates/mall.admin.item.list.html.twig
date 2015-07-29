@@ -25,7 +25,7 @@
 			<select name='category_id'>
 				<option value=''>ALL</option>
 				{% for category in data.categories %}
-					<option value="{{ category.id.value }}"><script>ln("{{ category.name.value }}")</script></option>
+					<option value="{{ category.id.value }}" {{ input.category_id == category.id.value ? "selected"}}><script>ln("{{ category.name.value }}")</script></option>
 				{% endfor %}
 			</select>
 			<input type='submit'>
