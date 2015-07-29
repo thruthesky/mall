@@ -23,7 +23,7 @@
 		<form class='mall-search'>
 			<input type='text' name='keyword' value='{{ data.keyword }}'>			 
 			<select name='category_id'>
-				<option value=''></option>
+				<option value=''>ALL</option>
 				{% for category in data.categories %}
 					<option value="{{ category.id.value }}"><script>ln("{{ category.name.value }}")</script></option>
 				{% endfor %}
