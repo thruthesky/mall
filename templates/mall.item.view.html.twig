@@ -86,8 +86,10 @@
 							<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_original }}'/>
 						{% set count1 = count1 + 1 %}
 					{% endfor %}
-					{% else %}						
+					{% elseif images.item_image_thumbnail[0]%}						
 						<img class='is-active' fid='{{ images.item_image_thumbnail[0].fid }}' src='{{ images.item_image_thumbnail[0].url_original }}'/>
+					{% else %}
+						<img class='is-active' src='/modules/mall/img/mall-no-image.png'/>
 					{% endif %}
 				</div>
 				<div class='thumbnails'>
@@ -96,8 +98,10 @@
 					<div class='inner'>
 						{% if images.item_image %}
 							{% set count2 = 1 %}{% for item_image in images.item_image %}{% if count2 == 1 %}{% set active = " class=is-active"%}{% else %}{% set active = ""%}{% endif %}<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_medium }}'/>{% set count2 = count2 + 1 %}{% endfor %}
-						{% else %}
+						{% elseif images.item_image_thumbnail[0] %}
 							<img class='is-active' fid='{{ images.item_image_thumbnail[0].fid }}' src='{{ images.item_image_thumbnail[0].url_medium }}'/>
+						{% else %}
+							<img class='is-active' src='/modules/mall/img/mall-no-image.png'/>
 						{% endif %}
 					</div>
 				</div>						
