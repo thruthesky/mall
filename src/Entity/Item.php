@@ -48,9 +48,30 @@ class Item extends ContentEntityBase implements ItemInterface {
 				return $error;
 			}
 		}
+		
+		if( !empty( $input['fids'] ) ) $fids = $input['fids'];
+		
         if( empty( $item ) ) {
             $item = Item::create();
-            $item->set('user_id', x::myUid() );			
+            $item->set('user_id', x::myUid() );	
+			
+			if( !empty( $fids ) ){
+				/*
+				*if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
+				*THIS WILL ONLY HAPPEN IF THE ITEM IS NEW
+				*/
+				if( strpos( $fids, "item_image_thumbnail" ) !== false ){
+
+				}
+				else{
+					$exploded_fids = explode( "," ,$fids );
+					if( !empty( $exploded_fids[1] ) ){
+						$type_and_fid = explode( "-", $exploded_fids[1] );
+					}
+					$fids = $fids.",item_image_thumbnail-".$type_and_fid[1];
+				}
+				//eo if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
+			}
         }
 
         if( empty($input['location']) ) $input['location'] = $input['city'];
@@ -70,22 +91,7 @@ class Item extends ContentEntityBase implements ItemInterface {
         $item->set('location', $input['location']);
         $item->set('content', $input['content']);
 
-        $item->save();
-
-        $fids = $input['fids'];
-		/*
-		//if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
-		if( strpos( $fids, "item_image_thumbnail" ) !== false ){
-
-		}
-		else{
-			$exploded_fids = explode( "," ,$fids );
-			if( !empty( $exploded_fids[1] ) ){
-				$type_and_fid = explode( "-", $exploded_fids[1] );
-			}
-			$fids = $fids.",item_image_thumbnail-".$type_and_fid[1];
-		}*/
-		//eo if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
+        $item->save();        
 		
         if( $fids ){
             $exploded_fids = explode( "," ,$fids );						
