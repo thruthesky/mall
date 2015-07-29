@@ -109,7 +109,10 @@ class ItemController extends ControllerBase {
 			$input = x::input();
 			
 			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
-			else $conds['page'] = 1;
+			else {
+				$input['page'] = 1;
+				$conds['page'] = 1;
+			}
 			
 			if( !empty( $input['limit'] ) ) $conds['limit'] = $input['limit'];
 			else $conds['limit'] = 10;
