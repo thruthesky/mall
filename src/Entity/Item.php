@@ -33,20 +33,21 @@ class Item extends ContentEntityBase implements ItemInterface {
         if( $input['item_id'] ) $item = Item::load( $input['item_id'] );
 		
 		/*
-		*if a user posted the same item more than once...
+		*check if a user posted the same item more than once...
 		*/
-		$result = \Drupal::entityQuery('mall_item')					
-					->condition('title',$input['title'])			
-					->condition('user_id', x::myUid())
-					->execute();
-		if( !empty( $result ) ){
-			$error = [];
-			
-			$error['item'] = Item::load( array_values( $result )[0] );
-			$error['error'] = true;			
-			return $error;
+		if( empty( $item ) ){
+			$result = \Drupal::entityQuery('mall_item')					
+						->condition('title',$input['title'])			
+						->condition('user_id', x::myUid())
+						->execute();
+			if( !empty( $result ) ){
+				$error = [];
+				
+				$error['item'] = Item::load( array_values( $result )[0] );
+				$error['error'] = true;			
+				return $error;
+			}
 		}
-		
         if( empty( $item ) ) {
             $item = Item::create();
             $item->set('user_id', x::myUid() );			
