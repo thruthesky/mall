@@ -42,7 +42,7 @@ $items[0]['images']['item_image_description'] -> images
                         {% if images.item_image_thumbnail[0] %}
                             {% set url_thumb = images.item_image_thumbnail[0].url_large %}
                         {% else %}
-                            {% set url_thumb = '/themes/x8/templates/mall/img/mall-no-image.png' %}
+                            {% set url_thumb = '/modules/mall/img/mall-no-image.png' %}
                         {% endif %}
                         <img src='{{ url_thumb }}'/>
                     </div>
