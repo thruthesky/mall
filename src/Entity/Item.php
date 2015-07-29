@@ -73,7 +73,7 @@ class Item extends ContentEntityBase implements ItemInterface {
         $item->save();
 
         $fids = $input['fids'];
-		
+		/*
 		//if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
 		if( strpos( $fids, "item_image_thumbnail" ) !== false ){
 
@@ -84,7 +84,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 				$type_and_fid = explode( "-", $exploded_fids[1] );
 			}
 			$fids = $fids.",item_image_thumbnail-".$type_and_fid[1];
-		}
+		}*/
 		//eo if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
 		
         if( $fids ){
