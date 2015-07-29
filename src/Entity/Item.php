@@ -34,7 +34,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		
 		/*
 		*check if a user posted the same item more than once...
-		
+		*/
 		if( empty( $item ) ){
 			$result = \Drupal::entityQuery('mall_item')					
 						->condition('title',$input['title'])			
@@ -47,7 +47,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 				$error['error'] = true;			
 				return $error;
 			}
-		}*/
+		}
         if( empty( $item ) ) {
             $item = Item::create();
             $item->set('user_id', x::myUid() );			

@@ -22,7 +22,7 @@ class ItemController extends ControllerBase {
 		}
 				
 		$data = x::getDefaultInformationByUid( x::myUid() );
-		$data['status'] = x::$item_status;
+		//$data['status'] = x::$item_status;
 		$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
 		$data['provinces'] = x::$provinces;
 		$data['currency'] = x::$currency;
@@ -87,6 +87,9 @@ class ItemController extends ControllerBase {
 						$theme = "mall.item.add";
 						$data = $re;
 						$data['error'] = Library::error('Admin Warning', 'Please do not spam item posting.');
+						$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
+						$data['provinces'] = x::$provinces;
+						$data['currency'] = x::$currency;
 					}
 				}
 				else{						
