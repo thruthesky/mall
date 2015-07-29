@@ -5,54 +5,60 @@ requires:
 - search filter ( input );
 #}
 
-{% set total_pages = ( total_items / items_per_page ) | round( 0, 'ceil' ) %}
-{% if total_pages <= 0 %}
-	{% set total_pages = 1 %}
-{% endif %}
+{% if error or data.error %}
 
-{% if input.page %}
-	{% set starting_page = ( ( input.page - 1 ) / 10 ) | round( 0, 'floor' ) * 10 + 1 %}	
-	{% set ending_page = starting_page + 10 - 1 %}
 {% else %}
-	{% set starting_page = 1 %}
-	{% set ending_page = 10 %}	
-{% endif %}
 
-{% if ending_page >= total_pages %}
-	{% set ending_page = total_pages %}
-{% endif %}
+	{% set total_pages = ( total_items / items_per_page ) | round( 0, 'ceil' ) %}
+	{% if total_pages <= 0 %}
+		{% set total_pages = 1 %}
+	{% endif %}
 
-{% if view_path %}
-	{% set url = view_path~'?' %}
-{% else %}
-	{% set url = '/mall/item/search?' %}
-{% endif %}
-
-{% if input.page %}
-	{% set current_page = input.page %}
-{% else %}
-	{% set current_page = 1 %}
-{% endif %}
-{% for k,v in input %}
-	{% if k == 'page'%}
+	{% if input.page %}
+		{% set starting_page = ( ( input.page - 1 ) / 10 ) | round( 0, 'floor' ) * 10 + 1 %}	
+		{% set ending_page = starting_page + 10 - 1 %}
 	{% else %}
-		{% set url = url ~ "&" ~ k ~ "=" ~ v %}
+		{% set starting_page = 1 %}
+		{% set ending_page = 10 %}	
 	{% endif %}
-{% endfor %}
 
-<div class='mall-pagination'>
-	{% if current_page > 10 %}
-		<a href='{{ url }}&page=1' class='first'> << </a>
-		<a href='{{ url }}&page={{ starting_page - 10 }}' class='prev'> Prev 10 </a>
+	{% if ending_page >= total_pages %}
+		{% set ending_page = total_pages %}
 	{% endif %}
-	{% for page in starting_page..ending_page %}
-		<a {{ current_page == page ? "class=selected" }} href='{{ url }}&page={{ page }}'>{{ page }}</a>
+
+	{% if view_path %}
+		{% set url = view_path~'?' %}
+	{% elseif admin_list_page %}
+		{% set url = '/mall/admin/item/list?' %}
+	{% else %}
+		{% set url = '/mall/item/search?' %}
+	{% endif %}
+
+	{% if input.page %}
+		{% set current_page = input.page %}
+	{% else %}
+		{% set current_page = 1 %}
+	{% endif %}
+	{% for k,v in input %}
+		{% if k == 'page'%}
+		{% else %}
+			{% set url = url ~ "&" ~ k ~ "=" ~ v %}
+		{% endif %}
 	{% endfor %}
-	{% if starting_page + 10 <= total_pages %}
-		<a href='{{ url }}&page={{ starting_page + 10 }}' class='next'> Next 10 </a>
-	{% endif %}
-	{% if current_page < total_pages %}
-		<a href='{{ url }}&page={{ total_pages }}' class='last'> >> </a>
-	{% endif %}
-</div>
 
+	<div class='mall-pagination'>
+		{% if current_page > 10 %}
+			<a href='{{ url }}&page=1' class='first'> << </a>
+			<a href='{{ url }}&page={{ starting_page - 10 }}' class='prev'> Prev 10 </a>
+		{% endif %}
+		{% for page in starting_page..ending_page %}
+			<a {{ current_page == page ? "class=selected" }} href='{{ url }}&page={{ page }}'>{{ page }}</a>
+		{% endfor %}
+		{% if starting_page + 10 <= total_pages %}
+			<a href='{{ url }}&page={{ starting_page + 10 }}' class='next'> Next 10 </a>
+		{% endif %}
+		{% if current_page < total_pages %}
+			<a href='{{ url }}&page={{ total_pages }}' class='last'> >> </a>
+		{% endif %}
+	</div>
+{% endif %}

@@ -1,5 +1,12 @@
 {% set items = data.items %}
 {% set status = data.status %}
+
+{% set total_items = data.total_items %}
+{% set items_per_page = data.items_per_page %}
+{% set input = data.input %}
+
+{% set admin_list_page = true %}
+
 <div class='mall-admin-page'>
 	<div class='title'>Mall Item List</div>
 	{% include 'modules/mall/templates/error.html.twig' %}
@@ -54,7 +61,7 @@
 	{% endif %}
 </div>
 
-
+{% include '/modules/mall/templates/mall.item.pagination.html.twig' %}
 {# TEMPORARY ONLY!! must find another way#}
 <style>
 	.td-left-side-bar{

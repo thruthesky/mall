@@ -115,8 +115,6 @@ class Item extends ContentEntityBase implements ItemInterface {
      * @return array|static[]
      */
     public static function getItems( $conds = array() ) {
-
-
         $query = \Drupal::entityQuery('mall_item');
 
         if( isset($conds['limit']) ){

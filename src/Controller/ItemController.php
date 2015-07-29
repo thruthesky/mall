@@ -106,12 +106,28 @@ class ItemController extends ControllerBase {
 	public function collection(){		
 		$user_role = x::loadLibraryMember( Library::myUid() )->roles->target_id;
 		if( $user_role == 'administrator' ){
+			$input = x::input();
+			
+			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
+			else $conds['page'] = 1;
+			
+			if( !empty( $input['limit'] ) ) $conds['limit'] = $input['limit'];
+			else $conds['limit'] = 10;
+			
 			$data['status'] = x::$item_status;
-			$data['items'] = Item::getItems();		
-			$data['total'] = count( $data['items'] );
+			$data['all_items'] = Item::getItems();		
+			$data['total_items'] = count( $data['all_items'] );
+			$data['items_per_page'] = $conds['limit'];
+			$data['total_pages'] = ceil( $data['total_items'] / $data['items_per_page'] );
+			$data['input'] = $input;		
+			$data['items'] = Item::getItems( $conds );
 			
 			if( x::in( 'keyword' ) ){
 				$data['keyword'] = x::in( 'keyword' );		
+			}
+
+			if( $input['page'] > $data['total_pages'] ){
+				$data['error'] = Library::error('Page Error','You have exceeded the page limit of '.$data['total_pages']);
 			}
 		}
 		else{
