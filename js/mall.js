@@ -17,6 +17,8 @@ $(function(){
     $body.on( "click",".close-filter", callback_filter_options );
 
     $body.on( "click","div.item-add-submit", callback_submit_add_form );
+    $body.on( "submit","form.item-add-form", callback_form_submitted );
+	
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');
     $body.on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );
 
@@ -278,6 +280,29 @@ function callback_delete_file(){
 
 function callback_submit_add_form(){
 	$("form.item-add-form input[type='submit']").click();
+}
+
+function callback_form_submitted( e ){
+	total_file_inputs = $("input[type='file']").length;	
+	if( $(".upload .display-uploaded-files .photo").length ){
+		
+	}
+	else{
+		total_files_uploaded = 0;
+		for( var i = 0; i < total_file_inputs; i++ ){		
+			if( $("input[type='file']:eq(" + i + ")").val() ){
+				total_files_uploaded ++;
+			}
+		}		
+		
+		if( total_files_uploaded < 1 ){
+			alert( "You need to upload atleast one photo!" );	
+			scroll_top = $(".file-upload-group.item_image_thumbnail").offset().top;
+			$("html,body").animate( { scrollTop:scroll_top },500,function(){} );		
+			e.preventDefault();
+			return false;			
+		}
+	}
 }
 
 /*mall-advance-search*/
