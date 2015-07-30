@@ -105,7 +105,10 @@ function callback_check_price(){
 	$selector = $(".mall-page .mall-item-add .price-wrapper");
 	timeout_confirm_password = setTimeout( function(){
 		if( $selector.find("input").val() > 0 ){
-			if( $selector.find(".note.error").length ) $selector.find(".note.error").remove();
+			if( $selector.find(".note.error").length ){
+				$selector.find(".note.error").remove();
+				if( $selector.find('input').hasClass('error') ) $selector.find('input').removeClass('error');
+			}
 			return;
 		}
 	
