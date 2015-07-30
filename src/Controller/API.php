@@ -87,6 +87,8 @@ class API extends ControllerBase {
 		$files = [];
 		$type = '';
 		foreach( $_FILES as $k => $v ){
+			di( $v );
+			exit;
 			$file_usage_type = $k;
 			if( strpos( $v['type'], "image/" ) !== false ){
 				$f = array();
