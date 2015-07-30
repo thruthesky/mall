@@ -953,6 +953,66 @@ form.mall-filter-form.price input[type='submit']{
 }
 /*eo mall-view*/
 
+/*view-message-send*/
+.view-message-send{
+	width:70%;
+}
+
+.view-message-send .title{
+	font-size: 1.3em;
+	color: #1886c5;
+	font-weight: bold;
+}
+
+.view-message-send .message-send {
+	margin-top:5px;
+}
+
+.view-message-send .message-send fieldset{
+	padding:0;
+	margin:0;
+	border:0;
+}
+
+.view-message-send .message-send .row.data-set.content label{
+	display:none;
+}
+
+.view-message-send .message-send .row.data-set.content textarea{
+	height:200px;
+	width:100%;	
+	padding:10px;
+	margin-bottom:4px;
+	border:1px solid #afafaf;
+	resize:none;
+	box-sizing:border-box;
+}
+
+.view-message-send .message-send .buttons input[type='submit']{	
+	display: inline-block;
+	
+	padding: 5px 10px 8px 31px;
+	/*margin: 3px 5px 0 0;*/
+	border: 0;
+	border-radius: 2px;
+	background-color: #1886c5;
+	font-size: 1.3em;
+	
+	color: #fff;
+	box-sizing:border-box;
+}
+
+.view-message-send .message-send .buttons .send-button-wrapper{
+	position:relative;
+}
+
+.view-message-send .message-send .buttons .send-button-wrapper > img{
+	position: absolute;
+	left: 4px;
+	top: 8px;
+}
+/*eo view-message-send*/
+
 /*mall-advance-search*/
 .mall-advance-search{
 	margin-bottom:10px;

@@ -1,0 +1,18 @@
+{% import dir_message ~ '/templates/macro/html.html.twig' as html %}
+<div class='view-message-send'>
+	<div class='title'>Send a message to {{ item.user_id.entity.name.value }} ( seller )</div>
+	<form class='message-send' method="post" action="/message/send">
+		<fieldset>		
+			<input type="hidden" name="mode" value="submit">
+			<input type="hidden" name="receiver" value="{{ item.user_id.entity.name.value }}">
+			<input type="hidden" name="title" value="{{ "Item: "~ item.title.value }}">
+			{{ html.textarea({'name':'content', 'id':'message-content', 'class':'content', 'label':'Content', 'placeholder':'Input Content'}) }}		
+			<div class='buttons clearfix'>
+				<div class='send-button-wrapper'>
+					<img src="/modules/library/img/member-profile/message.png">
+					<input type="submit" value='Send Message'>
+				</div>
+			</div>
+		</fieldset>	
+	</form>
+</div>
