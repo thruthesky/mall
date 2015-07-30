@@ -97,7 +97,7 @@ class API extends ControllerBase {
 				$f['size'] = $v['size'];
 			}			
 			else{
-				return ['code'=>'-10001','error'=>'Only images less than 2MB are supported'];
+				return ['code'=>'-10001','error'=>'Only images less than 16MB are supported'];
 			}			
 		}
 
