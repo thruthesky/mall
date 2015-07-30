@@ -21,53 +21,42 @@
 
 			<input type='hidden' name='item_id' value='{{ input.item_id }}'>
 			<div class='description'>{{ ko ? '제목' : 'Title' }}</div>
-			<input type='text' name='title' placeholder='{{ ko ? '제목을 입력하세요.' : 'Item Title' }}' value='{{ item.title.value }}' required>
-			{#<div class='description'>{{ ko ? '상품명' : 'What is the name of the item?' }}</div>
-			<input type='text' name='name' placeholder='{{ ko ? '상품명을 입력하세요.' : 'Item Name' }}' value='{{ item.name.value }}' required>#}
+			<input type='text' name='title' placeholder='{{ ko ? '제목을 입력하세요.' : 'Item Title' }}' value='{{ item.title.value | default( data.input.title ) }}' required>			
 			<div class='description'>{{ ko ? '카테고리 선택' : 'In what category does your item fall?' }}</div>
 			<div class='categories clearfix'>
 				{% for category in categories %}
 					<select class='category' {{ loop.index == data.category_last_selected ? "name=category_id" }} depth='0' {{ loop.index == 1 ? 'required' }}>
 						<option value=''>{{ ko ? '카테고리' : 'Category' }}</option>
+						{% if category.selected %}
+							{% set selected_category = category.selected %}
+						{% else %}
+							{% set selected_category = data.input.category_id %}
+						{% endif %}
 						{% for c in category.entity %}
-							<option value='{{ c.id.value }}' {{ category.selected == c.id.value ? 'selected' }}>{{ f.get(ko, c.name.value) }}</option>
+							<option value='{{ c.id.value }}' {{ selected_category == c.id.value ? 'selected' }}>{{ f.get(ko, c.name.value) }}</option>
 						{% endfor %}
 					</select>
 				{% endfor %}
 			</div>
 			<div class='description'>{{ ko ? '제조 회사명' : 'Brand' }}</div>
-			<input type='text' name='brand' value='{{ item.brand.value }}' placeholder="{{ ko ? '제품 제조 회사명을 입력하세요' : 'Input Brand' }}">
+			<input type='text' name='brand' value='{{ item.brand.value | default( data.input.brand ) }}' placeholder="{{ ko ? '제품 제조 회사명을 입력하세요' : 'Input Brand' }}">
 			<div class='note'>Ex) Samsung, Company Name</div>
 			<div class='description'>{{ ko ? '모델' : 'Model' }}</div>
-			<input type='text' name='model' value='{{ item.model.value }}' placeholder="{{ ko ? '모델명을 입력하세요.' : 'Input model' }}">
+			<input type='text' name='model' value='{{ item.model.value | default( data.input.model ) }}' placeholder="{{ ko ? '모델명을 입력하세요.' : 'Input model' }}">
 			<div class='note'>Ex) Galaxy S5</div>
 			<div class='description'>{{ ko ? '제조 년도' : 'Model Year' }}</div>
-			<input type='number' name='model_year' value='{{ item.model_year.value }}'>
+			<input type='number' name='model_year' value='{{ item.model_year.value | default( data.input.model_year ) }}'>
 			<div class='description'>{{ ko ? '가격' : 'Price' }}</div>
 			<div class='price-wrapper'>				
-				{#<span class='currency'>₱</span>#}
 				<select name='currency' required>
 					{% for k,v in data.currency %}
-						<option value='{{ k }}'{{ k == item.currency.value ? " selected" }}>{{ v }}</option>
+						<option value='{{ k }}'{{ k == item.currency.value or k == data.input.currency ? " selected" }}>{{ v }}</option>
 					{% endfor %}
 				</select>
-				<div class='text'><input type='number' name='price' value='{{ item.price.value }}' required></div>
+				<div class='text'><input type='number' name='price' value='{{ item.price.value | default( data.input.price ) }}' required></div>
 			</div>
-			{#
-			<div class='note'>1.) Item price must be within a realistic value range</div>
-			<div class='note'>2.) You can leave the price blank or '0' value if the price can be discussed with buyers or sellers</div>
-			#}
 			<div class='description'>{{ ko ? '전화번호' : 'Phone Number' }}</div>
-			{% if item.mobile.value %}
-				{% set mobile = item.mobile.value %}
-			{% else %}
-				{% set mobile = user.field_mobile.value %}
-			{% endif %}
-			<input type='text' name='mobile' value='{{ mobile }}' required>
-			{#
-			<div class='note'>1.) You can seperate phone numbers by using comma (,)</div>
-			<div class='note'>2.) Indicate the number where your buyer will contact you. Format: 09xxxxxxxxx (e.g. 09158787666)</div>
-			#}
+			<input type='text' name='mobile' value='{{ item.mobile.value | default( data.input.mobile ) }}' required>
 
 			<div class='description'>{{ ko ? '판매자 위치' : 'Seller Location' }}</div>
 			<div class='location-wrapper clearfix'>
@@ -87,23 +76,9 @@
 				{% endif %}
 			</div>
 			<div class='description'>{{ ko ? '배달 가능 지역' : 'Delivery Locations' }}</div>
-			<input type='text' name='location' value='{{ item.location.value }}'>
-			{#
-			<div class='note'>1.) Places where you may do meetups.</div>
-			<div class='note'>2.) Please add them in an understandable way. In case of multiple places you may use comma (,) to separate it.</div>
-			#}
-			{#
-
-			<div class='description'>What is the condition of your item?</div>
-			<select name='status' required>
-				<option value=''>Item Status</option>
-				{% for k,v in status %}
-					<option value='{{ k }}' {{ item.status.value == k ? 'selected' }}>{{ v }}</option>
-				{% endfor %}
-			</select>
-			#}
+			<input type='text' name='location' value='{{ item.location.value | default( data.input.location ) }}'>
 			<div class='description'>{{ ko ? '상품 설명' : 'Description' }}</div>
-			<textarea name='content'>{{ item.content.value }}</textarea>
+			<textarea name='content'>{{ item.content.value | default( data.input.content ) }}</textarea>
 			<div class='buttons'>
 				<input class='item-add-submit' type='submit' value='{{ ko ? '상품 등록' : 'Post Item' }}'>
 			</div>

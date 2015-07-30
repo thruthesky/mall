@@ -28,8 +28,9 @@ use Drupal\mall\x;
 class Item extends ContentEntityBase implements ItemInterface {
     const SEND_MESSAGE_FOR_PRICE_DETAILS = "Message for price details";
 
-    public static function update( $input ) {
-
+    public static function update( $input ) {				
+		$error = [];
+		
         if( $input['item_id'] ) $item = Item::load( $input['item_id'] );
 		
 		/*
@@ -40,16 +41,25 @@ class Item extends ContentEntityBase implements ItemInterface {
 						->condition('title',$input['title'])			
 						->condition('user_id', x::myUid())
 						->execute();
-			if( !empty( $result ) ){
-				$error = [];
-				
+			if( !empty( $result ) ){	
+				$error['input'] = $input;
 				$error['item'] = Item::load( array_values( $result )[0] );
-				$error['error'] = true;			
+				$error['error'] = "spam";			
 				return $error;
 			}
 		}
 		
 		if( !empty( $input['fids'] ) ) $fids = $input['fids'];
+		else{
+			/*
+			if( empty( $item ) ){
+				$error['input'] = $input;
+				$error['item'] = Item::load( array_values( $result )[0] );
+				$error['error'] = "no_file";			
+				return $error;		
+			}		
+			*/	
+		}
 		
         if( empty( $item ) ) {
             $item = Item::create();

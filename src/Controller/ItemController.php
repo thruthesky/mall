@@ -80,13 +80,14 @@ class ItemController extends ControllerBase {
 
 				if( empty( $item ) || $item->user_id->target_id == x::myUid() || x::isAdmin() ){
 					$re = Item::Update( $input );
-					if( empty( $re['error'] ) ){
+					if( empty( $re['error'] ) ){						
 						return new RedirectResponse( "/mall/item/add?item_id=".$re );
 					}
 					else{
 						$theme = "mall.item.add";
 						$data = $re;
-						$data['error'] = Library::error('Admin Warning', 'Please do not spam item posting.');
+						if( $re['error'] == 'spam' ) $data['error'] = Library::error('Admin Warning', 'Please do not spam item posting.');
+						else if( $re['error'] == 'no_file' ) $data['error'] = Library::error('File Error', 'Please Upload atleast one file.');
 						$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
 						$data['provinces'] = x::$provinces;
 						$data['currency'] = x::$currency;
