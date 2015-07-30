@@ -50,14 +50,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		
 		if( !empty( $input['fids'] ) ) $fids = $input['fids'];
 		else{
-			/*
-			if( empty( $item ) ){
-				$error['input'] = $input;
-				$error['item'] = Item::load( array_values( $result )[0] );
-				$error['error'] = "no_file";			
-				return $error;		
-			}		
-			*/	
+
 		}
 		
         if( empty( $item ) ) {
