@@ -27,13 +27,8 @@
 				{% for category in categories %}
 					<select class='category' {{ loop.index == data.category_last_selected ? "name=category_id" }} depth='0' {{ loop.index == 1 ? 'required' }}>
 						<option value=''>{{ ko ? '카테고리' : 'Category' }}</option>
-						{% if category.selected %}
-							{% set selected_category = category.selected %}
-						{% else %}
-							{% set selected_category = data.input.category_id %}
-						{% endif %}
 						{% for c in category.entity %}
-							<option value='{{ c.id.value }}' {{ selected_category == c.id.value ? 'selected' }}>{{ f.get(ko, c.name.value) }}</option>
+							<option value='{{ c.id.value }}' {{ category.selected == c.id.value ? 'selected' }}>{{ f.get(ko, c.name.value) }}</option>
 						{% endfor %}
 					</select>
 				{% endfor %}
@@ -62,15 +57,25 @@
 			<div class='location-wrapper clearfix'>
 				<select class='location' name='province' required>
 					<option value=''>Province</option>
-					{% for p in data.provinces %}
-						<option value='{{ p }}'{{ p == item.province.value ? " selected" }}>{{ p }}</option>
+					{% if item.province.value %}
+						{% set selected_province = item.province.value %}
+					{% else %}
+						{% set selected_province = data.input.province %}						
+					{% endif %}
+					{% for p in data.provinces %}		
+						<option value='{{ p }}'{{ p == selected_province ? " selected" }}>{{ p }}</option>
 					{% endfor %}
 				</select>
-				{% if item.city %}
+				{% if data.cities %}
 					<select class='location' name='city' required>
 						<option value=''>City</option>
+						{% if item.city.value %}
+							{% set selected_city = item.city.value %}
+						{% else %}
+							{% set selected_city = data.input.city %}						
+						{% endif %}
 						{% for k,v in data.cities %}
-							<option value='{{ k }}'{{ k == item.city.value ? " selected" }}>{{ v }}</option>
+							<option value='{{ k }}'{{ k == selected_city ? " selected" }}>{{ v }}</option>
 						{% endfor %}
 					</select>
 				{% endif %}

@@ -73,6 +73,13 @@ class ItemController extends ControllerBase {
 		else{
 			$input = x::input();	
 			if( empty( $input['price'] ) || $input['price'] <= 0 ){
+				$theme = "mall.item.add";
+				$data['input'] = $input;
+				$data['currency'] = x::$currency;
+				if( !empty( $input['province'] ) ){
+					$data['provinces'] = x::$provinces;
+					$data['cities'] = x::$cities[ $input['province'] ];
+				}
 				$data['error'] = Library::error('Invalid Price.', "Invalid price value.");
 			}
 			else{

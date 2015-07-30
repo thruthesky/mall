@@ -31,8 +31,7 @@ class Item extends ContentEntityBase implements ItemInterface {
     public static function update( $input ) {				
 		$error = [];
 		
-        if( $input['item_id'] ) $item = Item::load( $input['item_id'] );
-		
+        if( $input['item_id'] ) $item = Item::load( $input['item_id'] );		
 		/*
 		*check if a user posted the same item more than once...
 		*/
@@ -42,8 +41,8 @@ class Item extends ContentEntityBase implements ItemInterface {
 						->condition('user_id', x::myUid())
 						->execute();
 			if( !empty( $result ) ){	
-				$error['input'] = $input;
-				$error['item'] = Item::load( array_values( $result )[0] );
+				$error['input'] = $input;			
+				if( !empty( $input['city'] ) ) $error['cities'] = x::$cities[ $input['province'] ];
 				$error['error'] = "spam";			
 				return $error;
 			}
