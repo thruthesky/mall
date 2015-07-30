@@ -42,7 +42,7 @@ class ItemController extends ControllerBase {
 					}
 				}
 				$files = Item::getFilesByType( $item_id );
-
+				di( $files );exit;
 				$file_urls = [];
 				foreach( $files as $key => $values ){					
 					foreach( $values as $k => $v ){

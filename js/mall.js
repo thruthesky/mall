@@ -297,11 +297,21 @@ function callback_form_submitted( e ){
 		
 		if( total_files_uploaded < 1 ){
 			alert( "You need to upload atleast one photo!" );	
-			scroll_top = $(".file-upload-group.item_image_thumbnail").offset().top;
+			scroll_top = $(".file-upload-group.item_image_thumbnail").offset().top - 100;
 			$("html,body").animate( { scrollTop:scroll_top },500,function(){} );		
 			e.preventDefault();
 			return false;			
 		}
+	}
+	
+	if( $(".mall-page .mall-item-add .price-wrapper input[name='price']").val() < 1 ){
+		alert("Incorrect Price value!");
+		
+		$(".mall-page .mall-item-add .price-wrapper input[name='price']").addClass("error");
+		scroll_top = $(".mall-page .mall-item-add .price-wrapper input[name='price']").offset().top - 100;
+		$("html,body").animate( { scrollTop:scroll_top },500,function(){} );	
+		e.preventDefault();
+		return false;
 	}
 }
 

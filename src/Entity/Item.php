@@ -41,17 +41,13 @@ class Item extends ContentEntityBase implements ItemInterface {
 						->condition('user_id', x::myUid())
 						->execute();
 			if( !empty( $result ) ){	
-				$error['input'] = $input;			
-				if( !empty( $input['city'] ) ) $error['cities'] = x::$cities[ $input['province'] ];
+				$error = self::getUpdateErrorDefaults( $input );
 				$error['error'] = "spam";			
 				return $error;
 			}
 		}
 		
 		if( !empty( $input['fids'] ) ) $fids = $input['fids'];
-		else{
-
-		}
 		
         if( empty( $item ) ) {
             $item = Item::create();
@@ -75,7 +71,51 @@ class Item extends ContentEntityBase implements ItemInterface {
 				//eo if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
 			}
         }
+	
+		if( $fids ){
+            $exploded_fids = explode( "," ,$fids );						
+			
+            foreach( $exploded_fids as $ef ){
+                if ( empty($ef) ) continue;
+                $type_and_fid = explode( "-", $ef );
+                x::LinkFileToEntity( $item->id(), $type_and_fid[1], $type_and_fid[0] );
+            }
+        }
+		
+		//check if the post has a file or not
+		$files = Item::getFilesByType( $item->id() );
+		//di( $files );
+		if( empty( $files ) ){
+			$error = self::getUpdateErrorDefaults( $input );
+			$error['error'] = "no_file";			
+			return $error;
+		}
+		else{
+			/*
+			$result = db_select('file_usage', 's')
+				->fields('s',['fid'])
+				->condition('module','mall')			
+				->condition('id',$item->id())
+				->condition('type','item_image_thumbnail')
+				->execute();
 
+			$item_thumbnail = null;
+			
+			while( $row = $result->fetchAssoc() ) {
+				$item_thumbnail = $row;
+			}			
+			if( empty( $item_thumbnail  ) ){
+				di("none");
+			}
+			else{
+				
+				x::LinkFileToEntity( $item->id(), $item_thumbnail['fid'], 'item_image_thumbnail' );
+			}
+			//exit;
+			*/
+		}		
+		
+		
         if( empty($input['location']) ) $input['location'] = $input['city'];
 
         $item->set('title', $input['title']);
@@ -93,21 +133,23 @@ class Item extends ContentEntityBase implements ItemInterface {
         $item->set('location', $input['location']);
         $item->set('content', $input['content']);
 
-        $item->save();        
-		
-        if( $fids ){
-            $exploded_fids = explode( "," ,$fids );						
-			
-            foreach( $exploded_fids as $ef ){
-                if ( empty($ef) ) continue;
-                $type_and_fid = explode( "-", $ef );
-                x::LinkFileToEntity( $item->id(), $type_and_fid[1], $type_and_fid[0] );
-            }
-        }
+        $item->save();        		        
 
         return $item->id();
     }
 
+	public static function getUpdateErrorDefaults( $input ){
+		$error = [];
+	
+		$error['input'] = $input;			
+		if( !empty( $input['province'] ) ) {
+			$error['provinces'] = x::$provinces[ $input['province'] ];
+			if( !empty( $input['city'] ) ) $error['cities'] = x::$cities[ $input['province'] ];
+		}	
+		
+		return $error;
+	}
+	
     public static function del($id) {
         $item = Item::load($id);
         if ( $item ) $item->delete();
@@ -252,6 +294,7 @@ class Item extends ContentEntityBase implements ItemInterface {
     }
 
     public static function getFileUrl( $file_entity ) {
+		if( empty( $file_entity ) )return [];
         $file_url = [];
         $file_url['fid'] = $file_entity->id();
         $file_url['url_original'] = $file_entity->url();

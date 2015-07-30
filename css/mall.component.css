@@ -370,6 +370,10 @@ div.notice{
 	top:6px;
 }
 
+.mall-page .mall-item-add .price-wrapper input.error, .mall-page .mall-item-add .price-wrapper select.error, .mall-page .mall-item-add .price-wrapper textarea.error{
+	border-color:red;
+}
+
 .mall-page .mall-item-add .price-wrapper input[type='number']{
 	
 }
