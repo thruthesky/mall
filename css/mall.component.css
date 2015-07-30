@@ -481,7 +481,11 @@ div.notice{
 .mall-page .mall-item-add .addForm-file-upload.is-hidden{
 	display:none;
 }
-
+/*
+.mall-page .mall-item-add .item_image_thumbnail .addForm-file-upload.is-hidden{
+	display:block;
+}
+*/
 .mall-page .mall-item-add .addForm-file-upload input[type='file']{
 	position:absolute;
 	left:0;

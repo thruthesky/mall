@@ -28,7 +28,8 @@ use Drupal\mall\x;
 class Item extends ContentEntityBase implements ItemInterface {
     const SEND_MESSAGE_FOR_PRICE_DETAILS = "Message for price details";
 
-    public static function update( $input ) {				
+    public static function update( $input ) {	
+		
 		$error = [];
 		
         if( $input['item_id'] ) $item = Item::load( $input['item_id'] );		
@@ -52,7 +53,7 @@ class Item extends ContentEntityBase implements ItemInterface {
         if( empty( $item ) ) {
             $item = Item::create();
             $item->set('user_id', x::myUid() );	
-			
+			$item->save();
 			if( !empty( $fids ) ){
 				/*
 				*if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
@@ -73,25 +74,22 @@ class Item extends ContentEntityBase implements ItemInterface {
         }
 	
 		if( $fids ){
-            $exploded_fids = explode( "," ,$fids );						
-			
+            $exploded_fids = explode( "," ,$fids );								
             foreach( $exploded_fids as $ef ){
                 if ( empty($ef) ) continue;
                 $type_and_fid = explode( "-", $ef );
                 x::LinkFileToEntity( $item->id(), $type_and_fid[1], $type_and_fid[0] );
             }
-        }
-		
+        }		
 		//check if the post has a file or not
 		$files = Item::getFilesByType( $item->id() );
-		//di( $files );
+		//di( $files );		
 		if( empty( $files ) ){
 			$error = self::getUpdateErrorDefaults( $input );
 			$error['error'] = "no_file";			
 			return $error;
 		}
 		else{
-			/*
 			$result = db_select('file_usage', 's')
 				->fields('s',['fid'])
 				->condition('module','mall')			
@@ -105,14 +103,16 @@ class Item extends ContentEntityBase implements ItemInterface {
 				$item_thumbnail = $row;
 			}			
 			if( empty( $item_thumbnail  ) ){
-				di("none");
+				foreach( $files as $file ){
+					foreach( $file as $f ){
+						x::LinkFileToEntity( $item->id(), $f->id(), 'item_image_thumbnail' );
+						break;
+					}
+				}
 			}
-			else{
-				
-				x::LinkFileToEntity( $item->id(), $item_thumbnail['fid'], 'item_image_thumbnail' );
+			else{				
+				//x::LinkFileToEntity( $item->id(), $item_thumbnail['fid'], 'item_image_thumbnail' );
 			}
-			//exit;
-			*/
 		}		
 		
 		
