@@ -445,7 +445,7 @@ div.notice{
 
 .mall-page .mall-item-add .note{
 	font-size:.8em;	
-	margin-left:5px;
+	margin:0 0 5px 5px;
 }
 
 .mall-page .mall-item-add .note.error{
