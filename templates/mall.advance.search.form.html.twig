@@ -30,8 +30,6 @@
 					{% for num in data.default_item_per_page %}
 						{% if input.limit %}
 							{% set limit = input.limit %}
-						{% else %}
-							{% set limit = 15 %}
 						{% endif %}
 						<option value='{{ num }}' {{ limit == num ? 'selected'}}>{{ num }}</option>
 					{% endfor %}

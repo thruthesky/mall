@@ -49,6 +49,8 @@ function mall_preprocess(&$variables, $hook)
 	$variables['notice_list'] = Library::getNotice();
 	$variables['x']['months'] = x::$months;
 	$variables['input'] = x::getInput();
+	//just a default value for limit
+	if( empty( $variables['input']['limit'] ) ) $variables['input']['limit'] = x::$default_item_per_page[1];
 
 
 	// page classes

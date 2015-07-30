@@ -284,7 +284,7 @@ class ItemController extends ControllerBase {
 			}
 			/*if changed, also edit on Mall.module*/
 			else{
-				$conds['limit'] = 15;
+				$conds['limit'] = x::$default_item_per_page[1];				
 			}
 			
 			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
