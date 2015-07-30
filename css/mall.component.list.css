@@ -55,7 +55,7 @@
 	color: #393939;
 	line-height: 120%;
 	overflow: hidden;
-	word-break: break-word;
+	word-break: normal;
 	text-align: right;
 }
 
