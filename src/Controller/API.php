@@ -95,12 +95,9 @@ class API extends ControllerBase {
 				$f['tmp_name'] = $v['tmp_name'];
 				$f['error'] = $v['error'];
 				$f['size'] = $v['size'];
-			}
-			else if( $v['size'] > 2000000 ){
-				return ['code'=>'-10002','error'=>'File is too large!'];
-			}
+			}			
 			else{
-				return ['code'=>'-10001','error'=>'Only images are supported'];
+				return ['code'=>'-10001','error'=>'Only images less than 2MB are supported'];
 			}			
 		}
 
