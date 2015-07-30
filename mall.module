@@ -41,7 +41,23 @@ function mall_preprocess(&$variables, $hook)
 	if( Mall::isFrontPage() ){
 		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id', category_id => 4 ] );
 		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>9, 'order'=>'DESC', 'by'=>'id', category_id => 6 ] );	
-		$variables['mall_item_list'] = Item::getItemsWithImages( [ 'limit'=>16, 'order'=>'DESC', 'by'=>'id' ] );
+		
+		/*
+		*Each row will get different categories 
+		*NOTE: that if a category doesn't have enough data [ which is 4 each ]it will fail to fill up the single row with the same category
+		*/
+		
+		$mall_item_list = [];
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>6 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>5 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>4 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>8 ] );
+		
+		foreach( $mall_item_list as $mil ){			
+			foreach( $mil['items'] as $item ){				
+				$variables['mall_item_list']['items'][] = $item;
+			}
+		}
 	}
 
 	$variables['#attached']['library'][] = 'mall/default';
