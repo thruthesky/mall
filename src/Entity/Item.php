@@ -210,10 +210,10 @@ class Item extends ContentEntityBase implements ItemInterface {
             if( ! empty($conds['order']) ){
                 $order = $conds['order'];
                 unset( $conds['order'] );
-            }
-            else{
-                $order = 'ASC';
-            }
+		}
+		else{
+			$order = 'ASC';
+		}
 
             $query = $query->sort( $conds['by'], $order );
             unset( $conds['by'] );

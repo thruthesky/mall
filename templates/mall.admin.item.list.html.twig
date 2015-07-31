@@ -52,7 +52,7 @@
 				{% for i in items %}			
 					<tr>
 						<td><span>{{ i.title.value }}</span></td>
-						<td><span>{{ i.user_id.entity.name.value }}</span></td>
+						<td><span>{{ i.user_id.entity.name.value }}({{i.user_id.target_id}})</span></td>
 						<td><span>{{ i.price.value }}</span></td>
 						<td><span>{{ i.mobile.value }}</span></td>
 						<td><span>{{ i.category_id.entity.name.value }} ({{ i.category_id.entity.id.value }})</span></td>

@@ -132,6 +132,9 @@ class ItemController extends ControllerBase {
 			if( !empty( $input['limit'] ) ) $conds['limit'] = $input['limit'];
 			else $conds['limit'] = 10;						
 			
+			$conds['by'] = 'user_id';
+			$conds['order'] = 'DESC';
+			
 			$data['items_per_page'] = $conds['limit'];
 			$data['total_pages'] = ceil( $data['total_items'] / $data['items_per_page'] );
 			$data['input'] = $input;		
