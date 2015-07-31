@@ -84,9 +84,9 @@ class Item extends ContentEntityBase implements ItemInterface {
         }		
 		//check if the post has a file or not
 		$files = Item::getFilesByType( $item->id() );		
-		//di( $files );		
+		//di( $files );				
 		if( empty( $files ) ){
-			$item->delete();
+			//$item->delete();
 			$error = self::getUpdateErrorDefaults( $input );
 			$error['error'] = "no_file";			
 			return $error;
@@ -128,7 +128,10 @@ class Item extends ContentEntityBase implements ItemInterface {
 			if( empty( $input[$ec] ) || (strlen(trim($input[$ec])) == 0) ){
 				$item->delete();
 				$error = self::getUpdateErrorDefaults( $input );
-				$error['error'] = "empty_field";
+				
+				if( $ec == 'price' && $input[$ec] < 1 ) $error['error'] = "price_error";
+				else $error['error'] = "empty_field";
+				
 				$error['field'] = $ec;				
 				return $error;
 			}

@@ -72,7 +72,7 @@ class ItemController extends ControllerBase {
 		}
 		else{
 			$input = x::input();	
-			if( empty( $input['price'] ) || $input['price'] <= 0 ){
+			/*if( empty( $input['price'] ) || $input['price'] <= 0 ){
 				$theme = "mall.item.add";
 				$data['input'] = $input;
 				$data['currency'] = x::$currency;
@@ -82,7 +82,7 @@ class ItemController extends ControllerBase {
 				}
 				$data['error'] = Library::error('Invalid Price.', "Invalid price value.");
 			}
-			else{
+			else{*/
 				$item = Item::load( $input['item_id'] );
 
 				if( empty( $item ) || $item->user_id->target_id == x::myUid() || x::isAdmin() ){
@@ -96,6 +96,7 @@ class ItemController extends ControllerBase {
 						if( $re['error'] == 'spam' ) $data['error'] = Library::error('Admin Warning', 'The same item was found with your account! Please do not spam item posting.');
 						else if( $re['error'] == 'no_file' ) $data['error'] = Library::error('File Error', 'Please Upload atleast one file.');
 						else if( $re['error'] == 'empty_field' ) $data['error'] = Library::error('Empty Field Error', 'Field '.$re['field'].' cannot be empty ( or only spaces ).');
+						else if( $re['error'] == 'price_error' ) $data['error'] = Library::error('Invalid Price', 'Price cannot be less than 0');
 						$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
 						$data['provinces'] = x::$provinces;
 						$data['currency'] = x::$currency;
@@ -103,7 +104,7 @@ class ItemController extends ControllerBase {
 				}
 				else{						
 					$data['error'] = Library::error('Not your post.', Language::string('library', 'not_your_post'));
-				}
+				//}
 			}
 		}
 		return [

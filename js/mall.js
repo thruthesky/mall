@@ -325,9 +325,10 @@ function callback_form_submitted( e ){
 	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='mobile']"), e);
 	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .category.important-field"), e);
 	checkEmptyField( $(".mall-page .mall-item-add .location-wrapper .important-field[name='province']"), e);
-	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='city']"), e);
+	checkEmptyField( $(".mall-page .mall-item-add .location-wrapper .important-field[name='city']"), e);
 	
-	if( $(".mall-page .mall-item-add .price-wrapper input[name='price']").val() < 1 ){
+	$price_selector = $(".mall-page .mall-item-add .price-wrapper input[name='price']");
+	if( $price_selector.val() < 1 || $price_selector.val() == "" || $.trim( $price_selector.val() ).length == 0 ){
 		$wrapper = $(".mall-page .mall-item-add .price-wrapper");
 		if( !$wrapper.find(".note.error").length ) {			
 			$wrapper.append( mall_create_form_error_notice( "This field cannot be empty or less than 1" ) );
