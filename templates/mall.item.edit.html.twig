@@ -22,7 +22,7 @@
 			<input type='hidden' name='item_id' value='{{ input.item_id }}'>
 			<div class='description'>{{ ko ? '제목' : 'Title' }}<span class='note important'>*</span></div>
 			<div class='field-wrapper'>
-				<input class='important-field{{ data.field == 'title'? " error"}}'' type='text' name='title' placeholder='{{ ko ? '제목을 입력하세요.' : 'Item Title' }}' value='{{ item.title.value | default( data.input.title ) }}' required>
+				<input class='important-field{{ data.field == 'title'? " error"}}'' type='text' name='title' placeholder='{{ ko ? '제목을 입력하세요.' : 'Item Title' }}' value='{{ item.title.value | default( data.input.title ) }}'>
 			</div>
 			<div class='description'>{{ ko ? '카테고리 선택' : 'In what category does your item fall?' }}<span class='note important'>*</span></div>
 			<div class='categories clearfix'>
@@ -36,7 +36,7 @@
 						{% endif %}
 					{% endif %}
 					<div class='field-wrapper'>
-						<select class='category important-field{{ data.field == 'category_id'? " error"}}' {{ is_last_category == true  ? "name=category_id" }} depth='0' {{ loop.index == 1 ? 'required' }}>
+						<select class='category important-field{{ data.field == 'category_id'? " error"}}' {{ is_last_category == true  ? "name=category_id" }} depth='0'>
 							<option value=''>{{ ko ? '카테고리' : 'Category' }}</option>	
 							{% if category.selected %}
 								{% set selected_category = category.selected %}
@@ -60,22 +60,22 @@
 			<input type='number' name='model_year' value='{{ item.model_year.value | default( data.input.model_year ) }}'>
 			<div class='description'>{{ ko ? '가격' : 'Price' }}<span class='note important'>*</span></div>
 			<div class='price-wrapper'>				
-				<select class='{{ data.field == 'price'? "error"}}'' name='currency' required>
+				<select class='{{ data.field == 'price'? "error"}}'' name='currency'>
 					{% for k,v in data.currency %}
 						<option value='{{ k }}'{{ k == item.currency.value or k == data.input.currency ? " selected" }}>{{ v }}</option>
 					{% endfor %}
 				</select>
-				<div class='text'><input type='number' name='price' value='{{ item.price.value | default( data.input.price ) }}' required></div>
+				<div class='text'><input type='number' name='price' value='{{ item.price.value | default( data.input.price ) }}'></div>
 			</div>
 			<div class='description'>{{ ko ? '전화번호' : 'Phone Number' }}<span class='note important'>*</span></div>
 			<div class='field-wrapper'>
-				<input class='important-field' type='text' name='mobile' value='{{ item.mobile.value | default( data.input.mobile ) }}' required>
+				<input class='important-field' type='text' name='mobile' value='{{ item.mobile.value | default( data.input.mobile ) }}'>
 			</div>
 
 			<div class='description'>{{ ko ? '판매자 위치' : 'Seller Location' }}<span class='note important'>*</span></div>
 			<div class='location-wrapper clearfix'>
-				<div class='field-wrapper'>
-				<select class='location important-field{{ data.field == 'province'? " error"}}'' name='province' required>
+				
+				<select class='location important-field{{ data.field == 'province'? " error"}}'' name='province'>
 					<option value=''>Province</option>
 					{% if item.province.value %}
 						{% set selected_province = item.province.value %}
@@ -87,7 +87,7 @@
 					{% endfor %}
 				</select>
 				{% if data.cities %}
-					<select class='location important-field{{ data.field == 'city'? " error"}}'' name='city' required>
+					<select class='location important-field{{ data.field == 'city'? " error"}}'' name='city'>
 						<option value=''>City</option>
 						{% if item.city.value %}
 							{% set selected_city = item.city.value %}
@@ -99,7 +99,7 @@
 						{% endfor %}
 					</select>
 				{% endif %}
-				</div>
+				
 			</div>
 			<div class='description'>{{ ko ? '배달 가능 지역' : 'Delivery Locations' }}</div>
 			<input type='text' name='location' value='{{ item.location.value | default( data.input.location ) }}'>

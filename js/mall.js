@@ -29,7 +29,7 @@ $(function(){
 	$("body").on( "keyup",".mall-page .mall-item-add .price-wrapper input[name='price']", callback_check_price );
 	
 	$("body").on( "keyup",".mall-page .mall-item-add .field-wrapper .important-field", callback_check_empty_field );
-	$("body").on( "change",".mall-page .mall-item-add .field-wrapper select.important-field", callback_check_empty_field );
+	$("body").on( "change",".mall-page .mall-item-add select.important-field", callback_check_empty_field );
 	
 	
 	
@@ -122,7 +122,7 @@ function callback_check_price(){
 }
 
 var timeout_check_empty_field;
-function callback_check_empty_field(){
+function callback_check_empty_field(){	
 	clearTimeout( timeout_check_empty_field );
 	var $this = $(this);
 	//$selector = $(".mall-page .mall-item-add .price-wrapper");
@@ -307,7 +307,33 @@ function callback_submit_add_form(){
 	$("form.item-add-form input[type='submit']").click();
 }
 
-function callback_form_submitted( e ){
+function callback_form_submitted( e ){	
+	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='title']"), e);
+	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='mobile']"), e);
+	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .category.important-field"), e);
+	checkEmptyField( $(".mall-page .mall-item-add .location-wrapper .important-field[name='province']"), e);
+	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='city']"), e);
+	
+	if( $(".mall-page .mall-item-add .price-wrapper input[name='price']").val() < 1 ){
+		$wrapper = $(".mall-page .mall-item-add .price-wrapper");
+		if( !$wrapper.find(".note.error").length ) {			
+			$wrapper.append( mall_create_form_error_notice( "This field cannot be empty or less than 1" ) );
+		}
+		$(".mall-page .mall-item-add .price-wrapper input[name='price']").addClass("error");
+		if( $("html,body").is(':animated') ){
+			
+		}else{
+			scroll_top = $(".mall-page .mall-item-add .price-wrapper input[name='price']").offset().top - 100;
+			$("html,body").animate( { scrollTop:scroll_top },500,function(){} );	
+			e.preventDefault();
+			return false;
+		}		
+	}
+	else{
+		if( $wrapper.find(".note.error").length ) $wrapper.find(".note.error").remove();
+		$(".mall-page .mall-item-add .price-wrapper input[name='price']").removeClass('error');
+	}
+	
 	total_file_inputs = $("input[type='file']").length;	
 	if( $(".upload .display-uploaded-files .photo").length ){
 		
@@ -321,30 +347,20 @@ function callback_form_submitted( e ){
 		}		
 		
 		if( total_files_uploaded < 1 ){
-			alert( "You need to upload atleast one photo!" );	
-			scroll_top = $(".file-upload-group.item_image_thumbnail").offset().top - 100;
-			$("html,body").animate( { scrollTop:scroll_top },500,function(){} );		
-			e.preventDefault();
-			return false;			
+			if( !$(".file-upload-group.item_image_thumbnail .note.error").length ){
+				$(".file-upload-group.item_image_thumbnail .note:eq(1)").after(  mall_create_form_error_notice( "Atleast one photo upload is required" )  );
+			}
+		
+			if( $("html,body").is(':animated') ){
+			
+			}else{
+				scroll_top = $(".file-upload-group.item_image_thumbnail").offset().top - 100;				
+				$("html,body").animate( { scrollTop:scroll_top },500,function(){} );		
+				e.preventDefault();
+				return false;	
+			}			
 		}
 	}
-	
-	if( $(".mall-page .mall-item-add .price-wrapper input[name='price']").val() < 1 ){
-		$(".mall-page .mall-item-add .price-wrapper input[name='price']").addClass("error");
-		scroll_top = $(".mall-page .mall-item-add .price-wrapper input[name='price']").offset().top - 100;
-		$("html,body").animate( { scrollTop:scroll_top },500,function(){} );	
-		e.preventDefault();
-		return false;
-	}
-	
-	//$important_field = $(".mall-page .mall-item-add .field-wrapper .important-field");
-	
-	//console.log( $.trim( $important_field.val() ).length );
-	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='title']"), e);
-	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='mobile']"), e);
-	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='category_id']"), e);
-	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='province']"), e);
-	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='city']"), e);
 }
 
 function checkEmptyField( $selector, e ){
@@ -356,9 +372,13 @@ function checkEmptyField( $selector, e ){
 		if( !$wrapper.find(".note.error").length ) {			
 			$wrapper.append( mall_create_form_error_notice( "This field cannot be empty" ) );
 		}
-		
-		scroll_top = $selector.offset().top - 100;
-		$("html,body").animate( { scrollTop:scroll_top },500,function(){} );
+				
+		if( $("html,body").is(':animated') ){
+			
+		}else{
+			scroll_top = $selector.offset().top - 100;
+			$("html,body").animate( { scrollTop:scroll_top },500,function(){} );
+		}
 		if( e ) e.preventDefault();
 		return false;
 	}
@@ -407,7 +427,9 @@ function callback_get_parent_children( re ){
 
 function callback_get_city( re ){
 	if( re.code == 0 ){
+		$('.mall-item-add .location-wrapper .field-wrapper').nextAll().remove();
 		$('.mall-item-add .location-wrapper').append( re.html );
+		$(".mall-item-add .location-wrapper select[name='city']").addClass( 'important-field' );
 	}
 }
 
