@@ -127,7 +127,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		
 		foreach( $error_check as $ec ){
 			if( empty( $input[$ec] ) || (strlen(trim($input[$ec])) == 0) ){
-				//$item->delete();
+				//$item->delete();			
 				$error = self::getUpdateErrorDefaults( $input );
 				
 				if( $ec == 'price' && $input[$ec] < 1 ) $error['error'] = "price_error";
@@ -171,8 +171,17 @@ class Item extends ContentEntityBase implements ItemInterface {
 				$type_and_fid = explode( "-", $exploded_fids[1] );
 				$error['files'][ $type_and_fid[0] ][] = self::getFileUrl( x::loadFileEntityByID( $type_and_fid[1] ) );
 			}			
-		}
+		}		
+		$files = Item::getFilesByType( $input['item_id'] );		
 		
+		$file_urls = [];
+		foreach( $files as $key => $values ){					
+			foreach( $values as $k => $v ){
+				$file_urls[ $key ][ $k ] = Item::getFileUrl( $v );
+			}
+		}
+		if( $file_urls ) $error['files'] = $file_urls;
+
 		if( !empty( $input['province'] ) ) {
 			$error['provinces'] = x::$provinces[ $input['province'] ];
 			$error['cities'] = x::$cities[ $input['province'] ];
