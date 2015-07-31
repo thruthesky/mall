@@ -98,7 +98,7 @@ class ItemController extends ControllerBase {
 						else if( $re['error'] == 'empty_field' ) $data['error'] = Library::error('Empty Field Error', 'Field '.$re['field'].' cannot be empty ( or only spaces ).');
 						$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
 						$data['provinces'] = x::$provinces;
-						$data['currency'] = x::$currency;						
+						$data['currency'] = x::$currency;
 					}
 				}
 				else{						

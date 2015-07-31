@@ -170,9 +170,8 @@ class Item extends ContentEntityBase implements ItemInterface {
 		
 		if( !empty( $input['province'] ) ) {
 			$error['provinces'] = x::$provinces[ $input['province'] ];
-			if( !empty( $input['city'] ) ) $error['cities'] = x::$cities[ $input['province'] ];
-		}	
-		
+			$error['cities'] = x::$cities[ $input['province'] ];
+		}			
 		return $error;
 	}
 	
