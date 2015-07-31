@@ -111,7 +111,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 				}
 			}
 			else{				
-				//x::LinkFileToEntity( $item->id(), $item_thumbnail['fid'], 'item_image_thumbnail' );
+
 			}
 		}		
 		

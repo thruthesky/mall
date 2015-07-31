@@ -99,11 +99,13 @@ $(function(){
 	}/*eo if( .mall-view .top-image )*/
 });
 
+var timeout_check_price;
+
 function callback_check_price(){
-	clearTimeout( timeout_confirm_password );
+	clearTimeout( timeout_check_price );
 	var $this = $(this);
 	$selector = $(".mall-page .mall-item-add .price-wrapper");
-	timeout_confirm_password = setTimeout( function(){
+	timeout_check_price = setTimeout( function(){
 		if( $selector.find("input").val() > 0 ){
 			if( $selector.find(".note.error").length ){
 				$selector.find(".note.error").remove();

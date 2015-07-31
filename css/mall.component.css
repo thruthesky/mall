@@ -460,6 +460,13 @@ div.notice{
 	color:red;
 }
 
+.mall-page .mall-item-add .note.important{
+	margin: 0;
+	font-size: 1em;
+    font-weight: bold;
+	color: red;        
+}
+
 .mall-page .mall-item-add .addForm-file-upload fieldset{
 	padding:0;
 	border:0;
