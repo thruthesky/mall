@@ -80,7 +80,7 @@
 
 .mall-item-list .item .wrapper > div .content{
 	height: 70px;
-    padding-bottom: 3px;
+    /*padding-bottom: 3px;*/
     margin-bottom: 5px;
     overflow: hidden;
     word-break: normal;
