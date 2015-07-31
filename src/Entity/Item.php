@@ -41,7 +41,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 						->condition('title',$input['title'])			
 						->condition('user_id', x::myUid())
 						->execute();
-			if( !empty( $result ) ){	
+			if( !empty( $result ) ){
 				$error = self::getUpdateErrorDefaults( $input );
 				$error['error'] = "spam";			
 				return $error;
@@ -82,9 +82,10 @@ class Item extends ContentEntityBase implements ItemInterface {
             }
         }		
 		//check if the post has a file or not
-		$files = Item::getFilesByType( $item->id() );
+		$files = Item::getFilesByType( $item->id() );		
 		//di( $files );		
 		if( empty( $files ) ){
+			$item->delete();
 			$error = self::getUpdateErrorDefaults( $input );
 			$error['error'] = "no_file";			
 			return $error;
@@ -117,19 +118,35 @@ class Item extends ContentEntityBase implements ItemInterface {
 		
 		
         if( empty($input['location']) ) $input['location'] = $input['city'];
-
-        $item->set('title', $input['title']);
+		
+		//self::checkEmptyFields( $item, $input['title'], 'title' );
+		
+		$error_check = ['title','category_id','price','mobile','province','city'];
+		
+		foreach( $error_check as $ec ){
+			if( empty( $input[$ec] ) || (strlen(trim($input[$ec])) == 0) ){
+				$item->delete();
+				$error = self::getUpdateErrorDefaults( $input );
+				$error['error'] = "empty_field";
+				$error['field'] = $ec;				
+				return $error;
+			}
+			else{
+				$item->set($ec, $input[$ec]);				
+			}
+		}
+       
         //$item->set('name', $input['name']);
-        $item->set('category_id', $input['category_id']);
+        //$item->set('category_id', $input['category_id']);
         $item->set('brand', $input['brand']);
         $item->set('model', $input['model']);
         $item->set('model_year', $input['model_year']);
         $item->set('currency', $input['currency']);
-        $item->set('price', $input['price']);
-        $item->set('mobile', $input['mobile']);
+        //$item->set('price', $input['price']);
+        //$item->set('mobile', $input['mobile']);
         $item->set('status', $input['status']);
-        $item->set('city', $input['city']);
-        $item->set('province', $input['province']);
+        //$item->set('city', $input['city']);
+        //$item->set('province', $input['province']);
         $item->set('location', $input['location']);
         $item->set('content', $input['content']);
 
@@ -137,11 +154,20 @@ class Item extends ContentEntityBase implements ItemInterface {
 
         return $item->id();
     }
-
+	
 	public static function getUpdateErrorDefaults( $input ){
 		$error = [];
 	
-		$error['input'] = $input;			
+		$error['input'] = $input;
+		if( $input['fids'] ){
+			$fids = $input['fids'];
+			$exploded_fids = explode( "," ,$fids );
+			if( !empty( $exploded_fids[1] ) ){
+				$type_and_fid = explode( "-", $exploded_fids[1] );
+				$error['files'][ $type_and_fid[0] ][] = self::getFileUrl( x::loadFileEntityByID( $type_and_fid[1] ) );
+			}			
+		}
+		
 		if( !empty( $input['province'] ) ) {
 			$error['provinces'] = x::$provinces[ $input['province'] ];
 			if( !empty( $input['city'] ) ) $error['cities'] = x::$cities[ $input['province'] ];

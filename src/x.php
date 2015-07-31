@@ -5,6 +5,7 @@ use Drupal\user\Entity\User;
 
 use Drupal\library\Entity\Category;
 use Drupal\library\Member;
+use Drupal\file\Entity\File;
 
 /**
  * Class X
@@ -597,6 +598,11 @@ class x {
 		$tags = null;
 		$file = \Drupal::entityManager()->getStorage('file')->load($fid);
 		\Drupal::service('file.usage')->add( $file, 'mall', $type, $entity_id );
+	}
+	
+	public static function loadFileEntityByID( $id = null ){		
+		if( $id == null ) return null;
+		return File::load( $id );
 	}
   /*eo test*/
 }

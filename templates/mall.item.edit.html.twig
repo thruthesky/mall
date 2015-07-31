@@ -17,7 +17,7 @@
 	<section class="content mall-item-add">
 		<form class='item-add-form' method='post' action='/mall/item/edit/submit'>
 
-			<input type='hidden' name='fids' value=''>
+			<input type='hidden' name='fids' value='{{ input.fids }}'>
 
 			<input type='hidden' name='item_id' value='{{ input.item_id }}'>
 			<div class='description'>{{ ko ? '제목' : 'Title' }}<span class='note important'>*</span></div>
@@ -35,17 +35,19 @@
 							{% set is_last_category = true %}
 						{% endif %}
 					{% endif %}
-					<select class='category' {{ is_last_category == true  ? "name=category_id" }} depth='0' {{ loop.index == 1 ? 'required' }}>
-						<option value=''>{{ ko ? '카테고리' : 'Category' }}</option>	
-						{% if category.selected %}
-							{% set selected_category = category.selected %}
-						{% else %}
-							{% set selected_category = data.input.category_id %}
-						{% endif %}
-						{% for c in category.entity %}
-							<option value='{{ c.id.value }}' {{ selected_category == c.id.value ? 'selected' }}>{{ f.get(ko, c.name.value) }}</option>
-						{% endfor %}
-					</select>
+					<div class='field-wrapper'>
+						<select class='category important-field' {{ is_last_category == true  ? "name=category_id" }} depth='0' {{ loop.index == 1 ? 'required' }}>
+							<option value=''>{{ ko ? '카테고리' : 'Category' }}</option>	
+							{% if category.selected %}
+								{% set selected_category = category.selected %}
+							{% else %}
+								{% set selected_category = data.input.category_id %}
+							{% endif %}
+							{% for c in category.entity %}
+								<option value='{{ c.id.value }}' {{ selected_category == c.id.value ? 'selected' }}>{{ f.get(ko, c.name.value) }}</option>
+							{% endfor %}
+						</select>
+					</div>
 				{% endfor %}
 			</div>
 			<div class='description'>{{ ko ? '제조 회사명' : 'Brand' }}</div>
@@ -72,7 +74,8 @@
 
 			<div class='description'>{{ ko ? '판매자 위치' : 'Seller Location' }}<span class='note important'>*</span></div>
 			<div class='location-wrapper clearfix'>
-				<select class='location' name='province' required>
+				<div class='field-wrapper'>
+				<select class='location important-field' name='province' required>
 					<option value=''>Province</option>
 					{% if item.province.value %}
 						{% set selected_province = item.province.value %}
@@ -84,7 +87,7 @@
 					{% endfor %}
 				</select>
 				{% if data.cities %}
-					<select class='location' name='city' required>
+					<select class='location important-field' name='city' required>
 						<option value=''>City</option>
 						{% if item.city.value %}
 							{% set selected_city = item.city.value %}
@@ -96,6 +99,7 @@
 						{% endfor %}
 					</select>
 				{% endif %}
+				</div>
 			</div>
 			<div class='description'>{{ ko ? '배달 가능 지역' : 'Delivery Locations' }}</div>
 			<input type='text' name='location' value='{{ item.location.value | default( data.input.location ) }}'>

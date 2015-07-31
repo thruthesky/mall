@@ -29,6 +29,7 @@ $(function(){
 	$("body").on( "keyup",".mall-page .mall-item-add .price-wrapper input[name='price']", callback_check_price );
 	
 	$("body").on( "keyup",".mall-page .mall-item-add .field-wrapper .important-field", callback_check_empty_field );
+	$("body").on( "change",".mall-page .mall-item-add .field-wrapper select.important-field", callback_check_empty_field );
 	
 	
 	
@@ -124,22 +125,17 @@ var timeout_check_empty_field;
 function callback_check_empty_field(){
 	clearTimeout( timeout_check_empty_field );
 	var $this = $(this);
-	$wrapper = $this.parent();
-	$name = $this.attr('name');
 	//$selector = $(".mall-page .mall-item-add .price-wrapper");
 	timeout_check_empty_field = setTimeout( function(){
-		/*if( $selector.find("input").val() > 0 ){
-			if( $selector.find(".note.error").length ){
-				$selector.find(".note.error").remove();
-				if( $selector.find('input').hasClass('error') ) $selector.find('input').removeClass('error');
-			}
-			return;
-		}*/
-	
-		if( $wrapper.find(".note.error").length ) return;
-		if( $this.val() == '' ){
+		checkEmptyField( $this, null );
+		/*	
+		if( $this.val() == '' || $.trim( $this.val() ).length == 0 ){
+			if( $wrapper.find(".note.error").length ) return;
 			$wrapper.append( mall_create_form_error_notice( "This field cannot be empty" ) );
 		}
+		else{
+			$wrapper.find(".note.error").remove();
+		}*/
 	}, 300);
 }
 
@@ -334,13 +330,41 @@ function callback_form_submitted( e ){
 	}
 	
 	if( $(".mall-page .mall-item-add .price-wrapper input[name='price']").val() < 1 ){
-		alert("Incorrect Price value!");
-		
 		$(".mall-page .mall-item-add .price-wrapper input[name='price']").addClass("error");
 		scroll_top = $(".mall-page .mall-item-add .price-wrapper input[name='price']").offset().top - 100;
 		$("html,body").animate( { scrollTop:scroll_top },500,function(){} );	
 		e.preventDefault();
 		return false;
+	}
+	
+	//$important_field = $(".mall-page .mall-item-add .field-wrapper .important-field");
+	
+	//console.log( $.trim( $important_field.val() ).length );
+	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='title']"), e);
+	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='mobile']"), e);
+	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='category_id']"), e);
+	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='province']"), e);
+	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='city']"), e);
+}
+
+function checkEmptyField( $selector, e ){
+	$wrapper = $selector.parent();
+	if( $selector.val() == "" || $.trim( $selector.val() ).length == 0 ){
+		//alert("Field cannot be empty!");	
+		$selector.addClass("error");
+		
+		if( !$wrapper.find(".note.error").length ) {			
+			$wrapper.append( mall_create_form_error_notice( "This field cannot be empty" ) );
+		}
+		
+		scroll_top = $selector.offset().top - 100;
+		$("html,body").animate( { scrollTop:scroll_top },500,function(){} );
+		if( e ) e.preventDefault();
+		return false;
+	}
+	else{
+		if( $wrapper.find(".note.error").length ) $wrapper.find(".note.error").remove();
+		$selector.removeClass('error');
 	}
 }
 

@@ -374,7 +374,7 @@ div.notice{
 	top:6px;
 }
 
-.mall-page .mall-item-add .price-wrapper input.error, .mall-page .mall-item-add .price-wrapper select.error, .mall-page .mall-item-add .price-wrapper textarea.error{
+.mall-page .mall-item-add  input.error, .mall-page .mall-item-add  select.error, .mall-page .mall-item-add textarea.error{
 	border-color:red;
 }
 

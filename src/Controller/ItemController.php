@@ -95,9 +95,10 @@ class ItemController extends ControllerBase {
 						$data = $re;
 						if( $re['error'] == 'spam' ) $data['error'] = Library::error('Admin Warning', 'Please do not spam item posting.');
 						else if( $re['error'] == 'no_file' ) $data['error'] = Library::error('File Error', 'Please Upload atleast one file.');
+						else if( $re['error'] == 'empty_field' ) $data['error'] = Library::error('Empty Field Error', 'Field '.$re['field'].' cannot be empty ( or only spaces ).');
 						$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
 						$data['provinces'] = x::$provinces;
-						$data['currency'] = x::$currency;
+						$data['currency'] = x::$currency;						
 					}
 				}
 				else{						
