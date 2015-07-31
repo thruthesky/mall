@@ -69,11 +69,13 @@
 						<tr>
 							<td><span class='table-label'>{{ ko ? '주소' : 'Address' }}</span></td><td width='70%'>{{ item.province.value }}, {{ data.cities[ item.province.value ][ item.city.value ] }}</td>
 						</tr>	
-						<tr>
-							<td colspan='2'>
-								<span class='go-to-view-send-message'><img src="/modules/library/img/member-profile/message.png"> Send a message to the user</span>
-							</td>
-						</tr>				
+						{% if logged_in %}
+							<tr>
+								<td colspan='2'>
+									<span class='go-to-view-send-message'><img src="/modules/library/img/member-profile/message.png"> Send a message to the user</span>
+								</td>
+							</tr>	
+						{% endif %}						
 					</table>
 				</div>
 			</div>
