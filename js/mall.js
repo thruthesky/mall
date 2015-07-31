@@ -32,6 +32,9 @@ $(function(){
 	$("body").on( "change",".mall-page .mall-item-add select.important-field", callback_check_empty_field );
 	
 	
+	$("body").on( "click",".mall-view .details .table-wrapper .go-to-view-send-message", callback_move_to_message_form );
+	
+	
 	
 	
 
@@ -101,6 +104,16 @@ $(function(){
 		});				
 	}/*eo if( .mall-view .top-image )*/
 });
+
+function callback_move_to_message_form(){
+	if( $(".view-message-send").length ){
+		scroll_top = $(".view-message-send").offset().top - 100;
+		$("html,body").animate( { scrollTop:scroll_top },500,function(){
+			$(".view-message-send textarea").focus();
+		} );	
+		//view-message-send
+	}
+}
 
 var timeout_check_price;
 

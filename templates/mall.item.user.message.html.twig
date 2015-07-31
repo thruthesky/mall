@@ -12,10 +12,9 @@
 				<input type="hidden" name="mode" value="submit">
 				<input type="hidden" name="receiver" value="{{ item.user_id.entity.name.value }}">
 				<input type="hidden" name="title" value="{{ "Item: "~ message_title }}">
-				{{ html.textarea({'name':'content', 'id':'message-content', 'class':'content', 'label':'Content', 'placeholder':'Input Content'}) }}		
+				{{ html.textarea({'name':'content', 'id':'message-content', 'class':'content', 'label':'Content', 'placeholder':'Input a message for the seller'}) }}		
 				<div class='buttons clearfix'>
-					<div class='send-button-wrapper'>
-						<img src="/modules/library/img/member-profile/message.png">
+					<div class='send-button-wrapper'>						
 						<input type="submit" value='Send Message'>
 					</div>
 				</div>

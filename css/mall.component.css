@@ -974,11 +974,27 @@ form.mall-filter-form.price input[type='submit']{
 	margin-right: 0;
 	font-weight: bold;
 }
+
+.mall-view .details .table-wrapper .go-to-view-send-message{
+	display:inline-block;
+	width:100%;
+	padding:4px 5px 6px 5px;
+	border-radius:2px;
+	background-color:#1886c5;
+	color:#fff;
+	box-sizing:border-box;
+	text-align:center;
+	cursor:pointer;
+}
+
+.mall-view .details .table-wrapper .go-to-view-send-message img{
+	width:15px;
+}
 /*eo mall-view*/
 
 /*view-message-send*/
 .view-message-send{
-	width:70%;
+	width:100%;
 }
 
 .view-message-send .title{
@@ -1013,7 +1029,7 @@ form.mall-filter-form.price input[type='submit']{
 
 .view-message-send .message-send .buttons input[type='submit']{	
 	display: inline-block;
-	
+	width:100%;
 	padding: 5px 10px 8px 31px;
 	/*margin: 3px 5px 0 0;*/
 	border: 0;
@@ -1023,16 +1039,6 @@ form.mall-filter-form.price input[type='submit']{
 	
 	color: #fff;
 	box-sizing:border-box;
-}
-
-.view-message-send .message-send .buttons .send-button-wrapper{
-	position:relative;
-}
-
-.view-message-send .message-send .buttons .send-button-wrapper > img{
-	position: absolute;
-	left: 4px;
-	top: 8px;
 }
 /*eo view-message-send*/
 
