@@ -53,8 +53,8 @@ class Item extends ContentEntityBase implements ItemInterface {
 		
         if( empty( $item ) ) {
             $item = Item::create();
-            $item->set('user_id', x::myUid() );	
-			$item->save();
+            $item->set('user_id', x::myUid() );		
+
 			if( !empty( $fids ) ){
 				/*
 				*if item_image_thumbnail is missing, make any first image uploaded into the item_image_thumbnail
@@ -75,6 +75,7 @@ class Item extends ContentEntityBase implements ItemInterface {
         }
 	
 		if( $fids ){
+			$item->save();
             $exploded_fids = explode( "," ,$fids );								
             foreach( $exploded_fids as $ef ){
                 if ( empty($ef) ) continue;
@@ -126,7 +127,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		
 		foreach( $error_check as $ec ){
 			if( empty( $input[$ec] ) || (strlen(trim($input[$ec])) == 0) ){
-				$item->delete();
+				//$item->delete();
 				$error = self::getUpdateErrorDefaults( $input );
 				
 				if( $ec == 'price' && $input[$ec] < 1 ) $error['error'] = "price_error";
