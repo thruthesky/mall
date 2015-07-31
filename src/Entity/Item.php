@@ -87,7 +87,8 @@ class Item extends ContentEntityBase implements ItemInterface {
 		$files = Item::getFilesByType( $item->id() );		
 		//di( $files );				
 		if( empty( $files ) ){
-			//$item->delete();
+			//meaning just a new file that passed the condition above but for some reason doesn't really
+			//if( empty( $item->title->value ) ) $item->delete();
 			$error = self::getUpdateErrorDefaults( $input );
 			$error['error'] = "no_file";			
 			return $error;
