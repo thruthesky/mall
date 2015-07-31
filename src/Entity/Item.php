@@ -41,6 +41,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 						->condition('title',$input['title'])			
 						->condition('user_id', x::myUid())
 						->execute();
+				
 			if( !empty( $result ) ){
 				$error = self::getUpdateErrorDefaults( $input );
 				$error['error'] = "spam";			

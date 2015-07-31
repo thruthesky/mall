@@ -93,7 +93,7 @@ class ItemController extends ControllerBase {
 					else{
 						$theme = "mall.item.add";
 						$data = $re;
-						if( $re['error'] == 'spam' ) $data['error'] = Library::error('Admin Warning', 'Please do not spam item posting.');
+						if( $re['error'] == 'spam' ) $data['error'] = Library::error('Admin Warning', 'The same item was found with your account! Please do not spam item posting.');
 						else if( $re['error'] == 'no_file' ) $data['error'] = Library::error('File Error', 'Please Upload atleast one file.');
 						else if( $re['error'] == 'empty_field' ) $data['error'] = Library::error('Empty Field Error', 'Field '.$re['field'].' cannot be empty ( or only spaces ).');
 						$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
