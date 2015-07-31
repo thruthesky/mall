@@ -4,9 +4,14 @@
 		<div class='title'>Send a message to {{ item.user_id.entity.name.value }} ( seller )</div>
 		<form class='message-send' method="post" action="/message/send">
 			<fieldset>		
+				{% if item.title.value %}
+					{% set message_title = item.title.value %}
+				{% else %}
+					{% set message_title = "Invalid Item Title or Information" %}
+				{% endif %}
 				<input type="hidden" name="mode" value="submit">
 				<input type="hidden" name="receiver" value="{{ item.user_id.entity.name.value }}">
-				<input type="hidden" name="title" value="{{ "Item: "~ item.title.value }}">
+				<input type="hidden" name="title" value="{{ "Item: "~ message_title }}">
 				{{ html.textarea({'name':'content', 'id':'message-content', 'class':'content', 'label':'Content', 'placeholder':'Input Content'}) }}		
 				<div class='buttons clearfix'>
 					<div class='send-button-wrapper'>

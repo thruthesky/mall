@@ -28,6 +28,8 @@ $(function(){
 	
 	$("body").on( "keyup",".mall-page .mall-item-add .price-wrapper input[name='price']", callback_check_price );
 	
+	$("body").on( "keyup",".mall-page .mall-item-add .field-wrapper .important-field", callback_check_empty_field );
+	
 	
 	
 	
@@ -103,7 +105,6 @@ var timeout_check_price;
 
 function callback_check_price(){
 	clearTimeout( timeout_check_price );
-	var $this = $(this);
 	$selector = $(".mall-page .mall-item-add .price-wrapper");
 	timeout_check_price = setTimeout( function(){
 		if( $selector.find("input").val() > 0 ){
@@ -116,6 +117,29 @@ function callback_check_price(){
 	
 		if( $selector.find(".note.error").length ) return;		
 		$selector.append( mall_create_form_error_notice("Invalid Price. Must be a positive number and cannot be 0.") );
+	}, 300);
+}
+
+var timeout_check_empty_field;
+function callback_check_empty_field(){
+	clearTimeout( timeout_check_empty_field );
+	var $this = $(this);
+	$wrapper = $this.parent();
+	$name = $this.attr('name');
+	//$selector = $(".mall-page .mall-item-add .price-wrapper");
+	timeout_check_empty_field = setTimeout( function(){
+		/*if( $selector.find("input").val() > 0 ){
+			if( $selector.find(".note.error").length ){
+				$selector.find(".note.error").remove();
+				if( $selector.find('input').hasClass('error') ) $selector.find('input').removeClass('error');
+			}
+			return;
+		}*/
+	
+		if( $wrapper.find(".note.error").length ) return;
+		if( $this.val() == '' ){
+			$wrapper.append( mall_create_form_error_notice( "This field cannot be empty" ) );
+		}
 	}, 300);
 }
 

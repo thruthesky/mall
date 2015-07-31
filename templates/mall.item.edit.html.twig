@@ -21,7 +21,9 @@
 
 			<input type='hidden' name='item_id' value='{{ input.item_id }}'>
 			<div class='description'>{{ ko ? '제목' : 'Title' }}<span class='note important'>*</span></div>
-			<input type='text' name='title' placeholder='{{ ko ? '제목을 입력하세요.' : 'Item Title' }}' value='{{ item.title.value | default( data.input.title ) }}' required>			
+			<div class='field-wrapper'>
+				<input class='important-field' type='text' name='title' placeholder='{{ ko ? '제목을 입력하세요.' : 'Item Title' }}' value='{{ item.title.value | default( data.input.title ) }}' required>
+			</div>
 			<div class='description'>{{ ko ? '카테고리 선택' : 'In what category does your item fall?' }}<span class='note important'>*</span></div>
 			<div class='categories clearfix'>
 				{% for category in categories %}
@@ -64,7 +66,9 @@
 				<div class='text'><input type='number' name='price' value='{{ item.price.value | default( data.input.price ) }}' required></div>
 			</div>
 			<div class='description'>{{ ko ? '전화번호' : 'Phone Number' }}<span class='note important'>*</span></div>
-			<input type='text' name='mobile' value='{{ item.mobile.value | default( data.input.mobile ) }}' required>
+			<div class='field-wrapper'>
+				<input class='important-field' type='text' name='mobile' value='{{ item.mobile.value | default( data.input.mobile ) }}' required>
+			</div>
 
 			<div class='description'>{{ ko ? '판매자 위치' : 'Seller Location' }}<span class='note important'>*</span></div>
 			<div class='location-wrapper clearfix'>
