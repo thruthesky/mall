@@ -31,8 +31,10 @@ class Item extends ContentEntityBase implements ItemInterface {
     public static function update( $input ) {	
 		
 		$error = [];
+		$is_new_item = false;
 		
-        if( $input['item_id'] ) $item = Item::load( $input['item_id'] );		
+        if( $input['item_id'] ) $item = Item::load( $input['item_id'] );
+		else $is_new_item = true;
 		/*
 		*check if a user posted the same item more than once...
 		*/
@@ -88,8 +90,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		//di( $files );				
 		if( empty( $files ) ){
 			//meaning just a new file that passed the condition above but for some reason doesn't really
-			//if( empty( $item->title->value ) ) $item->delete();
-			$error = self::getUpdateErrorDefaults( $input );
+			$error = self::getUpdateErrorDefaults( $item, $input, $is_new_item );
 			$error['error'] = "no_file";			
 			return $error;
 		}
@@ -129,7 +130,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 		foreach( $error_check as $ec ){
 			if( empty( $input[$ec] ) || (strlen(trim($input[$ec])) == 0) ){
 				//$item->delete();			
-				$error = self::getUpdateErrorDefaults( $input );
+				$error = self::getUpdateErrorDefaults( $item, $input, $is_new_item );
 				
 				if( $ec == 'price' && $input[$ec] < 1 ) $error['error'] = "price_error";
 				else $error['error'] = "empty_field";
@@ -161,9 +162,10 @@ class Item extends ContentEntityBase implements ItemInterface {
         return $item->id();
     }
 	
-	public static function getUpdateErrorDefaults( $input ){
+	public static function getUpdateErrorDefaults( &$item, $input, $is_new_item ){
 		$error = [];
-	
+		if( $is_new_item == true ) $item->delete();
+		
 		$error['input'] = $input;
 		if( $input['fids'] ){
 			$fids = $input['fids'];
