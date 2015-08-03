@@ -320,6 +320,7 @@ class ItemController extends ControllerBase {
 				if( !empty( $input['city'] ) ) $conds['city'] = $input['city'];//
 				if( !empty( $input['time'] ) ) $conds['time'] = $input['time'];
 				if( !empty( $input['status'] ) ) $conds['status'] = $input['status'];//
+				if( !empty( $input['keyword'] ) ) $conds['keyword'] = $input['keyword'];//				
 	
 				/*eo conds*/	
 				$data['default_search_sort'] = x::$default_search_sort;

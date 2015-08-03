@@ -221,7 +221,7 @@ class Item extends ContentEntityBase implements ItemInterface {
             $query = $query->range($from, $conds['limit']);
             unset( $conds['limit'] );
         }
-
+		
         if( isset($conds['by']) ){
             if( ! empty($conds['order']) ){
                 $order = $conds['order'];
@@ -265,26 +265,27 @@ class Item extends ContentEntityBase implements ItemInterface {
             unset( $conds['time'] );
         }
 
-        if( isset($conds) ){
-            foreach( $conds as $k => $v ){
-                $query = $query->condition( $k, $v );
-            }
-        }
-
-        if ( $keyword = x::in('keyword') ) {
+		if ( isset( $conds['keyword'] ) ) {
+			di( $conds['keyword'] );
             $ors = $query->orConditionGroup();
-            $ors->condition( 'title', '%'.$keyword.'%', 'LIKE' );
-            $ors->condition( 'brand', '%'.$keyword.'%', 'LIKE' );
+            $ors->condition( 'title', '%'.$conds['keyword'].'%', 'LIKE' );
+            $ors->condition( 'brand', '%'.$conds['keyword'].'%', 'LIKE' );
             /*$ors->condition( 'name', '%'.$keyword.'%', 'LIKE' );
             $ors->condition( 'content', '%'.$keyword.'%', 'LIKE' );
             $ors->condition( 'model', '%'.$keyword.'%', 'LIKE' );
             */
+			unset( $conds['keyword'] );
             $query->condition($ors);
         }
+		
+        if( isset($conds) ){
+            foreach( $conds as $k => $v ){
+                $query = $query->condition( $k, $v );
+            }
+        }        
 
 
-        $ids = $query->execute();
-
+        $ids = $query->execute();		
 
         if ( $ids ) {
             return Item::loadMultiple($ids);
@@ -355,8 +356,7 @@ class Item extends ContentEntityBase implements ItemInterface {
      *
      */
     public static function getItemsWithImages( $conds = array()) {
-
-        $data = [];
+        $data = [];		
         $entity_items = self::getItems( $conds );
         $images = [];
         $items = [];
