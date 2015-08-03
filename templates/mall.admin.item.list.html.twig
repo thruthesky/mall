@@ -28,6 +28,15 @@
 					<option value="{{ category.id.value }}" {{ input.category_id == category.id.value ? "selected"}}><script>ln("{{ category.name.value }}")</script></option>
 				{% endfor %}
 			</select>
+			Order:
+			<select name='by'>
+				<option value='user_id' {{ input.by == "user_id" ? "selected" }}>User ID</option>
+				<option value='created' {{ input.by == "created" ? "selected" }}>Created</option>
+			</select>
+			<select name='order'>
+				<option value='DESC' {{ input.order == 'DESC' ? "selected" }}>DESC</option>
+				<option value='ASC' {{ input.order == 'ASC' ? "selected" }}>ASC</option>
+			</select>
 			<input type='submit'>
 		</form>
 		{% if data.keyword %}
