@@ -265,8 +265,7 @@ class Item extends ContentEntityBase implements ItemInterface {
             unset( $conds['time'] );
         }
 
-		if ( isset( $conds['keyword'] ) ) {
-			di( $conds['keyword'] );
+		if ( isset( $conds['keyword'] ) ) {			
             $ors = $query->orConditionGroup();
             $ors->condition( 'title', '%'.$conds['keyword'].'%', 'LIKE' );
             $ors->condition( 'brand', '%'.$conds['keyword'].'%', 'LIKE' );
