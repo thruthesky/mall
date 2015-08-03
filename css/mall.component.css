@@ -964,6 +964,18 @@ form.mall-filter-form.price input[type='submit']{
 	word-break: break-all;
 }
 
+.mall-view .details .table-wrapper .author.member-profile{
+	display: block;    
+	padding:0 0 2px 0;
+	height: 14px;
+    overflow: hidden;
+    word-break: break-all;    
+}
+
+.mall-view .details .table-wrapper .author.member-profile:hover{
+	height:auto;
+}
+
 .mall-view .details .table-wrapper tr:last-child td{	
 	border-bottom:0;
 }
