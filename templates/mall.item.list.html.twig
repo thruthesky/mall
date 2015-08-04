@@ -9,7 +9,7 @@ $items[0]['images']['item_image_description'] -> images
 {% if items is empty%}
     {% set items = data.items.items %}
 {% endif %}
-
+{#
 {% set starting_url = '' %}
 {% for k,v in input %}
     {% if k == 'item_id' %}
@@ -17,14 +17,14 @@ $items[0]['images']['item_image_description'] -> images
         {% set starting_url = starting_url ~ '&' ~ k ~ '=' ~ v %}
     {% endif %}
 {% endfor %}
-
+#}
 {% set grid_division = ['a','b','c','d']%}
 
 <section class='grid4 mall-item-list'>
     {% for bs in items | batch(4,'') %}
         <div class='content row'>
             {% for i in bs %}
-                {{ func.display_grid( grid_division[ ( loop.index - 1 )] , i, starting_url) }}
+                {{ func.display_grid( grid_division[ ( loop.index - 1 )] , i, '') }}
             {% endfor %}
         </div>
     {% endfor %}
