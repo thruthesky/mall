@@ -90,11 +90,11 @@
 							{% else %}
 								{% set active = ""%}
 							{% endif %}
-							<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.url_original }}'/>
+							<img{{ active }} fid='{{ item_image.fid }}' src='{{ item_image.item_view }}'/>
 						{% set count1 = count1 + 1 %}
 					{% endfor %}
 					{% elseif images.item_image_thumbnail[0]%}						
-						<img class='is-active' fid='{{ images.item_image_thumbnail[0].fid }}' src='{{ images.item_image_thumbnail[0].url_original }}'/>
+						<img class='is-active' fid='{{ images.item_image_thumbnail[0].fid }}' src='{{ images.item_image_thumbnail[0].item_view }}'/>
 					{% else %}
 						<img class='is-active' src='/modules/mall/img/mall-no-image.png'/>
 					{% endif %}
@@ -118,7 +118,7 @@
 			<div class='photos'>
 				{% for item_image_description in images.item_image_description %}	
 					<div class='photo'>
-						<img fid='{{ item_image_description.fid }}' src='{{ item_image_description.url_original }}'/>
+						<img fid='{{ item_image_description.fid }}' src='{{ item_image_description.item_view }}'/>
 					</div>
 				{% endfor %}
 			</div>
