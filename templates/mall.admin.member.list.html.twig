@@ -19,7 +19,7 @@
 	{% include 'modules/mall/templates/mall.admin.commands.html.twig' %}
 	<div class='content-wrapper'>
 	<form class='mall-search'>
-		<input type='text' name='keyword' value='{{ data.keyword }}'>
+		{#<input type='text' name='keyword' value='{{ data.keyword }}'>#}
 		<select name='limit'>
 			<option value='10' {{ input.limit == 10 ? "selected" }}>10</option>
 			<option value='20' {{ input.limit == 20 ? "selected" }}>20</option>
