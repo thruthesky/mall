@@ -39,20 +39,16 @@ class MallController extends ControllerBase {
 		$order = $input['order'];	
 		
 		if( $page_num <= 1 ) $from = 0;
-		else $from = $limit * $page_num - 1;		
+		else $from = $limit * $page_num - $limit - 1;		
 		
-		$result = db_query("SELECT DISTINCT( user_id ) FROM mall_item");
-		$total_items = $result->fetchAllAssoc('user_id',\PDO::FETCH_ASSOC);
-		$member_ids = [];
-		foreach( $total_items as $ti ){
-			$member_ids[] = $ti['user_id'];
-		}
+		$result = db_query("SELECT count( DISTINCT( user_id ) ) FROM mall_item");
+		$total_items = array_values( $result->fetchAssoc() )[0];
 		
 		$result = db_query("SELECT DISTINCT(user_id) FROM mall_item ORDER BY $by $order LIMIT $from, $limit");
-		$rows = $result->fetchAllAssoc('user_id',\PDO::FETCH_ASSOC);		
+		$rows = $result->fetchAllAssoc('user_id',\PDO::FETCH_ASSOC);
+		
 		$members = [];
-		di( $rows );exit;
-		foreach( $rows as $row ){			
+		foreach( $rows as $row ){
 			$members[ $row['user_id'] ] = Member::load( $row['user_id'] );
 		}
 		
