@@ -30,6 +30,8 @@ requires:
 		{% set url = view_path~'?' %}
 	{% elseif admin_list_page %}
 		{% set url = '/mall/admin/item/list?' %}
+	{% elseif admin_member_list_page %}
+		{% set url = '/mall/admin/member/list?' %}
 	{% else %}
 		{% set url = '/mall/item/search?' %}
 	{% endif %}

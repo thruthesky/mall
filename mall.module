@@ -34,8 +34,7 @@ function mall_theme()
 }
 
 function mall_preprocess(&$variables, $hook)
-{
-
+{	
     if ( empty($variables['module']['mall']) ) return;
 
 	if( Mall::isFrontPage() ){

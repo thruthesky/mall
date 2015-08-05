@@ -73,5 +73,11 @@ mall.api:
   defaults:
     _controller: Drupal\mall\Controller\API::defaultController
   requirements:
+    _permission: 'access content'
 
+mall.admin.member.list:
+  path: '/mall/admin/member/list'
+  defaults:
+    _controller: Drupal\mall\Controller\MallController::members
+  requirements:
     _permission: 'access content'
