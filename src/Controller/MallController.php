@@ -48,13 +48,11 @@ class MallController extends ControllerBase {
 			$member_ids[] = $ti['user_id'];
 		}
 		
-		di( $member_ids );exit;
-		
 		$result = db_query("SELECT DISTINCT(user_id) FROM mall_item ORDER BY $by $order LIMIT $from, $limit");
-		$rows = $result->fetchAllAssoc('user_id',\PDO::FETCH_ASSOC);
-		
+		$rows = $result->fetchAllAssoc('user_id',\PDO::FETCH_ASSOC);		
 		$members = [];
-		foreach( $rows as $row ){
+		di( $rows );exit;
+		foreach( $rows as $row ){			
 			$members[ $row['user_id'] ] = Member::load( $row['user_id'] );
 		}
 		
