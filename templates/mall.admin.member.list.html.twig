@@ -36,9 +36,9 @@
 				<td><span>Email</span></td>
 				<td><span>Mobile</span></td>
 				<td><span>Joined</span></td>
-				<td><span>Birth date</span></td>				
+				{#<td><span>Birth date</span></td>#}
 				<td width='150'><span>Location</span></td>	
-				<td><span>Commands</span></td>				
+				{#<td><span>Commands</span></td>#}
 			</tr>			
 
 			{% for m in members %}				
@@ -49,9 +49,9 @@
 					<td><span>{{ m.mail.value }}</span></td>
 					<td><span>{{ m.extra.mobile }}</span></td>
 					<td><span>{{ m.created.value | date("M d, Y H:i") }}</span></td>
-					<td><span>{{ m.extra.month }}/{{ m.extra.day }}/{{ m.extra.year }}</span></td>
+					{#<td><span>{{ m.extra.month }}/{{ m.extra.day }}/{{ m.extra.year }}</span></td>#}
 					<td><span>{{ m.extra.location }}</span></td>
-					<td>
+					{#<td>
 						{% if( m.roles.target_id == 'administrator' )%}
 						{% else %}
 						<div class="button-wrapper">
@@ -59,7 +59,7 @@
 							<a class="command" href="/mall/admin/member/delete?user_id={{ uid }}" onclick="return member_delete( '{{ name }}' );">Delete</a>
 						</div>
 						{% endif %}
-					</td>
+					</td>#}
 				</tr>
 			{% endfor %}
 		
