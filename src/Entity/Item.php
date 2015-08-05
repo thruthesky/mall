@@ -206,7 +206,7 @@ class Item extends ContentEntityBase implements ItemInterface {
      *
      * @return array|static[]
      */
-    public static function getItems( $conds = array() ) {
+    public static function getItems( $conds = array() ) {		
         $query = \Drupal::entityQuery('mall_item');
 
         if( isset($conds['limit']) ){
@@ -277,14 +277,26 @@ class Item extends ContentEntityBase implements ItemInterface {
             $query->condition($ors);
         }
 		
+		$start_with_id = null;
+		if( isset($conds['start_with_id'] ) ){
+			if( !empty( Item::load( $conds['start_with_id'] ) ) ){
+				$query->condition( 'id', $conds['start_with_id'], '<>' );
+				$start_with_id = $conds['start_with_id'];
+			}
+			unset( $conds['start_with_id'] );
+		}
+		
         if( isset($conds) ){
             foreach( $conds as $k => $v ){
                 $query = $query->condition( $k, $v );
             }
         }        
 
-
-        $ids = $query->execute();		
+        $ids = $query->execute();
+		if( !empty( $start_with_id ) ){
+			$ids = array_values( $ids );//reset key
+			array_unshift($ids, $start_with_id);
+		}
 
         if ( $ids ) {
             return Item::loadMultiple($ids);

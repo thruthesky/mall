@@ -39,9 +39,9 @@ function mall_preprocess(&$variables, $hook)
     if ( empty($variables['module']['mall']) ) return;
 
 	if( Mall::isFrontPage() ){
-		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id', category_id => 4 ] );
-		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>9, 'order'=>'DESC', 'by'=>'id', category_id => 6 ] );	
-		
+		$variables['mall_top'] = Item::getItemsWithImages( [ 'limit'=>20, 'order'=>'DESC', 'by'=>'id', 'category_id' => 4 ] );
+		$variables['todays_pick'] = Item::getItemsWithImages( [ 'limit'=>8, 'order'=>'DESC', 'by'=>'id', 'category_id' => 6, 'start_with_id'=>547 ] );	
+
 		/*
 		*Each row will get different categories 
 		*NOTE: that if a category doesn't have enough data [ which is 4 each ]it will fail to fill up the single row with the same category

@@ -524,9 +524,10 @@ function hook_mall_file_upload(selector, callback)
     }
     function ajax_file_upload($this)
     {
-        $(".ajax-file-upload-progress-bar").remove();
+        //$(".ajax-file-upload-progress-bar").remove();
         $this.append("<div class='ajax-file-upload-progress-bar'><div class='bar'><div class='percent'></div></div></div>");		
-        $post_progress = $(".ajax-file-upload-progress-bar");
+		//console.log("appended to " + $this.attr('class') );
+        $post_progress = $this.find(".ajax-file-upload-progress-bar");
 		$post_progress.show();
         $this.ajaxSubmit({
             beforeSend: function() {
