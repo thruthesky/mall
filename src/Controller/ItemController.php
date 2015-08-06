@@ -303,11 +303,13 @@ class ItemController extends ControllerBase {
 				$conds['limit'] = $input['limit'];				
 			}
 			/*if changed, also edit on Mall.module*/
-			else{
-				$conds['limit'] = x::$default_item_per_page[1];				
+			else{				
+				$conds['limit'] = x::$default_item_per_page[1];
 			}
 			
-			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];			
+			$data['items_per_page'] = $conds['limit'];
+			
+			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
 			else $input['page'] = 1;
 			
 			if( isset( $input['user_id'] ) ){						
@@ -353,7 +355,8 @@ class ItemController extends ControllerBase {
 				}
 				else{
 					$keyword = '[ anything ]';
-				}
+				}				
+				$data['input'] = $input;				
 			}
 		}
 	}

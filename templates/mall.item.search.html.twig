@@ -10,13 +10,18 @@
 	{% include 'modules/mall/templates/mall.search.filter.list.html.twig' %}
 
 	{% set total_items = data.total_items %}
+	{% set items_per_page = data.items_per_page %}
+	{% set input = data.input %}
+		
 	{% if total_items <= 0 %}
 		<h1>No item found</h1>
-	{% else %}
+	{% else %}		
+		{#
 		{% set items_per_page = input.limit %}
 		{% if items_per_page is empty %}
-			{% set items_per_page = 15 %}
+			{% set items_per_page = 20 %}
 		{% endif %}		
+		#}
 		
 		{% set starting_num =  input.page * items_per_page - items_per_page + 1 %}
 		{% set ending_num =  input.page * items_per_page %}
