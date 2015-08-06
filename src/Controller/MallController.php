@@ -39,7 +39,7 @@ class MallController extends ControllerBase {
 		$order = $input['order'];	
 		
 		if( $page_num <= 1 ) $from = 0;
-		else $from = $limit * $page_num - $limit - 1;		
+		else $from = $limit * $page_num - $limit;		
 		
 		$result = db_query("SELECT count( DISTINCT( user_id ) ) FROM mall_item");
 		$total_items = array_values( $result->fetchAssoc() )[0];
