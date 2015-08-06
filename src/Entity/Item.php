@@ -222,7 +222,8 @@ class Item extends ContentEntityBase implements ItemInterface {
      *
      * @return array|static[]
      */
-    public static function getItems( $conds = array() ) {		
+    public static function getItems( $conds = array(), $count = null ) {	
+	
         $query = \Drupal::entityQuery('mall_item');
 
         if( isset($conds['limit']) ){
@@ -308,7 +309,15 @@ class Item extends ContentEntityBase implements ItemInterface {
             }
         }        
 
-        $ids = $query->execute();
+        //$ids = $query->execute();
+		
+		$ids = $query->execute();
+		
+		if( $count == true ){			
+			$total_count = count( $ids );
+			return $total_count;
+		}
+		
 		if( !empty( $start_with_id ) ){
 			$ids = array_values( $ids );//reset key
 			array_unshift($ids, $start_with_id);
@@ -383,9 +392,11 @@ class Item extends ContentEntityBase implements ItemInterface {
      *
      *
      */
-    public static function getItemsWithImages( $conds = array()) {
+    public static function getItemsWithImages( $conds = array(), $count = null ) {
         $data = [];		
-        $entity_items = self::getItems( $conds );
+		
+        $entity_items = self::getItems( $conds, $count );
+		
         $images = [];
         $items = [];
         foreach( $entity_items as $k => $v ){

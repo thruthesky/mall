@@ -122,8 +122,8 @@ class ItemController extends ControllerBase {
 			if( !empty( $input['keyword'] ) ) $conds['keyword'] = $input['keyword'];
 			
 			$data['status'] = x::$item_status;
-			$data['all_items'] = Item::getItems( $conds );		
-			$data['total_items'] = count( $data['all_items'] );	
+			$all_items_count = Item::getItems( $conds, true );		
+			if( !empty( $all_items_count ) ) $data['total_items'] = $all_items_count;
 			
 			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
 			else {
@@ -347,8 +347,8 @@ class ItemController extends ControllerBase {
 				unset( $conds['limit'] );
 				unset( $conds['page'] );				
 				//Fix this. What I just did here was do the query again without the limit and page conditions
-				$all_items = Item::getItemsWithImages( $conds );
-				if( isset( $all_items['items'] ) ) $data['total_items'] = count( $all_items['items'] );
+				$all_items_count = Item::getItems( $conds, true );		
+				if( isset( $all_items_count ) ) $data['total_items'] = $all_items_count;
 				
 				if( isset( $input['keyword'] ) ){				
 					$keyword = "[ ".$input['keyword']." ]";
