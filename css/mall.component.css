@@ -100,6 +100,10 @@ div.notice{
 	text-align:right;
 }
 
+.member-register-form .top-menu{
+	padding:0;	
+}
+
 .top-menu > a{
 	display: inline-block;
 	padding: 9px 10px 11px 10px;

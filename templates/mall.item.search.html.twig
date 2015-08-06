@@ -17,7 +17,14 @@
 		{% if items_per_page is empty %}
 			{% set items_per_page = 15 %}
 		{% endif %}
-		<div class='total-item-count'>Found a total of {{ total_items }} item/s</div>
+		
+		{% set starting_num =  input.page * items_per_page - items_per_page + 1 %}
+		{% set ending_num =  input.page * items_per_page %}
+		{% if ending_num > data.total_items %}
+			{% set ending_num = data.total_items %}
+		{% endif %}
+		
+		<div class='total-item-count'>Showing {{starting_num }} - {{ ending_num }} of {{ total_items }} item/s</div>
 		{% include '/modules/mall/templates/mall.item.list.html.twig' %}
 
 
