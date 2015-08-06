@@ -16,7 +16,7 @@
 		{% set items_per_page = input.limit %}
 		{% if items_per_page is empty %}
 			{% set items_per_page = 15 %}
-		{% endif %}
+		{% endif %}		
 		
 		{% set starting_num =  input.page * items_per_page - items_per_page + 1 %}
 		{% set ending_num =  input.page * items_per_page %}

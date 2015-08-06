@@ -307,7 +307,8 @@ class ItemController extends ControllerBase {
 				$conds['limit'] = x::$default_item_per_page[1];				
 			}
 			
-			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];
+			if( !empty( $input['page'] ) ) $conds['page'] = $input['page'];			
+			else $input['page'] = 1;
 			
 			if( isset( $input['user_id'] ) ){						
 				$conds['user_id'] = $input['user_id'];
