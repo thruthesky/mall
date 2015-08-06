@@ -231,7 +231,7 @@ function renderEditForm( id ){
 }
 */
 function renderAddForm( id ){
-	var markup	=	"<form class='form-update' action='/mall/admin/category/group/add'>" +
+	var markup	=	"<form class='form-update' action='/library/category/admin/group/add'>" +
 					"<fieldset><div class='row'><div class='value'><div class='element'>" +					
 					"<input type='hidden' name='parent_id' value='" + id + "'>" +		
 					"<input type='text' name='name' value=''>" +

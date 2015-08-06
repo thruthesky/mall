@@ -174,7 +174,23 @@ class Item extends ContentEntityBase implements ItemInterface {
 				$type_and_fid = explode( "-", $exploded_fids[1] );
 				$error['files'][ $type_and_fid[0] ][] = self::getFileUrl( x::loadFileEntityByID( $type_and_fid[1] ) );
 			}			
-		}		
+		}
+		
+		//sub category compatibility
+		if( !empty( $input['category_id'] ) ){
+			$category_parents = array_reverse( x::getCategoryParents( $input['category_id'] ) );
+			$count = 0;
+			foreach( $category_parents as $c ){
+				$error['category'][ $count ]['selected'] = $c->id();					
+				$count++;
+				$error['category_last_selected'] = $count;
+				if( x::getCategoryChildren( $c->id() ) ){
+					$error['category'][ $count ]['entity'] = x::getCategoryChildren( $c->id() );
+				}
+			}
+		}
+		
+		
 		$files = Item::getFilesByType( $input['item_id'] );		
 		
 		$file_urls = [];
