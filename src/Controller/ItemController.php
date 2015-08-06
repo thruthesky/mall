@@ -119,6 +119,7 @@ class ItemController extends ControllerBase {
 			$input = x::input();
 			
 			if( !empty( $input['category_id'] ) ) $conds['category_id'] = $input['category_id'];
+			if( !empty( $input['keyword'] ) ) $conds['keyword'] = $input['keyword'];
 			
 			$data['status'] = x::$item_status;
 			$data['all_items'] = Item::getItems( $conds );		
