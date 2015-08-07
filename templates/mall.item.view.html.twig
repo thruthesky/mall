@@ -3,7 +3,6 @@
 {% set price = data.item.rendered_price.price %}
 {% set price_type = i.rendered_price.type %}
 {% set status = data.status %}
-
 <div class='mall-view clearfix'>
 	{% if myUid == item.user_id.target_id %}
 		<div class='user-commands'>
@@ -51,7 +50,16 @@
 						</tr>
 						<tr class='contact'>
 							<td><span class='table-label'>{{ ko ? '연락처' : 'Contact' }}</span></td><td width='70%'><span class='value'>{{ item.mobile.value }}</span></td>
-						</tr>						
+						</tr>			
+						<tr>
+							<td colspan='2'>
+								{% if logged_in %}
+									<span class='go-to-view-send-message'><img src="/modules/library/img/member-profile/message.png"> Send a free SMS message</span>
+								{% else %}
+									<a href="/member/login?redirect=/mall/item/view?item_id={{ input.item_id }}&error=Please login first to send a message" class='go-to-view-send-message'><img src="/modules/library/img/member-profile/message.png"> Send a free SMS message</a>
+								{% endif %}	
+							</td>
+						</tr>											
 					</table>
 				</div>
 			</div>
@@ -68,14 +76,7 @@
 						</tr>
 						<tr valign='top'>
 							<td><span class='table-label'>{{ ko ? '주소' : 'Address' }}</span></td><td width='70%'>{{ item.province.value }}, {{ data.cities[ item.province.value ][ item.city.value ] }}</td>
-						</tr>	
-						{% if logged_in %}
-							<tr>
-								<td colspan='2'>
-									<span class='go-to-view-send-message'><img src="/modules/library/img/member-profile/message.png"> Send a message to the user</span>
-								</td>
-							</tr>	
-						{% endif %}						
+						</tr>							
 					</table>
 				</div>
 			</div>
