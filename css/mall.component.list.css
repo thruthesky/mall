@@ -44,8 +44,8 @@
 .mall-item-list .row .item .info{
 	padding:10px;
 	background-color:#edf0f5;
-	/*font-weight: bold;*/
-	text-align:right;
+	/*font-weight: bold;
+	text-align:right;*/
 }
 
 .mall-item-list .row .item .info .title{
@@ -56,7 +56,7 @@
 	line-height: 120%;
 	overflow: hidden;
 	word-break: normal;
-	text-align: right;
+	/*text-align: right;*/
 }
 
 .mall-item-list .row .item .info .price{

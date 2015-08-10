@@ -47,10 +47,16 @@ function mall_preprocess(&$variables, $hook)
 		*/
 		
 		$mall_item_list = [];
-		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>6 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>1 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>10 ] );
 		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>5 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>9 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>8 ] );		
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>7 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>2 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>3 ] );
 		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>4 ] );
-		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>8 ] );
+		$mall_item_list[] = Item::getItemsWithImages( [ 'limit'=>4, 'order'=>'DESC', 'by'=>'id', category_id=>6 ] );
 		
 		foreach( $mall_item_list as $mil ){			
 			foreach( $mil['items'] as $item ){				
