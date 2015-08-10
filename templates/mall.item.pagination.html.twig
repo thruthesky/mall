@@ -32,6 +32,8 @@ requires:
 		{% set url = '/mall/admin/item/list?' %}
 	{% elseif admin_member_list_page %}
 		{% set url = '/mall/admin/member/list?' %}
+	{% elseif library_member_list_page %}
+		{% set url = '/library/member/list?' %}
 	{% else %}
 		{% set url = '/mall/item/search?' %}
 	{% endif %}
