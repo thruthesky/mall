@@ -220,6 +220,10 @@ div.notice{
 	display:block;
 	padding:10px;
 }
+
+.mall-table td > span.sort_selected{
+	color:red;
+}
 /*member-list unique*/
 
 /*eo member-list unique*/
