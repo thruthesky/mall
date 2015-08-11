@@ -141,7 +141,19 @@ class Item extends ContentEntityBase implements ItemInterface {
 			else{
 				$item->set($ec, $input[$ec]);				
 			}
+			
+			if( $ec == 'category_id' ){
+				$result = \Drupal::entityQuery('library_category')												
+						->condition('id', $input[$ec])
+						->execute();
+				if( empty( $result ) ){
+					$error = self::getUpdateErrorDefaults( $item, $input, $is_new_item );
+					$error['error'] = 'unknown';
+					return $error;
+				}
+			}
 		}
+				
        
         //$item->set('name', $input['name']);
         //$item->set('category_id', $input['category_id']);

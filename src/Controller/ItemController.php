@@ -97,6 +97,7 @@ class ItemController extends ControllerBase {
 						else if( $re['error'] == 'no_file' ) $data['error'] = Library::error('File Error', 'Please Upload atleast one file.');
 						else if( $re['error'] == 'empty_field' ) $data['error'] = Library::error('Empty Field Error', 'Field '.$re['field'].' cannot be empty ( or only spaces ).');
 						else if( $re['error'] == 'price_error' ) $data['error'] = Library::error('Invalid Price', 'Price cannot be less than 0');
+						else if( $re['error'] == 'unknown' ) $data['error'] = Library::error('Unknown Error', 'Something went wrong with your item post. Please try to reupload you item.');
 						$data['category'][0]['entity'] = x::getCategoryChildren( 0 );
 						$data['provinces'] = x::$provinces;
 						$data['currency'] = x::$currency;
