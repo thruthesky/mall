@@ -10,6 +10,7 @@
 					{% set message_title = "Invalid Item Title or Information" %}
 				{% endif %}
 				<input type="hidden" name="mode" value="submit">
+				<input type="hidden" name="custom_sms_message" value="A reply for you posted item in www.sonub.com/mall/item/view?item_id={{item.id.value}} was sent. Please login to www.sonub.com to view the message.">
 				<input type="hidden" name="receiver" value="{{ item.user_id.entity.name.value }}">
 				<input type="hidden" name="title" value="{{ "Item: "~ message_title }}">
 				{{ html.textarea({'name':'content', 'id':'message-content', 'class':'content', 'label':'Content', 'placeholder':'Input a message for the seller'}) }}		
