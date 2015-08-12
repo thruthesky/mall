@@ -402,6 +402,7 @@ class Item extends ContentEntityBase implements ItemInterface {
         $file_url['url_medium'] = entity_load('image_style', 'medium')->buildUrl($path);
         $file_url['url_large'] = entity_load('image_style', 'large')->buildUrl($path);
         $file_url['item_view'] = entity_load('image_style', 'item_view')->buildUrl($path);
+        $file_url['item_description'] = entity_load('image_style', 'item_description')->buildUrl($path);
         return $file_url;
     }
 
