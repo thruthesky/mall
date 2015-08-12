@@ -148,7 +148,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 						->execute();
 				if( empty( $result ) ){
 					$error = self::getUpdateErrorDefaults( $item, $input, $is_new_item );
-					$error['error'] = 'unknown';
+					$error['error'] = 'invalid_category';
 					return $error;
 				}
 			}
@@ -235,7 +235,15 @@ class Item extends ContentEntityBase implements ItemInterface {
      * @return array|static[]
      */
     public static function getItems( $conds = array(), $count = null ) {	
-	
+		$empty_item_result = db_query("SELECT id FROM mall_item WHERE TRIM(title) IS NULL");
+		$empty_result_rows = $empty_item_result->fetchAllAssoc('id',\PDO::FETCH_ASSOC);
+		if( !empty( $empty_result_rows ) ){
+			foreach( $empty_result_rows as $err ){
+				$empty_item = Item::load( $err['id'] );
+				$empty_item->delete();
+			}
+		}
+		
         $query = \Drupal::entityQuery('mall_item');
 
         if( isset($conds['limit']) ){
@@ -335,7 +343,7 @@ class Item extends ContentEntityBase implements ItemInterface {
 			array_unshift($ids, $start_with_id);
 		}
 
-        if ( $ids ) {
+        if ( $ids ) {			
             return Item::loadMultiple($ids);
         }
         else return [];
