@@ -908,17 +908,22 @@ form.mall-filter-form.price input[type='submit']{
 }
 
 .mall-view .content-text .photos{
+	display:table;
+	width:100%;
 	margin-top:10px;
 	text-align:center;
+	table-layout:fixed;
 }
 
 .mall-view .content-text .photos .photo{
+	display:table-cell;	
+	width:100%;
 	margin-bottom:10px;
 }
 
 .mall-view .content-text .photos .photo img{
-	display:block;
-	width:100%;
+	/*display:block;*/
+	max-width:100%;
 }
 
 .mall-view .details-wrapper{
