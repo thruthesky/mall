@@ -917,7 +917,8 @@ form.mall-filter-form.price input[type='submit']{
 }
 
 .mall-view .content-text .photos .photo img{
-	max-width:100%;
+	display:block;
+	width:100%;
 }
 
 .mall-view .details-wrapper{
