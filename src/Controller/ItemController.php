@@ -211,8 +211,10 @@ class ItemController extends ControllerBase {
 		if( $item_id = x::in('item_id') ){			
 			$data['item'] = Item::getItemsWithImages( [ 'id' => $item_id ] )['items'][0];
 			
-			if( !empty( $data['item'] ) ){				
-				self::changeCountByField( $data['item']['entity'], 'no_of_view' );
+			if( !empty( $data['item'] ) ){		
+				if( $data['item']['entity']->user_id->target_id != Library::myUid() ){//only increase view if the item is not yours
+					self::changeCountByField( $data['item']['entity'], 'no_of_view' );
+				}
 				
 				$uid = $data['item']['entity']->user_id->target_id;
 				$data['seller'] = x::loadLibraryMember( $uid );
