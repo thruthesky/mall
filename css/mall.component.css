@@ -216,7 +216,7 @@ div.notice{
 	text-align:center;
 }
 
-.mall-table td > span{
+.mall-table td > span, .mall-table td > a{
 	display:block;
 	padding:10px;
 }
