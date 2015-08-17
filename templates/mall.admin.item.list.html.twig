@@ -65,7 +65,7 @@
 				</tr>			
 				{% for i in items %}			
 					<tr>
-						<td><span>{{ i.title.value }}</span></td>
+						<td><a href='/mall/item/view?item_id={{ i.id.value }}'>{{ i.title.value }}</a></td>
 						<td><span>{{ i.user_id.entity.name.value }}({{i.user_id.target_id}})</span></td>
 						<td><span>{{ i.price.value }}</span></td>
 						<td><span>{{ i.mobile.value }}</span></td>
