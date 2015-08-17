@@ -37,6 +37,7 @@
 				<option value='user_id' {{ input.by == "user_id" ? "selected" }}>User ID</option>
 				<option value='created' {{ input.by == "created" ? "selected" }}>Created</option>
 				<option value='changed' {{ input.by == "changed" ? "selected" }}>Updated</option>
+				<option value='no_of_view' {{ input.by == "no_of_view" ? "selected" }}>Views</option>
 			</select>
 			<select name='order'>
 				<option value='DESC' {{ input.order == 'DESC' ? "selected" }}>DESC</option>
@@ -61,6 +62,7 @@
 					<td><span>Model</span></td>
 					{#<td><span>Model Year</span></td>#}
 					<td><span>Posted on</span></td>
+					<td><span>Views</span></td>
 					<td width='100'><span>buttons</span></td>				
 				</tr>			
 				{% for i in items %}			
@@ -75,6 +77,7 @@
 						<td><span>{{ i.model.value }}</span></td>
 						{#<td><span>{{ i.model_year.value }}</span></td>#}
 						<td><span>{{ i.created.value | date("m/d/Y H:i") }}</span></td>
+						<td><span>{{ i.no_of_view.value }}</td>
 						<td>
 							<div class="button-wrapper">
 								<a class="command" href="/mall/item/add?item_id={{ i.id.value }}" target="_blank">Edit</a>
