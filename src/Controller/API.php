@@ -67,7 +67,7 @@ class API extends ControllerBase {
 		$markup = '';
 
 		if( $cities ){
-			$markup =	"<select class='location' name='city' required>";
+			$markup =	"<select class='location' name='city'>";
 			$markup .= 	"<option value=''>City</option>";
 			foreach( $cities as $k => $v ){
 				$markup .= "<option value='".$k."'>".$v."</option>";
