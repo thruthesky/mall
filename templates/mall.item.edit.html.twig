@@ -67,11 +67,11 @@
 				</select>
 				<div class='text'><input type='number' name='price' value='{{ item.price.value | default( data.input.price ) }}'></div>
 			</div>
-			<div class='description'>{{ ko ? '전화번호' : 'Phone Number' }}<span class='note important'>*</span></div>
+			<div class='description'>{{ ko ? '전화번호' : 'Phone Number' }}<span class='note important'>*</span></div>			
+			<div class="note">Preferably mobile for website free sms support. Separate multiple numbers by the character slash (/).</div>			
 			<div class='field-wrapper'>
 				<input class='important-field' type='text' name='mobile' value='{{ item.mobile.value | default( data.input.mobile ) }}'>
-			</div>
-
+			</div>			
 			<div class='description'>{{ ko ? '판매자 위치' : 'Seller Location' }}<span class='note important'>*</span></div>
 			<div class='location-wrapper clearfix'>
 				

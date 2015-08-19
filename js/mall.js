@@ -513,6 +513,8 @@ function init_mall_form_ajax_file_upload(selector)
     }
 }
 
+var $post_progress_array = new Array();
+
 function hook_mall_file_upload(selector, callback)
 {	
     var callback_function = callback;
@@ -523,31 +525,50 @@ function hook_mall_file_upload(selector, callback)
         return false;
     }
     function ajax_file_upload($this)
-    {
+    {		
         //$(".ajax-file-upload-progress-bar").remove();
         $this.append("<div class='ajax-file-upload-progress-bar'><div class='bar'><div class='percent'></div></div></div>");		
-		//console.log("appended to " + $this.attr('class') );
-        $post_progress = $this.find(".ajax-file-upload-progress-bar");
+		//console.log("appended to " + $this.attr('class') );				
+		
+		$post_progress = $this.find(".ajax-file-upload-progress-bar");
+		
 		$post_progress.show();
         $this.ajaxSubmit({
             beforeSend: function() {
                 trace("seforeSend:");
                 var percentVal = '0%';
-                $post_progress.find('.bar').width(percentVal);
+                $post_progress.find('.bar').width('100%');
                 $post_progress.find('.percent').width(percentVal);
                 $post_progress.find('.percent').html(percentVal);
             },
             uploadProgress: function(event, position, total, percentComplete) {
-                trace("while uploadProgress:" + percentComplete + '%');
+				
+				trace("while uploadProgress:" + percentComplete + '%');
                 var percentVal = percentComplete + '%';
-                $post_progress.find('.bar').width(percentVal);
-                $post_progress.find('.percent').width(percentVal);
-                $post_progress.find('.percent').html(percentVal);
+				
+				if( $(".file-upload-group").length ){
+					if( typeof( $post_progress_array[ total ] ) == 'undefined' ){
+						$post_progress_array[ total ] = $post_progress;
+					}
+					
+					//$post_progress_array[ total ].find('.bar').width(percentVal);
+					/*
+					*in case of multiple uploads at the same time this is a temporary solution... 
+					*As of now I can't find any other unique per item except for total size ( though it is impossible to be forever unique )
+					*/
+					$post_progress_array[ total ].find('.percent').width(percentVal);
+					$post_progress_array[ total ].find('.percent').html(percentVal);
+				}
+                else{
+					//$post_progress.find('.bar').width(percentVal);
+					$post_progress.find('.percent').width(percentVal);
+					$post_progress.find('.percent').html(percentVal);
+				}
             },
             success: function() {
                 trace("upload success:");
                 var percentVal = '100%';
-                $post_progress.find('.bar').width(percentVal);
+                //$post_progress.find('.bar').width(percentVal);
                 $post_progress.find('.percent').html(percentVal);
             },
             complete: function(xhr) {
