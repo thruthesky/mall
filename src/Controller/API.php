@@ -115,7 +115,7 @@ class API extends ControllerBase {
                 //debug_log("file: $file");
 
 				//di( $f['name'] );
-				if ( $image_style = $request->get('image_style') ) {
+				if ( $image_style = $request->get('image_style') ) {					
 					$info['url'] = entity_load('image_style', $image_style)->buildUrl($file->getFileUri());
 				}
 				else $info['url'] = $file->url();

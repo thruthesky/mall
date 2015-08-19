@@ -113,8 +113,15 @@ function callback_change_file( e ){
 	var file_size = this.files[0]['size'];
 	var file_type = this.files[0]['type'];
 	
+	console.log( file_type );
+	
 	if( file_type.indexOf('image') == -1 ){
 		alert( "Only images are allowed!" );
+		change_file_error = true;
+		
+	}	
+	else if( file_type.indexOf('image/bmp') != -1 ){
+		alert( ".bmp images are not allowed!" );
 		change_file_error = true;
 		
 	}	
@@ -586,7 +593,7 @@ function hook_mall_file_upload(selector, callback)
                 $post_progress.find('.percent').html(percentVal);
             },
             uploadProgress: function(event, position, total, percentComplete) {
-				trace("while uploadProgress:" + percentComplete + '%');
+				//trace("while uploadProgress:" + percentComplete + '%');
 				is_currently_uploading = true;//temp
                 var percentVal = percentComplete + '%';
 				
