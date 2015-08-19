@@ -19,6 +19,8 @@ $(function(){
     $body.on( "click","div.item-add-submit", callback_submit_add_form );
     $body.on( "submit","form.item-add-form", callback_form_submitted );
 	
+	$body.on( "change",".mall-page .mall-item-add .upload input[type='file']", callback_change_file );
+	
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');
     $body.on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );
 
@@ -104,6 +106,28 @@ $(function(){
 		});				
 	}/*eo if( .mall-view .top-image )*/
 });
+
+function callback_change_file( e ){
+	var $this = $(this);
+	var file_size = this.files[0]['size'];
+	var file_type = this.files[0]['type'];
+	
+	if( file_type.indexOf('image') == -1 ){
+		alert( "Only images are allowed!" );
+		e.preventDefault();
+		return false;
+	}
+	
+	if( file_size > 15999999 ){
+		alert( "File size must be less than 16MB!" );
+		e.preventDefault();
+		return false;
+	}
+	else{
+		$this.parent().submit();
+	}
+	//onchange="jQuery(this).parent().submit();"
+}
 
 function callback_move_to_message_form(){
 	if( $(".view-message-send").length ){
@@ -320,10 +344,10 @@ function callback_submit_add_form(){
 	$("form.item-add-form input[type='submit']").click();
 }
 
-var is_currently_uploading = false;
+var is_currently_uploading = false;//temp
 
 function callback_form_submitted( e ){	
-	if( is_currently_uploading == true ){
+	if( is_currently_uploading == true ){//temp
 		alert('Please wait for the file upload to finish first!');
 		e.preventDefault();
 		return false;
@@ -559,7 +583,7 @@ function hook_mall_file_upload(selector, callback)
             },
             uploadProgress: function(event, position, total, percentComplete) {
 				trace("while uploadProgress:" + percentComplete + '%');
-				is_currently_uploading = true;
+				is_currently_uploading = true;//temp
                 var percentVal = percentComplete + '%';
 				
 				if( $(".file-upload-group").length ){
@@ -588,7 +612,7 @@ function hook_mall_file_upload(selector, callback)
                 $post_progress.find('.percent').html(percentVal);
             },
             complete: function(xhr) {
-				is_currently_uploading = false;
+				is_currently_uploading = false;//temp
 			
                 trace("Upload completed!!");
                 var re;
