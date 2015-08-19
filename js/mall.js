@@ -124,7 +124,7 @@ function callback_change_file( e ){
 		alert( ".bmp images are not allowed!" );
 		change_file_error = true;
 		
-	}	
+	}
 	else if( file_size > 15999999 ){
 		alert( "File size must be less than 16MB!" );
 		change_file_error = true;

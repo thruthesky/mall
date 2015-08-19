@@ -88,7 +88,10 @@ class API extends ControllerBase {
 		$type = '';
 		foreach( $_FILES as $k => $v ){
 			$file_usage_type = $k;
-			if( strpos( $v['type'], "image/" ) !== false ){
+			if( strpos( $v['type'], "image/bmp" ) !== false ){
+				return ['code'=>'-10002','error'=>'.bmp files are not supported'];
+			}
+			else if( strpos( $v['type'], "image/" ) !== false ){
 				$f = array();
 				$f['name'] = $v['name'];
 				$f['type'] = $v['type'];
@@ -97,7 +100,7 @@ class API extends ControllerBase {
 				$f['size'] = $v['size'];
 			}			
 			else{
-				return ['code'=>'-10001','error'=>'Only images less than 16MB are supported'];
+				return ['code'=>'-10001','error'=>'Only images ( except for .bmp ) less than 16MB are supported'];
 			}			
 		}
 
