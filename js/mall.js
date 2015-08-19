@@ -19,7 +19,7 @@ $(function(){
     $body.on( "click","div.item-add-submit", callback_submit_add_form );
     $body.on( "submit","form.item-add-form", callback_form_submitted );
 	
-	$body.on( "change",".mall-page .mall-item-add .upload input[type='file']", callback_change_file );
+	$body.on( "change",".mall-page .mall-item-add .upload input[type='file']", callback_change_file );//for file upload change file ( uploaded )
 	
 	init_mall_form_ajax_file_upload('.mall-item-add .addForm-file-upload');
     $body.on( "click",".mall-page .mall-item-add .upload .display-uploaded-files .photo .delete", callback_delete_file );
@@ -108,24 +108,28 @@ $(function(){
 });
 
 function callback_change_file( e ){
+	var change_file_error = false;
 	var $this = $(this);
 	var file_size = this.files[0]['size'];
 	var file_type = this.files[0]['type'];
 	
 	if( file_type.indexOf('image') == -1 ){
 		alert( "Only images are allowed!" );
+		change_file_error = true;
+		
+	}	
+	else if( file_size > 15999999 ){
+		alert( "File size must be less than 16MB!" );
+		change_file_error = true;
+	}
+	
+	if( change_file_error == true ){
 		e.preventDefault();
 		return false;
 	}
 	
-	if( file_size > 15999999 ){
-		alert( "File size must be less than 16MB!" );
-		e.preventDefault();
-		return false;
-	}
-	else{
-		$this.parent().submit();
-	}
+	$this.parent().submit();
+	
 	//onchange="jQuery(this).parent().submit();"
 }
 
