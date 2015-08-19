@@ -582,10 +582,7 @@ function hook_mall_file_upload(selector, callback)
                 }
                 trace(re);
                 callback_function( re );
-				
-				//same as temp above
-				if( typeof( $post_progress_array[ total ] ) == 'undefined' ) $post_progress.remove();
-				else $post_progress_array[ total ].remove();                
+                $post_progress.remove();
             }
         });
     }
