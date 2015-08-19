@@ -496,10 +496,14 @@ function init_mall_form_ajax_file_upload(selector)
 				val += ',' + fid;
 				$("input[name='fids']").val( val );
 				
-				html = "<div class='photo' fid='" + file.fid + "'><div class='delete'><span>X</span></div><img src='"+file.url+"'></div>";
+				html = "<div class='photo is-hidden' fid='" + file.fid + "'><div class='delete'><span>X</span></div><img src='"+file.url+"'></div>";
 				if( file.no ){
-					$(".mall-item-add ." + file.file_usage_type + " .upload[no='" + file.no + "'] .display-uploaded-files").append( html );
-					$(".mall-item-add ." + file.file_usage_type + " .upload[no='" + file.no + "'] form.addForm-file-upload").addClass('is-hidden');
+					$uploaded_selector = $(".mall-item-add ." + file.file_usage_type + " .upload[no='" + file.no + "']");
+					$uploaded_selector.find(".display-uploaded-files").append( html );
+					$uploaded_selector.find(".display-uploaded-files .photo img").load( function(){						
+						$uploaded_selector.find("form.addForm-file-upload").addClass('is-hidden');
+						$uploaded_selector.find(".display-uploaded-files .photo").removeClass('is-hidden');
+					});
 				}
 				else{
 					$(".mall-item-add ." + file.file_usage_type + " .upload .display-uploaded-files").append( html );

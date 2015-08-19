@@ -497,7 +497,7 @@ div.notice{
 	box-sizing: border-box;
 }
 
-.mall-page .mall-item-add .addForm-file-upload.is-hidden{
+.mall-page .is-hidden{
 	display:none;
 }
 /*
@@ -523,6 +523,10 @@ div.notice{
 	margin:0;
 	border: 1px solid #d5d5d5;
 	box-sizing: border-box;
+}
+
+.mall-page .mall-item-add .upload img.fake{	
+	display:block
 }
 
 .mall-page .mall-item-add .upload .display-uploaded-files .photo img{	
