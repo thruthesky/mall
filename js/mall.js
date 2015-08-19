@@ -320,7 +320,15 @@ function callback_submit_add_form(){
 	$("form.item-add-form input[type='submit']").click();
 }
 
+var is_currently_uploading = false;
+
 function callback_form_submitted( e ){	
+	if( is_currently_uploading == true ){
+		alert('Please wait for the file upload to finish first!');
+		e.preventDefault();
+		return false;
+	}
+
 	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='title']"), e);
 	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .important-field[name='mobile']"), e);
 	checkEmptyField( $(".mall-page .mall-item-add .field-wrapper .category.important-field"), e);
@@ -506,8 +514,12 @@ function init_mall_form_ajax_file_upload(selector)
 					});
 				}
 				else{
-					$(".mall-item-add ." + file.file_usage_type + " .upload .display-uploaded-files").append( html );
-					$(".mall-item-add ." + file.file_usage_type + " .upload form.addForm-file-upload").addClass('is-hidden');
+					$uploaded_selector = $(".mall-item-add ." + file.file_usage_type + " .upload");
+					$uploaded_selector.find(".display-uploaded-files").append( html );
+					$uploaded_selector.find(".display-uploaded-files .photo img").load( function(){
+						$uploaded_selector.find("form.addForm-file-upload").addClass('is-hidden');
+						$uploaded_selector.find(".display-uploaded-files .photo").removeClass('is-hidden');
+					});
 				}
             }
             else {
@@ -546,8 +558,8 @@ function hook_mall_file_upload(selector, callback)
                 $post_progress.find('.percent').html(percentVal);
             },
             uploadProgress: function(event, position, total, percentComplete) {
-				
 				trace("while uploadProgress:" + percentComplete + '%');
+				is_currently_uploading = true;
                 var percentVal = percentComplete + '%';
 				
 				if( $(".file-upload-group").length ){
@@ -576,6 +588,8 @@ function hook_mall_file_upload(selector, callback)
                 $post_progress.find('.percent').html(percentVal);
             },
             complete: function(xhr) {
+				is_currently_uploading = false;
+			
                 trace("Upload completed!!");
                 var re;
                 try {
