@@ -8,7 +8,6 @@ requires:
 {% if error or data.error %}
 
 {% else %}
-
 	{% set total_pages = ( total_items / items_per_page ) | round( 0, 'ceil' ) %}
 	{% if total_pages <= 0 %}
 		{% set total_pages = 1 %}

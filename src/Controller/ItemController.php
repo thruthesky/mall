@@ -296,7 +296,7 @@ class ItemController extends ControllerBase {
 				}
 			}
 			else{
-				$input['order'] = 'created_high';
+				$input['order_by'] = 'created_high';
 				$conds['by'] = 'created';
 				$conds['order'] = 'DESC';
 			}
